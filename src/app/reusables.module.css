@@ -1,0 +1,16 @@
+/* Handling navbar link showing underline on hover */
+.navText {
+  letter-spacing: 2px;
+}
+
+.navText:after {
+  display: block;
+  content: '';
+  border-bottom: solid 3px black;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+.navText:hover:after {
+  transform: scaleX(1);
+}

@@ -11,7 +11,7 @@ const config: Config = {
       brand: '#ff5f00',
       primary: '#1a1a1a',
       secondary: '#828287',
-      tertiary: '#c9c9cf'
+      tertiary: '#c9c9cf',
     },
   },
   plugins: [],

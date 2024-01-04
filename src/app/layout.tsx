@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import Navbar from '@/components/Navbar'
+import ReduxProvider from '@/store/provider'
 
 import { inter } from './fonts'
 import './globals.css'
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} flex min-h-screen flex-col`}>
-        <Navbar />
-        <main className="bg-white flex-1">{children}</main>
+        <ReduxProvider>
+          <Navbar />
+          <main className="bg-white flex-1">{children}</main>
+        </ReduxProvider>
       </body>
     </html>
   )

@@ -4,15 +4,23 @@ import Link from 'next/link'
 import { FaCar } from 'react-icons/fa'
 import { FaUser } from 'react-icons/fa6'
 import { GiHamburgerMenu } from 'react-icons/gi'
+import { useDispatch } from 'react-redux'
+
+import { showModal } from '@/store/modal'
 
 import styles from '../../app/reusables.module.css'
 
 export default function Navbar() {
+  const dispatch = useDispatch()
+
   return (
     <nav className="flex justify-between py-2 pl-2 pr-6 font-bold lg:px-48">
       <div className="flex items-center gap-1">
         <button className="duration-300 hover:scale-110">
-          <GiHamburgerMenu className="text-4xl" />
+          <GiHamburgerMenu
+            className="text-4xl"
+            onClick={() => dispatch(showModal('sideNav'))}
+          />
         </button>
         <Link href="/">
           <Image

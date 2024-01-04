@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
 
+import ModalOuter from '@/components/modals/ModalOuter'
+import SideNav from '@/components/modals/SideNav'
 import Navbar from '@/components/Navbar'
 import ReduxProvider from '@/store/provider'
 
 import { inter } from './fonts'
+
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -21,7 +24,9 @@ export default function RootLayout({
       <body className={`${inter.className} flex min-h-screen flex-col`}>
         <ReduxProvider>
           <Navbar />
-          <main className="bg-white flex-1">{children}</main>
+          <main className="flex-1 bg-white">{children}</main>
+          <SideNav />
+          <ModalOuter />
         </ReduxProvider>
       </body>
     </html>

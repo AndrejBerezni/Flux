@@ -1,0 +1,17 @@
+interface IThirdPartyLoginButtonProps {
+  icon: React.ReactNode
+  text: string
+  //   onClick: () => void
+}
+
+export default function ThirdPartyLoginButton({
+  icon,
+  text,
+}: Readonly<IThirdPartyLoginButtonProps>) {
+  return (
+    <button className="relative mb-4 flex items-center justify-center gap-4 border-2 border-primary px-2 py-4 font-bold duration-150 hover:text-brand sm:text-lg">
+      {icon}
+      {text}
+    </button>
+  )
+}

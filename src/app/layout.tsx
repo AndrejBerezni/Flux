@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import ModalOuter from '@/components/modals/ModalOuter'
 import SideNav from '@/components/modals/SideNav'
 import SignIn from '@/components/modals/SignIn'
+import SignUp from '@/components/modals/SignUp'
 import Navbar from '@/components/Navbar'
 import ReduxProvider from '@/store/provider'
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           <main className="flex-1 bg-white">{children}</main>
           <SideNav />
           <SignIn />
+          <SignUp />
           <ModalOuter />
         </ReduxProvider>
       </body>

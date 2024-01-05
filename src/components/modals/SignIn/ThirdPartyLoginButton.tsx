@@ -11,7 +11,7 @@ export default function ThirdPartyLoginButton({
   return (
     <button
       type="button"
-      className="relative flex items-center justify-center gap-4 border-2 border-primary px-2 py-4 font-bold duration-150 hover:text-brand sm:text-2xl"
+      className="relative flex items-center justify-center gap-4 border-2 border-primary px-2 py-4 font-bold duration-150 hover:text-brand sm:text-xl"
     >
       {icon}
       {text}

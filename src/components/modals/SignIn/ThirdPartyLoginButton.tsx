@@ -9,7 +9,10 @@ export default function ThirdPartyLoginButton({
   text,
 }: Readonly<IThirdPartyLoginButtonProps>) {
   return (
-    <button className="relative mb-4 flex items-center justify-center gap-4 border-2 border-primary px-2 py-4 font-bold duration-150 hover:text-brand sm:text-lg">
+    <button
+      type="button"
+      className="relative flex items-center justify-center gap-4 border-2 border-primary px-2 py-4 font-bold duration-150 hover:text-brand sm:text-2xl"
+    >
       {icon}
       {text}
     </button>

@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     colors: {
       brand: '#ff5f00',
+      brandDisabled: '#ff5f0099',
       primary: '#1a1a1a',
       secondary: '#828287',
       tertiary: '#c9c9cf',

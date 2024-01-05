@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import ModalOuter from '@/components/modals/ModalOuter'
 import SideNav from '@/components/modals/SideNav'
+import SignIn from '@/components/modals/SignIn'
 import Navbar from '@/components/Navbar'
 import ReduxProvider from '@/store/provider'
 
@@ -28,6 +29,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1 bg-white">{children}</main>
           <SideNav />
+          <SignIn />
           <ModalOuter />
         </ReduxProvider>
       </body>

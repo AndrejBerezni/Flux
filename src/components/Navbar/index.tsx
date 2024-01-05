@@ -19,7 +19,9 @@ export default function Navbar() {
         <button className="duration-300 hover:scale-110">
           <GiHamburgerMenu
             className="text-4xl"
-            onClick={() => dispatch(showModal('sideNav'))}
+            onClick={() => {
+              dispatch(showModal('sideNav'))
+            }}
           />
         </button>
         <Link href="/">
@@ -36,12 +38,18 @@ export default function Navbar() {
           <FaCar className="text-2xl" />
           <span className={`${styles.navText} hidden sm:inline`}>Bookings</span>
         </Link>
-        <Link href="#" className="flex gap-2">
+        <button
+          type="button"
+          className="flex gap-2"
+          onClick={() => {
+            dispatch(showModal('signIn'))
+          }}
+        >
           <FaUser className="text-2xl" />
           <span className={`${styles.navText} hidden sm:inline`}>
             Login | Register
           </span>
-        </Link>
+        </button>
       </div>
     </nav>
   )

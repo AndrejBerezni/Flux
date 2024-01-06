@@ -1,10 +1,11 @@
 'use client'
-import { useMemo, useState, ChangeEvent } from 'react'
+import { useMemo, useState, ChangeEvent, useEffect } from 'react'
 
 import clsx from 'clsx'
 import Link from 'next/link'
 import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { IoCloseSharp } from 'react-icons/io5'
+import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
@@ -17,14 +18,22 @@ export default function SignIn() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const [emailInput, setEmailInput] = useState<string>('')
+  const [passwordInput, setPasswordInput] = useState<string>('')
+  const [passwordInputVisible, setPasswordInputVisible] =
+    useState<boolean>(false)
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailInput(event.target.value)
-  }
-
-  const handleClose = () => {
-    dispatch(hideModal())
+  //clean up input fields when modal is closed
+  useEffect(() => {
     setEmailInput('')
+    setPasswordInput('')
+    setPasswordInputVisible(false)
+  }, [modal.modalType])
+
+  const handleBackToEmailInput = () => {
+    if (passwordInput !== '') {
+      setPasswordInput('')
+    }
+    setPasswordInputVisible(false)
   }
 
   const buttons = useMemo(
@@ -54,7 +63,7 @@ export default function SignIn() {
   return (
     <div
       className={clsx(
-        `${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-6 overflow-y-auto bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`,
+        `${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-6 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`,
         {
           fixed: modal.modalType === 'signIn',
           hidden: modal.modalType !== 'signIn',
@@ -63,7 +72,7 @@ export default function SignIn() {
     >
       <button
         className="absolute right-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
-        onClick={handleClose}
+        onClick={() => dispatch(hideModal())}
       >
         <IoCloseSharp />
       </button>
@@ -81,28 +90,71 @@ export default function SignIn() {
         or
       </div>
       <form>
-        <div className="relative z-0">
-          <input
-            type="email"
-            id="email"
-            className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
-            placeholder=" "
-            value={emailInput}
-            onChange={handleChange}
-          />
-          <label
-            htmlFor="email"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+        <div className="relative">
+          <div
+            className={clsx('relative z-0', {
+              invisible: passwordInputVisible,
+            })}
           >
-            Email
-          </label>
+            <input
+              type="email"
+              id="email"
+              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              placeholder=" "
+              value={emailInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setEmailInput(e.target.value)
+              }
+            />
+            <label
+              htmlFor="email"
+              className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            >
+              Email
+            </label>
+          </div>
+          <div
+            className={clsx(
+              'absolute top-0 z-0 w-full origin-right transition-all duration-500',
+              {
+                '-right-[600px]': !passwordInputVisible,
+                'right-0': passwordInputVisible,
+              }
+            )}
+          >
+            <input
+              type="password"
+              id="password"
+              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              placeholder=" "
+              value={passwordInput}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setPasswordInput(e.target.value)
+              }
+            />
+            <label
+              htmlFor="password"
+              className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            >
+              Password
+            </label>
+            <button
+              type="button"
+              onClick={handleBackToEmailInput}
+              className="flex items-center gap-1 font-bold text-secondary duration-150 hover:text-primary"
+            >
+              <MdOutlineKeyboardBackspace />
+              Back
+            </button>
+          </div>
         </div>
         <button
           type="submit"
           className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
-          disabled={!emailInput}
+          disabled={!emailInput || (passwordInputVisible && !passwordInput)}
+          onClick={() => setPasswordInputVisible(true)}
         >
-          Next
+          {passwordInputVisible ? 'Sign In' : 'Next'}
         </button>
       </form>
       <div className="flex justify-center gap-12 font-bold text-secondary">

@@ -1,6 +1,5 @@
 'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -20,12 +19,12 @@ export default function SignUp() {
   const [lastName, setLastName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
-  const handleClose = () => {
+  //clean up input fields when modal is closed
+  useEffect(() => {
     setFirstName('')
     setLastName('')
     setPassword('')
-    dispatch(hideModal())
-  }
+  }, [modal.modalType])
 
   return (
     <div
@@ -45,7 +44,7 @@ export default function SignUp() {
       </button>
       <button
         className="absolute right-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
-        onClick={handleClose}
+        onClick={() => dispatch(hideModal())}
       >
         <IoCloseSharp />
       </button>

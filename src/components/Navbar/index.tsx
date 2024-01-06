@@ -18,7 +18,7 @@ export default function Navbar() {
       <div className="flex items-center gap-1">
         <button className="duration-300 hover:scale-110">
           <GiHamburgerMenu
-            className="text-4xl"
+            className="text-3xl"
             onClick={() => {
               dispatch(showModal('sideNav'))
             }}
@@ -28,8 +28,8 @@ export default function Navbar() {
           <Image
             src="/FLUX-logo-black-nobg.png"
             alt="flux logo"
-            width={100}
-            height={40}
+            width={80}
+            height={32}
           />
         </Link>
       </div>

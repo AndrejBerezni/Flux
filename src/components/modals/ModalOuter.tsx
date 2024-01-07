@@ -11,9 +11,11 @@ export default function ModalOuter() {
 
   return (
     <div
-      className={clsx('z-20 bg-primary opacity-70', {
+      className={clsx('z-20 bg-primary', {
         'fixed left-0 top-0 h-screen w-screen': modal.modalType !== '',
         hidden: modal.modalType === '',
+        'opacity-70': modal.outerType === 'visible',
+        'opacity-0': modal.outerType === 'invisible',
       })}
       onClick={() => dispatch(hideModal())}
     ></div>

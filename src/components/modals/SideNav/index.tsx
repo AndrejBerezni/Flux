@@ -1,7 +1,5 @@
 'use client'
 
-import { useMemo } from 'react'
-
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,15 +15,12 @@ export default function SideNav() {
   const pathname = usePathname()
   const modal = useSelector(getModalInfo)
 
-  const links = useMemo(
-    () => [
-      { href: '/', title: 'Rent' },
-      { href: '/subscriptions', title: 'Subscriptions' },
-      { href: '/giftcards', title: 'Gift Cards' },
-      { href: '/credit', title: 'Flux Credit' },
-    ],
-    []
-  )
+  const links = [
+    { href: '/', title: 'Rent' },
+    { href: '/subscriptions', title: 'Subscriptions' },
+    { href: '/giftcards', title: 'Gift Cards' },
+    { href: '/credit', title: 'Flux Credit' },
+  ]
 
   return (
     <menu

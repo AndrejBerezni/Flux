@@ -4,11 +4,13 @@ import Link from 'next/link'
 import { FaCar } from 'react-icons/fa'
 import { FaUser } from 'react-icons/fa6'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { useDispatch } from 'react-redux'
+import { MdAccountCircle } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { showModal } from '@/store/modal'
 
 import styles from '../../app/reusables.module.css'
+import UserMenu from '../modals/UserMenu'
 
 export default function Navbar() {
   const dispatch = useDispatch()
@@ -20,7 +22,9 @@ export default function Navbar() {
           <GiHamburgerMenu
             className="text-3xl"
             onClick={() => {
-              dispatch(showModal('sideNav'))
+              dispatch(
+                showModal({ modalType: 'sideNav', outerType: 'visible' })
+              )
             }}
           />
         </button>
@@ -33,7 +37,7 @@ export default function Navbar() {
           />
         </Link>
       </div>
-      <div className="flex items-center gap-8 sm:gap-12">
+      <div className="relative flex items-center gap-8 sm:gap-12">
         <Link href="#" className="flex gap-2 ">
           <FaCar className="text-2xl" />
           <span className={`${styles.navText} hidden sm:inline`}>Bookings</span>
@@ -42,7 +46,9 @@ export default function Navbar() {
           type="button"
           className="flex gap-2"
           onClick={() => {
-            dispatch(showModal('signIn'))
+            dispatch(
+              showModal({ modalType: 'userMenu', outerType: 'invisible' })
+            )
           }}
         >
           <FaUser className="text-2xl" />
@@ -50,6 +56,7 @@ export default function Navbar() {
             Login | Register
           </span>
         </button>
+        <UserMenu />
       </div>
     </nav>
   )

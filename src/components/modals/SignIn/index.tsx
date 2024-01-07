@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -36,29 +36,26 @@ export default function SignIn() {
     setPasswordInputVisible(false)
   }
 
-  const buttons = useMemo(
-    () => [
-      {
-        icon: (
-          <FaGoogle className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
-        ),
-        text: 'Continue with Google',
-      },
-      {
-        icon: (
-          <FaFacebook className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
-        ),
-        text: 'Continue with Facebook',
-      },
-      {
-        icon: (
-          <FaTwitter className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
-        ),
-        text: 'Continue with Twitter',
-      },
-    ],
-    []
-  )
+  const buttons = [
+    {
+      icon: (
+        <FaGoogle className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
+      ),
+      text: 'Continue with Google',
+    },
+    {
+      icon: (
+        <FaFacebook className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
+      ),
+      text: 'Continue with Facebook',
+    },
+    {
+      icon: (
+        <FaTwitter className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
+      ),
+      text: 'Continue with Twitter',
+    },
+  ]
 
   return (
     <div

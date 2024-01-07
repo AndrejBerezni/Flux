@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdAccountCircle } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { getAuthStatus, getUserName } from '@/store/authentication/selectors'
 import { showModal } from '@/store/modal'
 
 import styles from '../../app/reusables.module.css'
@@ -14,6 +15,8 @@ import UserMenu from '../modals/UserMenu'
 
 export default function Navbar() {
   const dispatch = useDispatch()
+  const auth = useSelector(getAuthStatus)
+  const username = useSelector(getUserName)
 
   return (
     <nav className="flex justify-between py-4 pl-2 pr-6 font-bold lg:px-48">
@@ -42,20 +45,36 @@ export default function Navbar() {
           <FaCar className="text-2xl" />
           <span className={`${styles.navText} hidden sm:inline`}>Bookings</span>
         </Link>
-        <button
-          type="button"
-          className="flex gap-2"
-          onClick={() => {
-            dispatch(
-              showModal({ modalType: 'userMenu', outerType: 'invisible' })
-            )
-          }}
-        >
-          <FaUser className="text-2xl" />
-          <span className={`${styles.navText} hidden sm:inline`}>
-            Login | Register
-          </span>
-        </button>
+        {auth ? (
+          <button
+            type="button"
+            className="flex gap-2"
+            onClick={() => {
+              dispatch(
+                showModal({ modalType: 'userMenu', outerType: 'invisible' })
+              )
+            }}
+          >
+            <MdAccountCircle className="text-2xl" />
+            <span className={`${styles.navText} hidden sm:inline`}>
+              {username}
+            </span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="flex gap-2"
+            onClick={() => {
+              dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
+            }}
+          >
+            <FaUser className="text-2xl" />
+            <span className={`${styles.navText} hidden sm:inline`}>
+              Login | Register
+            </span>
+          </button>
+        )}
+
         <UserMenu />
       </div>
     </nav>

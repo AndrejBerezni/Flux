@@ -40,10 +40,10 @@ export default function UserMenu() {
   return (
     <menu
       className={clsx(
-        ' fixed right-0 top-0 z-30 h-full w-full rounded-md bg-white font-normal shadow-md sm:absolute sm:top-full sm:h-auto sm:w-[300px]',
+        ' fixed right-0 z-30 h-full w-full origin-top rounded-md bg-white font-normal shadow-md transition-all duration-500 sm:absolute sm:top-full sm:h-auto sm:w-[300px]',
         {
-          hidden: modal.modalType !== 'userMenu',
-          block: modal.modalType === 'userMenu',
+          'top-full sm:hidden': modal.modalType !== 'userMenu',
+          'top-0 sm:block': modal.modalType === 'userMenu',
         }
       )}
     >

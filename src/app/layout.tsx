@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import Footer from '@/components/Footer'
 import ModalOuter from '@/components/modals/ModalOuter'
 import SideNav from '@/components/modals/SideNav'
 import SignIn from '@/components/modals/SignIn'
@@ -33,6 +34,7 @@ export default function RootLayout({
           <SignIn />
           <SignUp />
           <ModalOuter />
+          <Footer />
         </ReduxProvider>
       </body>
     </html>

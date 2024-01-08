@@ -3,14 +3,25 @@
   letter-spacing: 2px;
 }
 
-.navText:after {
+.navText:after,
+.footLink:after {
   display: block;
   content: '';
-  border-bottom: solid 3px black;
+
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s ease-in-out;
 }
-.navText:hover:after {
+
+.navText:after {
+  border-bottom: solid 2px black;
+}
+
+.footLink:after {
+  border-bottom: solid 1px white;
+}
+
+.navText:hover:after,
+.footLink:hover:after {
   transform: scaleX(1);
 }

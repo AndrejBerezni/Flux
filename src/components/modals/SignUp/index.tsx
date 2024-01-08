@@ -92,14 +92,14 @@ export default function SignUp() {
         <div className="relative z-0">
           <input
             type="password"
-            id="password"
+            id="password-su"
             className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
             placeholder=" "
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <label
-            htmlFor="password"
+            htmlFor="password-su"
             className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
           >
             Password

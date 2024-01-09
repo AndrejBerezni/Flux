@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="flex w-full flex-col items-center bg-primary py-8 pl-4 pr-6 lg:px-48">
       <SocialMediaLinks />
       <FooterLinks />
-      <p className="text-secondary">© Flux 2024</p>
+      <p className="text-secondary sm:self-end">© Flux 2024</p>
     </footer>
   )
 }

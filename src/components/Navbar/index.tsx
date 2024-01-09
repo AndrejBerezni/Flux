@@ -19,7 +19,7 @@ export default function Navbar() {
   const username = useSelector(getUserName)
 
   return (
-    <nav className="bg-transparent flex justify-between py-4 pl-4 pr-6 font-bold lg:px-48">
+    <nav className="flex justify-between bg-black py-4 pl-4 pr-6 font-bold text-white lg:px-48">
       <div className="flex items-center gap-1">
         <button className="duration-300 hover:scale-110">
           <GiHamburgerMenu
@@ -33,7 +33,7 @@ export default function Navbar() {
         </button>
         <Link href="/">
           <Image
-            src="/FLUX-logo-black-nobg.png"
+            src="/FLUX-logo-white-nobg.png"
             alt="flux logo"
             width={80}
             height={32}

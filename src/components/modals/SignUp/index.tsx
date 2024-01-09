@@ -60,7 +60,7 @@ export default function SignUp() {
             <input
               type="text"
               id="firstname"
-              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
               placeholder=" "
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -76,7 +76,7 @@ export default function SignUp() {
             <input
               type="text"
               id="lastname"
-              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
               placeholder=" "
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -93,7 +93,7 @@ export default function SignUp() {
           <input
             type="password"
             id="password-su"
-            className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+            className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
             placeholder=" "
             value={password}
             onChange={(e) => setPassword(e.target.value)}

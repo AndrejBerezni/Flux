@@ -1,7 +1,11 @@
+import HomeBanner from '@/components/home/HomeBanner'
+import SearchSection from '@/components/home/SearchSection'
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-brand">Flux</h1>
+    <main className="flex min-h-screen flex-col">
+      <SearchSection />
+      <HomeBanner />
     </main>
   )
 }

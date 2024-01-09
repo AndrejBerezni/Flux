@@ -96,7 +96,7 @@ export default function SignIn() {
             <input
               type="email"
               id="email"
-              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
               placeholder=" "
               value={emailInput}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -122,7 +122,7 @@ export default function SignIn() {
             <input
               type="password"
               id="password-si"
-              className="bg-transparent peer block w-full appearance-none border-0 border-b-2 border-primary px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
               placeholder=" "
               value={passwordInput}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>

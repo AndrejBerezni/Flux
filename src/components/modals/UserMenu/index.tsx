@@ -40,7 +40,7 @@ export default function UserMenu() {
   return (
     <menu
       className={clsx(
-        ' fixed right-0 z-30 h-full w-full origin-top rounded-md bg-white font-normal shadow-md transition-all duration-500 sm:absolute sm:top-full sm:h-auto sm:w-[300px]',
+        ' fixed right-0 z-30 h-full w-full origin-top rounded-md bg-white font-normal text-primary shadow-md transition-all duration-500 sm:absolute sm:top-full sm:h-auto sm:w-[300px]',
         {
           'top-full sm:hidden': modal.modalType !== 'userMenu',
           'top-0 sm:block': modal.modalType === 'userMenu',
@@ -64,7 +64,7 @@ export default function UserMenu() {
       {links.map((link) => (
         <Link
           href={link.href}
-          className="flex items-center gap-4 px-8 py-2 text-xl hover:bg-quaternary sm:text-base"
+          className="flex items-center gap-4 px-8 py-2 text-xl hover:bg-quaternary first-of-type:hover:rounded-t-md sm:text-base"
           key={`${link.text}-usermenu`}
         >
           {link.icon}
@@ -72,7 +72,7 @@ export default function UserMenu() {
         </Link>
       ))}
       <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
-      <button className="flex w-full items-center gap-4 px-8 py-2 text-xl hover:bg-quaternary sm:text-base">
+      <button className="flex w-full items-center gap-4 px-8 py-2 text-xl hover:rounded-b-md hover:bg-quaternary sm:text-base">
         <FaSignOutAlt />
         Sign out
       </button>

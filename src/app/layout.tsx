@@ -29,7 +29,7 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <Navbar />
-          <main className="flex-1 lg:px-48">{children}</main>
+          <main className="flex-1">{children}</main>
           <SideNav />
           <SignIn />
           <SignUp />

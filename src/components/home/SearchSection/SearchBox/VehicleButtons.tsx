@@ -30,7 +30,7 @@ export default function VehicleButtons({
       {vehicles.map((vehicle) => (
         <button
           className={clsx(
-            'flex items-center gap-3 rounded-full px-4 py-2 text-sm capitalize max-[400px]:px-3 max-[400px]:py-1 max-[400px]:text-[0.6rem]',
+            'flex items-center gap-3 rounded-full px-4 py-2 text-sm capitalize max-[400px]:px-3 max-[400px]:py-1 max-[360px]:text-[0.7rem]',
             {
               'bg-black text-white': currentVehicle === vehicle.text,
               'bg-quaternary text-primary hover:bg-tertiary':

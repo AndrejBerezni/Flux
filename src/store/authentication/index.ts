@@ -13,9 +13,9 @@ interface IAuthState {
 const initialState: IAuthState = {
   user: {
     uid: '',
-    name: 'Andrej',
+    name: '',
   },
-  isAuth: true,
+  isAuth: false,
 }
 
 export const authSlice = createSlice({

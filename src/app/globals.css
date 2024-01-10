@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply w-auto rounded-xl bg-brand px-7 py-3 text-lg font-bold text-white hover:bg-brandDisabled disabled:bg-brandDisabled max-[340px]:px-4 max-[340px]:py-1;
+  }
+}

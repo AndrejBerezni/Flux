@@ -60,7 +60,7 @@ export default function SignIn() {
   return (
     <div
       className={clsx(
-        `${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-6 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`,
+        `${robotoCondensed.className} z-30 flex h-screen w-screen flex-col gap-6 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`,
         {
           fixed: modal.modalType === 'signIn',
           hidden: modal.modalType !== 'signIn',

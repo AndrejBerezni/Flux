@@ -3,11 +3,16 @@
 import { useState } from 'react'
 
 import clsx from 'clsx'
-import { FaRegCalendar } from 'react-icons/fa'
+import { FaRegCalendar, FaRegClock } from 'react-icons/fa'
 import { IoMdSearch } from 'react-icons/io'
+import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { roboto } from '@/app/fonts'
+import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
+
+import SearchBoxDivider from './SearchBoxDivider'
 
 export default function PickupDetails({
   currentVehicle,
@@ -20,20 +25,31 @@ export default function PickupDetails({
 
   return (
     <form
-      className={clsx('my-6 gap-6 md:w-full md:flex-wrap', {
+      className={clsx('gap-8 px-4 md:w-full md:flex-wrap md:pb-8 md:pt-10', {
         'hidden md:flex ': modal.modalType !== 'pickUp',
-        'fixed left-0 top-0 z-30 flex h-screen w-screen bg-white md:static md:h-auto':
+        'fixed left-0 top-0 z-30 flex h-screen w-screen flex-col bg-white py-4 md:static md:h-auto md:flex-row':
           modal.modalType === 'pickUp',
       })}
     >
+      <div className="mb-6 flex items-center md:hidden">
+        <button type="button" onClick={() => dispatch(hideModal())}>
+          <IoCloseSharp className="text-2xl" />
+        </button>
+
+        <h1
+          className={`${roboto.className} flex-1 text-center text-lg font-bold`}
+        >
+          Your rental details
+        </h1>
+      </div>
       <div
         aria-label="pickup and return location inputs"
-        className="flex flex-1 items-center gap-4"
+        className="flex flex-col items-center gap-12 md:flex-1 md:flex-row md:gap-8"
       >
-        <div className="relative min-w-[250px] flex-1">
+        <div className="relative w-full min-w-[250px] md:w-auto md:flex-1">
           <label
             htmlFor="pickuplocation"
-            className="absolute bottom-full mb-1 text-[0.8rem] font-bold"
+            className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
           >
             {sameReturnLocation ? 'Pick-up & return' : 'Pick-up'}
           </label>
@@ -49,15 +65,15 @@ export default function PickupDetails({
           <button
             type="button"
             onClick={() => setSameReturnLocation(false)}
-            className="text-nowrap text-secondary hover:text-primary"
+            className="self-start text-nowrap text-secondary hover:text-primary md:self-auto"
           >
             + Different return location
           </button>
         ) : (
-          <div className="relative min-w-[250px] flex-1">
+          <div className="relative w-full min-w-[250px] md:w-auto md:flex-1">
             <label
               htmlFor="returnlocation"
-              className="absolute bottom-full mb-1 text-[0.8rem] font-bold"
+              className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
             >
               Return
             </label>
@@ -71,47 +87,65 @@ export default function PickupDetails({
           </div>
         )}
       </div>
+      <SearchBoxDivider />
       <div
         aria-label="pickup and return date inputs"
-        className="flex flex-1 items-center justify-between gap-4"
+        className="flex flex-col items-center justify-between gap-12 md:flex-1 md:flex-row md:gap-8"
       >
         <div
           aria-label="pickup date buttons"
-          className="flex flex-1 flex-nowrap items-center"
+          className="relative flex w-full flex-nowrap items-center md:w-auto md:flex-1"
         >
+          <p className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]">
+            Pick-up date
+          </p>
           <button
             type="button"
-            className="flex items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
+            className="flex flex-1 items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
           >
             <FaRegCalendar className="text-2xl" />
             11 Jan
           </button>
           <button
             type="button"
-            className="flex w-1/2 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-6 py-3 hover:bg-quaternary"
+            className="flex flex-1 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-3 py-3 hover:bg-quaternary"
           >
+            <FaRegClock className="text-2xl md:hidden" />
             12:30
           </button>
         </div>
         <div
           aria-label="return date buttons"
-          className="flex flex-1 flex-nowrap items-center"
+          className="relative flex w-full flex-nowrap items-center md:w-auto md:flex-1"
         >
+          <p className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]">
+            Return date
+          </p>
           <button
             type="button"
-            className="flex items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
+            className="flex flex-1 items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
           >
             <FaRegCalendar className="text-2xl" />
             15 Jan
           </button>
           <button
             type="button"
-            className="flex w-1/2 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-6 py-3 hover:bg-quaternary"
+            className="flex flex-1 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-3 py-3 hover:bg-quaternary"
           >
+            <FaRegClock className="text-2xl md:hidden" />
             08:00
           </button>
         </div>
-        <button type="submit" className="btn-primary h-full text-base">
+        <SearchBoxDivider />
+        <button
+          type="submit"
+          className={clsx(
+            'btn-primary -mt-6 h-full w-full text-nowrap py-4 text-base md:m-auto md:w-auto md:py-2',
+            {
+              'px-4': currentVehicle === 'scooters',
+            }
+          )}
+        >
           Show {currentVehicle}
         </button>
       </div>

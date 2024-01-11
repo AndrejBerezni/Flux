@@ -1,7 +1,13 @@
 import clsx from 'clsx'
+import { useRouter } from 'next/navigation'
+import { RiArrowGoBackFill } from 'react-icons/ri'
+import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getModalInfo } from '@/store/modal/selectors'
+import { setSameReturn } from '@/store/vehicleSearch'
+
+import LocationResult from './LocationResult'
 
 export default function LocationSearch({
   variant,
@@ -10,6 +16,7 @@ export default function LocationSearch({
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
+  const router = useRouter() // we need this for first button of pickup location - to redirect user to /locations
 
   return (
     <div
@@ -20,6 +27,20 @@ export default function LocationSearch({
           flex: modal.modalType === variant,
         }
       )}
-    ></div>
+    >
+      {variant === 'pickupLocation' ? (
+        <LocationResult
+          locationIcon={<TbLocation />}
+          locationName="See options near me"
+          handleClick={() => router.push('/locations')}
+        />
+      ) : (
+        <LocationResult
+          locationIcon={<RiArrowGoBackFill />}
+          locationName="Return at pick-up"
+          handleClick={() => dispatch(setSameReturn())}
+        />
+      )}
+    </div>
   )
 }

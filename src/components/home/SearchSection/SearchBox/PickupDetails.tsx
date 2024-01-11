@@ -9,9 +9,10 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { roboto } from '@/app/fonts'
-import { hideModal } from '@/store/modal'
+import { hideModal, showModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
+import LocationSearch from './LocationSearch'
 import SearchBoxDivider from './SearchBoxDivider'
 
 export default function PickupDetails({
@@ -58,8 +59,17 @@ export default function PickupDetails({
             id="pickuplocation"
             className="w-full rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
             placeholder="Airport or city"
+            onFocus={() =>
+              dispatch(
+                showModal({
+                  modalType: 'pickupLocation',
+                  outerType: 'invisible',
+                })
+              )
+            }
           />
           <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
+          <LocationSearch variant="pickupLocation" />
         </div>
         {sameReturnLocation ? (
           <button
@@ -82,8 +92,17 @@ export default function PickupDetails({
               id="returnlocation"
               className="w-full rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
               placeholder="Airport or city"
+              onFocus={() =>
+                dispatch(
+                  showModal({
+                    modalType: 'returnLocation',
+                    outerType: 'invisible',
+                  })
+                )
+              }
             />
             <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
+            <LocationSearch variant="returnLocation" />
           </div>
         )}
       </div>

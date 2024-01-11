@@ -68,6 +68,7 @@ export default function SignIn() {
       )}
     >
       <button
+        type="button"
         className="absolute right-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
         onClick={() => dispatch(hideModal())}
       >

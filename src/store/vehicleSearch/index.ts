@@ -15,7 +15,7 @@ const initialState: IVehicleSearchState = {
   vehicle: 'cars',
   pickupLocation: '',
   returnLocation: '',
-  sameReturn: false,
+  sameReturn: true,
   pickupDate: '15 Jan', //change it later to two days from current day
   returnDate: '20 Jan', //change it later to five days from pickup date
   pickupTime: '12:30',

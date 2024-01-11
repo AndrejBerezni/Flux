@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-
 import clsx from 'clsx'
 import { FaRegCalendar, FaRegClock } from 'react-icons/fa'
 import { IoMdSearch } from 'react-icons/io'
@@ -11,18 +9,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { roboto } from '@/app/fonts'
 import { hideModal, showModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
+import { setDifferentReturn } from '@/store/vehicleSearch'
+import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import LocationSearch from './LocationSearch'
 import SearchBoxDivider from './SearchBoxDivider'
 
-export default function PickupDetails({
-  currentVehicle,
-}: {
-  currentVehicle: string
-}) {
+export default function PickupDetails() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
-  const [sameReturnLocation, setSameReturnLocation] = useState<boolean>(true)
+  const vehicleSearch = useSelector(getVehicleSearchInfo)
 
   return (
     <form
@@ -52,7 +48,7 @@ export default function PickupDetails({
             htmlFor="pickuplocation"
             className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
           >
-            {sameReturnLocation ? 'Pick-up & return' : 'Pick-up'}
+            {vehicleSearch.sameReturn ? 'Pick-up & return' : 'Pick-up'}
           </label>
           <input
             type="text"
@@ -71,10 +67,10 @@ export default function PickupDetails({
           <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
           <LocationSearch variant="pickupLocation" />
         </div>
-        {sameReturnLocation ? (
+        {vehicleSearch.sameReturn ? (
           <button
             type="button"
-            onClick={() => setSameReturnLocation(false)}
+            onClick={() => dispatch(setDifferentReturn())}
             className="self-start text-nowrap text-secondary hover:text-primary md:self-auto"
           >
             + Different return location
@@ -161,11 +157,11 @@ export default function PickupDetails({
           className={clsx(
             'btn-primary -mt-6 h-full w-full text-nowrap py-4 text-base md:m-auto md:w-auto md:py-2',
             {
-              'px-4': currentVehicle === 'scooters',
+              'px-4': vehicleSearch.vehicle === 'scooters',
             }
           )}
         >
-          Show {currentVehicle}
+          Show {vehicleSearch.vehicle}
         </button>
       </div>
     </form>

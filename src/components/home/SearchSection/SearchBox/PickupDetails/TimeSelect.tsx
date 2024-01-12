@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { FaRegClock } from 'react-icons/fa'
+import { IoIosArrowBack } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { hideSecondaryModal } from '@/store/modal'
@@ -62,15 +63,22 @@ export default function TimeSelect({
   return (
     <div
       className={clsx(
-        `fixed top-0 z-40 w-full flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:rounded-md`,
+        `fixed left-0 top-0 z-40 h-screen w-screen flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:w-full md:rounded-md`,
         {
           hidden: modal.secondaryModal !== variant,
           flex: modal.secondaryModal === variant,
         }
       )}
     >
-      <div>
-        <h2 className="py-2 text-center font-bold">
+      <div className="relative">
+        <button
+          type="button"
+          className="absolute left-2 top-4 text-2xl md:hidden"
+          onClick={() => dispatch(hideSecondaryModal())}
+        >
+          <IoIosArrowBack />
+        </button>
+        <h2 className="py-4 text-center font-bold md:py-2">
           Select {variant === 'pickupTime' ? 'pick-up' : 'return'} time
         </h2>
         <hr className="-ml-2" />

@@ -1,7 +1,7 @@
 import { FaRegCalendar, FaRegClock } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { showModal } from '@/store/modal'
+import { showSecondaryModal } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import TimeSelect from './TimeSelect'
@@ -37,10 +37,16 @@ export default function DateTimeButtons({
         onClick={() =>
           variant === 'Pick-up date'
             ? dispatch(
-                showModal({ modalType: 'pickupTime', outerType: 'invisible' })
+                showSecondaryModal({
+                  secondaryModal: 'pickupTime',
+                  outerType: 'invisible',
+                })
               )
             : dispatch(
-                showModal({ modalType: 'returnTime', outerType: 'invisible' })
+                showSecondaryModal({
+                  secondaryModal: 'returnTime',
+                  outerType: 'invisible',
+                })
               )
         }
       >

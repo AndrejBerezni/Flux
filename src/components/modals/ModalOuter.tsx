@@ -12,8 +12,9 @@ export default function ModalOuter() {
   return (
     <div
       className={clsx('z-20 bg-primary', {
-        'fixed left-0 top-0 h-screen w-screen': modal.modalType !== '',
-        hidden: modal.modalType === '',
+        'fixed left-0 top-0 h-screen w-screen':
+          modal.modalType !== '' || modal.secondaryModal !== '',
+        hidden: modal.modalType === '' && modal.secondaryModal === '',
         'opacity-70': modal.outerType === 'visible',
         'opacity-0': modal.outerType === 'invisible',
       })}

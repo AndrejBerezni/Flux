@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { FaRegClock } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { hideModal } from '@/store/modal'
+import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { setReturnTime, setPickupTime } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
@@ -36,7 +36,7 @@ export default function TimeSelect({
               variant === 'pickupTime'
                 ? dispatch(setPickupTime(formattedTime))
                 : dispatch(setReturnTime(formattedTime))
-              dispatch(hideModal())
+              dispatch(hideSecondaryModal())
             }}
             className={clsx(`rounded-md py-4`, {
               'bg-primary text-white hover:bg-primary':
@@ -62,16 +62,23 @@ export default function TimeSelect({
   return (
     <div
       className={clsx(
-        `absolute top-full z-40 w-full flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:mt-0.5 md:h-[400px] md:rounded-md`,
+        `fixed top-0 z-40 w-full flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:rounded-md`,
         {
-          hidden: modal.modalType !== variant,
-          flex: modal.modalType === variant,
+          hidden: modal.secondaryModal !== variant,
+          flex: modal.secondaryModal === variant,
         }
       )}
     >
-      <h3 className="flex items-center gap-3 py-2 text-sm">
-        <FaRegClock /> 24-hour {variant === 'pickupTime' ? 'pick-up' : 'return'}
-      </h3>
+      <div>
+        <h2 className="py-2 text-center font-bold">
+          Select {variant === 'pickupTime' ? 'pick-up' : 'return'} time
+        </h2>
+        <hr className="-ml-2" />
+        <h3 className="flex items-center gap-3 py-2 text-sm">
+          <FaRegClock /> 24-hour{' '}
+          {variant === 'pickupTime' ? 'pick-up' : 'return'}
+        </h3>
+      </div>
       <div className="flex-1 overflow-y-auto">
         {dayIntervals.map((interval) => (
           <div key={interval.name}>

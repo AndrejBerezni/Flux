@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface IModalState {
   modalType: string
-  outerType: string
+  outerType: 'visible' | 'invisible' | ''
+  secondaryModal: string
 }
 
 const initialState: IModalState = {
   modalType: '',
   outerType: '',
+  secondaryModal: '',
 }
 
 export const modalSlice = createSlice({
@@ -19,9 +21,17 @@ export const modalSlice = createSlice({
       state.outerType = action.payload.outerType
     },
     hideModal: () => initialState,
+    showSecondaryModal: (state, action) => {
+      state.secondaryModal = action.payload.secondaryModal
+      state.outerType = action.payload.outerType
+    },
+    hideSecondaryModal: (state) => {
+      state.secondaryModal = ''
+    },
   },
 })
 
-export const { showModal, hideModal } = modalSlice.actions
+export const { showModal, hideModal, showSecondaryModal, hideSecondaryModal } =
+  modalSlice.actions
 
 export default modalSlice.reducer

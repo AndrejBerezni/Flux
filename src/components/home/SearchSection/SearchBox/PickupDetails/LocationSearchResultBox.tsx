@@ -9,7 +9,7 @@ import { setSameReturn } from '@/store/vehicleSearch'
 
 import LocationResult from './LocationResult'
 
-export default function LocationSearch({
+export default function LocationSearchResultBox({
   variant,
 }: {
   variant: 'returnLocation' | 'pickupLocation'

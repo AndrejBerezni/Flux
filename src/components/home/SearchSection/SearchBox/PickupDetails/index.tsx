@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import { IoMdSearch } from 'react-icons/io'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -43,30 +42,7 @@ export default function PickupDetails() {
         aria-label="pickup and return location inputs"
         className="flex flex-col items-center gap-12 md:flex-1 md:flex-row md:gap-8"
       >
-        <div className="relative w-full min-w-[250px] md:w-auto md:flex-1">
-          <label
-            htmlFor="pickuplocation"
-            className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
-          >
-            {vehicleSearch.sameReturn ? 'Pick-up & return' : 'Pick-up'}
-          </label>
-          <input
-            type="text"
-            id="pickuplocation"
-            className="w-full rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
-            placeholder="Airport or city"
-            onFocus={() =>
-              dispatch(
-                showModal({
-                  modalType: 'pickupLocation',
-                  outerType: 'invisible',
-                })
-              )
-            }
-          />
-          <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
-          <LocationSearch variant="pickupLocation" />
-        </div>
+        <LocationSearch variant="pickupLocation" />
         {vehicleSearch.sameReturn ? (
           <button
             type="button"
@@ -76,30 +52,7 @@ export default function PickupDetails() {
             + Different return location
           </button>
         ) : (
-          <div className="relative w-full min-w-[250px] md:w-auto md:flex-1">
-            <label
-              htmlFor="returnlocation"
-              className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
-            >
-              Return
-            </label>
-            <input
-              type="text"
-              id="returnlocation"
-              className="w-full rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
-              placeholder="Airport or city"
-              onFocus={() =>
-                dispatch(
-                  showModal({
-                    modalType: 'returnLocation',
-                    outerType: 'invisible',
-                  })
-                )
-              }
-            />
-            <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
-            <LocationSearch variant="returnLocation" />
-          </div>
+          <LocationSearch variant="returnLocation" />
         )}
       </div>
       <SearchBoxDivider />

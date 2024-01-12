@@ -21,7 +21,7 @@ export default function LocationSearchResultBox({
   return (
     <div
       className={clsx(
-        'fixed left-0 top-0 z-40 h-full w-full rounded-md border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[400px]',
+        'fixed left-0 top-0 z-40 h-full w-full overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[400px] md:rounded-md',
         {
           hidden: modal.modalType !== variant,
           flex: modal.modalType === variant,

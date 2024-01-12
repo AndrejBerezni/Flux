@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import { FaRegCalendar, FaRegClock } from 'react-icons/fa'
 import { IoMdSearch } from 'react-icons/io'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,6 +11,7 @@ import { getModalInfo } from '@/store/modal/selectors'
 import { setDifferentReturn } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
+import DateTimeButtons from './DateTimeButtons'
 import LocationSearch from './LocationSearch'
 import SearchBoxDivider from './SearchBoxDivider'
 
@@ -107,50 +107,8 @@ export default function PickupDetails() {
         aria-label="pickup and return date inputs"
         className="flex flex-col items-center justify-between gap-12 md:flex-1 md:flex-row md:gap-8"
       >
-        <div
-          aria-label="pickup date buttons"
-          className="relative flex w-full flex-nowrap items-center md:w-auto md:flex-1"
-        >
-          <p className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]">
-            Pick-up date
-          </p>
-          <button
-            type="button"
-            className="flex flex-1 items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
-          >
-            <FaRegCalendar className="text-2xl" />
-            11 Jan
-          </button>
-          <button
-            type="button"
-            className="flex flex-1 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-3 py-3 hover:bg-quaternary"
-          >
-            <FaRegClock className="text-2xl md:hidden" />
-            12:30
-          </button>
-        </div>
-        <div
-          aria-label="return date buttons"
-          className="relative flex w-full flex-nowrap items-center md:w-auto md:flex-1"
-        >
-          <p className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]">
-            Return date
-          </p>
-          <button
-            type="button"
-            className="flex flex-1 items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
-          >
-            <FaRegCalendar className="text-2xl" />
-            15 Jan
-          </button>
-          <button
-            type="button"
-            className="flex flex-1 items-center gap-4 rounded-r-lg border-[1px] border-solid border-tertiary px-3 py-3 hover:bg-quaternary"
-          >
-            <FaRegClock className="text-2xl md:hidden" />
-            08:00
-          </button>
-        </div>
+        <DateTimeButtons variant="Pick-up date" />
+        <DateTimeButtons variant="Return date" />
         <SearchBoxDivider />
         <button
           type="submit"

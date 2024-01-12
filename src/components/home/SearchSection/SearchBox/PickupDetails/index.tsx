@@ -1,17 +1,15 @@
 'use client'
 
 import clsx from 'clsx'
-import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { roboto } from '@/app/fonts'
-import { hideModal, showModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { setDifferentReturn } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import DateTimeButtons from './DateTimeButtons'
 import LocationSearch from './LocationSearch'
+import PickupDetailsHeader from './PickupDetailsHeader'
 import SearchBoxDivider from './SearchBoxDivider'
 
 export default function PickupDetails() {
@@ -27,17 +25,7 @@ export default function PickupDetails() {
           modal.modalType === 'pickUp',
       })}
     >
-      <div className="mb-6 flex items-center md:hidden">
-        <button type="button" onClick={() => dispatch(hideModal())}>
-          <IoCloseSharp className="text-2xl" />
-        </button>
-
-        <h1
-          className={`${roboto.className} flex-1 text-center text-lg font-bold`}
-        >
-          Your rental details
-        </h1>
-      </div>
+      <PickupDetailsHeader />
       <div
         aria-label="pickup and return location inputs"
         className="flex flex-col items-center gap-12 md:flex-1 md:flex-row md:gap-8"

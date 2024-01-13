@@ -4,10 +4,11 @@ import clsx from 'clsx'
 import { Calendar as ReactCalendar } from 'react-calendar'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { robotoCondensed } from '@/app/fonts'
 import { setPickupDate, setReturnDate } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
-import 'react-calendar/dist/Calendar.css'
+import './Calendar.css'
 
 type CalendarValuePiece = Date | null
 
@@ -35,7 +36,7 @@ export default function DateSelect() {
   return (
     <div
       className={clsx(
-        `fixed left-0 top-0 z-40 h-screen w-screen flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:w-full md:rounded-md`,
+        `fixed left-0 top-0 z-40 h-screen w-screen flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pb-4 md:absolute md:top-full md:mt-0.5 md:h-fit md:w-full md:rounded-md`,
         {
           //   hidden: modal.secondaryModal !== variant,
           //   flex: modal.secondaryModal === variant,
@@ -43,6 +44,7 @@ export default function DateSelect() {
       )}
     >
       <ReactCalendar
+        className={`${robotoCondensed.className} rounded-md`}
         value={calendarValue}
         onChange={setCalendarValue}
         minDate={new Date()}

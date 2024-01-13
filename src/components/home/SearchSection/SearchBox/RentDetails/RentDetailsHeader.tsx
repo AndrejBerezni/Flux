@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { roboto } from '@/app/fonts'
 import { hideModal } from '@/store/modal'
 
-export default function PickupDetailsHeader() {
+export default function RentDetailsHeader() {
   const dispatch = useDispatch()
   return (
     <div className="mb-6 flex items-center md:hidden">

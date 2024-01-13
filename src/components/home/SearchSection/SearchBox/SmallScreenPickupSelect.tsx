@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 
 import { showModal } from '@/store/modal'
 
-import LocationSearch from './PickupDetails/LocationSearchResultBox'
+import LocationSearch from './RentDetails/LocationSection/LocationSearchResultBox'
 
 export default function SmallScreenPickupSelect() {
   const dispatch = useDispatch()

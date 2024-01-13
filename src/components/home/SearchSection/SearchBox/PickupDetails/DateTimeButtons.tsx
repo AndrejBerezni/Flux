@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { showSecondaryModal } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
+import { extractDayMonth } from '@/utilities/extractDayMonth'
 
 import TimeSelect from './TimeSelect'
 
@@ -28,8 +29,8 @@ export default function DateTimeButtons({
       >
         <FaRegCalendar className="text-2xl" />
         {variant === 'Pick-up date'
-          ? vehicleSearch.pickupDate
-          : vehicleSearch.returnDate}
+          ? extractDayMonth(new Date(vehicleSearch.pickupDate))
+          : extractDayMonth(new Date(vehicleSearch.returnDate))}
       </button>
       <button
         type="button"

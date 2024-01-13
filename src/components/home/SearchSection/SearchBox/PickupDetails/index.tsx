@@ -7,6 +7,7 @@ import { getModalInfo } from '@/store/modal/selectors'
 import { setDifferentReturn } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
+import DateSelect from './DateSelect'
 import DateTimeButtons from './DateTimeButtons'
 import LocationSearch from './LocationSearch'
 import PickupDetailsHeader from './PickupDetailsHeader'
@@ -46,7 +47,7 @@ export default function PickupDetails() {
       <SearchBoxDivider />
       <div
         aria-label="pickup and return date inputs"
-        className="flex flex-col items-center justify-between gap-12 md:flex-1 md:flex-row md:gap-8"
+        className="relative flex flex-col items-center justify-between gap-12 md:flex-1 md:flex-row md:gap-8"
       >
         <DateTimeButtons variant="Pick-up date" />
         <DateTimeButtons variant="Return date" />
@@ -62,6 +63,7 @@ export default function PickupDetails() {
         >
           Show {vehicleSearch.vehicle}
         </button>
+        <DateSelect />
       </div>
     </form>
   )

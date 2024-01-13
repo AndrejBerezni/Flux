@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export const pickupDefault = new Date(
+  new Date().setDate(new Date().getDate() + 2)
+).toISOString()
+export const returnDefault = new Date(
+  new Date().setDate(new Date().getDate() + 7)
+).toISOString()
+
 interface IVehicleSearchState {
   vehicle: 'cars' | 'bikes' | 'scooters'
   pickupLocation: string
@@ -16,8 +23,8 @@ const initialState: IVehicleSearchState = {
   pickupLocation: '',
   returnLocation: '',
   sameReturn: true,
-  pickupDate: '15 Jan', //change it later to two days from current day
-  returnDate: '20 Jan', //change it later to five days from pickup date
+  pickupDate: pickupDefault,
+  returnDate: returnDefault,
   pickupTime: '12:30',
   returnTime: '16:00',
 }

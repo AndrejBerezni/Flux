@@ -1,5 +1,6 @@
 import { get } from 'lodash'
 
+import { pickupDefault, returnDefault } from '.'
 import { RootState } from '..'
 
 export const getVehicleSearchInfo = (store: RootState) =>
@@ -8,8 +9,8 @@ export const getVehicleSearchInfo = (store: RootState) =>
     pickupLocation: '',
     returnLocation: '',
     sameReturn: false,
-    pickupDate: '15 Jan', //change it later to two days from current day
-    returnDate: '20 Jan', //change it later to five days from pickup date
+    pickupDate: pickupDefault,
+    returnDate: returnDefault,
     pickupTime: '12:30',
     returnTime: '16:00',
   })

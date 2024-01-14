@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 
 import clsx from 'clsx'
 import { Calendar as ReactCalendar } from 'react-calendar'
-import { useSelector, useDispatch } from 'react-redux'
-import { getModalInfo } from '@/store/modal/selectors'
 import { IoIosArrowBack } from 'react-icons/io'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import { hideSecondaryModal } from '@/store/modal'
+import { getModalInfo } from '@/store/modal/selectors'
 import { setPickupDate, setReturnDate } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
-import { hideSecondaryModal } from '@/store/modal'
 import './Calendar.css'
 
 type CalendarValuePiece = Date | null
@@ -48,7 +48,7 @@ export default function DateSelect() {
         }
       )}
     >
-      <div className="relative border-[1px] border-solid border-tertiary md:hidden">
+      <div className="relative border-b-[1px] border-solid border-tertiary md:hidden">
         <button
           type="button"
           className="absolute left-2 top-4 text-2xl md:hidden"
@@ -57,7 +57,7 @@ export default function DateSelect() {
           <IoIosArrowBack />
         </button>
         <h2 className="py-4 text-center font-bold md:py-2">
-          Select pick-up and return dates
+          Select pick-up & return dates
         </h2>
       </div>
       <ReactCalendar

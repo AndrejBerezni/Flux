@@ -16,9 +16,9 @@ export default function RentDetails() {
   return (
     <form
       className={clsx(' gap-8 px-4 md:w-full md:flex-wrap md:pb-8 md:pt-10', {
-        'hidden md:flex ': modal.modalType !== 'pickUp',
+        'hidden md:flex ': modal.modalType !== 'rentDetails',
         'fixed left-0 top-0 z-30 flex h-screen w-screen flex-col bg-white py-4 md:static md:h-auto md:flex-row':
-          modal.modalType === 'pickUp',
+          modal.modalType === 'rentDetails',
       })}
     >
       <RentDetailsHeader />

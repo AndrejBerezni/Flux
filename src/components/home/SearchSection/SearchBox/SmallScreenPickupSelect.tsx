@@ -1,13 +1,25 @@
 'use client'
 import { FaSearch } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { showModal } from '@/store/modal'
+import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import LocationSearch from './RentDetails/LocationSection/LocationSearchResultBox'
 
 export default function SmallScreenPickupSelect() {
   const dispatch = useDispatch()
+  const vehicleSearch = useSelector(getVehicleSearchInfo)
+
+  const handleSelectPickupClick = () => {
+    vehicleSearch.pickupLocation === ''
+      ? dispatch(
+          showModal({ modalType: 'pickupLocation', outerType: 'invisible' })
+        )
+      : dispatch(
+          showModal({ modalType: 'rentDetails', outerType: 'invisible' })
+        )
+  }
 
   return (
     <div className="flex w-full flex-1 flex-col justify-around md:hidden">
@@ -22,9 +34,14 @@ export default function SmallScreenPickupSelect() {
               showModal({ modalType: 'pickupLocation', outerType: 'invisible' })
             )
           }
+          value={vehicleSearch.pickupLocation}
         />
       </div>
-      <button type="button" className="btn-primary">
+      <button
+        type="button"
+        className="btn-primary"
+        onClick={handleSelectPickupClick}
+      >
         Select pickup
       </button>
       <LocationSearch variant="pickupLocation" />

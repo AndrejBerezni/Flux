@@ -1,3 +1,5 @@
+import { FaArrowRight } from 'react-icons/fa'
+
 import { robotoCondensed } from '@/app/fonts'
 import Carousel from '@/components/Carousel'
 
@@ -38,7 +40,7 @@ export default function SubscriptionSection() {
 
   return (
     <section
-      className={`${robotoCondensed.className} flex flex-col items-center gap-4 bg-tertiary px-2 pb-16 pt-8 sm:px-8 lg:px-48`}
+      className={`${robotoCondensed.className} flex flex-col items-center gap-4 bg-tertiary px-2 pb-16 pt-8 sm:px-8 lg:px-32 2xl:px-48`}
     >
       <h2 className="text-center text-3xl font-extrabold uppercase sm:text-4xl lg:text-5xl">
         Flux Subscription
@@ -47,11 +49,27 @@ export default function SubscriptionSection() {
         Unlock exclusive savings on your rentals—subscribe to Flux today and
         drive both cleaner and more cost-effectively!
       </p>
-      <Carousel>
-        {subscriptions.map((sub) => (
-          <SubscriptionCard key={sub.title} subscription={sub} />
-        ))}
-      </Carousel>
+      <div className="block md:hidden">
+        <Carousel>
+          {subscriptions.map((sub) => (
+            <SubscriptionCard key={sub.title} subscription={sub} />
+          ))}
+        </Carousel>
+      </div>
+      <div className="mt-6 hidden w-full items-center gap-6 md:flex md:flex-col">
+        <div className="mb-4 flex justify-between xl:w-auto">
+          {subscriptions.map((sub) => (
+            <SubscriptionCard key={sub.title} subscription={sub} />
+          ))}
+        </div>
+        <button
+          type="button"
+          className="btn-primary flex w-[200px] items-center justify-center gap-2 shadow-lg"
+        >
+          Learn more
+          <FaArrowRight />
+        </button>
+      </div>
     </section>
   )
 }

@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { FaArrowRight } from 'react-icons/fa'
 
+import { inter } from '@/app/fonts'
+
 interface ISubscriptionPrices {
   month: number
   year: number
@@ -18,7 +20,7 @@ export default function SubscriptionCard({
   subscription: ISubscription
 }) {
   return (
-    <div className="relative z-0 h-full overflow-hidden bg-primary p-6 ">
+    <div className="relative z-0 h-[500px] w-[300px] overflow-hidden rounded-lg bg-primary p-6 shadow-lg max-[320px]:w-[240px] md:w-[240px] md:max-w-[30%] md:duration-300 md:hover:scale-105 md:hover:shadow-2xl lg:w-[300px]">
       <div className="mb-6 flex items-end gap-2">
         <Image
           src="/FLUX-logo-white-nobg.png"
@@ -26,7 +28,7 @@ export default function SubscriptionCard({
           width={80}
           height={32}
         />
-        <h3 className="text-[32px] font-bold leading-[30px] text-white">
+        <h3 className="text-[32px] font-bold leading-[30px] text-white md:text-xl lg:text-[32px]">
           {subscription.title}
         </h3>
       </div>
@@ -39,7 +41,33 @@ export default function SubscriptionCard({
           ))}
         </ul>
       </div>
-      <button className="btn-primary absolute bottom-5 right-5 flex items-center gap-2">
+      <div className="absolute bottom-6 right-2 hidden w-auto flex-col items-end md:flex">
+        <p
+          className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
+        >
+          {subscription.prices.month.toLocaleString('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+          })}{' '}
+          / month
+        </p>
+        <p
+          className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
+        >
+          <span className="mr-2 text-secondary line-through">
+            {(subscription.prices.month * 12).toLocaleString('de-DE', {
+              style: 'currency',
+              currency: 'EUR',
+            })}
+          </span>
+          {subscription.prices.year.toLocaleString('de-DE', {
+            style: 'currency',
+            currency: 'EUR',
+          })}{' '}
+          / year
+        </p>
+      </div>
+      <button className="btn-primary absolute bottom-5 right-5 flex items-center gap-2 md:hidden">
         Learn more
         <FaArrowRight />
       </button>

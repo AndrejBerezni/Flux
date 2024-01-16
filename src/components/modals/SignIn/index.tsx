@@ -123,7 +123,7 @@ export default function SignIn() {
             <input
               type="password"
               id="password-si"
-              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-white px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
               placeholder=" "
               value={passwordInput}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>

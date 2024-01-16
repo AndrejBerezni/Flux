@@ -28,6 +28,7 @@ export default function LocationSearchInput({
         id={`${variant}-search`}
         className="w-full rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
         placeholder="Airport or city"
+        autoComplete="off"
         onFocus={() =>
           dispatch(
             showSecondaryModal({

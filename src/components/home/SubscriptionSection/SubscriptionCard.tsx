@@ -54,7 +54,7 @@ export default function SubscriptionCard({
         <p
           className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
         >
-          <span className="mr-2 text-secondary line-through">
+          <span className="mr-2 font-semibold text-secondary line-through">
             {(subscription.prices.month * 12).toLocaleString('de-DE', {
               style: 'currency',
               currency: 'EUR',

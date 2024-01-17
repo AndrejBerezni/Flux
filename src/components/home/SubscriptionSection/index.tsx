@@ -40,7 +40,7 @@ export default function SubscriptionSection() {
 
   return (
     <section
-      className={`${robotoCondensed.className} flex flex-col items-center gap-4 bg-tertiary px-2 pb-16 pt-8 sm:px-8 lg:px-32 2xl:px-48`}
+      className={`${robotoCondensed.className} flex flex-col items-center gap-4 bg-tertiary px-2 pb-16 pt-8 sm:px-0 lg:px-32 2xl:px-48`}
     >
       <h2 className="text-center text-3xl font-extrabold uppercase sm:text-4xl lg:text-5xl">
         Flux Subscription
@@ -58,7 +58,7 @@ export default function SubscriptionSection() {
         </Carousel>
       </div>
       <div className="mt-6 hidden w-full items-center gap-6 md:flex md:flex-col">
-        <div className="mb-4 flex justify-between xl:w-auto">
+        <div className="mb-4 flex justify-between lg:gap-12 xl:w-auto xl:gap-24">
           {subscriptions.map((sub) => (
             <SubscriptionCard key={sub.title} subscription={sub} />
           ))}

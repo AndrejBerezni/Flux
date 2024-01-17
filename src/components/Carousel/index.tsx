@@ -9,7 +9,7 @@ import CarouselItem from './CarouselItem'
 export default function Carousel({ children }: { children: ReactNode[] }) {
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
-  const handleControlClick = (direction: string) => {
+  const handleChangeSlide = (direction: string) => {
     if (direction === 'left' && currentSlide > 0) {
       setCurrentSlide((current) => current - 1)
     } else if (direction === 'right' && currentSlide < children.length - 1) {
@@ -25,6 +25,7 @@ export default function Carousel({ children }: { children: ReactNode[] }) {
             key={`${index}-carousel-item`}
             currentSlide={currentSlide}
             slideIndex={index}
+            handleSwipe={handleChangeSlide}
           >
             {item}
           </CarouselItem>
@@ -48,14 +49,14 @@ export default function Carousel({ children }: { children: ReactNode[] }) {
       </div>
       {/* Controls */}
       <button
-        onClick={() => handleControlClick('left')}
+        onClick={() => handleChangeSlide('left')}
         disabled={currentSlide === 0}
         className="absolute right-full top-1/2 text-4xl disabled:text-secondary max-[320px]:text-xl"
       >
         <IoMdArrowDropleft />
       </button>
       <button
-        onClick={() => handleControlClick('right')}
+        onClick={() => handleChangeSlide('right')}
         disabled={currentSlide === children.length - 1}
         className="absolute left-full top-1/2 text-4xl disabled:text-secondary max-[320px]:text-xl"
       >

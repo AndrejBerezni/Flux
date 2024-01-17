@@ -49,6 +49,7 @@ export default function SubscriptionSection() {
         Unlock exclusive savings on your rentals—subscribe to Flux today and
         drive both cleaner and more cost-effectively!
       </p>
+      {/* On <md screen show Carousel, on md+ screen show card for each subscription: */}
       <div className="block md:hidden">
         <Carousel>
           {subscriptions.map((sub) => (

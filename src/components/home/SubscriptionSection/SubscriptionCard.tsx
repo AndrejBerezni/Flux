@@ -21,6 +21,7 @@ export default function SubscriptionCard({
 }) {
   return (
     <div className="relative z-0 h-[500px] w-[300px] overflow-hidden rounded-lg bg-primary p-6 shadow-lg max-[320px]:w-[240px] md:w-[240px] md:max-w-[30%] md:duration-300 md:hover:scale-105 md:hover:shadow-2xl lg:w-[300px]">
+      {/* Subscription name and details */}
       <div className="mb-6 flex items-end gap-2">
         <Image
           src="/FLUX-logo-white-nobg.png"
@@ -32,15 +33,14 @@ export default function SubscriptionCard({
           {subscription.title}
         </h3>
       </div>
-      <div>
-        <ul className="list-disc pl-4">
-          {subscription.benefits.map((benefit) => (
-            <li key={benefit} className="mb-2 font-semibold text-tertiary">
-              {benefit}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="list-disc pl-4">
+        {subscription.benefits.map((benefit) => (
+          <li key={benefit} className="mb-2 font-semibold text-tertiary">
+            {benefit}
+          </li>
+        ))}
+      </ul>
+      {/* Subscription prices visible on >md screen only: */}
       <div className="absolute bottom-6 right-2 hidden w-auto flex-col items-end md:flex">
         <p
           className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
@@ -67,6 +67,7 @@ export default function SubscriptionCard({
           / year
         </p>
       </div>
+      {/* Button with link to subscriptions page visible on small screen only:*/}
       <button className="btn-primary absolute bottom-5 right-5 flex items-center gap-2 md:hidden">
         Learn more
         <FaArrowRight />

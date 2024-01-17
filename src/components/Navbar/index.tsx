@@ -19,7 +19,7 @@ export default function Navbar() {
   const username = useSelector(getUserName)
 
   return (
-    <nav className="flex justify-between bg-black py-4 pl-4 pr-6 text-sm font-bold text-white lg:px-48">
+    <nav className="flex justify-between bg-black py-4 pl-4 pr-6 text-sm font-bold text-white lg:px-32 2xl:px-48">
       <div className="flex items-center gap-1">
         <button className="duration-300 hover:scale-110">
           <GiHamburgerMenu

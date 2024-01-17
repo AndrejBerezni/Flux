@@ -1,6 +1,7 @@
+import { FaCar } from 'react-icons/fa'
 import { GiPortugal } from 'react-icons/gi'
 import { RiServiceFill } from 'react-icons/ri'
-import { FaCar } from 'react-icons/fa'
+
 import { robotoCondensed } from '@/app/fonts'
 
 export default function HighlightsSection() {
@@ -23,10 +24,11 @@ export default function HighlightsSection() {
   ]
 
   return (
-    <section className="flex flex-col items-center justify-around gap-4 p-14 sm:flex-row sm:items-start sm:p-10 md:p-14 lg:px-48">
+    <section className="flex flex-col items-center justify-around gap-4 p-8 sm:flex-row sm:items-start sm:p-10 md:p-14 lg:px-32 2xl:px-48">
       {highlights.map((hl) => (
         <div
           className={`${robotoCondensed.className} mb-8 font-bold sm:mb-0 md:w-1/4`}
+          key={hl.title}
         >
           <h2 className="mb-4 flex flex-col items-center gap-2 text-lg font-bold sm:flex-row sm:text-base md:text-lg">
             <span className="text-3xl">{hl.icon}</span>

@@ -1,6 +1,7 @@
+import HighlightsSection from '@/components/home/HighlightsSection'
 import HomeBanner from '@/components/home/HomeBanner'
 import SearchSection from '@/components/home/SearchSection'
-import HighlightsSection from '@/components/home/HighlightsSection'
+import SubscriptionSection from '@/components/home/SubscriptionSection'
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <SearchSection />
       <HomeBanner />
       <HighlightsSection />
+      <SubscriptionSection />
     </main>
   )
 }

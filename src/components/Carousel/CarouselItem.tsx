@@ -14,11 +14,11 @@ export default function CarouselItem({
   return (
     <div
       className={clsx(
-        'absolute origin-left rounded-xl transition-all duration-300 ease-in-out',
+        'absolute origin-left rounded-xl transition-all duration-700 ease-in-out',
         {
-          'left-0': slideIndex === currentSlide,
-          '-left-full': slideIndex < currentSlide,
-          'left-full': slideIndex > currentSlide,
+          'left-0 scale-100 opacity-100': slideIndex === currentSlide,
+          '-left-full scale-50 opacity-0': slideIndex < currentSlide,
+          'left-full scale-50 opacity-0': slideIndex > currentSlide,
         }
       )}
     >

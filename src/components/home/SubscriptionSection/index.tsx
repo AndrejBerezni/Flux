@@ -45,7 +45,7 @@ export default function SubscriptionSection() {
       <h2 className="text-center text-3xl font-extrabold uppercase sm:text-4xl lg:text-5xl">
         Flux Subscription
       </h2>
-      <p className="text-center">
+      <p className="px-2 text-center">
         Unlock exclusive savings on your rentals—subscribe to Flux today and
         drive both cleaner and more cost-effectively!
       </p>

@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex min-h-screen flex-col text-primary`}
+        className={`${inter.className} flex min-h-screen flex-col overscroll-x-none text-primary`}
       >
         <ReduxProvider>
           <Navbar />

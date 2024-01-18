@@ -1,3 +1,4 @@
+import GiftCardSection from '@/components/home/GiftCardSection'
 import HighlightsSection from '@/components/home/HighlightsSection'
 import HomeBanner from '@/components/home/HomeBanner'
 import SearchSection from '@/components/home/SearchSection'
@@ -9,6 +10,7 @@ export default function Home() {
       <SearchSection />
       <HomeBanner />
       <HighlightsSection />
+      <GiftCardSection />
       <SubscriptionSection />
     </main>
   )

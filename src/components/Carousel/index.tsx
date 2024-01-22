@@ -32,7 +32,7 @@ export default function Carousel({ children }: { children: ReactNode[] }) {
         ))}
       </div>
       {/* Slide indicators */}
-      <div className="absolute -bottom-[40px] left-1/2 z-30 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
+      <div className="absolute -bottom-[40px] left-1/2 flex -translate-x-1/2 space-x-3 rtl:space-x-reverse">
         {children.map((_, index) => (
           <button
             key={`${index}-carousel-button`}

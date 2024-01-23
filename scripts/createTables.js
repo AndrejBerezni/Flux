@@ -185,6 +185,8 @@ async function createLocationsTable(client) {
                 city VARCHAR(255) NOT NULL,
                 zip_code VARCHAR(255) NOT NULL,
                 country VARCHAR(255) NOT NULL,
+                latitude NUMERIC NOT NULL,
+                longitude NUMERIC NOT NULL,
                 always_open BOOLEAN NOT NULL,
                 opening_hour_working_day INT,
                 opening_hour_weekend INT,
@@ -270,3 +272,15 @@ async function main() {
 main().catch((err) =>
   console.error('error occured while creating tables:', err)
 )
+
+async function deleteTable() {
+  const client = await db.connect()
+  await client.sql`
+              DROP TABLE IF EXISTS locations
+              `
+  await client.end()
+}
+
+// deleteTable().catch((err) =>
+//   console.error('error occured while creating tables:', err)
+// )

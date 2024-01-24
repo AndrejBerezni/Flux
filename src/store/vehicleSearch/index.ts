@@ -20,7 +20,7 @@ interface IVehicleSearchState {
 
 const initialState: IVehicleSearchState = {
   vehicle: 'cars',
-  pickupLocation: 'Lisbon',
+  pickupLocation: '',
   returnLocation: '',
   sameReturn: true,
   pickupDate: pickupDefault,

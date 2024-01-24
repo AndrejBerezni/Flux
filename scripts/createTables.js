@@ -273,13 +273,13 @@ main().catch((err) =>
   console.error('error occured while creating tables:', err)
 )
 
-async function deleteTable() {
-  const client = await db.connect()
-  await client.sql`
-              DROP TABLE IF EXISTS locations
-              `
-  await client.end()
-}
+// async function deleteTable() {
+//   const client = await db.connect()
+//   await client.sql`
+//               DROP TABLE IF EXISTS locations
+//               `
+//   await client.end()
+// }
 
 // deleteTable().catch((err) =>
 //   console.error('error occured while creating tables:', err)

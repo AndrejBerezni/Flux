@@ -1,4 +1,5 @@
 const { db } = require('@vercel/postgres')
+
 const { locations } = require('./data/locations.js')
 
 async function seedLocations(client) {

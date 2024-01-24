@@ -1,5 +1,10 @@
+'use client'
+import { useState, useEffect } from 'react'
+
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { IoMdSearch } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
+import { useDebouncedCallback } from 'use-debounce'
 
 import { showSecondaryModal } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
@@ -11,6 +16,31 @@ export default function LocationSearchInput({
 }) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+  const [inputValue, setInputValue] = useState<string>('')
+  const [blurTriggered, setBlutTriggered] = useState<boolean>(false)
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set(variant, term)
+    } else {
+      params.delete(variant)
+    }
+    replace(`${pathname}?${params.toString()}`)
+  }, 500)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+    handleSearch(event.target.value)
+  }
+
+  useEffect(() => {
+    setInputValue(vehicleSearch[variant])
+  }, [vehicleSearch[variant], blurTriggered])
+
   return (
     <>
       <label
@@ -37,6 +67,9 @@ export default function LocationSearchInput({
             })
           )
         }
+        onChange={(e) => handleChange(e)}
+        onBlur={() => setBlutTriggered((prev) => !prev)}
+        value={inputValue}
       />
       <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
     </>

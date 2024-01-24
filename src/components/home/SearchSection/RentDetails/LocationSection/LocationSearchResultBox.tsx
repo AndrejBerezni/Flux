@@ -1,26 +1,69 @@
+'use client'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 import { IoMdSearch, IoIosArrowBack } from 'react-icons/io'
+import { MdAirplanemodeActive } from 'react-icons/md'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
+import { useDebouncedCallback } from 'use-debounce'
 
+import { Location } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
-import { setSameReturn } from '@/store/vehicleSearch'
+import {
+  setSameReturn,
+  setPickUpLocation,
+  setReturnLocation,
+} from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import LocationResult from './LocationResult'
 
 export default function LocationSearchResultBox({
   variant,
+  locations,
 }: {
   variant: 'returnLocation' | 'pickupLocation'
+  locations: Location[]
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const router = useRouter() // we need this for first button of pickup location - to redirect user to /locations
+  const { replace } = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  const handleStoreUpdate = (term: string) => {
+    if (variant === 'pickupLocation') {
+      dispatch(setPickUpLocation(term))
+    } else if (variant === 'returnLocation') {
+      dispatch(setReturnLocation(term))
+    }
+  }
+
+  const handleResultClick = (location: Location) => {
+    handleStoreUpdate(location.name)
+    dispatch(hideSecondaryModal())
+  }
+
+  const handleClearReturn = () => {
+    const params = new URLSearchParams(searchParams)
+    params.delete('returnLocation')
+    replace(`${pathname}?${params.toString()}`)
+  }
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams)
+    if (term) {
+      params.set(variant, term)
+    } else {
+      params.delete(variant)
+    }
+    replace(`${pathname}?${params.toString()}`)
+  }, 500)
 
   return (
     <div
@@ -49,12 +92,13 @@ export default function LocationSearchResultBox({
           location
         </h2>
         <div className="relative flex flex-col">
-          {' '}
           <input
             type="text"
-            id={`${variant}-search`}
+            id={`${variant}-search-sm`}
             className="mx-2 my-4 w-auto rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
             placeholder="Airport or city"
+            autoComplete="off"
+            onChange={(e) => handleSearch(e.target.value)}
           />
           <IoMdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl" />
         </div>
@@ -74,9 +118,25 @@ export default function LocationSearchResultBox({
           handleClick={() => {
             dispatch(hideSecondaryModal())
             dispatch(setSameReturn())
+            handleClearReturn()
           }}
         />
       )}
+      {locations &&
+        locations.map((location) => (
+          <LocationResult
+            key={location.id}
+            locationIcon={
+              location.airport ? (
+                <MdAirplanemodeActive />
+              ) : (
+                <HiOutlineBuildingOffice2 />
+              )
+            }
+            locationName={location.name}
+            handleClick={() => handleResultClick(location)}
+          />
+        ))}
     </div>
   )
 }

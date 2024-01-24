@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setDifferentReturn } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
-import LocationSearch from './LocationSearch'
-
-export default function LocationSection() {
+export default function LocationSection({
+  children,
+}: {
+  children: React.ReactNode[]
+}) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
 
@@ -14,7 +16,7 @@ export default function LocationSection() {
       aria-label="pickup and return location inputs"
       className="flex flex-col items-center gap-12 md:flex-1 md:flex-row md:gap-8"
     >
-      <LocationSearch variant="pickupLocation" />
+      {children[0]}
       {vehicleSearch.sameReturn ? (
         <button
           type="button"
@@ -24,7 +26,7 @@ export default function LocationSection() {
           + Different return location
         </button>
       ) : (
-        <LocationSearch variant="returnLocation" />
+        children[1]
       )}
     </fieldset>
   )

@@ -1,14 +1,15 @@
 'use client'
+
 import clsx from 'clsx'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
-import { IoMdSearch, IoIosArrowBack } from 'react-icons/io'
+import { IoIosArrowBack } from 'react-icons/io'
 import { MdAirplanemodeActive } from 'react-icons/md'
 import { RiArrowGoBackFill } from 'react-icons/ri'
 import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
-import { useDebouncedCallback } from 'use-debounce'
 
+import useClearParams from '@/hooks/useClearParams'
 import { Location } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
@@ -20,6 +21,7 @@ import {
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import LocationResult from './LocationResult'
+import LocationSearchInput from './LocationSearchInput'
 
 export default function LocationSearchResultBox({
   variant,
@@ -32,9 +34,7 @@ export default function LocationSearchResultBox({
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const router = useRouter() // we need this for first button of pickup location - to redirect user to /locations
-  const { replace } = useRouter()
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+  const clearParams = useClearParams()
 
   const handleStoreUpdate = (term: string) => {
     if (variant === 'pickupLocation') {
@@ -47,23 +47,8 @@ export default function LocationSearchResultBox({
   const handleResultClick = (location: Location) => {
     handleStoreUpdate(location.name)
     dispatch(hideSecondaryModal())
+    clearParams(variant)
   }
-
-  const handleClearReturn = () => {
-    const params = new URLSearchParams(searchParams)
-    params.delete('returnLocation')
-    replace(`${pathname}?${params.toString()}`)
-  }
-
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams)
-    if (term) {
-      params.set(variant, term)
-    } else {
-      params.delete(variant)
-    }
-    replace(`${pathname}?${params.toString()}`)
-  }, 500)
 
   return (
     <div
@@ -91,7 +76,11 @@ export default function LocationSearchResultBox({
               : 'Return'}{' '}
           location
         </h2>
-        <div className="relative flex flex-col">
+        <div className="relative my-4 px-2">
+          <LocationSearchInput variant={variant} />
+        </div>
+
+        {/* <div className="relative flex flex-col">
           <input
             type="text"
             id={`${variant}-search-sm`}
@@ -101,7 +90,7 @@ export default function LocationSearchResultBox({
             onChange={(e) => handleSearch(e.target.value)}
           />
           <IoMdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl" />
-        </div>
+        </div> */}
 
         <hr className="-ml-2" />
       </div>
@@ -118,7 +107,7 @@ export default function LocationSearchResultBox({
           handleClick={() => {
             dispatch(hideSecondaryModal())
             dispatch(setSameReturn())
-            handleClearReturn()
+            clearParams('returnLocation')
           }}
         />
       )}

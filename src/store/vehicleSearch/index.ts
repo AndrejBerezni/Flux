@@ -44,6 +44,7 @@ export const vehicleSearchSlice = createSlice({
     },
     setSameReturn: (state) => {
       state.sameReturn = true
+      state.returnLocation = ''
     },
     setDifferentReturn: (state) => {
       state.sameReturn = false

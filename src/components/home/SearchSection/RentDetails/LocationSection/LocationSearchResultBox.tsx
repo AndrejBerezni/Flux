@@ -77,21 +77,8 @@ export default function LocationSearchResultBox({
           location
         </h2>
         <div className="relative my-4 px-2">
-          <LocationSearchInput variant={variant} />
+          <LocationSearchInput variant={variant} labelInvisible />
         </div>
-
-        {/* <div className="relative flex flex-col">
-          <input
-            type="text"
-            id={`${variant}-search-sm`}
-            className="mx-2 my-4 w-auto rounded-md px-10 py-3 font-medium caret-brand outline outline-1 outline-tertiary focus:outline-2 focus:outline-brand"
-            placeholder="Airport or city"
-            autoComplete="off"
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-          <IoMdSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl" />
-        </div> */}
-
         <hr className="-ml-2" />
       </div>
       {variant === 'pickupLocation' ? (

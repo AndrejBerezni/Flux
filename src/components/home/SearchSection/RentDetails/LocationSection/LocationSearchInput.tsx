@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useId } from 'react'
 
+import clsx from 'clsx'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { IoMdSearch } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,8 +13,10 @@ import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 export default function LocationSearchInput({
   variant,
+  labelInvisible,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
+  labelInvisible?: boolean
 }) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
@@ -53,7 +56,12 @@ export default function LocationSearchInput({
     <>
       <label
         htmlFor={inputId}
-        className="absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]"
+        className={clsx(
+          'absolute bottom-full mb-1 text-base font-bold md:text-[0.8rem]',
+          {
+            hidden: labelInvisible,
+          }
+        )}
       >
         {vehicleSearch.sameReturn
           ? 'Pick-up & return'
@@ -79,7 +87,12 @@ export default function LocationSearchInput({
         onBlur={handleBlur}
         value={inputValue}
       />
-      <IoMdSearch className="absolute left-2 top-1/4 text-2xl" />
+      <IoMdSearch
+        className={clsx('absolute top-1/4 text-2xl', {
+          'left-2': !labelInvisible,
+          'left-4': labelInvisible,
+        })}
+      />
     </>
   )
 }

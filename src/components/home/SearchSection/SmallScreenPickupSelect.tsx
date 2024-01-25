@@ -1,11 +1,11 @@
 'use client'
 import clsx from 'clsx'
-import { useSearchParams } from 'next/navigation'
 import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { showModal, showSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
+import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 export default function SmallScreenPickupSelect({
   children,
@@ -14,11 +14,10 @@ export default function SmallScreenPickupSelect({
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
-  const searchParams = useSearchParams()
+  const vehicleSearch = useSelector(getVehicleSearchInfo)
 
   const handleSelectPickupClick = () => {
-    const params = new URLSearchParams(searchParams)
-    params.has('pickupLocation')
+    vehicleSearch.pickupLocation
       ? dispatch(
           showModal({ modalType: 'rentDetails', outerType: 'invisible' })
         )
@@ -35,6 +34,7 @@ export default function SmallScreenPickupSelect({
       <div className="flex items-center gap-2 text-lg max-[320px]:text-base">
         <FaSearch />
         <input
+          readOnly
           type="text"
           placeholder="Airport or city"
           className="max-w-full flex-1 border-0 border-b-2 border-secondary pb-1 text-base focus:outline-none"
@@ -46,11 +46,7 @@ export default function SmallScreenPickupSelect({
               })
             )
           }
-          value={
-            searchParams.has('pickupLocation')
-              ? searchParams.get('pickupLocation')?.toString()
-              : ''
-          }
+          value={vehicleSearch.pickupLocation}
         />
       </div>
       <button

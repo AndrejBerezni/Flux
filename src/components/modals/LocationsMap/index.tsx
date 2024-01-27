@@ -67,7 +67,7 @@ export default function LocationsMap({
         <GoogleMap
           options={mapOptions}
           center={mapCenter}
-          zoom={11.2}
+          zoom={12}
           mapContainerStyle={{
             width: '100%',
             height: '90%',

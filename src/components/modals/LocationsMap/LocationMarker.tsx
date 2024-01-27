@@ -1,5 +1,6 @@
 import { OverlayView } from '@react-google-maps/api'
 import { useDispatch } from 'react-redux'
+import { setPickUpLocation } from '@/store/vehicleSearch'
 
 import { robotoCondensed } from '@/app/fonts'
 import { Location } from '@/lib/definitions'
@@ -13,6 +14,11 @@ export default function LocationMarker({
   location: Location
 }) {
   const dispatch = useDispatch()
+
+  const handleClick = () => {
+    dispatch(setPickUpLocation(location))
+    dispatch(hideSecondaryModal())
+  }
   return (
     <OverlayView
       mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
@@ -28,7 +34,7 @@ export default function LocationMarker({
           location.street_number !== 'NN' ? ` ${location.street_number}` : ''
         }, ${location.city}, ${location.zip_code}`}</p>
         <button
-          onClick={() => dispatch(hideSecondaryModal())}
+          onClick={handleClick}
           className="mt-2 self-center rounded-full bg-primary px-3 py-1 font-bold uppercase text-white hover:bg-secondary"
         >
           Select Location

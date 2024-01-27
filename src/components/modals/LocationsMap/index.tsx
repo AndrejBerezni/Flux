@@ -1,15 +1,19 @@
 'use client'
-import { Location } from '@/lib/definitions'
-import { useJsApiLoader, GoogleMap, OverlayView } from '@react-google-maps/api'
 import { useMemo } from 'react'
-import Spinner from '@/components/Spinner'
+
+import { useJsApiLoader, GoogleMap } from '@react-google-maps/api'
 import clsx from 'clsx'
-import { useSelector, useDispatch } from 'react-redux'
-import { getModalInfo } from '@/store/modal/selectors'
-import { hideSecondaryModal } from '@/store/modal'
-import { robotoCondensed } from '@/app/fonts'
 import { IoCloseSharp } from 'react-icons/io5'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { robotoCondensed } from '@/app/fonts'
+import Spinner from '@/components/Spinner'
+import { Location } from '@/lib/definitions'
+import { hideSecondaryModal } from '@/store/modal'
+import { getModalInfo } from '@/store/modal/selectors'
+
 import LocationMarker from './LocationMarker'
+import UserLocationmarker from './UserLocationMarker'
 
 export default function LocationsMap({
   locations,
@@ -36,7 +40,7 @@ export default function LocationsMap({
   )
   const mapCenter = useMemo(
     () => ({ lat: userLatitude, lng: userLongitude }),
-    []
+    [userLatitude, userLongitude]
   )
 
   return (
@@ -61,6 +65,7 @@ export default function LocationsMap({
       </h2>
       {isLoaded ? (
         <GoogleMap
+          options={mapOptions}
           center={mapCenter}
           zoom={11.2}
           mapContainerStyle={{
@@ -69,7 +74,14 @@ export default function LocationsMap({
             borderRadius: '0.375rem',
           }}
         >
-          <LocationMarker position={mapCenter} />
+          <UserLocationmarker position={mapCenter} />
+          {locations.map((location) => (
+            <LocationMarker
+              key={`${location.id}-location-marker`}
+              position={{ lat: location.latitude, lng: location.longitude }}
+              location={location}
+            />
+          ))}
         </GoogleMap>
       ) : (
         <Spinner />

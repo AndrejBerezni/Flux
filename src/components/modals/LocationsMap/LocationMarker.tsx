@@ -1,10 +1,10 @@
 import { OverlayView } from '@react-google-maps/api'
 import { useDispatch } from 'react-redux'
-import { setPickUpLocation } from '@/store/vehicleSearch'
 
 import { robotoCondensed } from '@/app/fonts'
 import { Location } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
+import { setPickUpLocation } from '@/store/vehicleSearch'
 
 export default function LocationMarker({
   position,

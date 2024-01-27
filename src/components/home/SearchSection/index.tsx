@@ -2,7 +2,7 @@ import RentDetails from './RentDetails'
 import LocationSearch from './RentDetails/LocationSection/LocationSearch'
 import SmallScreenPickupSelect from './SmallScreenPickupSelect'
 import VehicleButtons from './VehicleButtons'
-import MapWrapper from './LocationsMap/MapWrapper'
+import MapWrapper from '../../modals/LocationsMap/MapWrapper'
 
 export default function SearchSection({
   pickupLocation,

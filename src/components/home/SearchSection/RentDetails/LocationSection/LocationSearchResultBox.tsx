@@ -1,7 +1,6 @@
 'use client'
 
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdAirplanemodeActive } from 'react-icons/md'
@@ -11,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import useClearParams from '@/hooks/useClearParams'
 import { Location } from '@/lib/definitions'
-import { hideSecondaryModal } from '@/store/modal'
+import { hideSecondaryModal, showSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import {
   setSameReturn,
@@ -33,7 +32,6 @@ export default function LocationSearchResultBox({
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)
-  const router = useRouter() // we need this for first button of pickup location - to redirect user to /locations
   const clearParams = useClearParams()
 
   const handleStoreUpdate = (term: string) => {
@@ -85,7 +83,14 @@ export default function LocationSearchResultBox({
         <LocationResult
           locationIcon={<TbLocation />}
           locationName="See options near me"
-          handleClick={() => router.push('/locations')}
+          handleClick={() =>
+            dispatch(
+              showSecondaryModal({
+                secondaryModal: 'locationSearch',
+                outerType: 'visible',
+              })
+            )
+          }
         />
       ) : (
         <LocationResult

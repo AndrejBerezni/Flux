@@ -53,7 +53,7 @@ export default function LocationSearchResultBox({
   return (
     <div
       className={clsx(
-        'fixed left-0 top-0 z-40 h-full w-full overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[400px] md:rounded-md',
+        'fixed left-0 top-0 z-40 h-full w-full overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[500px] md:overflow-y-hidden md:rounded-md',
         {
           hidden: modal.secondaryModal !== variant,
           'flex flex-col': modal.secondaryModal === variant,
@@ -109,7 +109,7 @@ export default function LocationSearchResultBox({
                 <HiOutlineBuildingOffice2 />
               )
             }
-            locationName={location.name}
+            location={location}
             handleClick={() => handleResultClick(location)}
           />
         ))}

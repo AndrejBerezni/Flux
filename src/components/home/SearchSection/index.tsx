@@ -2,6 +2,7 @@ import RentDetails from './RentDetails'
 import LocationSearch from './RentDetails/LocationSection/LocationSearch'
 import SmallScreenPickupSelect from './SmallScreenPickupSelect'
 import VehicleButtons from './VehicleButtons'
+import MapWrapper from './LocationsMap/MapWrapper'
 
 export default function SearchSection({
   pickupLocation,
@@ -30,6 +31,10 @@ export default function SearchSection({
             searchTerm={returnLocation}
           />
         </RentDetails>
+        <MapWrapper
+          userLatitude={38.76606361988597}
+          userLongitude={-9.220650360015423}
+        />
       </div>
     </section>
   )

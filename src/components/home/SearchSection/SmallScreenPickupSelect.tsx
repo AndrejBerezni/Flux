@@ -46,7 +46,11 @@ export default function SmallScreenPickupSelect({
               })
             )
           }
-          value={vehicleSearch.pickupLocation}
+          value={
+            vehicleSearch.pickupLocation
+              ? vehicleSearch.pickupLocation.name
+              : ''
+          }
         />
       </div>
       <button

@@ -6,8 +6,8 @@ import { RootState } from '..'
 export const getVehicleSearchInfo = (store: RootState) =>
   get(store, 'vehicleSearch', {
     vehicle: 'cars',
-    pickupLocation: '',
-    returnLocation: '',
+    pickupLocation: null,
+    returnLocation: null,
     sameReturn: false,
     pickupDate: pickupDefault,
     returnDate: returnDefault,

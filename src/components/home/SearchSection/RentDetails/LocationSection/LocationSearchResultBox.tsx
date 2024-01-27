@@ -34,16 +34,16 @@ export default function LocationSearchResultBox({
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const clearParams = useClearParams()
 
-  const handleStoreUpdate = (term: string) => {
+  const handleStoreUpdate = (location: Location) => {
     if (variant === 'pickupLocation') {
-      dispatch(setPickUpLocation(term))
+      dispatch(setPickUpLocation(location))
     } else if (variant === 'returnLocation') {
-      dispatch(setReturnLocation(term))
+      dispatch(setReturnLocation(location))
     }
   }
 
   const handleResultClick = (location: Location) => {
-    handleStoreUpdate(location.name)
+    handleStoreUpdate(location)
     dispatch(hideSecondaryModal())
     clearParams(variant)
   }

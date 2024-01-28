@@ -4,6 +4,8 @@ import HomeBanner from '@/components/home/HomeBanner'
 import SearchSection from '@/components/home/SearchSection'
 import SubscriptionSection from '@/components/home/SubscriptionSection'
 
+export const fetchCache = 'force-no-store'
+
 export default function Home({
   searchParams,
 }: {

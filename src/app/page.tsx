@@ -11,11 +11,15 @@ export default function Home({
     pickupLocation?: string
     returnLocation?: string
     loadMap?: string
+    latitude?: string
+    longitude?: string
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
   const returnLocation = searchParams?.returnLocation || ''
   const loadMap = searchParams?.loadMap || ''
+  const userLatitude = searchParams?.latitude || '41.14324740707248'
+  const userLongitude = searchParams?.longitude || '-8.610287052484185'
 
   return (
     <main className="flex min-h-screen flex-col">
@@ -23,6 +27,8 @@ export default function Home({
         pickupLocation={pickupLocation}
         returnLocation={returnLocation}
         loadMap={loadMap}
+        userLatitude={userLatitude}
+        userLongitude={userLongitude}
       />
       <HomeBanner />
       <HighlightsSection />

@@ -52,10 +52,39 @@ export default function LocationSearchResultBox({
     clearParams(variant)
   }
 
-  const handleShowMap = () => {
+  const getUserLocation = async () => {
+    return new Promise<[number, number]>((resolve, reject) => {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords
+            resolve([latitude, longitude])
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      } else {
+        reject(new Error('Geolocation not available'))
+      }
+    })
+  }
+
+  const handleShowMap = async () => {
     const params = new URLSearchParams(searchParams)
-    params.set('loadMap', 'true')
-    replace(`${pathname}?${params.toString()}`)
+    const [latitude, longitude] = await getUserLocation()
+    if (latitude && longitude) {
+      params.set('latitude', latitude.toString())
+      params.set('longitude', longitude.toString())
+      params.set('loadMap', 'true')
+      replace(`${pathname}?${params.toString()}`)
+      dispatch(
+        showSecondaryModal({
+          secondaryModal: 'locationSearch',
+          outerType: 'visible',
+        })
+      )
+    }
   }
 
   return (
@@ -93,15 +122,7 @@ export default function LocationSearchResultBox({
         <LocationResult
           locationIcon={<TbLocation />}
           locationName="See options near me"
-          handleClick={() => {
-            dispatch(
-              showSecondaryModal({
-                secondaryModal: 'locationSearch',
-                outerType: 'visible',
-              })
-            )
-            handleShowMap()
-          }}
+          handleClick={handleShowMap}
         />
       ) : (
         <LocationResult

@@ -6,16 +6,19 @@ export default async function MapWrapper({
   userLatitude,
   userLongitude,
 }: {
-  userLatitude: number
-  userLongitude: number
+  userLatitude: string
+  userLongitude: string
 }) {
-  const locations = await fetchNearbyLocations(
-    38.76606361988597,
-    -9.220650360015423
-  )
+  const lat = Number(userLatitude)
+  const lon = Number(userLongitude)
+  const locations = await fetchNearbyLocations(lat, lon)
   return (
     <>
-      <LocationsMap locations={locations} />
+      <LocationsMap
+        locations={locations}
+        userLatitude={userLatitude}
+        userLongitude={userLongitude}
+      />
     </>
   )
 }

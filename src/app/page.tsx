@@ -20,6 +20,7 @@ export default function Home({
   const pickupLocation = searchParams?.pickupLocation || ''
   const returnLocation = searchParams?.returnLocation || ''
   const loadMap = searchParams?.loadMap || ''
+  //if navigator is unable to get coords, or user denies location access, set coords to Porto city center:
   const userLatitude = searchParams?.latitude || '41.14324740707248'
   const userLongitude = searchParams?.longitude || '-8.610287052484185'
 

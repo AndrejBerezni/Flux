@@ -7,9 +7,11 @@ import MapWrapper from '../../modals/LocationsMap/MapWrapper'
 export default function SearchSection({
   pickupLocation,
   returnLocation,
+  loadMap,
 }: {
   pickupLocation: string
   returnLocation: string
+  loadMap: string
 }) {
   return (
     <section className="min-h-[60vh] w-full bg-black bg-[url('/searchsectionbgtesla.jpg')] bg-contain bg-[center_180px] bg-no-repeat px-4 pt-4 min-[550px]:min-h-[70vh] md:bg-[center_bottom_-100px] lg:px-32 2xl:px-48">
@@ -31,10 +33,12 @@ export default function SearchSection({
             searchTerm={returnLocation}
           />
         </RentDetails>
-        <MapWrapper
-          userLatitude={38.76606361988597}
-          userLongitude={-9.220650360015423}
-        />
+        {loadMap === 'true' && (
+          <MapWrapper
+            userLatitude={38.76606361988597}
+            userLongitude={-9.220650360015423}
+          />
+        )}
       </div>
     </section>
   )

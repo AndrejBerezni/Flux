@@ -15,11 +15,7 @@ export default async function MapWrapper({
   )
   return (
     <>
-      <LocationsMap
-        locations={locations}
-        userLatitude={userLatitude}
-        userLongitude={userLongitude}
-      />
+      <LocationsMap locations={locations} />
     </>
   )
 }

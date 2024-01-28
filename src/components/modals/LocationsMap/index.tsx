@@ -1,5 +1,5 @@
 'use client'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { useJsApiLoader, GoogleMap } from '@react-google-maps/api'
 import clsx from 'clsx'
@@ -15,18 +15,45 @@ import { getModalInfo } from '@/store/modal/selectors'
 import LocationMarker from './LocationMarker'
 import UserLocationmarker from './UserLocationMarker'
 
-export default function LocationsMap({
-  locations,
-  userLatitude,
-  userLongitude,
-}: {
-  locations: Location[]
-  userLatitude: number
-  userLongitude: number
-}) {
+export default function LocationsMap({ locations }: { locations: Location[] }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
+  //coordinates are set to Lisbon center, in case geolocation is not available or user denies it
+  const [userLatitude, setUserLatitude] = useState<number>(38.725497783077515)
+  const [userLongitude, setUserLongitude] = useState<number>(-9.150110143472197)
 
+  //Get user location
+  useEffect(() => {
+    const getUserLocation = async () => {
+      return new Promise<[number, number]>((resolve, reject) => {
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords
+              resolve([latitude, longitude])
+            },
+            (error) => {
+              reject(error)
+            }
+          )
+        } else {
+          reject(new Error('Geolocation not available'))
+        }
+      })
+    }
+    const setUserLocation = async () => {
+      try {
+        const [latitude, longitude] = await getUserLocation()
+        setUserLatitude(latitude)
+        setUserLongitude(longitude)
+      } catch (error) {
+        if (error instanceof Error) console.error(error.message)
+      }
+    }
+    setUserLocation()
+  }, [])
+
+  // handling Google map options and display
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
   })

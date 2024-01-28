@@ -1,6 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 import { IoIosArrowBack } from 'react-icons/io'
 import { MdAirplanemodeActive } from 'react-icons/md'
@@ -33,6 +34,9 @@ export default function LocationSearchResultBox({
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const clearParams = useClearParams()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
 
   const handleStoreUpdate = (location: Location) => {
     if (variant === 'pickupLocation') {
@@ -46,6 +50,12 @@ export default function LocationSearchResultBox({
     handleStoreUpdate(location)
     dispatch(hideSecondaryModal())
     clearParams(variant)
+  }
+
+  const handleShowMap = () => {
+    const params = new URLSearchParams(searchParams)
+    params.set('loadMap', 'true')
+    replace(`${pathname}?${params.toString()}`)
   }
 
   return (
@@ -83,14 +93,15 @@ export default function LocationSearchResultBox({
         <LocationResult
           locationIcon={<TbLocation />}
           locationName="See options near me"
-          handleClick={() =>
+          handleClick={() => {
             dispatch(
               showSecondaryModal({
                 secondaryModal: 'locationSearch',
                 outerType: 'visible',
               })
             )
-          }
+            handleShowMap()
+          }}
         />
       ) : (
         <LocationResult

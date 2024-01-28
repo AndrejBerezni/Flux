@@ -10,16 +10,19 @@ export default function Home({
   searchParams?: {
     pickupLocation?: string
     returnLocation?: string
+    loadMap?: string
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
   const returnLocation = searchParams?.returnLocation || ''
+  const loadMap = searchParams?.loadMap || ''
 
   return (
     <main className="flex min-h-screen flex-col">
       <SearchSection
         pickupLocation={pickupLocation}
         returnLocation={returnLocation}
+        loadMap={loadMap}
       />
       <HomeBanner />
       <HighlightsSection />

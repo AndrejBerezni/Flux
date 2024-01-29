@@ -9,9 +9,11 @@ export default async function MapWrapper({
   userLatitude: string
   userLongitude: string
 }) {
-  const lat = Number(userLatitude)
-  const lon = Number(userLongitude)
-  const locations = await fetchNearbyLocations(lat, lon)
+  const locations = await fetchNearbyLocations(
+    Number(userLatitude),
+    Number(userLongitude)
+  )
+
   return (
     <>
       <LocationsMap

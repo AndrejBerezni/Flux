@@ -47,7 +47,7 @@ export default function LocationsMap({
   return (
     <div
       className={clsx(
-        `${robotoCondensed.className} left-0 top-0 z-40 flex h-full w-full flex-col justify-center bg-white px-6 shadow-lg md:left-1/2 md:top-1/2 md:h-[75%] md:w-[75%] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md`,
+        `${robotoCondensed.className} left-0 top-0 z-40 flex h-full w-full flex-col items-center justify-center bg-white px-6 shadow-lg md:left-1/2 md:top-1/2 md:h-[75%] md:w-[75%] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md`,
         {
           fixed: modal.secondaryModal === 'locationSearch',
           hidden: modal.secondaryModal !== 'locationSearch',

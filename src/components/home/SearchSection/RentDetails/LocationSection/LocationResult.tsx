@@ -24,11 +24,6 @@ export default function LocationResult({
         onClick={handleClick}
         onMouseEnter={() => setInfoVisible(true)}
         onMouseLeave={() => setInfoVisible(false)}
-        onTouchStart={() => setInfoVisible(true)}
-        onTouchEnd={() => {
-          setInfoVisible(false)
-          handleClick()
-        }}
         className="flex h-[60px] w-full items-center hover:bg-quaternary"
       >
         <span className="px-4 text-3xl">{locationIcon}</span>

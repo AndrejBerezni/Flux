@@ -156,21 +156,21 @@ Database is still being defined, but this is the initial idea of tables, their c
 
 #### Relationships:
 
-##### **>** - many to one, **<** - one to many, **-** - one to one
+##### **>** many to one, **<** one to many, **-** one to one
 
-rents.user_id > users.id
-rents.vehicle_id > vehicles.id
-cars_details.id < vehicles.vehicle_details
-bikes_details.id < vehicles.vehicle_details
-scooters_details.id < vehicles.vehicle_details
-users.id - subscriptions.user_id
-subscriptions.type > subscription_type.id
-subscription_description.subscription_id > subscription_type.id
-gift_cards.type > gift_cards_details.id
-gift_cards.user_id > users.id
-vehicle_images.vehicle_id > cars_details.id
-vehicle_images.vehicle_id > bikes_details.id
-vehicle_images.vehicle_id > scooters_details.id
-locations.id < rents.pickup_location
-locations.id < rents.return_location
+rents.user_id > users.id,
+rents.vehicle_id > vehicles.id,
+cars_details.id < vehicles.vehicle_details,
+bikes_details.id < vehicles.vehicle_details,
+scooters_details.id < vehicles.vehicle_details,
+users.id - subscriptions.user_id,
+subscriptions.type > subscription_type.id,
+subscription_description.subscription_id > subscription_type.id,
+gift_cards.type > gift_cards_details.id,
+gift_cards.user_id > users.id,
+vehicle_images.vehicle_id > cars_details.id,
+vehicle_images.vehicle_id > bikes_details.id,
+vehicle_images.vehicle_id > scooters_details.id,
+locations.id < rents.pickup_location,
+locations.id < rents.return_location,
 locations.id < vehicles.location

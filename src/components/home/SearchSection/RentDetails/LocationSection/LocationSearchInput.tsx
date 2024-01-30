@@ -14,9 +14,11 @@ import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 export default function LocationSearchInput({
   variant,
   labelInvisible,
+  readOnly,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
   labelInvisible?: boolean
+  readOnly?: boolean
 }) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
@@ -90,6 +92,7 @@ export default function LocationSearchInput({
         onChange={(e) => handleChange(e)}
         onBlur={handleBlur}
         value={inputValue}
+        readOnly={readOnly}
       />
       <IoMdSearch
         className={clsx('absolute top-1/4 text-2xl', {

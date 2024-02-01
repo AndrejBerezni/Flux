@@ -9,16 +9,18 @@ export default function ModalOuter() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 
-  return (
-    <div
-      className={clsx('z-20 bg-primary', {
-        'fixed left-0 top-0 h-screen w-screen':
-          modal.modalType !== '' || modal.secondaryModal !== '',
-        hidden: modal.modalType === '' && modal.secondaryModal === '',
-        'opacity-70': modal.outerType === 'visible',
-        'opacity-0': modal.outerType === 'invisible',
-      })}
-      onClick={() => dispatch(hideModal())}
-    ></div>
-  )
+  if (modal.modalType !== '' || modal.secondaryModal !== '') {
+    return (
+      <div
+        className={clsx(
+          'fixed left-0 top-0 z-20 h-screen w-screen bg-primary',
+          {
+            'opacity-70': modal.outerType === 'visible',
+            'opacity-0': modal.outerType === 'invisible',
+          }
+        )}
+        onClick={() => dispatch(hideModal())}
+      ></div>
+    )
+  }
 }

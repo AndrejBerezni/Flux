@@ -1,5 +1,5 @@
 'use client'
-import clsx from 'clsx'
+
 import { FaSearch } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -60,14 +60,11 @@ export default function SmallScreenPickupSelect({
       >
         Select pickup
       </button>
-      <div
-        className={clsx('z-30 h-full bg-white', {
-          hidden: modal.secondaryModal !== 'pickupLocation',
-          'fixed left-0 top-0': modal.secondaryModal === 'pickupLocation',
-        })}
-      >
-        {children}
-      </div>
+      {modal.secondaryModal === 'pickupLocation' && (
+        <div className="fixed left-0 top-0 z-30 h-full bg-white">
+          {children}
+        </div>
+      )}
     </div>
   )
 }

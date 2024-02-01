@@ -60,43 +60,39 @@ export default function TimeSelect({
     return times
   }
 
-  return (
-    <div
-      className={clsx(
-        `fixed left-0 top-0 z-40 h-screen w-screen flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:w-full md:rounded-md`,
-        {
-          hidden: modal.secondaryModal !== variant,
-          flex: modal.secondaryModal === variant,
-        }
-      )}
-    >
-      <div className="relative">
-        <button
-          type="button"
-          className="absolute left-2 top-4 text-2xl md:hidden"
-          onClick={() => dispatch(hideSecondaryModal())}
-        >
-          <IoIosArrowBack />
-        </button>
-        <h2 className="py-4 text-center font-bold md:py-2">
-          Select {variant === 'pickupTime' ? 'pick-up' : 'return'} time
-        </h2>
-        <hr className="-ml-2" />
-        <h3 className="flex items-center gap-3 py-2 text-sm">
-          <FaRegClock /> 24-hour{' '}
-          {variant === 'pickupTime' ? 'pick-up' : 'return'}
-        </h3>
-      </div>
-      <div className="flex-1 overflow-y-auto">
-        {dayIntervals.map((interval) => (
-          <div key={interval.name}>
-            <h3 className="text-sm font-bold tracking-wide">{interval.name}</h3>
-            <div className="mb-4 mt-2 grid grid-cols-2 gap-2 pr-2">
-              {renderButtons(interval.startHour, interval.endHour)}
+  if (modal.secondaryModal === variant) {
+    return (
+      <div className="fixed left-0 top-0 z-40 flex h-screen w-screen flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white pl-2 pr-0 md:absolute md:top-full md:mt-0.5 md:h-[400px] md:w-full md:rounded-md">
+        <div className="relative">
+          <button
+            type="button"
+            className="absolute left-2 top-4 text-2xl md:hidden"
+            onClick={() => dispatch(hideSecondaryModal())}
+          >
+            <IoIosArrowBack />
+          </button>
+          <h2 className="py-4 text-center font-bold md:py-2">
+            Select {variant === 'pickupTime' ? 'pick-up' : 'return'} time
+          </h2>
+          <hr className="-ml-2" />
+          <h3 className="flex items-center gap-3 py-2 text-sm">
+            <FaRegClock /> 24-hour{' '}
+            {variant === 'pickupTime' ? 'pick-up' : 'return'}
+          </h3>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {dayIntervals.map((interval) => (
+            <div key={interval.name}>
+              <h3 className="text-sm font-bold tracking-wide">
+                {interval.name}
+              </h3>
+              <div className="mb-4 mt-2 grid grid-cols-2 gap-2 pr-2">
+                {renderButtons(interval.startHour, interval.endHour)}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }

@@ -1,6 +1,5 @@
 'use client'
 
-import clsx from 'clsx'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -86,70 +85,63 @@ export default function LocationSearchResultBox({
       )
     }
   }
-
-  return (
-    <div
-      className={clsx(
-        'fixed left-0 top-0 z-40 h-full w-full overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[500px] md:overflow-y-hidden md:rounded-md',
-        {
-          hidden: modal.secondaryModal !== variant,
-          'flex flex-col': modal.secondaryModal === variant,
-        }
-      )}
-    >
-      <div className="relative flex flex-col md:hidden">
-        <button
-          type="button"
-          className="absolute left-2 top-4 text-2xl md:hidden"
-          onClick={() => dispatch(hideSecondaryModal())}
-        >
-          <IoIosArrowBack />
-        </button>
-        <h2 className="py-4 text-center font-bold md:py-2">
-          {vehicleSearch.sameReturn
-            ? 'Pick-up & return'
-            : variant === 'pickupLocation'
-              ? 'Pick-up'
-              : 'Return'}{' '}
-          location
-        </h2>
-        <div className="relative my-4 px-2">
-          <LocationSearchInput variant={variant} labelInvisible />
+  if (modal.secondaryModal === variant) {
+    return (
+      <div className="fixed left-0 top-0 z-40 flex h-full w-full flex-col overflow-y-auto rounded-none border-[1px] border-solid border-tertiary bg-white shadow-lg md:absolute md:top-full md:mt-0.5 md:h-[500px] md:overflow-y-hidden md:rounded-md">
+        <div className="relative flex flex-col md:hidden">
+          <button
+            type="button"
+            className="absolute left-2 top-4 text-2xl md:hidden"
+            onClick={() => dispatch(hideSecondaryModal())}
+          >
+            <IoIosArrowBack />
+          </button>
+          <h2 className="py-4 text-center font-bold md:py-2">
+            {vehicleSearch.sameReturn
+              ? 'Pick-up & return'
+              : variant === 'pickupLocation'
+                ? 'Pick-up'
+                : 'Return'}{' '}
+            location
+          </h2>
+          <div className="relative my-4 px-2">
+            <LocationSearchInput variant={variant} labelInvisible />
+          </div>
+          <hr className="-ml-2" />
         </div>
-        <hr className="-ml-2" />
-      </div>
-      {variant === 'pickupLocation' ? (
-        <LocationResult
-          locationIcon={<TbLocation />}
-          locationName="See options near me"
-          handleClick={handleShowMap}
-        />
-      ) : (
-        <LocationResult
-          locationIcon={<RiArrowGoBackFill />}
-          locationName="Return at pick-up"
-          handleClick={() => {
-            dispatch(hideSecondaryModal())
-            dispatch(setSameReturn())
-            clearParams('returnLocation')
-          }}
-        />
-      )}
-      {locations &&
-        locations.map((location) => (
+        {variant === 'pickupLocation' ? (
           <LocationResult
-            key={location.id}
-            locationIcon={
-              location.airport ? (
-                <MdAirplanemodeActive />
-              ) : (
-                <HiOutlineBuildingOffice2 />
-              )
-            }
-            location={location}
-            handleClick={() => handleResultClick(location)}
+            locationIcon={<TbLocation />}
+            locationName="See options near me"
+            handleClick={handleShowMap}
           />
-        ))}
-    </div>
-  )
+        ) : (
+          <LocationResult
+            locationIcon={<RiArrowGoBackFill />}
+            locationName="Return at pick-up"
+            handleClick={() => {
+              dispatch(hideSecondaryModal())
+              dispatch(setSameReturn())
+              clearParams('returnLocation')
+            }}
+          />
+        )}
+        {locations &&
+          locations.map((location) => (
+            <LocationResult
+              key={location.id}
+              locationIcon={
+                location.airport ? (
+                  <MdAirplanemodeActive />
+                ) : (
+                  <HiOutlineBuildingOffice2 />
+                )
+              }
+              location={location}
+              handleClick={() => handleResultClick(location)}
+            />
+          ))}
+      </div>
+    )
+  }
 }

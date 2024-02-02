@@ -7,7 +7,6 @@ import { IoMdSearch } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 import { useDebouncedCallback } from 'use-debounce'
 
-import useClearParams from '@/hooks/useClearParams'
 import { showSecondaryModal } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
@@ -25,7 +24,6 @@ export default function LocationSearchInput({
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
-  const clearParams = useClearParams()
   const [inputValue, setInputValue] = useState<string>('')
   const [blurTriggered, setBlutTriggered] = useState<boolean>(false)
   const inputId = useId()
@@ -43,11 +41,6 @@ export default function LocationSearchInput({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
     handleSearch(event.target.value)
-  }
-
-  const handleBlur = () => {
-    setBlutTriggered((prev) => !prev)
-    clearParams(variant)
   }
 
   useEffect(() => {
@@ -90,7 +83,7 @@ export default function LocationSearchInput({
           )
         }
         onChange={(e) => handleChange(e)}
-        onBlur={handleBlur}
+        onBlur={() => setBlutTriggered((prev) => !prev)}
         value={inputValue}
         readOnly={readOnly}
       />

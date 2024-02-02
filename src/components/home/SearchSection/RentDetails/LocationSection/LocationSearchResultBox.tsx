@@ -12,11 +12,7 @@ import useClearParams from '@/hooks/useClearParams'
 import { Location } from '@/lib/definitions'
 import { hideSecondaryModal, showSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
-import {
-  setSameReturn,
-  setPickUpLocation,
-  setReturnLocation,
-} from '@/store/vehicleSearch'
+import { setSameReturn, setLocation } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 import LocationResult from './LocationResult'
@@ -38,11 +34,7 @@ export default function LocationSearchResultBox({
   const { replace } = useRouter()
 
   const handleStoreUpdate = (location: Location) => {
-    if (variant === 'pickupLocation') {
-      dispatch(setPickUpLocation(location))
-    } else if (variant === 'returnLocation') {
-      dispatch(setReturnLocation(location))
-    }
+    dispatch(setLocation({ location, variant }))
   }
 
   const handleResultClick = (location: Location) => {

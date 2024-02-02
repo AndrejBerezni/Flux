@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { robotoCondensed } from '@/app/fonts'
 import { Location } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
-import { setPickUpLocation } from '@/store/vehicleSearch'
+import { setLocation } from '@/store/vehicleSearch'
 
 export default function LocationMarker({
   position,
@@ -16,7 +16,7 @@ export default function LocationMarker({
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(setPickUpLocation(location))
+    dispatch(setLocation({ location, variant: 'pickupLocation' }))
     dispatch(hideSecondaryModal())
   }
   return (

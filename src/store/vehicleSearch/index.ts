@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { Location } from '@/lib/definitions'
+import { checkIfWeekend } from '@/utilities/checkIfWeekend'
+import { formatHour } from '@/utilities/formatHour'
 
 export const pickupDefault = new Date(
   new Date().setDate(new Date().getDate() + 2)
@@ -38,11 +40,61 @@ export const vehicleSearchSlice = createSlice({
     setVehicle: (state, action) => {
       state.vehicle = action.payload
     },
-    setPickUpLocation: (state, action) => {
-      state.pickupLocation = action.payload
-    },
-    setReturnLocation: (state, action) => {
-      state.returnLocation = action.payload
+    setLocation: (
+      state,
+      action: {
+        payload: {
+          location: Location
+          variant: 'pickupLocation' | 'returnLocation'
+        }
+        type: string
+      }
+    ) => {
+      state[action.payload.variant] = action.payload.location
+      // if location is not open 24/7, adjust pickup and return times according to working hours, if they are set outside those hours:
+      const updateTime = (
+        openingHour: 'opening_hour_working_day' | 'opening_hour_weekend',
+        closingHour: 'closing_hour_working_day' | 'closing_hour_weekend'
+      ) => {
+        const pickupTime = new Date(`2000-01-01T${state.pickupTime}`)
+        const returnTime = new Date(`2000-01-01T${state.returnTime}`)
+        if (state.pickupLocation && !state.pickupLocation.always_open) {
+          //converting them back to Date to compare them
+          const openingTime = new Date(
+            `2000-01-01T${formatHour(state.pickupLocation[openingHour])}`
+          )
+          const closingTime = new Date(
+            `2000-01-01T${formatHour(state.pickupLocation[closingHour])}`
+          )
+          if (pickupTime < openingTime || pickupTime > closingTime) {
+            state.pickupTime = formatHour(state.pickupLocation[openingHour])
+          }
+          // if return location is the same, immediately check return time and update accordingly:
+          if (
+            state.sameReturn &&
+            (returnTime < openingTime || returnTime > closingTime)
+          ) {
+            state.returnTime = formatHour(state.pickupLocation[closingHour] - 2) // subtracting 2 in order not to set return time exactly at closing time, but earlier
+          }
+        }
+        // if return location is set, check return time and update it accordingly (in the future we should refactor this function because it is the same as first part of the one above for pickup):
+        if (state.returnLocation && !state.returnLocation.always_open) {
+          const openingTime = new Date(
+            `2000-01-01T${formatHour(state.returnLocation[openingHour])}`
+          )
+          const closingTime = new Date(
+            `2000-01-01T${formatHour(state.returnLocation[closingHour])}`
+          )
+          if (returnTime < openingTime || returnTime > closingTime) {
+            state.returnTime = formatHour(state.returnLocation[closingHour] - 2)
+          }
+        }
+      }
+      if (checkIfWeekend(state.pickupDate)) {
+        updateTime('opening_hour_weekend', 'closing_hour_weekend')
+      } else {
+        updateTime('opening_hour_working_day', 'closing_hour_working_day')
+      }
     },
     setSameReturn: (state) => {
       state.sameReturn = true
@@ -68,10 +120,9 @@ export const vehicleSearchSlice = createSlice({
 
 export const {
   setVehicle,
-  setPickUpLocation,
+  setLocation,
   setPickupDate,
   setPickupTime,
-  setReturnLocation,
   setReturnDate,
   setReturnTime,
   setSameReturn,

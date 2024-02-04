@@ -22,7 +22,7 @@ export default function LocationSearchResultBox({
   variant,
   locations,
 }: {
-  variant: 'returnLocation' | 'pickupLocation'
+  variant: 'pickupLocation' | 'returnLocation'
   locations: Location[]
 }) {
   const dispatch = useDispatch()
@@ -34,6 +34,21 @@ export default function LocationSearchResultBox({
   const { replace } = useRouter()
 
   const handleStoreUpdate = (location: Location) => {
+    if (
+      variant === 'returnLocation' &&
+      vehicleSearch.pickupLocation &&
+      location.id === vehicleSearch.pickupLocation.id
+    ) {
+      dispatch(setSameReturn())
+      return
+    }
+    if (
+      variant === 'pickupLocation' &&
+      vehicleSearch.returnLocation &&
+      location.id === vehicleSearch.returnLocation.id
+    ) {
+      dispatch(setSameReturn())
+    }
     dispatch(setLocation({ location, variant }))
   }
 

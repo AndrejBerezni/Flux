@@ -11,7 +11,7 @@ export const returnDefault = new Date(
   new Date().setDate(new Date().getDate() + 7)
 ).toISOString()
 
-interface IVehicleSearchState {
+export interface IVehicleSearchState {
   vehicle: 'cars' | 'bikes' | 'scooters'
   pickupLocation: Location | null
   returnLocation: Location | null
@@ -61,32 +61,38 @@ export const vehicleSearchSlice = createSlice({
         if (state.pickupLocation && !state.pickupLocation.always_open) {
           //converting them back to Date to compare them
           const openingTime = new Date(
-            `2000-01-01T${formatHour(state.pickupLocation[openingHour])}`
+            `2000-01-01T${formatHour(state.pickupLocation[openingHour], 0)}`
           )
           const closingTime = new Date(
-            `2000-01-01T${formatHour(state.pickupLocation[closingHour])}`
+            `2000-01-01T${formatHour(state.pickupLocation[closingHour], 0)}`
           )
           if (pickupTime < openingTime || pickupTime > closingTime) {
-            state.pickupTime = formatHour(state.pickupLocation[openingHour])
+            state.pickupTime = formatHour(state.pickupLocation[openingHour], 0)
           }
           // if return location is the same, immediately check return time and update accordingly:
           if (
             state.sameReturn &&
             (returnTime < openingTime || returnTime > closingTime)
           ) {
-            state.returnTime = formatHour(state.pickupLocation[closingHour] - 2) // subtracting 2 in order not to set return time exactly at closing time, but earlier
+            state.returnTime = formatHour(
+              state.pickupLocation[closingHour] - 2,
+              0
+            ) // subtracting 2 in order not to set return time exactly at closing time, but earlier
           }
         }
         // if return location is set, check return time and update it accordingly (in the future we should refactor this function because it is the same as first part of the one above for pickup):
         if (state.returnLocation && !state.returnLocation.always_open) {
           const openingTime = new Date(
-            `2000-01-01T${formatHour(state.returnLocation[openingHour])}`
+            `2000-01-01T${formatHour(state.returnLocation[openingHour], 0)}`
           )
           const closingTime = new Date(
-            `2000-01-01T${formatHour(state.returnLocation[closingHour])}`
+            `2000-01-01T${formatHour(state.returnLocation[closingHour], 0)}`
           )
           if (returnTime < openingTime || returnTime > closingTime) {
-            state.returnTime = formatHour(state.returnLocation[closingHour] - 2)
+            state.returnTime = formatHour(
+              state.returnLocation[closingHour] - 2,
+              0
+            )
           }
         }
       }

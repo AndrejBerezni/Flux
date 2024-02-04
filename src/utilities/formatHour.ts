@@ -1,2 +1,2 @@
-export const formatHour = (hour: number) =>
-  `${hour.toString().padStart(2, '0')}:00`
+export const formatHour = (hour: number, minute: number) =>
+  `${hour.toString().padStart(2, '0')}:${String(minute).padStart(2, '0')}`

@@ -2,6 +2,7 @@
 import clsx from 'clsx'
 
 import { Location } from '@/lib/definitions'
+import { formatHour } from '@/utilities/formatHour'
 
 export default function LocationInformation({
   location,
@@ -31,14 +32,12 @@ export default function LocationInformation({
       ) : (
         <>
           <p>
-            Mon - Fri:{' '}
-            {String(location.opening_hour_working_day).padStart(2, '0')}:00 -{' '}
-            {String(location.closing_hour_working_day).padStart(2, '0')}:00
+            Mon - Fri: {formatHour(location.opening_hour_working_day, 0)} -{' '}
+            {formatHour(location.closing_hour_working_day, 0)}
           </p>
           <p>
-            Weekend & Holidays:{' '}
-            {String(location.opening_hour_weekend).padStart(2, '0')}:00 -{' '}
-            {String(location.closing_hour_weekend).padStart(2, '0')}:00
+            Weekend & Holidays: {formatHour(location.opening_hour_weekend, 0)} -{' '}
+            {formatHour(location.closing_hour_weekend, 0)}
           </p>
         </>
       )}

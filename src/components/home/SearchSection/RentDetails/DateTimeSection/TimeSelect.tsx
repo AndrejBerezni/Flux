@@ -1,12 +1,19 @@
 import clsx from 'clsx'
-import { FaRegClock } from 'react-icons/fa'
 import { IoIosArrowBack } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
-import { setReturnTime, setPickupTime } from '@/store/vehicleSearch'
+import {
+  setReturnTime,
+  setPickupTime,
+  IVehicleSearchState,
+} from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
+import { formatHour } from '@/utilities/formatHour'
+import { showWorkingHours } from '@/utilities/showWorkingHours'
+
+import WorkingHoursHeader from './WorkingHoursHeader'
 
 export default function TimeSelect({
   variant,
@@ -18,17 +25,25 @@ export default function TimeSelect({
   const modal = useSelector(getModalInfo)
 
   const dayIntervals = [
-    { name: 'Early Morning', startHour: 0, endHour: 8 },
+    {
+      name: 'Early Morning',
+      startHour: showWorkingHours(vehicleSearch as IVehicleSearchState, variant)
+        .opening,
+      endHour: 8,
+    },
     { name: 'Morning - afternoon', startHour: 8, endHour: 17 },
-    { name: 'Evening', startHour: 17, endHour: 24 },
+    {
+      name: 'Evening',
+      startHour: 17,
+      endHour: showWorkingHours(vehicleSearch as IVehicleSearchState, variant)
+        .closing,
+    },
   ]
   const renderButtons = (startHour: number, endHour: number) => {
     const times = []
     for (let hour = startHour; hour < endHour; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
-        const formattedTime = `${String(hour).padStart(2, '0')}:${String(
-          minute
-        ).padStart(2, '0')}`
+        const formattedTime = formatHour(hour, minute)
         times.push(
           <button
             type="button"
@@ -75,22 +90,27 @@ export default function TimeSelect({
             Select {variant === 'pickupTime' ? 'pick-up' : 'return'} time
           </h2>
           <hr className="-ml-2" />
-          <h3 className="flex items-center gap-3 py-2 text-sm">
-            <FaRegClock /> 24-hour{' '}
-            {variant === 'pickupTime' ? 'pick-up' : 'return'}
-          </h3>
+          <WorkingHoursHeader variant={variant} />
         </div>
         <div className="flex-1 overflow-y-auto">
-          {dayIntervals.map((interval) => (
-            <div key={interval.name}>
-              <h3 className="text-sm font-bold tracking-wide">
-                {interval.name}
-              </h3>
-              <div className="mb-4 mt-2 grid grid-cols-2 gap-2 pr-2">
-                {renderButtons(interval.startHour, interval.endHour)}
-              </div>
-            </div>
-          ))}
+          {dayIntervals.map((interval) => {
+            const timeSelectButtons = renderButtons(
+              interval.startHour,
+              interval.endHour
+            )
+            if (timeSelectButtons.length > 0) {
+              return (
+                <div key={interval.name}>
+                  <h3 className="text-sm font-bold tracking-wide">
+                    {interval.name}
+                  </h3>
+                  <div className="mb-4 mt-2 grid grid-cols-2 gap-2 pr-2">
+                    {timeSelectButtons}
+                  </div>
+                </div>
+              )
+            }
+          })}
         </div>
       </div>
     )

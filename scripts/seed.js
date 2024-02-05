@@ -94,10 +94,10 @@ async function seedCarImages(client) {
 async function main() {
   const client = await db.connect()
 
-  // await seedLocations(client)
-  // await seedCarsDetails(client)
-  // await seedVehiclesCars(client)
-  // await seedCarImages(client)
+  await seedLocations(client)
+  await seedCarsDetails(client)
+  await seedVehiclesCars(client)
+  await seedCarImages(client)
 
   await client.end()
 }

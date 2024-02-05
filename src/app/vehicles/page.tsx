@@ -25,7 +25,7 @@ export default async function Vehicles({
 
   const cars = await fetchCars(pickupLocation, type)
   return (
-    <main className="flex flex-1 flex-wrap gap-6">
+    <main className="grid flex-1 grid-cols-1 flex-wrap gap-6 md:grid-cols-2 min-[1420px]:grid-cols-3">
       {cars.map((car) => (
         <VehicleCard key={`${car.id}-vc`} vehicle={car} days={numberOfDays} />
       ))}

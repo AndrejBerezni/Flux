@@ -37,24 +37,24 @@ export default function VehicleCard({
     },
   ]
   return (
-    <div className=" flex h-[420px] w-[320px] flex-col items-center justify-between bg-white p-4 shadow-lg duration-300 hover:scale-105 hover:shadow-xl">
+    <div className=" flex h-[420px] flex-col items-center justify-between bg-white p-4 shadow-lg duration-300 hover:scale-105 hover:shadow-xl">
       <h3 className="self-start text-2xl font-extrabold hover:cursor-default">
         {vehicle.brand} {vehicle.name}
       </h3>
       <Image
         src={vehicle.image_url}
         alt={`${vehicle.brand} ${vehicle.name}`}
-        width={300}
+        width={260}
         height={300}
       />
       <div className="flex w-full justify-around">
         {carDetails.map((detail) => (
           <div
             key={detail.key}
-            className="flex flex-col items-center gap-1 text-xl font-semibold "
+            className="flex flex-col items-center gap-1 text-xl font-semibold max-[300px]:text-base "
           >
             {detail.icon}
-            <p className="text-base capitalize hover:cursor-default">
+            <p className="text-base capitalize hover:cursor-default max-[300px]:text-sm">
               {detail.text}
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function VehicleCard({
           <p className="text-xl font-extrabold text-brand">
             {(Math.round(vehicle.price_per_day * 100) / 100).toFixed(2)}€ /day
           </p>
-          <p>
+          <p className="font-bold">
             {(Math.round(vehicle.price_per_day * days * 100) / 100).toFixed(2)}€
             total
           </p>

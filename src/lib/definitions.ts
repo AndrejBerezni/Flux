@@ -15,3 +15,15 @@ export type Location = {
   closing_hour_weekend: number
   airport: boolean
 }
+
+export type CarCard = {
+  id: string
+  name: string
+  brand: string
+  price_per_day: number
+  gearshift: string
+  passengers: number
+  bags: number
+  doors: number
+  image_url: string
+}

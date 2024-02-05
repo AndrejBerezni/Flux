@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { VehicleType } from '@/compiler/types'
 import { Location } from '@/lib/definitions'
 import { checkIfWeekend } from '@/utilities/checkIfWeekend'
 import { formatHour } from '@/utilities/formatHour'
@@ -12,7 +13,7 @@ export const returnDefault = new Date(
 ).toISOString()
 
 export interface IVehicleSearchState {
-  vehicle: 'cars' | 'bikes' | 'scooters'
+  vehicle: VehicleType
   pickupLocation: Location | null
   returnLocation: Location | null
   sameReturn: boolean

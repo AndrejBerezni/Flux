@@ -111,6 +111,7 @@ async function createCarsDetailsTable(client) {
             CREATE TABLE IF NOT EXISTS cars_details (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
+                brand VARCHAR(255) NOT NULL,
                 price_per_day NUMERIC NOT NULL,
                 gearshift VARCHAR(255) NOT NULL,
                 passengers NUMERIC NOT NULL,
@@ -276,7 +277,7 @@ main().catch((err) =>
 // async function deleteTable() {
 //   const client = await db.connect()
 //   await client.sql`
-//               DROP TABLE IF EXISTS locations
+//               DROP TABLE IF EXISTS cars_details
 //               `
 //   await client.end()
 // }

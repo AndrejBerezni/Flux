@@ -34,6 +34,7 @@ export default function LocationSearchResultBox({
   const { replace } = useRouter()
 
   const handleStoreUpdate = (location: Location) => {
+    //prevent having same value in two input fields - rather set sameReturn to true and have only 'Pick-up & return' input field displayed
     if (
       variant === 'returnLocation' &&
       vehicleSearch.pickupLocation &&

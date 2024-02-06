@@ -38,7 +38,7 @@ export default function CarCard({
   ]
   return (
     <div className=" flex h-[420px] flex-col items-center justify-between bg-white p-4 shadow-lg duration-300 hover:scale-105 hover:shadow-xl">
-      <h3 className="self-start text-2xl font-extrabold hover:cursor-default">
+      <h3 className="self-start text-xl font-extrabold hover:cursor-default">
         {vehicle.brand} {vehicle.name}
       </h3>
       <Image

@@ -1,4 +1,4 @@
-export type Location = {
+export interface ILocation {
   id: string
   name: string
   street: string
@@ -16,7 +16,7 @@ export type Location = {
   airport: boolean
 }
 
-export type CarCard = {
+export interface ICarCard {
   id: string
   name: string
   brand: string
@@ -25,5 +25,25 @@ export type CarCard = {
   passengers: number
   bags: number
   doors: number
+  image_url: string
+}
+
+export interface IBikeCard {
+  id: string
+  name: string
+  price_per_day: number
+  range: number
+  top_speed: number
+  weight: number
+  image_url: string
+}
+
+export interface IScooterCard {
+  id: string
+  name: string
+  price_per_day: number
+  top_speed: number
+  max_weight: number
+  range: number
   image_url: string
 }

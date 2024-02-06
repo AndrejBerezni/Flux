@@ -4,13 +4,13 @@ import { GiCarDoor } from 'react-icons/gi'
 import { IoPeopleSharp } from 'react-icons/io5'
 import { TbAutomaticGearbox, TbLuggage, TbManualGearbox } from 'react-icons/tb'
 
-import { CarCard } from '@/lib/definitions'
+import { ICarCard } from '@/lib/definitions'
 
-export default function VehicleCard({
+export default function CarCard({
   vehicle,
   days,
 }: {
-  vehicle: CarCard
+  vehicle: ICarCard
   days: number
 }) {
   const carDetails = [

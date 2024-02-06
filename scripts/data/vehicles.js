@@ -39,4 +39,30 @@ const carDetailsIds = [
   'b811acc0-7af0-41be-9fd8-b691220c1531',
 ]
 
-module.exports = { carDetailsIds, locationIds }
+const bikeDetailsIds = [
+  '59f3496e-71c9-4882-ad77-053cf3b9037b',
+  'ae604061-d077-4209-aea2-2c041c92f064',
+  '5cb16183-0c9d-4d57-9599-aad884dac134',
+  'ebee7465-ea40-4145-8a8b-a1c58b75adb8',
+  'ae8286d2-02a2-4e94-9381-efb422405798',
+  'e668bf3e-79d0-4642-a265-5bf524b93b4f',
+  '03a094f1-56c3-40a6-b654-4d31852a33b7',
+  'f8220941-2928-447b-8bc6-4ff4e88054ea',
+  '3ae2d08a-32a2-47bd-bb77-292320ea70bf',
+  '96c82db9-720e-4eb2-9463-d548eaa80a3d',
+]
+
+const scooterDetailsIds = [
+  '817d1338-118c-4c38-9eef-dc85bb8052c6',
+  '516b9109-f36d-42df-911c-614d954ea933',
+  'a9d16ddd-f06b-4856-abca-6dcbfec5f36d',
+  'c8ae01c4-7a6e-41b4-a2ea-4d43b77978bd',
+  '0f329db5-3481-49da-9ddf-739c16e3fbb3',
+]
+
+module.exports = {
+  carDetailsIds,
+  bikeDetailsIds,
+  scooterDetailsIds,
+  locationIds,
+}

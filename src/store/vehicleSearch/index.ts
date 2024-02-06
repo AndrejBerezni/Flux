@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { VehicleType } from '@/compiler/types'
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 import { checkIfWeekend } from '@/utilities/checkIfWeekend'
 import { formatHour } from '@/utilities/formatHour'
 
@@ -14,8 +14,8 @@ export const returnDefault = new Date(
 
 export interface IVehicleSearchState {
   vehicle: VehicleType
-  pickupLocation: Location | null
-  returnLocation: Location | null
+  pickupLocation: ILocation | null
+  returnLocation: ILocation | null
   sameReturn: boolean
   pickupDate: string
   returnDate: string
@@ -45,7 +45,7 @@ export const vehicleSearchSlice = createSlice({
       state,
       action: {
         payload: {
-          location: Location
+          location: ILocation
           variant: 'pickupLocation' | 'returnLocation'
         }
         type: string

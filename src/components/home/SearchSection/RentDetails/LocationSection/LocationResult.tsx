@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { roboto } from '@/app/fonts'
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 
 import LocationInformation from './LocationInformation'
 
@@ -11,7 +11,7 @@ export default function LocationResult({
   locationIcon,
   handleClick,
 }: {
-  location?: Location
+  location?: ILocation
   locationName?: string
   locationIcon: React.ReactNode
   handleClick: () => void

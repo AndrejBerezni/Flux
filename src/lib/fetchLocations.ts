@@ -1,12 +1,12 @@
 import { sql } from '@vercel/postgres'
 
-import { Location } from './definitions'
+import { ILocation } from './definitions'
 
 export const fetchLocations = async (
   searchTerm: string
-): Promise<Location[]> => {
+): Promise<ILocation[]> => {
   try {
-    const data = await sql<Location>`
+    const data = await sql<ILocation>`
         SELECT *
         FROM locations
         WHERE locations.name ILIKE '%' || ${searchTerm} || '%'
@@ -25,7 +25,7 @@ export const fetchNearbyLocations = async (
   userLongitude: number
 ) => {
   try {
-    const data = await sql<Location>`
+    const data = await sql<ILocation>`
     SELECT *
     FROM locations
     WHERE 6371 * 

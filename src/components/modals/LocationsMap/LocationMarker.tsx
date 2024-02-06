@@ -2,7 +2,7 @@ import { OverlayView } from '@react-google-maps/api'
 import { useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
 import { setLocation } from '@/store/vehicleSearch'
 
@@ -11,7 +11,7 @@ export default function LocationMarker({
   location,
 }: {
   position: { lat: number; lng: number }
-  location: Location
+  location: ILocation
 }) {
   const dispatch = useDispatch()
 

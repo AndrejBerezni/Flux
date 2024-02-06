@@ -9,7 +9,7 @@ import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
 
 import useClearParams from '@/hooks/useClearParams'
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 import { hideSecondaryModal, showSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { setSameReturn, setLocation } from '@/store/vehicleSearch'
@@ -23,7 +23,7 @@ export default function LocationSearchResultBox({
   locations,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
-  locations: Location[]
+  locations: ILocation[]
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
@@ -33,7 +33,7 @@ export default function LocationSearchResultBox({
   const pathname = usePathname()
   const { replace } = useRouter()
 
-  const handleStoreUpdate = (location: Location) => {
+  const handleStoreUpdate = (location: ILocation) => {
     //prevent having same value in two input fields - rather set sameReturn to true and have only 'Pick-up & return' input field displayed
     if (
       variant === 'returnLocation' &&
@@ -53,7 +53,7 @@ export default function LocationSearchResultBox({
     dispatch(setLocation({ location, variant }))
   }
 
-  const handleResultClick = (location: Location) => {
+  const handleResultClick = (location: ILocation) => {
     handleStoreUpdate(location)
     dispatch(hideSecondaryModal())
     clearParams(variant)

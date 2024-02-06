@@ -1,9 +1,16 @@
 const { db } = require('@vercel/postgres')
 
-const { carImages } = require('./data/carImages.js')
-const { carDetailsIds, locationIds } = require('./data/cars.js')
+const { bikesDetails } = require('./data/bikesDetails.js')
 const { carsDetails } = require('./data/carsDetails.js')
+const { carImages, bikeImages, scooterImages } = require('./data/images.js')
 const { locations } = require('./data/locations.js')
+const { scootersDetails } = require('./data/scootersDetails.js')
+const {
+  carDetailsIds,
+  bikeDetailsIds,
+  scooterDetailsIds,
+  locationIds,
+} = require('./data/vehicles.js')
 
 async function seedLocations(client) {
   try {
@@ -54,7 +61,7 @@ async function seedVehiclesCars(client) {
         carDetailsIds.map(
           (car) => client.sql`
           INSERT INTO vehicles (type, vehicle_details, location)
-          VALUES ('car', ${car}, ${location})
+          VALUES ('cars', ${car}, ${location})
           ON CONFLICT (id) DO NOTHING;
           `
         )
@@ -91,6 +98,136 @@ async function seedCarImages(client) {
   }
 }
 
+async function seedBikesDetails(client) {
+  try {
+    const insertedBikesDetails = await Promise.all(
+      bikesDetails.map(
+        (bike) => client.sql`
+            INSERT INTO bikes_details (name, price_per_day, range, top_speed, weight)
+            VALUES (${bike.name}, ${bike.price_per_day}, ${bike.range}, ${bike.top_speed}, ${bike.weight})
+            ON CONFLICT (id) DO NOTHING;
+            `
+      )
+    )
+
+    console.log(`Seeded ${insertedBikesDetails.length} bike details`)
+
+    return insertedBikesDetails
+  } catch (error) {
+    console.error('Error seeding bike details:', error)
+    throw error
+  }
+}
+
+async function seedVehiclesBikes(client) {
+  try {
+    const insertedBikes = await Promise.all(
+      locationIds.flatMap((location) =>
+        bikeDetailsIds.map(
+          (bike) => client.sql`
+          INSERT INTO vehicles (type, vehicle_details, location)
+          VALUES ('bikes', ${bike}, ${location})
+          ON CONFLICT (id) DO NOTHING;
+          `
+        )
+      )
+    )
+
+    console.log(`Seeded ${insertedBikes.length} bikes`)
+
+    return insertedBikes
+  } catch (error) {
+    console.error('Error seeding bikes:', error)
+    throw error
+  }
+}
+
+async function seedBikeImages(client) {
+  try {
+    const insertedBikeImages = await Promise.all(
+      bikeImages.map(
+        (img) => client.sql`
+            INSERT INTO vehicle_images (vehicle_id, image_url, main_image)
+            VALUES (${img.vehicle_id}, ${img.image_url}, ${img.main_image})
+            ON CONFLICT (id) DO NOTHING;
+            `
+      )
+    )
+
+    console.log(`Seeded ${insertedBikeImages.length} bike images`)
+
+    return insertedBikeImages
+  } catch (error) {
+    console.error('Error seeding bike images:', error)
+    throw error
+  }
+}
+
+async function seedScootersDetails(client) {
+  try {
+    const insertedScootersDetails = await Promise.all(
+      scootersDetails.map(
+        (scooter) => client.sql`
+            INSERT INTO scooters_details (name, price_per_day, top_speed, max_weight, range)
+            VALUES (${scooter.name}, ${scooter.price_per_day}, ${scooter.top_speed}, ${scooter.max_weight}, ${scooter.range})
+            ON CONFLICT (id) DO NOTHING;
+            `
+      )
+    )
+
+    console.log(`Seeded ${insertedScootersDetails.length} scooter details`)
+
+    return insertedScootersDetails
+  } catch (error) {
+    console.error('Error seeding scooter details:', error)
+    throw error
+  }
+}
+
+async function seedVehiclesScooters(client) {
+  try {
+    const insertedScooters = await Promise.all(
+      locationIds.flatMap((location) =>
+        scooterDetailsIds.map(
+          (scooter) => client.sql`
+          INSERT INTO vehicles (type, vehicle_details, location)
+          VALUES ('scooters', ${scooter}, ${location})
+          ON CONFLICT (id) DO NOTHING;
+          `
+        )
+      )
+    )
+
+    console.log(`Seeded ${insertedScooters.length} scooters`)
+
+    return insertedScooters
+  } catch (error) {
+    console.error('Error seeding scooters:', error)
+    throw error
+  }
+}
+
+async function seedScooterImages(client) {
+  try {
+    const insertedScooterImages = await Promise.all(
+      scooterImages.map(
+        (img) => client.sql`
+            INSERT INTO vehicle_images (vehicle_id, image_url, main_image)
+            VALUES (${img.vehicle_id}, ${img.image_url}, ${img.main_image})
+            ON CONFLICT (id) DO NOTHING;
+            `
+      )
+    )
+
+    console.log(`Seeded ${insertedScooterImages.length} scooter images`)
+
+    return insertedScooterImages
+  } catch (error) {
+    console.error('Error seeding scooter images:', error)
+    throw error
+  }
+}
+
 async function main() {
   const client = await db.connect()
 
@@ -98,6 +235,12 @@ async function main() {
   await seedCarsDetails(client)
   await seedVehiclesCars(client)
   await seedCarImages(client)
+  await seedBikesDetails(client)
+  await seedScootersDetails(client)
+  await seedVehiclesBikes(client)
+  await seedVehiclesScooters(client)
+  await seedBikeImages(client)
+  await seedScooterImages(client)
 
   await client.end()
 }

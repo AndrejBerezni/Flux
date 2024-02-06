@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
 import Spinner from '@/components/Spinner'
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -20,7 +20,7 @@ export default function LocationsMap({
   userLatitude,
   userLongitude,
 }: {
-  locations: Location[]
+  locations: ILocation[]
   userLatitude: string
   userLongitude: string
 }) {

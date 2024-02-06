@@ -1,6 +1,11 @@
 import { VehicleType } from '@/compiler/types'
-import VehicleCard from '@/components/vehicles/VehicleCard'
-import { fetchCars } from '@/lib/fetchVehicles'
+import BikeCard from '@/components/vehicles/BikeCard'
+import CarCard from '@/components/vehicles/CarCard'
+import ScooterCard from '@/components/vehicles/ScooterCard'
+import { IBikeCard, ICarCard, IScooterCard } from '@/lib/definitions'
+import { fetchCars, fetchBikes, fetchScooters } from '@/lib/fetchVehicles'
+
+export const fetchCache = 'force-no-store'
 
 export default async function Vehicles({
   searchParams,
@@ -9,11 +14,11 @@ export default async function Vehicles({
     pickupLocation?: string
     pickupDate?: string
     returnDate?: string
-    type?: VehicleType
+    vehicleType?: VehicleType
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
-  const type = searchParams?.type || 'cars'
+  const vehicleType = searchParams?.vehicleType || 'cars'
   const pickupDate = searchParams?.pickupDate
     ? new Date(searchParams?.pickupDate)
     : new Date()
@@ -23,12 +28,53 @@ export default async function Vehicles({
   const numberOfDays =
     (returnDate.getTime() - pickupDate.getTime()) / (1000 * 3600 * 24)
 
-  const cars = await fetchCars(pickupLocation, type)
+  const fetchVehicles = async (vehicleType: VehicleType) => {
+    let vehicles
+    switch (vehicleType) {
+      case 'cars':
+        vehicles = await fetchCars(pickupLocation)
+        break
+      case 'bikes':
+        vehicles = await fetchBikes(pickupLocation)
+        break
+      case 'scooters':
+        vehicles = await fetchScooters(pickupLocation)
+        break
+    }
+    return vehicles
+  }
+
+  const vehicles = await fetchVehicles(vehicleType)
   return (
     <main className="grid flex-1 grid-cols-1 flex-wrap gap-6 md:grid-cols-2 min-[1420px]:grid-cols-3">
-      {cars.map((car) => (
-        <VehicleCard key={`${car.id}-vc`} vehicle={car} days={numberOfDays} />
-      ))}
+      {vehicles.map((vehicle) => {
+        switch (vehicleType) {
+          case 'cars':
+            return (
+              <CarCard
+                key={`${vehicle.id}-vc`}
+                vehicle={vehicle as ICarCard}
+                days={numberOfDays}
+              />
+            )
+          case 'bikes':
+            return (
+              <BikeCard
+                key={`${vehicle.id}-vc`}
+                vehicle={vehicle as IBikeCard}
+                days={numberOfDays}
+              />
+            )
+          case 'scooters':
+            return (
+              <ScooterCard
+                key={`${vehicle.id}-vc`}
+                vehicle={vehicle as IScooterCard}
+                days={numberOfDays}
+              />
+            )
+        }
+      })}
     </main>
   )
 }

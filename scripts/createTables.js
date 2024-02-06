@@ -132,7 +132,10 @@ async function createBikesDetailsTable(client) {
             CREATE TABLE IF NOT EXISTS bikes_details (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                price_per_day NUMERIC NOT NULL
+                price_per_day NUMERIC NOT NULL,
+                range NUMERIC NOT NULL,
+                top_speed NUMERIC NOT NULL,
+                weight NUMERIC NOT NULL
             );`
 
     return createTable
@@ -148,7 +151,10 @@ async function createScootersDetailsTable(client) {
             CREATE TABLE IF NOT EXISTS scooters_details (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                price_per_day NUMERIC NOT NULL
+                price_per_day NUMERIC NOT NULL,
+                top_speed NUMERIC NOT NULL,
+                max_weight NUMERIC NOT NULL,
+                range NUMERIC NOT NULL
             );`
 
     return createTable
@@ -277,11 +283,11 @@ main().catch((err) =>
 // async function deleteTable() {
 //   const client = await db.connect()
 //   await client.sql`
-//               DROP TABLE IF EXISTS cars_details
+//               DROP TABLE IF EXISTS scooters_details
 //               `
 //   await client.end()
 // }
 
 // deleteTable().catch((err) =>
-//   console.error('error occured while creating tables:', err)
+//   console.error('error occured while deleting tables:', err)
 // )

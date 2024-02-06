@@ -1,14 +1,14 @@
 'use client'
 import clsx from 'clsx'
 
-import { Location } from '@/lib/definitions'
+import { ILocation } from '@/lib/definitions'
 import { formatHour } from '@/utilities/formatHour'
 
 export default function LocationInformation({
   location,
   visible,
 }: {
-  location: Location
+  location: ILocation
   visible: boolean
 }) {
   return (

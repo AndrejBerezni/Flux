@@ -22,7 +22,7 @@ export default function VehicleSearchSubmit() {
       vehicleSearch.vehicle
     ) {
       router.push(
-        `/vehicles?pickupLocation=${vehicleSearch.pickupLocation.id}&pickupDate=${vehicleSearch.pickupDate}&returnDate=${vehicleSearch.returnDate}&type=${vehicleSearch.vehicle}`
+        `/vehicles?pickupLocation=${vehicleSearch.pickupLocation.id}&pickupDate=${vehicleSearch.pickupDate}&returnDate=${vehicleSearch.returnDate}&vehicleType=${vehicleSearch.vehicle}`
       )
     } else {
       throw new Error('Information missing to submit search form')

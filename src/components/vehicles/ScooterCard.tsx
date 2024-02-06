@@ -41,8 +41,8 @@ export default function ScooterCard({
       <Image
         src={vehicle.image_url}
         alt={`${vehicle.name}`}
-        width={260}
-        height={300}
+        width={220}
+        height={220}
       />
       <div className="flex w-full justify-around">
         {scooterDetails.map((detail) => (

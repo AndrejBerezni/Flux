@@ -103,6 +103,15 @@ export const vehicleSearchSlice = createSlice({
         updateTime('opening_hour_working_day', 'closing_hour_working_day')
       }
     },
+    removeLocation: (
+      state,
+      action: {
+        payload: 'pickupLocation' | 'returnLocation'
+        type: string
+      }
+    ) => {
+      state[action.payload] = null
+    },
     setSameReturn: (state) => {
       state.sameReturn = true
       state.returnLocation = null
@@ -128,6 +137,7 @@ export const vehicleSearchSlice = createSlice({
 export const {
   setVehicle,
   setLocation,
+  removeLocation,
   setPickupDate,
   setPickupTime,
   setReturnDate,

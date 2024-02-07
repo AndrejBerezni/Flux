@@ -1,8 +1,5 @@
 import { VehicleType } from '@/compiler/types'
-import BikeCard from '@/components/vehicles/BikeCard'
-import CarCard from '@/components/vehicles/CarCard'
-import ScooterCard from '@/components/vehicles/ScooterCard'
-import { IBikeCard, ICarCard, IScooterCard } from '@/lib/definitions'
+import VehicleCard from '@/components/vehicles/VehicleCard'
 import { fetchCars, fetchBikes, fetchScooters } from '@/lib/fetchVehicles'
 
 export const fetchCache = 'force-no-store'
@@ -47,34 +44,14 @@ export default async function Vehicles({
   const vehicles = await fetchVehicles(vehicleType)
   return (
     <main className="grid flex-1 grid-cols-1 flex-wrap gap-6 md:grid-cols-2 min-[1420px]:grid-cols-3">
-      {vehicles.map((vehicle) => {
-        switch (vehicleType) {
-          case 'cars':
-            return (
-              <CarCard
-                key={`${vehicle.id}-vc`}
-                vehicle={vehicle as ICarCard}
-                days={numberOfDays}
-              />
-            )
-          case 'bikes':
-            return (
-              <BikeCard
-                key={`${vehicle.id}-vc`}
-                vehicle={vehicle as IBikeCard}
-                days={numberOfDays}
-              />
-            )
-          case 'scooters':
-            return (
-              <ScooterCard
-                key={`${vehicle.id}-vc`}
-                vehicle={vehicle as IScooterCard}
-                days={numberOfDays}
-              />
-            )
-        }
-      })}
+      {vehicles.map((vehicle) => (
+        <VehicleCard
+          key={`${vehicle.id}-vc`}
+          vehicle={vehicle}
+          vehicleType={vehicleType}
+          days={numberOfDays}
+        />
+      ))}
     </main>
   )
 }

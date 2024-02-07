@@ -108,7 +108,7 @@ export default function VehicleProperties({
         vehicleDetails.map((detail) => (
           <div
             key={detail.key}
-            className="flex flex-col items-center gap-1 text-xl font-semibold max-[300px]:text-base "
+            className="flex flex-col items-center gap-1 text-lg font-semibold max-[300px]:text-base lg:text-xl "
           >
             {detail.icon}
             <p className="text-base capitalize hover:cursor-default max-[300px]:text-sm">
@@ -121,7 +121,7 @@ export default function VehicleProperties({
           <abbr
             title={'explanation' in detail ? detail.explanation : ''}
             key={detail.key}
-            className="flex flex-col items-center gap-1 text-xl font-semibold no-underline max-[300px]:text-base "
+            className="flex flex-col items-center gap-1 text-lg font-semibold no-underline max-[300px]:text-base lg:text-xl "
           >
             {detail.icon}
             <p className="text-center text-base hover:cursor-default max-[300px]:text-sm">

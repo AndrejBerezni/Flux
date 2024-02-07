@@ -38,7 +38,7 @@ export default function LocationSearchInput({
       params.delete(variant)
     }
     replace(`${pathname}?${params.toString()}`)
-  }, 500)
+  }, 600)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)

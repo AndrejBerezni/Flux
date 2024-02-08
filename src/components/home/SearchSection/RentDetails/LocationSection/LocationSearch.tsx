@@ -13,7 +13,6 @@ export default async function LocationSearch({
   const searchLocations = async (searchTerm: string) => {
     if (searchTerm.length > 2) {
       const results = fetchLocations(searchTerm)
-      console.log('searching')
       return results
     } else {
       return []

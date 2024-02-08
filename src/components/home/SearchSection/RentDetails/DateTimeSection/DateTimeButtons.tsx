@@ -25,7 +25,7 @@ export default function DateTimeButtons({
       </p>
       <button
         type="button"
-        className="flex flex-1 items-center gap-4 text-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
+        className="flex flex-1 items-center gap-4 whitespace-nowrap rounded-l-lg border-[1px] border-solid border-tertiary py-3 pl-2 pr-6 hover:bg-quaternary"
         onClick={() =>
           dispatch(
             showSecondaryModal({

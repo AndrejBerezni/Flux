@@ -1,0 +1,44 @@
+/* slider thumb */
+input[type='range']::-webkit-slider-runnable-track {
+  background-color: #c9c9cf;
+  height: 6px;
+  border-radius: 5px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  background-color: #ffffff;
+  height: 30px;
+  border-radius: 20px;
+  border: 2px solid #ff5f00;
+  width: 1rem;
+  margin-top: -12px;
+}
+
+input[type='range']:focus::-webkit-slider-thumb {
+  box-shadow: 0px 0px 3px #828287;
+}
+
+/******** Firefox styles ********/
+/* slider track */
+input[type='range']::-moz-range-track {
+  background-color: #c9c9cf;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type='range']::-moz-range-thumb {
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0; /*Removes default border-radius that FF applies*/
+  background-color: #ffffff;
+  height: 30px;
+  border-radius: 20px;
+  border: 2px solid #ff5f00;
+  width: 1rem;
+}
+
+input[type='range']:focus::-moz-range-thumb {
+  box-shadow: 0px 0px 3px #828287;
+}

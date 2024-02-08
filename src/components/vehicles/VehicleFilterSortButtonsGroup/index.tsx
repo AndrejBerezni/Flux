@@ -1,6 +1,7 @@
-import VehicleFilterSortButton from './VehicleFilterSortButton'
 import { MdOutlineFilterList } from 'react-icons/md'
 import { TiArrowUnsorted } from 'react-icons/ti'
+
+import VehicleFilterSortButton from './VehicleFilterSortButton'
 
 export default function VehicleFilterSortButtonsGroup() {
   const buttons = [

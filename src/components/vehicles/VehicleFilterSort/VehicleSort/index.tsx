@@ -4,9 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
-import RangeFilter from './RangeFilter'
-
-export default function VehicleFilters() {
+export default function VehicleSort() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 
@@ -15,22 +13,19 @@ export default function VehicleFilters() {
       className={clsx(
         'h-fit w-full flex-col items-center bg-white px-3 py-6 md:items-start md:shadow-lg',
         {
-          'hidden md:flex': modal.modalType !== 'vehicleFilters',
-          flex: modal.modalType === 'vehicleFilters',
+          'hidden md:flex': modal.modalType !== 'sortVehicles',
+          flex: modal.modalType === 'sortVehicles',
         }
       )}
     >
       <h2 className="mb-1 text-xl font-extrabold uppercase tracking-wider">
-        Filters
+        Sort
       </h2>
-      <RangeFilter labelText="passengers" filterValues={[2, 4, 5, 7]} />
-      <RangeFilter labelText="doors" filterValues={[2, 3, 4, 5]} />
-      <RangeFilter labelText="bags" filterValues={[1, 2, 3]} />
       <button
         className="btn-primary mt-12 sm:w-1/2 md:hidden"
         onClick={() => dispatch(hideModal())}
       >
-        Filter vehicles
+        Sort vehicles
       </button>
     </fieldset>
   )

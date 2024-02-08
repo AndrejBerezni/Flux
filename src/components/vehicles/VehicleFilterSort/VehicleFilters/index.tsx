@@ -10,6 +10,12 @@ export default function VehicleFilters() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 
+  const filters = [
+    { labelText: 'passengers', filterValues: [2, 4, 5, 7] },
+    { labelText: 'doors', filterValues: [2, 3, 4, 5] },
+    { labelText: 'bags', filterValues: [1, 2, 3] },
+  ]
+
   return (
     <fieldset
       className={clsx(
@@ -23,9 +29,13 @@ export default function VehicleFilters() {
       <h2 className="mb-1 text-xl font-extrabold uppercase tracking-wider">
         Filters
       </h2>
-      <RangeFilter labelText="passengers" filterValues={[2, 4, 5, 7]} />
-      <RangeFilter labelText="doors" filterValues={[2, 3, 4, 5]} />
-      <RangeFilter labelText="bags" filterValues={[1, 2, 3]} />
+      {filters.map((filter) => (
+        <RangeFilter
+          key={`${filter.labelText}-filter`}
+          labelText={filter.labelText}
+          filterValues={filter.filterValues}
+        />
+      ))}
       <button
         className="btn-primary mt-12 sm:w-1/2 md:hidden"
         onClick={() => dispatch(hideModal())}

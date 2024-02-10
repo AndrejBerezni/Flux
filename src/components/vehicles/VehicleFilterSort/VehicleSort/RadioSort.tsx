@@ -18,7 +18,7 @@ export default function RadioSort({
         type="radio"
         value={sortValue}
         name={name}
-        checked
+        defaultChecked
         className="peer hover:cursor-pointer"
       />
       <label

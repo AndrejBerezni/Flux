@@ -6,6 +6,8 @@ import { getModalInfo } from '@/store/modal/selectors'
 
 import VehicleFilters from './VehicleFilters'
 import VehicleSort from './VehicleSort'
+import { Suspense } from 'react'
+import Spinner from '@/components/Spinner'
 
 export default function VehicleFilterSort() {
   const modal = useSelector(getModalInfo)
@@ -23,7 +25,9 @@ export default function VehicleFilterSort() {
         }
       )}
     >
-      <VehicleFilters />
+      <Suspense fallback={<Spinner />}>
+        <VehicleFilters />
+      </Suspense>
       <VehicleSort />
     </section>
   )

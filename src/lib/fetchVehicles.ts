@@ -18,7 +18,8 @@ export const fetchCars = async (
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='cars'
           GROUP BY cars_details.id,
-          vehicle_images.image_url;
+          vehicle_images.image_url
+          ORDER BY cars_details.price_per_day;
           `
     const result = await Promise.all(
       data.rows.map(async (car) => {
@@ -47,7 +48,8 @@ export const fetchBikes = async (
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='bikes'
           GROUP BY bikes_details.id,
-          vehicle_images.image_url;
+          vehicle_images.image_url
+          ORDER BY bikes_details.price_per_day;
           `
     const result = await Promise.all(
       data.rows.map(async (bike) => {
@@ -76,7 +78,8 @@ export const fetchScooters = async (
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='scooters'
           GROUP BY scooters_details.id,
-          vehicle_images.image_url;
+          vehicle_images.image_url
+          ORDER BY scooters_details.price_per_day;
           `
     const result = await Promise.all(
       data.rows.map(async (scooter) => {

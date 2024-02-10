@@ -15,7 +15,7 @@ export default async function LocationSearch({
       const results = fetchLocations(searchTerm)
       return results
     } else {
-      return []
+      return null
     }
   }
   const locations = await searchLocations(searchTerm)

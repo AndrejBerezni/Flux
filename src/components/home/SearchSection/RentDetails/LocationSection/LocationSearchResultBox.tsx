@@ -23,7 +23,7 @@ export default function LocationSearchResultBox({
   locations,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
-  locations: ILocation[]
+  locations: ILocation[] | null
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
@@ -141,7 +141,7 @@ export default function LocationSearchResultBox({
           }}
         />
       )}
-      {locations &&
+      {locations && locations.length > 0 ? (
         locations.map((location) => (
           <LocationResult
             key={location.id}
@@ -155,7 +155,12 @@ export default function LocationSearchResultBox({
             location={location}
             handleClick={() => handleResultClick(location)}
           />
-        ))}
+        ))
+      ) : locations && locations.length === 0 ? (
+        <p className="absolute left-1/2 top-1/4 -translate-x-1/2 text-center font-semibold">
+          No locations found that match your criteria
+        </p>
+      ) : null}
     </div>
   )
 }

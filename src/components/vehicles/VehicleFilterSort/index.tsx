@@ -1,13 +1,14 @@
 'use client'
+import { Suspense } from 'react'
+
 import clsx from 'clsx'
 import { useSelector } from 'react-redux'
 
+import Spinner from '@/components/Spinner'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import VehicleFilters from './VehicleFilters'
 import VehicleSort from './VehicleSort'
-import { Suspense } from 'react'
-import Spinner from '@/components/Spinner'
 
 export default function VehicleFilterSort() {
   const modal = useSelector(getModalInfo)

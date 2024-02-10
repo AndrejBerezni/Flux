@@ -12,10 +12,26 @@ export default async function Vehicles({
     pickupDate?: string
     returnDate?: string
     vehicleType?: VehicleType
+    passengers?: string
+    doors?: string
+    bags?: string
+    top_speed?: string
+    range?: string
+    weight?: string
+    max_weight?: string
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
   const vehicleType = searchParams?.vehicleType || 'cars'
+
+  const passengers = searchParams?.passengers || '2'
+  const doors = searchParams?.doors || '2'
+  const bags = searchParams?.bags || '1'
+  const top_speed = searchParams?.top_speed || '50'
+  const range = searchParams?.range || '50'
+  const weight = searchParams?.weight || '100'
+  const max_weight = searchParams?.max_weight || '80'
+
   const pickupDate = searchParams?.pickupDate
     ? new Date(searchParams?.pickupDate)
     : new Date()
@@ -29,13 +45,18 @@ export default async function Vehicles({
     let vehicles
     switch (vehicleType) {
       case 'cars':
-        vehicles = await fetchCars(pickupLocation)
+        vehicles = await fetchCars(pickupLocation, passengers, doors, bags)
         break
       case 'bikes':
-        vehicles = await fetchBikes(pickupLocation)
+        vehicles = await fetchBikes(pickupLocation, top_speed, weight, range)
         break
       case 'scooters':
-        vehicles = await fetchScooters(pickupLocation)
+        vehicles = await fetchScooters(
+          pickupLocation,
+          top_speed,
+          max_weight,
+          range
+        )
         break
     }
     return vehicles

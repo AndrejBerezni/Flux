@@ -8,6 +8,13 @@ export default function VehicleSearchSubmit() {
   const router = useRouter()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
 
+  //Depending on the vehicle type, pass parameters for filtering vehicle
+  const filtersQuery = {
+    cars: `passengers=2&doors=2&bags=1`,
+    bikes: `range=50&top_speed=50&weight=100`,
+    scooters: `range=20&top_speed=25&max_weight=80`,
+  }
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     if (
@@ -22,7 +29,13 @@ export default function VehicleSearchSubmit() {
       vehicleSearch.vehicle
     ) {
       router.push(
-        `/vehicles?pickupLocation=${vehicleSearch.pickupLocation.id}&pickupDate=${vehicleSearch.pickupDate}&returnDate=${vehicleSearch.returnDate}&vehicleType=${vehicleSearch.vehicle}`
+        `/vehicles?pickupLocation=${
+          vehicleSearch.pickupLocation.id
+        }&pickupDate=${vehicleSearch.pickupDate}&returnDate=${
+          vehicleSearch.returnDate
+        }&vehicleType=${vehicleSearch.vehicle}&${
+          filtersQuery[vehicleSearch.vehicle]
+        }`
       )
     } else {
       throw new Error('Information missing to submit search form')

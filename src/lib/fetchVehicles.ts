@@ -5,7 +5,10 @@ import { getImageURL } from '@/firebase/storage'
 import { IBikeCard, ICarCard, IScooterCard } from './definitions'
 
 export const fetchCars = async (
-  pickupLocation: string
+  pickupLocation: string,
+  passengers: string,
+  doors: string,
+  bags: string
 ): Promise<ICarCard[]> => {
   try {
     const data = await sql<ICarCard>`
@@ -17,6 +20,9 @@ export const fetchCars = async (
           ON vehicle_images.vehicle_id = cars_details.id::varchar
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='cars'
+          AND cars_details.passengers >=${passengers}
+          AND cars_details.doors >=${doors}
+          AND cars_details.bags >=${bags}
           GROUP BY cars_details.id,
           vehicle_images.image_url
           ORDER BY cars_details.price_per_day;
@@ -35,7 +41,10 @@ export const fetchCars = async (
 }
 
 export const fetchBikes = async (
-  pickupLocation: string
+  pickupLocation: string,
+  top_speed: string,
+  weight: string,
+  range: string
 ): Promise<IBikeCard[]> => {
   try {
     const data = await sql<IBikeCard>`
@@ -47,6 +56,9 @@ export const fetchBikes = async (
           ON vehicle_images.vehicle_id = bikes_details.id::varchar
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='bikes'
+          AND bikes_details.top_speed >=${top_speed}
+          AND bikes_details.weight >=${weight}
+          AND bikes_details.range >=${range}
           GROUP BY bikes_details.id,
           vehicle_images.image_url
           ORDER BY bikes_details.price_per_day;
@@ -65,7 +77,10 @@ export const fetchBikes = async (
 }
 
 export const fetchScooters = async (
-  pickupLocation: string
+  pickupLocation: string,
+  top_speed: string,
+  max_weight: string,
+  range: string
 ): Promise<IScooterCard[]> => {
   try {
     const data = await sql<IScooterCard>`
@@ -77,6 +92,9 @@ export const fetchScooters = async (
           ON vehicle_images.vehicle_id = scooters_details.id::varchar
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='scooters'
+          AND scooters_details.top_speed >=${top_speed}
+          AND scooters_details.max_weight >=${max_weight}
+          AND scooters_details.range >=${range}
           GROUP BY scooters_details.id,
           vehicle_images.image_url
           ORDER BY scooters_details.price_per_day;

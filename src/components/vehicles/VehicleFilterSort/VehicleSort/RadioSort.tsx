@@ -1,7 +1,11 @@
-import { useId } from 'react'
+import { useId, useRef } from 'react'
 
+import clsx from 'clsx'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
 import { useDebouncedCallback } from 'use-debounce'
+
+import { hideModal } from '@/store/modal'
 
 export default function RadioSort({
   labelText,
@@ -12,7 +16,11 @@ export default function RadioSort({
   sortValue: string
   name: string
 }) {
+  const dispatch = useDispatch()
+
   const radioId = useId()
+  const inputRef = useRef<HTMLInputElement>(null)
+
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()
@@ -29,19 +37,26 @@ export default function RadioSort({
   }
 
   return (
-    <div className="my-2 flex items-center gap-4">
+    <div className="my-2 flex items-center">
       <input
         id={radioId}
+        ref={inputRef}
         type="radio"
         value={sortValue}
         name={name}
-        defaultChecked
-        className="peer hover:cursor-pointer"
+        className="appearance-none"
         onChange={(e) => handleChange(e)}
       />
       <label
         htmlFor={radioId}
-        className="text-lg font-semibold capitalize duration-200 hover:cursor-pointer hover:text-brand peer-hover:text-brand"
+        className={clsx(
+          'text-lg font-semibold capitalize duration-200 hover:cursor-pointer hover:text-brand',
+          {
+            'text-primary': !inputRef.current?.checked,
+            'text-brand': inputRef.current?.checked,
+          }
+        )}
+        onClick={() => dispatch(hideModal())}
       >
         {labelText}
       </label>

@@ -1,13 +1,11 @@
 import clsx from 'clsx'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import RadioSort from './RadioSort'
 
 export default function VehicleSort() {
-  const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 
   const options = [
@@ -31,7 +29,7 @@ export default function VehicleSort() {
         Sort
       </h2>
       <div className="my-3 h-[1px] w-full bg-tertiary"></div>
-      <div className="flex flex-col-reverse">
+      <div className="flex flex-col-reverse items-center gap-4 md:items-start md:gap-1">
         {options.map((option) => (
           <RadioSort
             key={`${option.sortValue}-radiobtn`}
@@ -41,12 +39,6 @@ export default function VehicleSort() {
           />
         ))}
       </div>
-      <button
-        className="btn-primary mt-12 sm:w-1/2 md:hidden"
-        onClick={() => dispatch(hideModal())}
-      >
-        Sort vehicles
-      </button>
     </fieldset>
   )
 }

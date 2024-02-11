@@ -2,7 +2,7 @@ import { OverlayView } from '@react-google-maps/api'
 import { useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
-import { ILocation } from '@/lib/definitions'
+import { ILocation } from '@/compiler/interfaces'
 import { hideSecondaryModal } from '@/store/modal'
 import { setLocation } from '@/store/vehicleSearch'
 

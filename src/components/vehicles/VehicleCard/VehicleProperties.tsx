@@ -4,8 +4,8 @@ import { IoPeopleSharp } from 'react-icons/io5'
 import { MdOutlineRadar } from 'react-icons/md'
 import { TbAutomaticGearbox, TbLuggage, TbManualGearbox } from 'react-icons/tb'
 
+import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
-import { ICarCard, IBikeCard, IScooterCard } from '@/lib/definitions'
 
 export default function VehicleProperties({
   vehicle,

@@ -1,14 +1,16 @@
 import { sql } from '@vercel/postgres'
 
 import { getImageURL } from '@/firebase/storage'
+import { sortVehicleResults } from '@/utilities/sortVehicleResults'
 
-import { IBikeCard, ICarCard, IScooterCard } from './definitions'
+import { IBikeCard, ICarCard, IScooterCard } from '../compiler/interfaces'
 
 export const fetchCars = async (
   pickupLocation: string,
   passengers: string,
   doors: string,
-  bags: string
+  bags: string,
+  sort: string
 ): Promise<ICarCard[]> => {
   try {
     const data = await sql<ICarCard>`
@@ -33,7 +35,9 @@ export const fetchCars = async (
         return { ...car, image_url: imageURL || '' }
       })
     )
-    return result
+
+    const sortedResult = sortVehicleResults(result, sort, true)
+    return sortedResult as ICarCard[]
   } catch (error) {
     console.error('Error fetching data:', error)
     throw new Error('Failed to search location')
@@ -44,7 +48,8 @@ export const fetchBikes = async (
   pickupLocation: string,
   top_speed: string,
   weight: string,
-  range: string
+  range: string,
+  sort: string
 ): Promise<IBikeCard[]> => {
   try {
     const data = await sql<IBikeCard>`
@@ -60,8 +65,7 @@ export const fetchBikes = async (
           AND bikes_details.weight >=${weight}
           AND bikes_details.range >=${range}
           GROUP BY bikes_details.id,
-          vehicle_images.image_url
-          ORDER BY bikes_details.price_per_day;
+          vehicle_images.image_url;
           `
     const result = await Promise.all(
       data.rows.map(async (bike) => {
@@ -69,7 +73,10 @@ export const fetchBikes = async (
         return { ...bike, image_url: imageURL || '' }
       })
     )
-    return result
+
+    //Postgres was not accepting ORDER BY clause when assigning values dynamically, so I needed to sort results outside of sql query
+    const sortedResult = sortVehicleResults(result, sort, false)
+    return sortedResult as IBikeCard[]
   } catch (error) {
     console.error('Error fetching data:', error)
     throw new Error('Failed to search location')
@@ -80,7 +87,8 @@ export const fetchScooters = async (
   pickupLocation: string,
   top_speed: string,
   max_weight: string,
-  range: string
+  range: string,
+  sort: string
 ): Promise<IScooterCard[]> => {
   try {
     const data = await sql<IScooterCard>`
@@ -105,7 +113,9 @@ export const fetchScooters = async (
         return { ...scooter, image_url: imageURL || '' }
       })
     )
-    return result
+
+    const sortedResult = sortVehicleResults(result, sort, false)
+    return sortedResult as IScooterCard[]
   } catch (error) {
     console.error('Error fetching data:', error)
     throw new Error('Failed to search location')

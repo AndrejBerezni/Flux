@@ -1,7 +1,7 @@
 'use client'
 import clsx from 'clsx'
 
-import { ILocation } from '@/lib/definitions'
+import { ILocation } from '@/compiler/interfaces'
 import { formatHour } from '@/utilities/formatHour'
 
 export default function LocationInformation({

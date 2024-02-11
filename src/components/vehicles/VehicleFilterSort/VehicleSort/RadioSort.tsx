@@ -1,5 +1,8 @@
 import { useId } from 'react'
 
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useDebouncedCallback } from 'use-debounce'
+
 export default function RadioSort({
   labelText,
   sortValue,
@@ -10,6 +13,20 @@ export default function RadioSort({
   name: string
 }) {
   const radioId = useId()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+  const { replace } = useRouter()
+
+  const handleApplySort = useDebouncedCallback((currentValue: string) => {
+    const params = new URLSearchParams(searchParams)
+    params.set('sort', currentValue)
+    replace(`${pathname}?${params.toString()}`)
+  }, 1000)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const currentValue = event.target.value
+    handleApplySort(currentValue)
+  }
 
   return (
     <div className="my-2 flex items-center gap-4">
@@ -20,6 +37,7 @@ export default function RadioSort({
         name={name}
         defaultChecked
         className="peer hover:cursor-pointer"
+        onChange={(e) => handleChange(e)}
       />
       <label
         htmlFor={radioId}
@@ -30,5 +48,3 @@ export default function RadioSort({
     </div>
   )
 }
-
-// text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500  focus:ring-2

@@ -7,8 +7,8 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import { ILocation } from '@/compiler/interfaces'
 import Spinner from '@/components/Spinner'
-import { ILocation } from '@/lib/definitions'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 

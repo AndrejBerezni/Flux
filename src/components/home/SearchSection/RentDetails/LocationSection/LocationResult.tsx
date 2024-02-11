@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { roboto } from '@/app/fonts'
-import { ILocation } from '@/lib/definitions'
+import { ILocation } from '@/compiler/interfaces'
 
 import LocationInformation from './LocationInformation'
 

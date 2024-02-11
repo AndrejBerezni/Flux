@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
-import { ICarCard, IBikeCard, IScooterCard } from '@/lib/definitions'
 
 import VehicleProperties from './VehicleProperties'
 

@@ -29,7 +29,9 @@ export default function VehicleFilterSort() {
       <Suspense fallback={<Spinner />}>
         <VehicleFilters />
       </Suspense>
-      <VehicleSort />
+      <Suspense fallback={<Spinner />}>
+        <VehicleSort />
+      </Suspense>
     </section>
   )
 }

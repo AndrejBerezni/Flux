@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres'
 
-import { ILocation } from './definitions'
+import { ILocation } from '../compiler/interfaces'
 
 export const fetchLocations = async (
   searchTerm: string

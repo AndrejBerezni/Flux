@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { ILocation } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
-import { ILocation } from '@/lib/definitions'
 import { checkIfWeekend } from '@/utilities/checkIfWeekend'
 import { formatHour } from '@/utilities/formatHour'
 

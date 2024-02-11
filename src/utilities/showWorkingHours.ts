@@ -7,8 +7,7 @@ export const showWorkingHours = (
   variant: 'pickupTime' | 'returnTime'
 ): { opening: number; closing: number } => {
   if (
-    (variant === 'pickupTime' ||
-      (variant === 'returnTime' && vehicleSearch.sameReturn)) &&
+    variant === 'pickupTime' &&
     !vehicleSearch.pickupLocation?.always_open &&
     vehicleSearch.pickupLocation
   ) {
@@ -26,10 +25,28 @@ export const showWorkingHours = (
   }
   if (
     variant === 'returnTime' &&
+    vehicleSearch.sameReturn &&
+    !vehicleSearch.pickupLocation?.always_open &&
+    vehicleSearch.pickupLocation
+  ) {
+    if (checkIfWeekend(vehicleSearch.returnDate)) {
+      return {
+        opening: vehicleSearch.pickupLocation.opening_hour_weekend,
+        closing: vehicleSearch.pickupLocation.closing_hour_weekend,
+      }
+    } else {
+      return {
+        opening: vehicleSearch.pickupLocation.opening_hour_working_day,
+        closing: vehicleSearch.pickupLocation.closing_hour_working_day,
+      }
+    }
+  }
+  if (
+    variant === 'returnTime' &&
     !vehicleSearch.returnLocation?.always_open &&
     vehicleSearch.returnLocation
   ) {
-    if (checkIfWeekend(vehicleSearch.pickupDate)) {
+    if (checkIfWeekend(vehicleSearch.returnDate)) {
       return {
         opening: vehicleSearch.returnLocation.opening_hour_weekend,
         closing: vehicleSearch.returnLocation.closing_hour_weekend,

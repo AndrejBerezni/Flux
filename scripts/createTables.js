@@ -283,7 +283,7 @@ main().catch((err) =>
 // async function deleteTable() {
 //   const client = await db.connect()
 //   await client.sql`
-//               DROP TABLE IF EXISTS scooters_details
+//               DROP TABLE IF EXISTS users
 //               `
 //   await client.end()
 // }

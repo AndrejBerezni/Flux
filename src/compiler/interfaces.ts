@@ -47,3 +47,21 @@ export interface IScooterCard {
   range: number
   image_url: string
 }
+
+export interface IUser {
+  id: string
+  first_name: string
+  last_name?: string
+  email: string
+  country_code?: number
+  phone_number?: number
+  street?: string
+  street_number?: number
+  additional_address_line?: string
+  zip_code?: string
+  city?: string
+  country?: string
+  credit_balance: number
+  has_active_subscription: boolean
+  password: string
+}

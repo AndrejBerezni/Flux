@@ -9,6 +9,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import useGoogleAuth from '@/hooks/useGoogleAuth'
 import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -21,6 +22,8 @@ export default function SignIn() {
   const [passwordInput, setPasswordInput] = useState<string>('')
   const [passwordInputVisible, setPasswordInputVisible] =
     useState<boolean>(false)
+
+  const handleGoogleSignIn = useGoogleAuth()
 
   //clean up input fields when modal is closed
   useEffect(() => {
@@ -43,6 +46,7 @@ export default function SignIn() {
         <FaGoogle className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
       ),
       text: 'Continue with Google',
+      handleClick: handleGoogleSignIn,
     },
   ]
 
@@ -65,6 +69,7 @@ export default function SignIn() {
           <ThirdPartyLoginButton
             text={button.text}
             icon={button.icon}
+            handleClick={button.handleClick}
             key={button.text}
           />
         ))}

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 interface IStoreUser {
   uid: string
   name: string
+  email: string
 }
 
 interface IAuthState {
@@ -14,6 +15,7 @@ const initialState: IAuthState = {
   user: {
     uid: '',
     name: '',
+    email: '',
   },
   isAuth: false,
 }

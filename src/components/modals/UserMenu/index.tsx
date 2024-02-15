@@ -6,6 +6,8 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import { signOutUser } from '@/firebase/authentication'
+import { signOut } from '@/store/authentication'
 import { getUserName } from '@/store/authentication/selectors'
 import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
@@ -37,6 +39,12 @@ export default function UserMenu() {
       href: '/:user/details',
     },
   ]
+
+  const handleSignOut = () => {
+    signOutUser()
+    dispatch(signOut())
+    dispatch(hideModal())
+  }
   return (
     <menu
       className={clsx(
@@ -72,7 +80,10 @@ export default function UserMenu() {
         </Link>
       ))}
       <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
-      <button className="flex w-full items-center gap-4 px-8 py-2 text-xl hover:rounded-b-md hover:bg-quaternary sm:text-base">
+      <button
+        className="flex w-full items-center gap-4 px-8 py-2 text-xl hover:rounded-b-md hover:bg-quaternary sm:text-base"
+        onClick={handleSignOut}
+      >
         <FaSignOutAlt />
         Sign out
       </button>

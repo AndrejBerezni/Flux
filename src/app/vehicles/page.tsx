@@ -42,7 +42,7 @@ export default async function Vehicles({
   const numberOfDays =
     (returnDate.getTime() - pickupDate.getTime()) / (1000 * 3600 * 24)
 
-  const sort = searchParams?.sort || 'price_per_day-asc'
+  const sort = searchParams?.sort || 'name-asc'
 
   const fetchVehicles = async (vehicleType: VehicleType) => {
     let vehicles

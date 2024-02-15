@@ -3,7 +3,7 @@ import { useState, ChangeEvent, useEffect } from 'react'
 
 import clsx from 'clsx'
 import Link from 'next/link'
-import { FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa'
+import { FaGoogle } from 'react-icons/fa'
 import { IoCloseSharp } from 'react-icons/io5'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
@@ -36,6 +36,7 @@ export default function SignIn() {
     setPasswordInputVisible(false)
   }
 
+  //doing it this way in case we want to add more authentication methods in the future. Initial idea was to add Facebook and Twitter login too, but they require real business to create app on their platforms
   const buttons = [
     {
       icon: (
@@ -43,23 +44,12 @@ export default function SignIn() {
       ),
       text: 'Continue with Google',
     },
-    {
-      icon: (
-        <FaFacebook className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
-      ),
-      text: 'Continue with Facebook',
-    },
-    {
-      icon: (
-        <FaTwitter className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
-      ),
-      text: 'Continue with Twitter',
-    },
   ]
+
   if (modal.modalType === 'signIn') {
     return (
       <div
-        className={`${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-6 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`}
+        className={`${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-8 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`}
       >
         <button
           type="button"
@@ -68,7 +58,7 @@ export default function SignIn() {
         >
           <IoCloseSharp />
         </button>
-        <h3 className="mb-8 text-center text-xl font-bold hover:cursor-default md:text-start md:text-2xl">
+        <h3 className="mb-4 text-center text-xl font-bold hover:cursor-default md:text-start md:text-2xl">
           Create Account or Sign In
         </h3>
         {buttons.map((button) => (

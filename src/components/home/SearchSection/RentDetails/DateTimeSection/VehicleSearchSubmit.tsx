@@ -35,7 +35,7 @@ export default function VehicleSearchSubmit() {
           vehicleSearch.returnDate
         }&vehicleType=${vehicleSearch.vehicle}&${
           filtersQuery[vehicleSearch.vehicle]
-        }&sort=price_per_day-asc`
+        }&sort=name-asc`
       )
     } else {
       throw new Error('Information missing to submit search form')

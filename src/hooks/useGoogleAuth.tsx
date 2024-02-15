@@ -12,19 +12,47 @@ export default function useGoogleAuth() {
     try {
       const response = await fetch(`/api/auth?email=${googleUser?.email}`)
       const data = await response.json()
-      dispatch(
-        signIn({
-          uid: data.id,
-          name: data.first_name || 'Profile',
-          email: data.email,
+      if (data.message === 'User does not exist') {
+        const userData = {
+          first_name: googleUser?.displayName,
+          email: googleUser?.email,
+        }
+        fetch('api/auth', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(userData),
         })
-      )
-      dispatch(hideModal())
-    } catch (error) {
-      if (error instanceof Error && error.message === 'User not found') {
-        // here to add user
-        console.log('right track')
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Response not ok')
+            }
+            return response.json()
+          })
+          .then((data) => {
+            dispatch(
+              signIn({
+                uid: data.id,
+                name: data.first_name || 'Profile',
+                email: data.email,
+              })
+            )
+            dispatch(hideModal())
+          })
+          .catch((error) => console.error('Error:', error))
+      } else if (data.id) {
+        dispatch(
+          signIn({
+            uid: data.id,
+            name: data.first_name || 'Profile',
+            email: data.email,
+          })
+        )
+        dispatch(hideModal())
       }
+    } catch (error) {
+      console.error('Error:', error)
     }
   }
   return handleGoogleSignIn

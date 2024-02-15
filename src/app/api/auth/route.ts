@@ -11,6 +11,29 @@ export async function GET(request: NextRequest) {
   if (user) {
     return Response.json(user)
   } else {
-    throw new Error('User not found')
+    return Response.json({ message: 'User does not exist' })
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const user = await request.json()
+    const newUser = {
+      first_name: user.first_name,
+      last_name: user.last_name || '',
+      email: user.email,
+    }
+    await sql`INSERT INTO users(first_name, last_name, email)
+    VALUES(${newUser.first_name}, ${newUser.last_name}, ${newUser.email})`
+
+    return new Response(JSON.stringify(newUser), {
+      headers: {
+        'Content-type': 'application/json',
+      },
+      status: 201,
+    })
+  } catch (error) {
+    console.error(error)
+    throw new Error('Unable to create user')
   }
 }

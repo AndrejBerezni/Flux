@@ -8,6 +8,7 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import useEmailAuth from '@/hooks/useEmailAuth'
 import { showModal, hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -19,12 +20,28 @@ export default function SignUp() {
   const [lastName, setLastName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
+  const { handleEmailSignUp } = useEmailAuth()
+
   //clean up input fields when modal is closed
   useEffect(() => {
     setFirstName('')
     setLastName('')
     setPassword('')
   }, [modal.modalType])
+
+  const handleSignUp = async (event: React.FormEvent) => {
+    event.preventDefault()
+    try {
+      await handleEmailSignUp({
+        email: 'andrej@mail.com',
+        first_name: firstName,
+        last_name: lastName,
+        password,
+      })
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   if (modal.modalType === 'signUp') {
     return (
@@ -113,6 +130,7 @@ export default function SignUp() {
             type="submit"
             className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
             disabled={!firstName || !lastName || !password}
+            onClick={async (e) => await handleSignUp(e)}
           >
             Finish
           </button>

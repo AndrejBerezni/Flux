@@ -23,7 +23,7 @@ It is still under construction. Finished functionalities and their explanation y
 - Vercel Postgres - database
 - Tailwind CSS - styling
 - Auth.js - authentication
-- Firebase - image storage
+- Firebase - image storage and authentication
 - Redux toolkit - global state
 
 ## State

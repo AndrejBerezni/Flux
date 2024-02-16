@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 
-import { emailSignIn } from '@/firebase/authentication'
+import { emailSignIn, emailSignUp } from '@/firebase/authentication'
 import { signIn } from '@/store/authentication'
 import { hideModal } from '@/store/modal'
 
@@ -46,5 +46,51 @@ export default function useEmailAuth() {
     }
   }
 
-  return { checkEmail, handleEmailSignIn }
+  const handleEmailSignUp = async (user: {
+    email: string
+    first_name: string
+    last_name: string
+    password: string
+  }) => {
+    try {
+      const newUser = await emailSignUp(user.email, user.password)
+      if (newUser) {
+        const userData = {
+          id: newUser.uid,
+          auth_type: 'email',
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+        }
+        fetch('api/auth', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Response not ok')
+            }
+            return response.json()
+          })
+          .then((data) => {
+            dispatch(
+              signIn({
+                uid: data.id,
+                name: data.first_name || 'Profile',
+                email: data.email,
+              })
+            )
+            dispatch(hideModal())
+          })
+          .catch((error) => console.error('Error:', error))
+      }
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
+
+  return { checkEmail, handleEmailSignIn, handleEmailSignUp }
 }

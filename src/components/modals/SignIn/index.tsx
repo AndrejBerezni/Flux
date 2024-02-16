@@ -40,19 +40,23 @@ export default function SignIn() {
     setPasswordInputVisible(false)
   }
 
-  const handleNextClick = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
-    try {
-      const emailExists = await checkEmail(emailInput)
-      if (emailExists) {
-        setPasswordInputVisible(true)
-      } else if (emailExists === false) {
-        console.log(emailExists)
-        dispatch(showModal({ modalType: 'signUp', outerType: 'visible' }))
+    if (!passwordInputVisible) {
+      try {
+        const emailExists = await checkEmail(emailInput)
+        if (emailExists) {
+          setPasswordInputVisible(true)
+        } else if (emailExists === false) {
+          console.log(emailExists)
+          dispatch(showModal({ modalType: 'signUp', outerType: 'visible' }))
+        }
+        // handle showing error for different auth method here
+      } catch (error) {
+        console.error('Error:', error)
       }
-      // handle showing error for different auth method here
-    } catch (error) {
-      console.error('Error:', error)
+    } else {
+      handleEmailSignIn(emailInput, passwordInput)
     }
   }
 
@@ -156,7 +160,7 @@ export default function SignIn() {
             type="submit"
             className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
             disabled={!emailInput || (passwordInputVisible && !passwordInput)}
-            onClick={async (e) => await handleNextClick(e)}
+            onClick={async (e) => await handleSubmit(e)}
           >
             {passwordInputVisible ? 'Sign In' : 'Next'}
           </button>

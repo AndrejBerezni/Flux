@@ -32,7 +32,7 @@ export const googleSignIn = async () => {
 export const emailSignIn = async (email: string, password: string) => {
   try {
     const newUser = await signInWithEmailAndPassword(auth, email, password)
-    return newUser.user.uid
+    return newUser.user
   } catch (error) {
     if (error instanceof FirebaseError) {
       throw new Error(error.message)

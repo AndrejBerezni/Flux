@@ -9,8 +9,9 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
-import { hideModal } from '@/store/modal'
+import { hideModal, showModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import ThirdPartyLoginButton from './ThirdPartyLoginButton'
@@ -22,7 +23,7 @@ export default function SignIn() {
   const [passwordInput, setPasswordInput] = useState<string>('')
   const [passwordInputVisible, setPasswordInputVisible] =
     useState<boolean>(false)
-
+  const { checkEmail, handleEmailSignIn } = useEmailAuth()
   const handleGoogleSignIn = useGoogleAuth()
 
   //clean up input fields when modal is closed
@@ -37,6 +38,22 @@ export default function SignIn() {
       setPasswordInput('')
     }
     setPasswordInputVisible(false)
+  }
+
+  const handleNextClick = async (event: React.FormEvent) => {
+    event.preventDefault()
+    try {
+      const emailExists = await checkEmail(emailInput)
+      if (emailExists) {
+        setPasswordInputVisible(true)
+      } else if (emailExists === false) {
+        console.log(emailExists)
+        dispatch(showModal({ modalType: 'signUp', outerType: 'visible' }))
+      }
+      // handle showing error for different auth method here
+    } catch (error) {
+      console.error('Error:', error)
+    }
   }
 
   //doing it this way in case we want to add more authentication methods in the future. Initial idea was to add Facebook and Twitter login too, but they require real business to create app on their platforms
@@ -139,7 +156,7 @@ export default function SignIn() {
             type="submit"
             className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
             disabled={!emailInput || (passwordInputVisible && !passwordInput)}
-            onClick={() => setPasswordInputVisible(true)}
+            onClick={async (e) => await handleNextClick(e)}
           >
             {passwordInputVisible ? 'Sign In' : 'Next'}
           </button>

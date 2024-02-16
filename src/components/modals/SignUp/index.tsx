@@ -39,7 +39,9 @@ export default function SignUp() {
       >
         <button
           className="absolute left-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
-          onClick={() => dispatch(showModal('signIn'))}
+          onClick={() =>
+            dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
+          }
         >
           <IoIosArrowBack />
         </button>

@@ -14,6 +14,8 @@ export default function useGoogleAuth() {
       const data = await response.json()
       if (data.message === 'User does not exist') {
         const userData = {
+          id: googleUser?.uid,
+          auth_type: 'google',
           first_name: googleUser?.displayName,
           email: googleUser?.email,
         }
@@ -41,7 +43,7 @@ export default function useGoogleAuth() {
             dispatch(hideModal())
           })
           .catch((error) => console.error('Error:', error))
-      } else if (data.id) {
+      } else if (data.auth_type === 'google') {
         dispatch(
           signIn({
             uid: data.id,

@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { robotoCondensed } from '@/app/fonts'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
+import { setGlobalEmailInput } from '@/store/authentication'
 import { hideModal, showModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -48,7 +49,7 @@ export default function SignIn() {
         if (emailExists) {
           setPasswordInputVisible(true)
         } else if (emailExists === false) {
-          console.log(emailExists)
+          dispatch(setGlobalEmailInput(emailInput))
           dispatch(showModal({ modalType: 'signUp', outerType: 'visible' }))
         }
         // handle showing error for different auth method here

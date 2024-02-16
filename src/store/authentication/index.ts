@@ -9,6 +9,7 @@ interface IStoreUser {
 interface IAuthState {
   user: IStoreUser
   isAuth: boolean
+  emailInput: string //used to pass email from sign in form to sign up
 }
 
 const initialState: IAuthState = {
@@ -18,6 +19,7 @@ const initialState: IAuthState = {
     email: '',
   },
   isAuth: false,
+  emailInput: '',
 }
 
 export const authSlice = createSlice({
@@ -29,9 +31,12 @@ export const authSlice = createSlice({
       state.user = action.payload
     },
     signOut: () => initialState,
+    setGlobalEmailInput: (state, action) => {
+      state.emailInput = action.payload
+    },
   },
 })
 
-export const { signIn, signOut } = authSlice.actions
+export const { signIn, signOut, setGlobalEmailInput } = authSlice.actions
 
 export default authSlice.reducer

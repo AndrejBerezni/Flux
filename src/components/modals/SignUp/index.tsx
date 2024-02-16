@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
 import useEmailAuth from '@/hooks/useEmailAuth'
+import { setGlobalEmailInput } from '@/store/authentication'
+import { getGlobalEmailInput } from '@/store/authentication/selectors'
 import { showModal, hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -16,6 +18,7 @@ export default function SignUp() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 
+  const userEmail = useSelector(getGlobalEmailInput)
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -33,7 +36,7 @@ export default function SignUp() {
     event.preventDefault()
     try {
       await handleEmailSignUp({
-        email: 'andrej@mail.com',
+        email: userEmail,
         first_name: firstName,
         last_name: lastName,
         password,
@@ -56,16 +59,20 @@ export default function SignUp() {
       >
         <button
           className="absolute left-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
-          onClick={() =>
+          onClick={() => {
+            dispatch(setGlobalEmailInput(''))
             dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
-          }
+          }}
         >
           <IoIosArrowBack />
         </button>
         <button
           type="button"
           className="absolute right-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"
-          onClick={() => dispatch(hideModal())}
+          onClick={() => {
+            dispatch(setGlobalEmailInput(''))
+            dispatch(hideModal())
+          }}
         >
           <IoCloseSharp />
         </button>

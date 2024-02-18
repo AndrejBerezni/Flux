@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-import clsx from 'clsx'
 import Link from 'next/link'
 import { IoIosArrowBack } from 'react-icons/io'
 import { IoCloseSharp } from 'react-icons/io5'
@@ -49,13 +48,7 @@ export default function SignUp() {
   if (modal.modalType === 'signUp') {
     return (
       <div
-        className={clsx(
-          `${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col overflow-y-auto bg-white px-12 pb-14 pt-20 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[80%] md:w-[600px] md:-translate-x-1/2`,
-          {
-            fixed: modal.modalType === 'signUp',
-            hidden: modal.modalType !== 'signUp',
-          }
-        )}
+        className={`${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col overflow-y-auto bg-white px-12 pb-14 pt-20 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[80%] md:w-[600px] md:-translate-x-1/2`}
       >
         <button
           className="absolute left-2 top-2 text-3xl hover:drop-shadow-md md:text-4xl"

@@ -30,7 +30,6 @@ export default function useEmailAuth() {
       const response = await fetch(`api/auth?email=${email}`)
       const data = await response.json()
       const user = await emailSignIn(email, password)
-
       if (user) {
         dispatch(
           signIn({

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { ILocation } from '@/compiler/interfaces'
 import useClearParams from '@/hooks/useClearParams'
-import { hideSecondaryModal, showSecondaryModal } from '@/store/modal'
+import { hideSecondaryModal, showSecondaryModal, setError } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { setSameReturn, setLocation } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
@@ -68,10 +68,12 @@ export default function LocationSearchResultBox({
             resolve([latitude, longitude])
           },
           (error) => {
+            dispatch(setError(error.message))
             reject(error)
           }
         )
       } else {
+        dispatch(setError('Geolocation not available'))
         reject(new Error('Geolocation not available'))
       }
     })

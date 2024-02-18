@@ -1,15 +1,16 @@
 import { useDispatch } from 'react-redux'
 
 import { googleSignIn } from '@/firebase/authentication'
+import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import { signIn } from '@/store/authentication'
-import { hideModal } from '@/store/modal'
+import { hideModal, setError } from '@/store/modal'
 
 export default function useGoogleAuth() {
   const dispatch = useDispatch()
 
   const handleGoogleSignIn = async () => {
-    const googleUser = await googleSignIn()
     try {
+      const googleUser = await googleSignIn()
       const response = await fetch(`/api/auth?email=${googleUser?.email}`)
       const data = await response.json()
       if (data.message === 'User does not exist') {
@@ -28,7 +29,9 @@ export default function useGoogleAuth() {
         })
           .then((response) => {
             if (!response.ok) {
-              throw new Error('Response not ok')
+              dispatch(
+                setError('Unable to create user. Please try again later.')
+              )
             }
             return response.json()
           })
@@ -42,7 +45,12 @@ export default function useGoogleAuth() {
             )
             dispatch(hideModal())
           })
-          .catch((error) => console.error('Error:', error))
+          .catch((error) => {
+            if (error instanceof Error) {
+              const errorMessage = formatFirebaseError(error.message)
+              dispatch(setError(errorMessage))
+            }
+          })
       } else if (data.auth_type === 'google') {
         dispatch(
           signIn({
@@ -54,7 +62,10 @@ export default function useGoogleAuth() {
         dispatch(hideModal())
       }
     } catch (error) {
-      console.error('Error:', error)
+      if (error instanceof Error) {
+        const errorMessage = formatFirebaseError(error.message)
+        dispatch(setError(errorMessage))
+      }
     }
   }
   return handleGoogleSignIn

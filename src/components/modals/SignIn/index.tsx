@@ -12,7 +12,7 @@ import { robotoCondensed } from '@/app/fonts'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
 import { setGlobalEmailInput } from '@/store/authentication'
-import { hideModal, showModal } from '@/store/modal'
+import { hideModal, showModal, setError } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import ThirdPartyLoginButton from './ThirdPartyLoginButton'
@@ -54,7 +54,9 @@ export default function SignIn() {
         }
         // handle showing error for different auth method here
       } catch (error) {
-        console.error('Error:', error)
+        if (error instanceof Error) {
+          dispatch(setError(error.message))
+        }
       }
     } else {
       handleEmailSignIn(emailInput, passwordInput)

@@ -12,6 +12,10 @@ export const formatFirebaseError = (error: string) => {
       return 'Please enter password'
     case 'Firebase: Error (auth/email-already-in-use).':
       return 'Account with this email address already exists'
+    case 'Firebase: Error (auth/invalid-credential).':
+      return 'Wrong password'
+    case 'Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).':
+      return 'Too many incorrect attempts. Reset you password or try again later.'
     default:
       return error
   }

@@ -26,13 +26,10 @@ export default function UserPageLayout({
   }, [isAuth, uid, params.user, router])
   if (auth.currentUser?.uid === params.user) {
     return (
-      <main className="flex">
+      <section className="flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary py-10 pl-4 pr-6 lg:px-32 2xl:px-48">
         <UserPageMenu />
         {children}
-        <p>
-          {auth.currentUser?.uid} - {params.user}
-        </p>
-      </main>
+      </section>
     )
   }
 }

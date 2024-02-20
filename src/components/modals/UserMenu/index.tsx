@@ -8,13 +8,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { robotoCondensed } from '@/app/fonts'
 import { signOutUser } from '@/firebase/authentication'
 import { signOut } from '@/store/authentication'
-import { getUserName } from '@/store/authentication/selectors'
+import { getUserId, getUserName } from '@/store/authentication/selectors'
 import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 export default function UserMenu() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
+  const uid = useSelector(getUserId)
   const username = useSelector(getUserName)
 
   const links = [
@@ -36,7 +37,7 @@ export default function UserMenu() {
     {
       icon: <FaUser />,
       text: 'Personal details',
-      href: '/:user/details',
+      href: `/${uid}/details`,
     },
   ]
 

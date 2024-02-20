@@ -6,7 +6,7 @@ import SubscriptionSection from '@/components/home/SubscriptionSection'
 
 export const fetchCache = 'force-no-store'
 
-export default function Home({
+export default function HomePage({
   searchParams,
 }: {
   searchParams?: {

@@ -4,7 +4,7 @@ import { fetchCars, fetchBikes, fetchScooters } from '@/lib/fetchVehicles'
 
 export const fetchCache = 'force-no-store'
 
-export default async function Vehicles({
+export default async function VehiclesPage({
   searchParams,
 }: {
   searchParams?: {

@@ -22,17 +22,17 @@ export default function UserMenu() {
     {
       icon: <FaCar />,
       text: 'Bookings',
-      href: '/:user/bookings',
+      href: `/${uid}/bookings`,
     },
     {
       icon: <FaCreditCard />,
       text: 'Subscriptions',
-      href: '/:user/subscriptions',
+      href: `/${uid}/subscriptions`,
     },
     {
       icon: <FaWallet />,
       text: 'Balance',
-      href: '/:user/balance',
+      href: `/${uid}/balance`,
     },
     {
       icon: <FaUser />,
@@ -75,6 +75,7 @@ export default function UserMenu() {
           href={link.href}
           className="flex items-center gap-4 px-8 py-2 text-xl hover:bg-quaternary first-of-type:hover:rounded-t-md sm:text-base"
           key={`${link.text}-usermenu`}
+          onClick={() => dispatch(hideModal())}
         >
           {link.icon}
           {link.text}

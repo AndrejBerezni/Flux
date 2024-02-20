@@ -13,7 +13,6 @@ import { app } from './config'
 
 //Initialize authentication
 export const auth = getAuth(app)
-
 //Google sign in
 const provider = new GoogleAuthProvider()
 

@@ -85,15 +85,12 @@ export default function SignUp() {
               <input
                 type="text"
                 id="firstname"
-                className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+                className="input-with-floating-label peer"
                 placeholder=" "
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
-              <label
-                htmlFor="firstname"
-                className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-              >
+              <label htmlFor="firstname" className="floating-label">
                 First name
               </label>
             </div>
@@ -101,15 +98,12 @@ export default function SignUp() {
               <input
                 type="text"
                 id="lastname"
-                className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+                className="input-with-floating-label peer"
                 placeholder=" "
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
-              <label
-                htmlFor="lastname"
-                className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-              >
+              <label htmlFor="lastname" className="floating-label">
                 Last name
               </label>
             </div>
@@ -118,15 +112,12 @@ export default function SignUp() {
             <input
               type="password"
               id="password-su"
-              className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+              className="input-with-floating-label peer"
               placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label
-              htmlFor="password-su"
-              className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-            >
+            <label htmlFor="password-su" className="floating-label">
               Password
             </label>
           </div>

@@ -110,17 +110,14 @@ export default function SignIn() {
               <input
                 type="email"
                 id="email"
-                className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+                className="input-with-floating-label peer"
                 placeholder=" "
                 value={emailInput}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setEmailInput(e.target.value)
                 }
               />
-              <label
-                htmlFor="email"
-                className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-              >
+              <label htmlFor="email" className="floating-label">
                 Email
               </label>
             </div>
@@ -137,17 +134,14 @@ export default function SignIn() {
                 type="password"
                 id="password-si"
                 tabIndex={-1}
-                className="peer block w-full appearance-none border-0 border-b-2 border-primary bg-white px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0"
+                className="input-with-floating-label peer"
                 placeholder=" "
                 value={passwordInput}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   setPasswordInput(e.target.value)
                 }
               />
-              <label
-                htmlFor="password-si"
-                className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
-              >
+              <label htmlFor="password-si" className="floating-label">
                 Password
               </label>
               <button

@@ -36,7 +36,7 @@ export default function UserMenu() {
     },
     {
       icon: <FaUser />,
-      text: 'Personal details',
+      text: 'Account details',
       href: `/${uid}/details`,
     },
   ]

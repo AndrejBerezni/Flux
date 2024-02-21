@@ -1,63 +1,105 @@
+import { sql } from '@vercel/postgres'
+
 import { IUser } from '@/compiler/interfaces'
 import { countryCodes } from '@/lib/countryCodes'
 
 export default function AccountDetailsForm({ user }: { user: IUser }) {
+  const updateUser = async (formData: FormData) => {
+    'use server'
+    try {
+      const updatedUser = await sql<IUser>`
+    UPDATE users
+    SET first_name=${formData.get('first_name') as string},
+    last_name=${formData.get('last_name') as string},
+    email=${formData.get('email') as string},
+    country_code=${Number(formData.get('country_code') as string)},
+    phone_number=${Number(formData.get('phone_number') as string)},
+    street=${formData.get('street') as string},
+    street_number=${Number(formData.get('street_number') as string)},
+    additional_address_line=${
+      formData.get('additional_address_line') as string
+    },
+    city=${formData.get('city') as string},
+    country=${formData.get('country') as string}
+    WHERE id=${user.id}
+    `
+      if (updatedUser) {
+        console.log('User information updated successfully')
+      }
+    } catch (error) {
+      console.log(error)
+      throw new Error('Unable to update user information')
+    }
+  }
+
   return (
-    <form className="flex flex-col">
-      <fieldset className="mt-4 flex w-full flex-wrap items-center gap-2 sm:gap-8">
+    <form action={updateUser} className="flex flex-col">
+      <fieldset className="mt-4 flex flex-wrap items-center gap-2 sm:gap-8">
         <legend className="text-secondary">Personal information</legend>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full">
           <input
             id="pd-first-name"
+            name="first_name"
             defaultValue={user.first_name}
             type="text"
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
             placeholder=" "
           />
-          <label htmlFor="pd-first-name" className="floating-label">
+          <label
+            htmlFor="pd-first-name"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
+          >
             First Name
           </label>
         </div>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full">
           <input
             id="pd-last-name"
             defaultValue={user.last_name}
+            name="last_name"
             type="text"
             placeholder=" "
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
           />
           <label
             htmlFor="pd-last-name"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
           >
             Last Name
           </label>
         </div>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full">
           <input
             id="pd-email"
             defaultValue={user.email}
+            name="email"
             type="email"
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer w-full pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
             placeholder=" "
           />
-          <label htmlFor="pd-first-name" className="floating-label">
+          <label
+            htmlFor="pd-first-name"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
+          >
             Email
           </label>
         </div>
-        <div className="flex flex-wrap items-center gap-2 sm:gap-8">
-          <div className="relative z-0 w-full sm:w-auto">
-            <label htmlFor="pd-country-code" className="floating-label">
+        <div className="flex max-w-full flex-wrap items-center gap-2 sm:gap-8">
+          <div className="relative z-0 max-w-full">
+            <label
+              htmlFor="pd-country-code"
+              className=" floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
+            >
               Country code
             </label>
             <select
               id="pd-country-code"
-              name="pd-country-code"
-              className="h-fit border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl target:border-none hover:cursor-pointer"
+              name="country_code"
+              className=" h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl outline-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[260px]"
             >
               {countryCodes.map((item) => (
                 <option
-                  key={`${item.code}-cc`}
+                  key={`${item.code}-${item.country}`}
                   value={item.code}
                   selected={item.code === user.country_code}
                 >
@@ -66,17 +108,18 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
               ))}
             </select>
           </div>
-          <div className="relative z-0 my-6 w-full sm:w-auto">
+          <div className="relative z-0 my-6 max-w-full">
             <input
               id="pd-phone-number"
               defaultValue={user.phone_number}
+              name="phone_number"
               type="text"
               placeholder=" "
-              className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+              className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
             />
             <label
               htmlFor="pd-phone-number"
-              className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+              className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
             >
               Phone number
             </label>
@@ -84,76 +127,99 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
         </div>
       </fieldset>
       <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
-      <fieldset className="my-4 flex w-full flex-wrap items-center gap-2 sm:gap-8">
+      <fieldset className="my-4 flex flex-wrap items-center gap-2 sm:gap-8">
         <legend className="text-secondary">Address</legend>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full sm:w-auto">
           <input
             id="pd-street"
             defaultValue={user.street}
+            name="street"
             type="text"
             placeholder=" "
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer w-full pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
           />
           <label
             htmlFor="pd-street"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
           >
             Street
           </label>
         </div>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full sm:w-auto">
           <input
             id="pd-street-number"
-            defaultValue={user.street}
+            defaultValue={user.street_number}
+            name="street_number"
             type="number"
             placeholder=" "
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
           />
           <label
             htmlFor="pd-street-number"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
           >
             Street Number
           </label>
         </div>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full">
           <input
             id="pd-additional_address_line"
             defaultValue={user.additional_address_line}
-            type="number"
+            name="additional_address_line"
+            type="text"
             placeholder=" "
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
           />
           <label
             htmlFor="pd-additional_address_line"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
           >
             Additional line
           </label>
         </div>
-        <div className="relative z-0 my-6 w-full sm:w-auto">
+        <div className="relative z-0 my-6 max-w-full">
           <input
             id="pd-zip_code"
             defaultValue={user.zip_code}
-            type="number"
+            name="zip_code"
+            type="string"
             placeholder=" "
-            className="input-with-floating-label peer pb-1 pt-4 sm:w-auto"
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
           />
           <label
             htmlFor="pd-zip_code"
-            className="absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
           >
             Zip Code
           </label>
         </div>
-        <div className="relative z-0 w-full sm:w-auto">
-          <label htmlFor="pd-country" className="floating-label">
+        <div className="relative z-0 my-6 max-w-full">
+          <input
+            id="pd-city"
+            defaultValue={user.city}
+            name="city"
+            type="string"
+            placeholder=" "
+            className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
+          />
+          <label
+            htmlFor="pd-city"
+            className="floating-label peer-placeholder-shown:text-secondary peer-focus:text-primary max-[320px]:text-lg"
+          >
+            City
+          </label>
+        </div>
+        <div className="relative z-0 max-w-full">
+          <label
+            htmlFor="pd-country"
+            className="floating-label max-[320px]:text-lg"
+          >
             Country
           </label>
           <select
             id="pd-country"
-            name="pd-country"
-            className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl target:border-none hover:cursor-pointer sm:max-w-[200px]"
+            name="country"
+            className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl outline-none target:border-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[200px]"
           >
             {countryCodes.map((item) => (
               <option

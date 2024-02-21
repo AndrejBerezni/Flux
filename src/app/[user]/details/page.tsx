@@ -15,7 +15,7 @@ export default async function AccountDetailsPage({
 
   return (
     <section
-      className={`${robotoCondensed.className} flex-1 rounded-md bg-white p-6 shadow-md`}
+      className={`${robotoCondensed.className} max-w-full flex-1 rounded-md bg-white p-6 shadow-md`}
     >
       <h1 className="text-3xl font-bold uppercase">Account details</h1>
       <p className="my-2 text-xl">One place to manage your account</p>

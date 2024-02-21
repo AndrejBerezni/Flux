@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { roboto } from '@/app/fonts'
+import { robotoFlex } from '@/app/fonts'
 import { ILocation } from '@/compiler/interfaces'
 
 import LocationInformation from './LocationInformation'
@@ -28,7 +28,7 @@ export default function LocationResult({
       >
         <span className="px-4 text-3xl">{locationIcon}</span>
         <span
-          className={`${roboto.className} border-b-solid flex h-full flex-1 items-center border-b-[1px] border-b-tertiary pl-4 font-medium tracking-wide`}
+          className={`${robotoFlex.className} border-b-solid flex h-full flex-1 items-center border-b-[1px] border-b-tertiary pl-4 font-medium tracking-wide`}
         >
           {location ? location.name : locationName}
         </span>

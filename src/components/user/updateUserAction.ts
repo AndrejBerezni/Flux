@@ -19,6 +19,7 @@ export const updateUser = async (
     additional_address_line=${
       formData.get('additional_address_line') as string
     },
+    zip_code=${formData.get('zip_code') as string},
     city=${formData.get('city') as string},
     country=${formData.get('country') as string}
     WHERE id=${formData.get('userId') as string}

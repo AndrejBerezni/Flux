@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
-import { roboto } from '@/app/fonts'
+import { robotoFlex } from '@/app/fonts'
 
 export default function GiftCardSection() {
   return (
     <section
-      className={`${roboto.className} mb-12 mt-4 flex min-h-[50vh] justify-center px-4 lg:px-32 2xl:px-48`}
+      className={`${robotoFlex.className} mb-12 mt-4 flex min-h-[50vh] justify-center px-4 lg:px-32 2xl:px-48`}
     >
       <article className="relative w-full rounded-xl bg-[url('/damon-hypersport-pro.png')] bg-cover bg-right bg-no-repeat shadow-lg sm:bg-bottom md:min-h-[70vh]">
         <div className="absolute bottom-12 left-0 z-10 flex flex-col items-start gap-4 px-2 text-white sm:left-8">

@@ -35,7 +35,7 @@ export default function useEmailAuth() {
         dispatch(
           signIn({
             uid: user.uid,
-            name: data.first_name,
+            name: data.first_name || 'Account',
             email: data.email,
           })
         )

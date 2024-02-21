@@ -12,4 +12,8 @@ export const robotoCondensed = Roboto_Condensed({
   weight: ['100', '300', '400', '500', '700', '800', '900'],
 })
 
-export const inter = Inter({ subsets: ['latin'], style: ['normal'] })
+export const inter = Inter({
+  subsets: ['latin'],
+  style: ['normal'],
+  weight: ['100', '300', '400', '500', '700', '800', '900'],
+})

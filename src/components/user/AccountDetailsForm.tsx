@@ -1,39 +1,34 @@
-import { sql } from '@vercel/postgres'
+'use client'
+import { useFormState } from 'react-dom'
+import { useDispatch } from 'react-redux'
 
 import { IUser } from '@/compiler/interfaces'
 import { countryCodes } from '@/lib/countryCodes'
+import { setError } from '@/store/modal'
+
+import { updateUser } from './updateUserAction'
+
+const initialState = {
+  message: '',
+}
 
 export default function AccountDetailsForm({ user }: { user: IUser }) {
-  const updateUser = async (formData: FormData) => {
-    'use server'
-    try {
-      const updatedUser = await sql<IUser>`
-    UPDATE users
-    SET first_name=${formData.get('first_name') as string},
-    last_name=${formData.get('last_name') as string},
-    email=${formData.get('email') as string},
-    country_code=${Number(formData.get('country_code') as string)},
-    phone_number=${Number(formData.get('phone_number') as string)},
-    street=${formData.get('street') as string},
-    street_number=${Number(formData.get('street_number') as string)},
-    additional_address_line=${
-      formData.get('additional_address_line') as string
-    },
-    city=${formData.get('city') as string},
-    country=${formData.get('country') as string}
-    WHERE id=${user.id}
-    `
-      if (updatedUser) {
-        console.log('User information updated successfully')
-      }
-    } catch (error) {
-      console.log(error)
-      throw new Error('Unable to update user information')
-    }
+  const dispatch = useDispatch()
+  const [state, formAction] = useFormState(updateUser, initialState)
+
+  const handleEmailExplanation = () => {
+    dispatch(
+      setError(
+        'Changing email not allowed - If you wish to use different email address - please create a new account with desired address.'
+      )
+    )
   }
 
   return (
-    <form action={updateUser} className="flex flex-col">
+    <form action={formAction} className="flex flex-col">
+      {/* hidden input for additional argument in server action: */}
+      <input type="hidden" name="userId" value={user.id} />
+
       <fieldset className="mt-4 flex flex-wrap items-center gap-2 sm:gap-8">
         <legend className="text-secondary">Personal information</legend>
         <div className="relative z-0 my-6 max-w-full">
@@ -44,6 +39,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
             type="text"
             className="input-with-floating-label peer pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
             placeholder=" "
+            required
           />
           <label
             htmlFor="pd-first-name"
@@ -74,8 +70,10 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
             defaultValue={user.email}
             name="email"
             type="email"
-            className="input-with-floating-label peer w-full pb-1 pt-4 max-[320px]:text-lg sm:w-auto"
+            className="input-with-floating-label peer w-full pb-1 pt-4 text-secondary hover:cursor-help max-[320px]:text-lg sm:w-auto"
             placeholder=" "
+            readOnly
+            onClick={handleEmailExplanation}
           />
           <label
             htmlFor="pd-first-name"
@@ -95,13 +93,14 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
             <select
               id="pd-country-code"
               name="country_code"
-              className=" h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl outline-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[260px]"
+              className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl font-semibold text-brand outline-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[260px]"
             >
               {countryCodes.map((item) => (
                 <option
                   key={`${item.code}-${item.country}`}
                   value={item.code}
                   selected={item.code === user.country_code}
+                  className="text-primary"
                 >
                   +{item.code} ({item.country})
                 </option>
@@ -219,13 +218,14 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           <select
             id="pd-country"
             name="country"
-            className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl outline-none target:border-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[200px]"
+            className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl font-semibold text-brand outline-none target:border-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[200px]"
           >
             {countryCodes.map((item) => (
               <option
                 key={`${item.country}-country`}
                 value={item.country}
                 selected={item.country === user.country}
+                className="text-primary"
               >
                 {item.country}
               </option>
@@ -237,6 +237,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
       <button className="btn-primary mb-4 mt-8 self-center" type="submit">
         Update information
       </button>
+      <p className="text-center">{state?.message}</p>
     </form>
   )
 }

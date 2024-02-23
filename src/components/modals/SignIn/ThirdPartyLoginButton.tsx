@@ -1,6 +1,6 @@
 interface IThirdPartyLoginButtonProps {
   icon: React.ReactNode
-  text: string
+  text: string | React.ReactNode
   handleClick: () => void
 }
 

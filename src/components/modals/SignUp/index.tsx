@@ -7,6 +7,7 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import Spinner from '@/components/Spinner'
 import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import { setGlobalEmailInput } from '@/store/authentication'
@@ -17,6 +18,7 @@ import { getModalInfo } from '@/store/modal/selectors'
 export default function SignUp() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const userEmail = useSelector(getGlobalEmailInput)
   const [firstName, setFirstName] = useState<string>('')
@@ -34,6 +36,7 @@ export default function SignUp() {
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault()
+    setIsLoading(true)
     try {
       await handleEmailSignUp({
         email: userEmail,
@@ -47,6 +50,7 @@ export default function SignUp() {
         dispatch(setMessage({ type: 'error', text: errorMessage }))
       }
     }
+    setIsLoading(false)
   }
 
   if (modal.modalType === 'signUp') {
@@ -123,11 +127,11 @@ export default function SignUp() {
           </div>
           <button
             type="submit"
-            className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
+            className="my-12 flex w-full justify-center bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
             disabled={!firstName || !lastName || !password}
             onClick={async (e) => await handleSignUp(e)}
           >
-            Finish
+            {isLoading ? <Spinner /> : 'Finish'}
           </button>
         </form>
         <div className="flex justify-center gap-12 font-bold text-secondary">

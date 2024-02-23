@@ -253,12 +253,15 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
       </fieldset>
       <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
       <div className="mb-4 mt-8 flex flex-col items-center gap-4 self-center sm:flex-row">
-        <button className="btn-primary w-full sm:w-auto" type="submit">
+        <button
+          className="btn-primary w-full shadow-lg sm:w-auto"
+          type="submit"
+        >
           Update information
         </button>
         {user.auth_type === 'email' && (
           <button
-            className="btn-primary w-full sm:w-auto"
+            className="btn-primary w-full shadow-lg sm:w-auto"
             type="button"
             onClick={handlePasswordReset}
           >

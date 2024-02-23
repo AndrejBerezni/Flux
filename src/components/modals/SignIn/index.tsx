@@ -9,6 +9,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import Spinner from '@/components/Spinner'
 import { passwordReset } from '@/firebase/authentication'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
@@ -21,12 +22,21 @@ import ThirdPartyLoginButton from './ThirdPartyLoginButton'
 export default function SignIn() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
+  const [isEmailLoading, setIsEmailLoading] = useState<boolean>(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false)
   const [emailInput, setEmailInput] = useState<string>('')
   const [passwordInput, setPasswordInput] = useState<string>('')
   const [passwordInputVisible, setPasswordInputVisible] =
     useState<boolean>(false)
   const { checkEmail, handleEmailSignIn } = useEmailAuth()
   const handleGoogleSignIn = useGoogleAuth()
+
+  //Surround Google sign in with starting and stopping spinner while function is executed
+  const signInWithGoogle = async () => {
+    setIsGoogleLoading(true)
+    await handleGoogleSignIn()
+    setIsGoogleLoading(false)
+  }
 
   //clean up input fields when modal is closed
   useEffect(() => {
@@ -60,6 +70,7 @@ export default function SignIn() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    setIsEmailLoading(true)
     if (!passwordInputVisible) {
       try {
         const emailExists = await checkEmail(emailInput)
@@ -78,16 +89,18 @@ export default function SignIn() {
     } else {
       handleEmailSignIn(emailInput, passwordInput)
     }
+    setIsEmailLoading(false)
   }
 
   //doing it this way in case we want to add more authentication methods in the future. Initial idea was to add Facebook and Twitter login too, but they require real business to create app on their platforms
   const buttons = [
     {
+      key: 'google-sign-in-button',
       icon: (
         <FaGoogle className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
       ),
-      text: 'Continue with Google',
-      handleClick: handleGoogleSignIn,
+      text: isGoogleLoading ? <Spinner /> : 'Continue with Google',
+      handleClick: signInWithGoogle,
     },
   ]
 
@@ -111,7 +124,7 @@ export default function SignIn() {
             text={button.text}
             icon={button.icon}
             handleClick={button.handleClick}
-            key={button.text}
+            key={button.key}
           />
         ))}
         <div className="flex items-center gap-3 font-bold before:block before:h-0.5 before:flex-1 before:bg-tertiary after:block after:h-0.5 after:flex-1 after:bg-tertiary hover:cursor-default">
@@ -183,11 +196,17 @@ export default function SignIn() {
           </div>
           <button
             type="submit"
-            className="my-12 w-full bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
+            className="my-12 flex h-fit w-full justify-center bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
             disabled={!emailInput || (passwordInputVisible && !passwordInput)}
             onClick={async (e) => await handleSubmit(e)}
           >
-            {passwordInputVisible ? 'Sign In' : 'Next'}
+            {isEmailLoading ? (
+              <Spinner />
+            ) : passwordInputVisible ? (
+              'Sign In'
+            ) : (
+              'Next'
+            )}
           </button>
         </form>
         <div className="flex justify-center gap-12 font-bold text-secondary">

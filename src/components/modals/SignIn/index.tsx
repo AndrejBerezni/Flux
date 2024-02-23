@@ -125,7 +125,7 @@ export default function SignIn() {
               className={clsx(
                 'absolute top-0 z-0 w-full origin-right transition-all duration-500',
                 {
-                  '-right-[600px]': !passwordInputVisible,
+                  '-right-[800px]': !passwordInputVisible,
                   'right-0': passwordInputVisible,
                 }
               )}

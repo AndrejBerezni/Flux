@@ -50,6 +50,7 @@ export interface IScooterCard {
 
 export interface IUser {
   id: string
+  auth_type: 'email' | 'google'
   first_name: string
   last_name?: string
   email: string

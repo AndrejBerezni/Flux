@@ -6,6 +6,7 @@ import { IUser } from '@/compiler/interfaces'
 import { countryCodes } from '@/lib/countryCodes'
 import { setError } from '@/store/modal'
 
+import ResetPasswordButton from './ResetPasswordButton'
 import { updateUser } from './updateUserAction'
 
 const initialState = {
@@ -25,7 +26,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
   }
 
   return (
-    <form action={formAction} className="flex flex-col">
+    <form action={formAction} className="relative flex flex-col">
       {/* hidden input for additional argument in server action: */}
       <input type="hidden" name="userId" value={user.id} />
 
@@ -234,9 +235,14 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
         </div>
       </fieldset>
       <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
-      <button className="btn-primary mb-4 mt-8 self-center" type="submit">
-        Update information
-      </button>
+      <div className="mb-4 mt-8 flex flex-col items-center gap-4 self-center sm:flex-row">
+        <button className="btn-primary w-full sm:w-auto" type="submit">
+          Update information
+        </button>
+        {user.auth_type === 'email' && (
+          <ResetPasswordButton email={user.email} />
+        )}
+      </div>
       <p className="text-center">{state?.message}</p>
     </form>
   )

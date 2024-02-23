@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { googleSignIn } from '@/firebase/authentication'
 import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import { signIn } from '@/store/authentication'
-import { hideModal, setError } from '@/store/modal'
+import { hideModal, setMessage } from '@/store/modal'
 
 export default function useGoogleAuth() {
   const dispatch = useDispatch()
@@ -30,7 +30,10 @@ export default function useGoogleAuth() {
           .then((response) => {
             if (!response.ok) {
               dispatch(
-                setError('Unable to create user. Please try again later.')
+                setMessage({
+                  type: 'error',
+                  text: 'Unable to create user. Please try again later.',
+                })
               )
             }
             return response.json()
@@ -48,7 +51,7 @@ export default function useGoogleAuth() {
           .catch((error) => {
             if (error instanceof Error) {
               const errorMessage = formatFirebaseError(error.message)
-              dispatch(setError(errorMessage))
+              dispatch(setMessage({ type: 'error', text: errorMessage }))
             }
           })
       } else if (data.auth_type === 'google') {
@@ -64,7 +67,7 @@ export default function useGoogleAuth() {
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = formatFirebaseError(error.message)
-        dispatch(setError(errorMessage))
+        dispatch(setMessage({ type: 'error', text: errorMessage }))
       }
     }
   }

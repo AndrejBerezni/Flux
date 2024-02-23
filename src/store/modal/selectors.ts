@@ -7,5 +7,8 @@ export const getModalInfo = (store: RootState) =>
     modalType: '',
     outerType: '',
     secondaryModal: '',
-    error: '',
+    message: {
+      type: '',
+      text: '',
+    },
   })

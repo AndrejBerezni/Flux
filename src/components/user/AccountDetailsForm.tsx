@@ -3,10 +3,10 @@ import { useFormState } from 'react-dom'
 import { useDispatch } from 'react-redux'
 
 import { IUser } from '@/compiler/interfaces'
+import { passwordReset } from '@/firebase/authentication'
 import { countryCodes } from '@/lib/countryCodes'
-import { setError } from '@/store/modal'
+import { setMessage } from '@/store/modal'
 
-import ResetPasswordButton from './ResetPasswordButton'
 import { updateUser } from './updateUserAction'
 
 const initialState = {
@@ -19,10 +19,27 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
 
   const handleEmailExplanation = () => {
     dispatch(
-      setError(
-        'Changing email not allowed - If you wish to use different email address - please create a new account with desired address.'
-      )
+      setMessage({
+        type: 'error',
+        text: 'Changing email not allowed - If you wish to use different email address - please create a new account with desired address.',
+      })
     )
+  }
+
+  const handlePasswordReset = async () => {
+    try {
+      await passwordReset(user.email)
+      dispatch(
+        setMessage({
+          type: 'message',
+          text: `Password reset email sent to ${user.email}`,
+        })
+      )
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setMessage({ type: 'error', text: error.message }))
+      }
+    }
   }
 
   return (
@@ -240,7 +257,13 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           Update information
         </button>
         {user.auth_type === 'email' && (
-          <ResetPasswordButton email={user.email} />
+          <button
+            className="btn-primary w-full sm:w-auto"
+            type="button"
+            onClick={handlePasswordReset}
+          >
+            Reset Password
+          </button>
         )}
       </div>
       <p className="text-center">{state?.message}</p>

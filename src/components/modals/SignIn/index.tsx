@@ -9,10 +9,11 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import { passwordReset } from '@/firebase/authentication'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
 import { setGlobalEmailInput } from '@/store/authentication'
-import { hideModal, showModal, setError } from '@/store/modal'
+import { hideModal, showModal, setMessage } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import ThirdPartyLoginButton from './ThirdPartyLoginButton'
@@ -41,6 +42,22 @@ export default function SignIn() {
     setPasswordInputVisible(false)
   }
 
+  const handlePasswordReset = async () => {
+    try {
+      await passwordReset(emailInput)
+      dispatch(
+        setMessage({
+          type: 'message',
+          text: `Password reset email sent to ${emailInput}`,
+        })
+      )
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setMessage({ type: 'error', text: error.message }))
+      }
+    }
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     if (!passwordInputVisible) {
@@ -55,7 +72,7 @@ export default function SignIn() {
         // handle showing error for different auth method here
       } catch (error) {
         if (error instanceof Error) {
-          dispatch(setError(error.message))
+          dispatch(setMessage({ type: 'error', text: error.message }))
         }
       }
     } else {
@@ -144,15 +161,24 @@ export default function SignIn() {
               <label htmlFor="password-si" className="floating-label">
                 Password
               </label>
-              <button
-                type="button"
-                tabIndex={-1}
-                onClick={handleBackToEmailInput}
-                className="flex items-center gap-1 font-bold text-secondary duration-150 hover:text-primary"
-              >
-                <MdOutlineKeyboardBackspace />
-                Back
-              </button>
+              <div className="flex w-full justify-between">
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  onClick={handleBackToEmailInput}
+                  className="flex items-center gap-1 font-bold text-secondary duration-150 hover:text-primary"
+                >
+                  <MdOutlineKeyboardBackspace />
+                  Back
+                </button>
+                <button
+                  className="font-bold text-secondary duration-150 hover:text-primary"
+                  onClick={handlePasswordReset}
+                  type="button"
+                >
+                  Forgot password?
+                </button>
+              </div>
             </div>
           </div>
           <button

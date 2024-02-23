@@ -4,14 +4,20 @@ interface IModalState {
   modalType: string
   outerType: 'visible' | 'invisible' | ''
   secondaryModal: string
-  error: string
+  message: {
+    type: 'error' | 'info' | ''
+    text: string
+  }
 }
 
 const initialState: IModalState = {
   modalType: '',
   outerType: '',
   secondaryModal: '',
-  error: '',
+  message: {
+    type: '',
+    text: '',
+  },
 }
 
 export const modalSlice = createSlice({
@@ -30,8 +36,11 @@ export const modalSlice = createSlice({
     hideSecondaryModal: (state) => {
       state.secondaryModal = ''
     },
-    setError: (state, action) => {
-      state.error = action.payload
+    setMessage: (state, action) => {
+      state.message = action.payload
+    },
+    removeMessage: (state) => {
+      state.message = { type: '', text: '' }
     },
   },
 })
@@ -41,7 +50,8 @@ export const {
   hideModal,
   showSecondaryModal,
   hideSecondaryModal,
-  setError,
+  setMessage,
+  removeMessage,
 } = modalSlice.actions
 
 export default modalSlice.reducer

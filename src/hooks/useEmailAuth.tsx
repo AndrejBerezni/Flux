@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { emailSignIn, emailSignUp } from '@/firebase/authentication'
 import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import { signIn } from '@/store/authentication'
-import { hideModal, setError } from '@/store/modal'
+import { hideModal, setMessage } from '@/store/modal'
 
 export default function useEmailAuth() {
   const dispatch = useDispatch()
@@ -18,11 +18,14 @@ export default function useEmailAuth() {
         return true
       } else if (data && data.auth_type !== 'email') {
         dispatch(
-          setError('User already registered with another authentication method')
+          setMessage({
+            type: 'error',
+            text: 'User already registered with another authentication method',
+          })
         )
       }
     } catch (error) {
-      dispatch(setError(error))
+      dispatch(setMessage({ type: 'error', text: error }))
     }
   }
 
@@ -44,7 +47,7 @@ export default function useEmailAuth() {
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = formatFirebaseError(error.message)
-        dispatch(setError(errorMessage))
+        dispatch(setMessage({ type: 'error', text: errorMessage }))
       }
     }
   }
@@ -75,7 +78,10 @@ export default function useEmailAuth() {
           .then((response) => {
             if (!response.ok) {
               dispatch(
-                setError('Unable to create user. Please try again later.')
+                setMessage({
+                  type: 'error',
+                  text: 'Unable to create user. Please try again later.',
+                })
               )
             }
             return response.json()
@@ -93,14 +99,14 @@ export default function useEmailAuth() {
           .catch((error) => {
             if (error instanceof Error) {
               const errorMessage = formatFirebaseError(error.message)
-              dispatch(setError(errorMessage))
+              dispatch(setMessage({ type: 'error', text: errorMessage }))
             }
           })
       }
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = formatFirebaseError(error.message)
-        dispatch(setError(errorMessage))
+        dispatch(setMessage({ type: 'error', text: errorMessage }))
       }
     }
   }

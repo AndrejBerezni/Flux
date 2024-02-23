@@ -11,7 +11,7 @@ import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import { setGlobalEmailInput } from '@/store/authentication'
 import { getGlobalEmailInput } from '@/store/authentication/selectors'
-import { setError, showModal, hideModal } from '@/store/modal'
+import { setMessage, showModal, hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
 export default function SignUp() {
@@ -44,7 +44,7 @@ export default function SignUp() {
     } catch (error) {
       if (error instanceof Error) {
         const errorMessage = formatFirebaseError(error.message)
-        dispatch(setError(errorMessage))
+        dispatch(setMessage({ type: 'error', text: errorMessage }))
       }
     }
   }

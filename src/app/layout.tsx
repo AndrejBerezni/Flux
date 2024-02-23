@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import ErrorMessage from '@/components/ErrorMessage'
 import Footer from '@/components/Footer'
+import Message from '@/components/Message'
 import ModalOuter from '@/components/modals/ModalOuter'
 import SideNav from '@/components/modals/SideNav'
 import SignIn from '@/components/modals/SignIn'
@@ -34,7 +34,7 @@ export default function RootLayout({
           <SideNav />
           <SignIn />
           <SignUp />
-          <ErrorMessage />
+          <Message />
           <ModalOuter />
           <Footer />
         </ReduxProvider>

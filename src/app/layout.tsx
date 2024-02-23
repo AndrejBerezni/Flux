@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import Footer from '@/components/Footer'
 import Message from '@/components/Message'
@@ -16,6 +16,12 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Flux',
   description: 'Rent Electrical Vehicles',
+}
+
+export function generateViewport(): Viewport {
+  return {
+    themeColor: '#1a1a1a',
+  }
 }
 
 export default function RootLayout({

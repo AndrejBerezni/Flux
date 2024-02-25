@@ -1,4 +1,5 @@
 'use client'
+
 import clsx from 'clsx'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
@@ -164,8 +165,8 @@ export default function LocationSearchResultBox({
             handleClick={() => handleResultClick(location)}
           />
         ))
-      ) : locations && locations.length === 0 ? (
-        <p className="absolute left-1/2 top-1/4 -translate-x-1/2 text-center font-semibold">
+      ) : locations && locations.length === 0 && !vehicleSearch[variant] ? (
+        <p className="absolute left-1/2 top-1/2 -translate-x-1/2 text-center font-semibold md:top-1/4">
           No locations found that match your criteria
         </p>
       ) : null}

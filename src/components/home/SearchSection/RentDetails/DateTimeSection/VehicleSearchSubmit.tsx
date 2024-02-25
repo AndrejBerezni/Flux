@@ -1,10 +1,12 @@
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
+import { hideModal, setMessage } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 export default function VehicleSearchSubmit() {
+  const dispatch = useDispatch()
   const router = useRouter()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
 
@@ -37,8 +39,14 @@ export default function VehicleSearchSubmit() {
           filtersQuery[vehicleSearch.vehicle]
         }&sort=name-asc`
       )
+      dispatch(hideModal())
     } else {
-      throw new Error('Information missing to submit search form')
+      dispatch(
+        setMessage({
+          type: 'error',
+          text: 'Please fill all the fields to search for vehicles.',
+        })
+      )
     }
   }
 

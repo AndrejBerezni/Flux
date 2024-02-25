@@ -28,7 +28,7 @@ export default function UserPageLayout({
 
   if (auth.currentUser?.uid === params.user) {
     return (
-      <section className="flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary py-10 pl-4 pr-6 lg:px-32 2xl:px-48">
+      <section className="section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary">
         <UserPageMenu />
         {children}
       </section>

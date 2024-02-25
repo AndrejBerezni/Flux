@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa'
 
 import { robotoCondensed } from '@/app/fonts'
@@ -63,13 +64,13 @@ export default function SubscriptionSection() {
             <SubscriptionCard key={sub.title} subscription={sub} />
           ))}
         </div>
-        <button
-          type="button"
+        <Link
+          href="/subscriptions"
           className="btn-primary flex w-[200px] items-center justify-center gap-2 shadow-lg"
         >
           Learn more
           <FaArrowRight />
-        </button>
+        </Link>
       </div>
     </section>
   )

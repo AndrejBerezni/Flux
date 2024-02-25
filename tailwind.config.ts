@@ -16,6 +16,8 @@ const config: Config = {
         tertiary: '#c9c9cf',
         quaternary: '#f1f1f3',
         white: '#ffffff',
+        gold: '#d2bf37',
+        platinum: '#979392',
       },
     },
   },

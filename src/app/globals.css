@@ -12,4 +12,7 @@
   .floating-label {
     @apply absolute top-3 origin-[0] -translate-y-6 scale-75 transform text-2xl font-bold text-primary duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:start-0 peer-focus:-translate-y-8 peer-focus:scale-75 peer-focus:text-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4;
   }
+  .section-padding {
+    @apply py-10 pl-4 pr-6 lg:px-32 2xl:px-48;
+  }
 }

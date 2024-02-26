@@ -15,6 +15,7 @@ It is still under construction. Finished functionalities and their explanation y
    3. [modal slice](#modal-slice)
 3. [Database](#database)
 4. [Components](#components)
+5. [Credits](#credits)
 
 ## Stack
 
@@ -175,3 +176,9 @@ vehicle_images.vehicle_id > scooters_details.id,
 locations.id < rents.pickup_location,
 locations.id < rents.return_location,
 locations.id < vehicles.location
+
+## Credits
+
+Business illustrations by [Storyset](https://storyset.com/business)
+People illustrations by [Storyset](https://storyset.com/people)
+App illustrations by [Storyset](https://storyset.com/app)

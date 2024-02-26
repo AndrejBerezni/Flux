@@ -31,7 +31,6 @@ export default function SubscriptionSection() {
       title: 'Platinum',
       benefits: [
         '10% discount on all vehicles',
-        'Every 10th rent free',
         'Maximum insurance included in every rent',
         '12% discount on gift card purchases',
       ],

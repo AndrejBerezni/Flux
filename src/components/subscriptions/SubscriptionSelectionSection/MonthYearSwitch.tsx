@@ -8,7 +8,7 @@ export default function MonthYearSwitch({
   selectPeriod: (period: 'month' | 'year') => void
 }) {
   return (
-    <div className="flex self-center overflow-hidden rounded-md border-2 border-tertiary">
+    <div className="mb-4 flex self-center overflow-hidden rounded-md border-2 border-tertiary">
       <button
         onClick={() => selectPeriod('month')}
         className={clsx('h-auto w-[120px] py-2 font-bold duration-200', {

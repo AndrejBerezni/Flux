@@ -179,6 +179,13 @@ locations.id < vehicles.location
 
 ## Credits
 
-Business illustrations by [Storyset](https://storyset.com/business)
-People illustrations by [Storyset](https://storyset.com/people)
-App illustrations by [Storyset](https://storyset.com/app)
+### Subscriptions page illustrations:
+
+- Business illustrations by [Storyset](https://storyset.com/business)
+- People illustrations by [Storyset](https://storyset.com/people)
+- App illustrations by [Storyset](https://storyset.com/app)
+
+### Subscriptions page photos:
+
+- Tesla Photo by[alex](https://unsplash.com/@alexzahn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/blue-porsche-911-parked-on-sidewalk-during-daytime-re8FigEQ4eQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+- Harley Davidson Photo by [Harley-Davidson](https://unsplash.com/@harleydavidson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/black-and-orange-motorcycle-52UeZUkp3Hs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)

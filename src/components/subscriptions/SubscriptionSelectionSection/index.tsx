@@ -33,7 +33,6 @@ export default function SubscriptionSelectionSection() {
       title: 'Platinum',
       benefits: [
         '10% discount on all vehicles',
-        'Every 10th rent free',
         'Maximum insurance included in every rent',
         '12% discount on gift card purchases',
       ],
@@ -41,7 +40,7 @@ export default function SubscriptionSelectionSection() {
     },
   ]
   return (
-    <section className="section-padding flex flex-col items-center gap-4 bg-quaternary py-4">
+    <section className="section-padding flex flex-col items-center gap-4 bg-quaternary py-8">
       <h2 className="-mb-2 self-center text-3xl font-bold text-primary">
         Subscribe Now
       </h2>

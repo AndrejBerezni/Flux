@@ -66,3 +66,11 @@ export interface IUser {
   has_active_subscription: boolean
   password: string
 }
+
+export interface ISubscriptionsSlide {
+  headerText: string
+  headerSpan: string
+  spanColor: string
+  img: string
+  text: string
+}

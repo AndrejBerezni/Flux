@@ -31,11 +31,11 @@ export default function BenefitsSection() {
     },
   ]
   return (
-    <section className="section-padding flex flex-col gap-4 bg-white py-20">
+    <section className="section-padding flex flex-col gap-4 bg-white py-8 md:py-16">
       <h2 className="text-3xl font-bold text-primary">
         Why choose a Flux Subscription?
       </h2>
-      <div className="flex w-full flex-wrap items-center justify-between">
+      <div className="flex w-full flex-wrap items-center justify-between gap-4">
         {benefits.map((benefit) => (
           <BenefitCard
             key={`${benefit.title}-benefit-card`}

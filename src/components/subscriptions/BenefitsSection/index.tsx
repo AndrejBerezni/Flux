@@ -18,7 +18,7 @@ export default function BenefitsSection() {
         'No hidden fees or charges',
         'Transparent coverage details',
       ],
-      img: '/benefits-insurance.png',
+      img: '/benefits-Insurance.png',
     },
     {
       title: 'All-Inclusive Benefits',

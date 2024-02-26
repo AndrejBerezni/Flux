@@ -41,10 +41,10 @@ export default function SubscriptionSelect({
         </button>
         <ul
           className={clsx(
-            'flex list-disc flex-col gap-2 overflow-hidden pl-8',
+            'my-4 flex list-disc flex-col gap-2 overflow-hidden pl-8 transition-all duration-300',
             {
-              'my-4 h-auto md:my-0 md:h-0': !detailsVisible,
-              'my-4 h-auto': detailsVisible,
+              'h-auto md:h-0': !detailsVisible,
+              'h-auto md:h-[120px]': detailsVisible,
             }
           )}
           style={{ transitionProperty: 'height' }}

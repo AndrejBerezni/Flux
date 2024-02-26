@@ -1,3 +1,5 @@
+import { robotoFlex } from '@/app/fonts'
+
 import BenefitCard from './BenefitCard'
 
 export default function BenefitsSection() {
@@ -12,7 +14,7 @@ export default function BenefitsSection() {
       img: '/benefits-discount.png',
     },
     {
-      title: 'Seamless Insurance Coverage',
+      title: 'Insurance Coverage',
       list: [
         'Included insurance in rent',
         'No hidden fees or charges',
@@ -32,10 +34,12 @@ export default function BenefitsSection() {
   ]
   return (
     <section className="section-padding flex flex-col gap-4 bg-white py-8 md:py-16">
-      <h2 className="text-3xl font-bold text-primary">
+      <h2
+        className={`${robotoFlex.className} text-3xl font-extrabold text-primary`}
+      >
         Why choose a Flux Subscription?
       </h2>
-      <div className="flex w-full flex-wrap items-center justify-between gap-4">
+      <div className="flex w-full flex-col flex-wrap items-center justify-between gap-4 md:flex-row">
         {benefits.map((benefit) => (
           <BenefitCard
             key={`${benefit.title}-benefit-card`}

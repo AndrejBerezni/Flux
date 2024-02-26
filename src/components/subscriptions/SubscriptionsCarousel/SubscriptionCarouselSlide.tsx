@@ -20,7 +20,7 @@ export default function SubscriptionCarouselSlide({
   return (
     <article
       className={clsx(
-        'absolute top-0 flex h-full w-[100vw] origin-left flex-col items-center justify-between p-2 pb-12 transition-all duration-500 ease-in-out md:flex-row',
+        'absolute top-0 flex h-full w-[100vw] origin-left flex-col items-center justify-between p-0 pb-12 transition-all duration-500 ease-in-out md:flex-row md:p-2',
         {
           'left-0': index === current,
           '-left-full': index < current,
@@ -35,7 +35,7 @@ export default function SubscriptionCarouselSlide({
         height={800}
         className="w-full md:w-[60%]"
       />
-      <div className="flex w-full flex-1 flex-col items-center justify-start px-4 pt-2 text-center max-[500px]:pt-6 md:justify-center md:pt-0">
+      <div className="flex w-full flex-1 flex-col items-center justify-center px-4 pt-2 text-center max-[500px]:pt-6 md:pt-0">
         <h2
           className={`${robotoCondensed.className} text-5xl font-extrabold uppercase text-brand lg:text-7xl xl:text-8xl`}
         >

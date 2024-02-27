@@ -23,7 +23,7 @@ export default function GiftCardsInstructions() {
   ]
 
   return (
-    <article className="flex flex-1 flex-col items-center justify-center p-12 hover:cursor-default">
+    <article className="flex h-full flex-col items-center justify-center bg-quaternary p-12 hover:cursor-default">
       <h2
         className={`${robotoCondensed.className} text-center text-4xl font-extrabold uppercase tracking-wide text-primary`}
       >
@@ -34,7 +34,7 @@ export default function GiftCardsInstructions() {
           <InstructionStep key={`${step.title}-step-card`} step={step} />
         ))}
       </div>
-      <Link href="/" className="btn-primary">
+      <Link href="/giftcards/select?value=200" className="btn-primary">
         Get Started
       </Link>
     </article>

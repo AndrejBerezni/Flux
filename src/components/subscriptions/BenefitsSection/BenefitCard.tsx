@@ -12,8 +12,14 @@ export default function BenefitCard({
   }
 }) {
   return (
-    <article>
-      <Image src={benefit.img} alt={benefit.title} height={200} width={200} />
+    <article className="group hover:cursor-default">
+      <Image
+        src={benefit.img}
+        alt={benefit.title}
+        height={200}
+        width={200}
+        className="duration-300 group-hover:scale-110"
+      />
       <h3 className="my-2 text-2xl font-bold">{benefit.title}</h3>
       <ul>
         {benefit.list.map((item) => (

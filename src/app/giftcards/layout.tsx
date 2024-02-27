@@ -8,7 +8,7 @@ export default function GiftCardsPageLayout({
   return (
     <main className="flex min-h-[90vh] flex-1 flex-col md:flex-row">
       <GiftCardsHero />
-      {children}
+      <section className="flex-1">{children}</section>
     </main>
   )
 }

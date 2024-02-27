@@ -4,7 +4,7 @@
 
 @layer components {
   .btn-primary {
-    @apply w-auto rounded-xl bg-brand px-7 py-3 text-lg font-bold text-white hover:bg-brandDisabled disabled:bg-brandDisabled max-[340px]:px-4 max-[340px]:py-1;
+    @apply w-auto rounded-xl bg-brand px-7 py-3 text-lg font-bold text-white transition-colors duration-300 hover:bg-brandDisabled hover:text-primary active:scale-95 active:outline active:outline-2 active:-outline-offset-4 active:outline-brandDisabled disabled:bg-brandDisabled max-[340px]:px-4 max-[340px]:py-1;
   }
   .input-with-floating-label {
     @apply block w-full appearance-none border-0 border-b-2 border-primary bg-transparent px-0 py-2.5 text-2xl font-bold text-brand focus:border-brand focus:outline-none focus:ring-0;

@@ -16,7 +16,8 @@ function CarouselControl({
       }}
       className={clsx('mx-2 h-3 w-8 border-2 border-white', {
         'bg-brand': current === controlValue,
-        ' bg-tertiary hover:bg-secondary': current !== controlValue,
+        'bg-tertiary hover:bg-secondary active:scale-95 active:outline active:outline-1 active:-outline-offset-2 active:outline-tertiary':
+          current !== controlValue,
       })}
     ></button>
   )

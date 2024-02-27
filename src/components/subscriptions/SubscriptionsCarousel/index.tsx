@@ -38,7 +38,7 @@ export default function SubscriptionsCarousel() {
           setCurrentSlide((prev) =>
             prev === slides.length - 1 ? 0 : prev + 1
           ),
-        4000
+        8000
       )
       return () => {
         clearInterval(changePage)

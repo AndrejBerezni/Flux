@@ -179,12 +179,6 @@ locations.id < vehicles.location
 
 ## Credits
 
-### Subscriptions page illustrations:
-
-- Business illustrations by [Storyset](https://storyset.com/business)
-- People illustrations by [Storyset](https://storyset.com/people)
-- App illustrations by [Storyset](https://storyset.com/app)
-
 ### Subscriptions page photos:
 
 - Tesla Photo by[alex](https://unsplash.com/@alexzahn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/blue-porsche-911-parked-on-sidewalk-during-daytime-re8FigEQ4eQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
@@ -193,3 +187,10 @@ locations.id < vehicles.location
 ### Gift Cards page photos:
 
 - Electric Scooter Photo by [Antonio Sokic](https://unsplash.com/@antesoki?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/black-and-red-bicycle-near-red-wall-VieCBZ_9bOU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+### Illustrations:
+
+- Web illustrations by [Storyset](https://storyset.com/web)
+- People illustrations by [Storyset](https://storyset.com/people)
+- Business illustrations by [Storyset](https://storyset.com/business)
+- App illustrations by [Storyset](https://storyset.com/app)

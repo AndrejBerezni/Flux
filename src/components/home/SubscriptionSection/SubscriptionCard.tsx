@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa'
 
 import { inter } from '@/app/fonts'
@@ -68,10 +69,13 @@ export default function SubscriptionCard({
         </p>
       </div>
       {/* Button with link to subscriptions page visible on small screen only:*/}
-      <button className="btn-primary absolute bottom-5 right-5 flex items-center gap-2 md:hidden">
+      <Link
+        href="/subscriptions"
+        className="btn-primary absolute bottom-5 right-5 flex items-center gap-2 md:hidden"
+      >
         Learn more
         <FaArrowRight />
-      </button>
+      </Link>
       <div className="absolute left-0 top-2/3 z-[-1] h-full w-[150%] -rotate-[15deg] bg-white"></div>
     </div>
   )

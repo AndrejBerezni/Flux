@@ -3,7 +3,11 @@ import VehicleFilterSortButtonsGroup from '@/components/vehicles/VehicleFilterSo
 
 import { robotoCondensed } from '../fonts'
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function VehiclesPageLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <section
       className={`${robotoCondensed.className} section-padding flex h-full w-full max-w-full flex-col gap-6  bg-quaternary md:flex-row`}

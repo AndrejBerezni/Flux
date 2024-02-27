@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          {children}
           <SideNav />
           <SignIn />
           <SignUp />

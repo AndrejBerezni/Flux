@@ -189,3 +189,7 @@ locations.id < vehicles.location
 
 - Tesla Photo by[alex](https://unsplash.com/@alexzahn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/blue-porsche-911-parked-on-sidewalk-during-daytime-re8FigEQ4eQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 - Harley Davidson Photo by [Harley-Davidson](https://unsplash.com/@harleydavidson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/black-and-orange-motorcycle-52UeZUkp3Hs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+### Gift Cards page photos:
+
+- Electric Scooter Photo by [Antonio Sokic](https://unsplash.com/@antesoki?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/black-and-red-bicycle-near-red-wall-VieCBZ_9bOU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)

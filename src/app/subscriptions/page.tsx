@@ -4,10 +4,10 @@ import SubscriptionSelectionSection from '@/components/subscriptions/Subscriptio
 
 export default function SubscriptionsPage() {
   return (
-    <>
+    <main className="flex flex-1 flex-col">
       <SubscriptionsCarousel />
       <BenefitsSection />
       <SubscriptionSelectionSection />
-    </>
+    </main>
   )
 }

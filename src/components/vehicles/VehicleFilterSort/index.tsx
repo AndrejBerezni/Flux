@@ -15,12 +15,12 @@ export default function VehicleFilterSort() {
   return (
     <section
       className={clsx(
-        'fixed left-0 top-0 z-30 h-full w-full flex-col gap-8 bg-white px-4 md:sticky md:top-6 md:h-fit md:w-[200px] md:bg-transparent md:px-0 xl:w-[280px]',
+        'fixed left-0 top-0  h-full w-full flex-col gap-8 bg-white px-4 md:sticky md:top-6 md:h-fit md:w-[200px] md:bg-transparent md:px-0 xl:w-[280px]',
         {
-          'hidden md:flex':
+          'z-10 hidden md:flex':
             modal.modalType !== 'vehicleFilters' &&
             modal.modalType !== 'sortVehicles',
-          'flex md:flex':
+          'z-30 flex md:flex':
             modal.modalType === 'vehicleFilters' ||
             modal.modalType === 'sortVehicles',
         }

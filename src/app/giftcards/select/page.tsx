@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io'
 
 import { robotoCondensed } from '@/app/fonts'
+import Divider from '@/components/Divider'
 import ValueSelectButton from '@/components/giftcards/ValueSelectButton'
 
 export default function SelectGiftCard({
@@ -20,7 +21,7 @@ export default function SelectGiftCard({
       >
         Select Gift Card Value
       </h2>
-      <div className="h-[1px] w-full bg-tertiary"></div>
+      <Divider />
       <div className="grid grid-cols-2 gap-8 ">
         {values.map((value) => (
           <ValueSelectButton
@@ -30,7 +31,7 @@ export default function SelectGiftCard({
           />
         ))}
       </div>
-      <div className="my-3 h-[1px] w-full bg-tertiary"></div>
+      <Divider />
       <div className="flex gap-8">
         <Link
           href="/giftcards"
@@ -40,7 +41,7 @@ export default function SelectGiftCard({
           Back
         </Link>
         <Link
-          href="/giftcards"
+          href={`/giftcards/checkout?value=${selectedValue}`}
           className="btn-primary flex items-center gap-2 shadow-md"
         >
           Next

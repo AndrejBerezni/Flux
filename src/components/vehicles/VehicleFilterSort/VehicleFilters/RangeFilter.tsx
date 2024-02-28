@@ -5,6 +5,8 @@ import './RangeFilter.css'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
 
+import Divider from '@/components/Divider'
+
 export default function RangeFilter({
   labelText,
   filterValues,
@@ -32,7 +34,7 @@ export default function RangeFilter({
 
   return (
     <div className="mb-6 flex w-full flex-col" aria-label="Range filter">
-      <div className="my-3 h-[1px] w-full bg-tertiary"></div>
+      <Divider />
       <label
         className="mb-2 font-semibold capitalize"
         htmlFor={filterId}

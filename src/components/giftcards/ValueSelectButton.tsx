@@ -29,7 +29,7 @@ export default function ValueSelectButton({
         `h-[50px] w-[100px] rounded-full border-2 bg-white text-lg font-extrabold tracking-wide text-primary shadow-md transition-transform duration-200  md:w-[120px] md:text-xl ${robotoCondensed.className}`,
         {
           'scale-110 border-brand  ': Number(currentValue) === value,
-          ' border-secondary hover:scale-110 hover:bg-white hover:shadow-lg active:scale-105 active:shadow-md active:outline active:outline-2 active:-outline-offset-4 active:outline-tertiary':
+          ' border-secondary hover:bg-white hover:shadow-lg active:scale-95 active:shadow-md active:outline active:outline-2 active:-outline-offset-4 active:outline-tertiary md:hover:scale-110 md:active:scale-105':
             Number(currentValue) !== value,
         }
       )}

@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import { useSelector } from 'react-redux'
 
+import Divider from '@/components/Divider'
 import { getModalInfo } from '@/store/modal/selectors'
 
 import RadioSort from './RadioSort'
@@ -28,7 +29,7 @@ export default function VehicleSort() {
       <h2 className="mb-1 text-xl font-extrabold uppercase tracking-wider">
         Sort
       </h2>
-      <div className="my-3 h-[1px] w-full bg-tertiary"></div>
+      <Divider />
       <div className="flex flex-col-reverse items-center gap-4 md:items-start md:gap-1">
         {options.map((option) => (
           <RadioSort

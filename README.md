@@ -4,7 +4,19 @@
 
 Flux is a full stack web application for renting electrical vehicles (cars, bikes, and scooters) in Portugal. Apart from renting vehicles, it gives user option to purchase gift cards for spending on this platform, or to subscribe to monthly subscriptions that come with certain benefits when renting vehicles.
 
-It is still under construction. Finished functionalities and their explanation you may find in the documentation below.
+It is still under construction. Some of the finished functionalities and their explanation you may find in the documentation below. In general, current progress is:
+
+#### Completed features:
+
+- Authentication implemented.
+- UI created: home page, vehicle search results page, subscriptions page, gift cards page, several menus and modals (sign in, sign up, user menu, side nav...).
+- Integrated Google Maps API for searching nearby locations.
+- Database populated with vehicles and locations.
+- Vehicle search implemented - users are able to search, filter, and sort vehicles on different locations and dates.
+
+#### Currently working on:
+
+- Integrating Stripe - creating products on Stripe dashboard and by using Stripe API enabling users to purchase products (rent vehicles, subscribe to Flux subscriptions, buy gift cards).
 
 ## Table of Contents
 
@@ -14,8 +26,9 @@ It is still under construction. Finished functionalities and their explanation y
    2. [vehicleSearch slice](#vehicleSearch-slice)
    3. [modal slice](#modal-slice)
 3. [Database](#database)
-4. [Components](#components)
-5. [Credits](#credits)
+4. [Authentication](#authentication)
+5. [Components](#components)
+6. [Credits](#credits)
 
 ## Stack
 
@@ -31,7 +44,8 @@ It is still under construction. Finished functionalities and their explanation y
 
 ### authentication slicer
 
-Authentication has not yet been implemented. For now, this slicer only keeps user object (uid and name) and isAuth status. It has two reducers: signIn and signOut.
+Authentication is handled with Firebase Authentication, but we use this state to hold information that is passed to UI (like displaying name or email of current user), or passed to API calls to retrieve user information.
+It contains user id, user name, user email, authentication status, and email input that is passed through authentication forms (from sign in to sign up, if user needs to be created).
 
 ### modal slicer
 
@@ -49,7 +63,8 @@ This slicer keeps information that user selects when starting a search and that 
 Database is still being defined, but this is the initial idea of tables, their columns, and their relationships:
 
 1. users:
-   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+   id VARCHAR(255) PRIMARY KEY,
+   auth_type VARCHAR(255) NOT NULL,
    first_name VARCHAR(255) NOT NULL,
    last_name VARCHAR(255),
    email VARCHAR(255) NOT NULL UNIQUE,
@@ -176,6 +191,13 @@ vehicle_images.vehicle_id > scooters_details.id,
 locations.id < rents.pickup_location,
 locations.id < rents.return_location,
 locations.id < vehicles.location
+
+## Authentication
+
+- This application uses Firebase authentication to enable users to log in using Google or Email/Password authentication methods.
+- Apart from Firebase, users are also stored in database for storing additional information and interacting with other data.
+- Searching for users or adding new users to database is handled through Next.js Route Handlers, defined under \src\app\api\auth
+- All the logic related to authentication is then encapsulated in two custom hooks - useEmailAuth and useGoogleAuth, to be used across the application where needed. These hooks return functions for signing in, signing up, and checking if user exists.
 
 ## Credits
 

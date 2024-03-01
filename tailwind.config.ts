@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         brand: '#ff5f00',
         brandDisabled: '#ff5f0099',
+        brandDarker: '#c24900',
         brandSecondary: '#FFFBAA',
         brandTertiary: '#F6E3FF',
         primary: '#1a1a1a',

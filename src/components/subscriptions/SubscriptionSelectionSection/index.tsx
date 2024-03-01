@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 
+import { MonthYear } from '@/compiler/types'
 import Spinner from '@/components/Spinner'
 import useSubscriptions from '@/hooks/useSubscriptions'
 
@@ -8,9 +9,8 @@ import MonthYearSwitch from './MonthYearSwitch'
 import SubscriptionSelect from './SubscriptionSelect'
 
 export default function SubscriptionSelectionSection() {
-  const [subscriptionPeriod, setSubscriptionPeriod] = useState<
-    'month' | 'year'
-  >('month')
+  const [subscriptionPeriod, setSubscriptionPeriod] =
+    useState<MonthYear>('month')
 
   const subscriptions = useSubscriptions()
 

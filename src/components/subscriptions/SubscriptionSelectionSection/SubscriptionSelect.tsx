@@ -2,17 +2,19 @@ import { useState } from 'react'
 
 import clsx from 'clsx'
 import Image from 'next/image'
+import Link from 'next/link'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
 import { inter, robotoCondensed } from '@/app/fonts'
 import { ISubscriptionWithDescription } from '@/compiler/interfaces'
+import { MonthYear } from '@/compiler/types'
 
 export default function SubscriptionSelect({
   subscription,
   period,
 }: {
   subscription: ISubscriptionWithDescription
-  period: 'month' | 'year'
+  period: MonthYear
 }) {
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
 
@@ -53,9 +55,19 @@ export default function SubscriptionSelect({
           ))}
         </ul>
       </div>
-      <button
+      <Link
         className={`${inter.className} btn-primary py-3 text-lg font-semibold tracking-wide md:ml-auto md:min-w-[300px] md:text-xl`}
-        type="button"
+        href={`/subscriptions/subscribe?name=${
+          subscription.name
+        }&period=${period}&subId=${
+          period === 'month'
+            ? subscription.stripe_monthly_prod_id
+            : subscription.stripe_yearly_prod_id
+        }&price=${
+          period === 'month'
+            ? subscription.price_monthly
+            : subscription.price_yearly
+        }`}
       >
         Subscribe for{' '}
         {period === 'month'
@@ -67,7 +79,7 @@ export default function SubscriptionSelect({
               style: 'currency',
               currency: 'EUR',
             })}
-      </button>
+      </Link>
     </article>
   )
 }

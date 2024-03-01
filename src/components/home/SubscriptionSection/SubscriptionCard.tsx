@@ -3,22 +3,12 @@ import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa'
 
 import { inter } from '@/app/fonts'
-
-interface ISubscriptionPrices {
-  month: number
-  year: number
-}
-
-interface ISubscription {
-  title: string
-  benefits: string[]
-  prices: ISubscriptionPrices
-}
+import { ISubscriptionWithDescription } from '@/compiler/interfaces'
 
 export default function SubscriptionCard({
   subscription,
 }: {
-  subscription: ISubscription
+  subscription: ISubscriptionWithDescription
 }) {
   return (
     <div className="relative z-0 h-[500px] w-[300px] overflow-hidden rounded-lg bg-primary p-6 shadow-lg max-[320px]:w-[240px] md:w-[240px] md:max-w-[30%] md:duration-300 md:hover:scale-105 md:hover:shadow-2xl lg:w-[300px]">
@@ -31,13 +21,16 @@ export default function SubscriptionCard({
           height={32}
         />
         <h3 className="text-[32px] font-bold leading-[30px] text-white md:text-xl lg:text-[32px]">
-          {subscription.title}
+          {subscription.name}
         </h3>
       </div>
       <ul className="list-disc pl-4">
-        {subscription.benefits.map((benefit) => (
-          <li key={benefit} className="mb-2 font-semibold text-tertiary">
-            {benefit}
+        {subscription.description.map((desc) => (
+          <li
+            key={`${desc.text} sub desc`}
+            className="mb-2 font-semibold text-tertiary"
+          >
+            {desc.text}
           </li>
         ))}
       </ul>
@@ -46,7 +39,7 @@ export default function SubscriptionCard({
         <p
           className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
         >
-          {subscription.prices.month.toLocaleString('de-DE', {
+          {Number(subscription.price_monthly).toLocaleString('de-DE', {
             style: 'currency',
             currency: 'EUR',
           })}{' '}
@@ -56,12 +49,12 @@ export default function SubscriptionCard({
           className={`${inter.className} mb-2 font-extrabold text-brand md:text-base lg:text-xl`}
         >
           <span className="mr-2 font-semibold text-secondary line-through">
-            {(subscription.prices.month * 12).toLocaleString('de-DE', {
+            {(subscription.price_monthly * 12).toLocaleString('de-DE', {
               style: 'currency',
               currency: 'EUR',
             })}
           </span>
-          {subscription.prices.year.toLocaleString('de-DE', {
+          {Number(subscription.price_yearly).toLocaleString('de-DE', {
             style: 'currency',
             currency: 'EUR',
           })}{' '}

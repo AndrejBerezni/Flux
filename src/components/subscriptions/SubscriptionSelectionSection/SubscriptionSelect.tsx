@@ -2,23 +2,20 @@ import { useState } from 'react'
 
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
 import { inter, robotoCondensed } from '@/app/fonts'
+import { ISubscriptionWithDescription } from '@/compiler/interfaces'
 
 export default function SubscriptionSelect({
   subscription,
   period,
 }: {
-  subscription: {
-    title: string
-    benefits: string[]
-    prices: { month: number; year: number }
-  }
+  subscription: ISubscriptionWithDescription
   period: 'month' | 'year'
 }) {
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
+
   return (
     <article
       className={`${robotoCondensed.className} relative flex w-full flex-col items-center gap-2 rounded-md bg-white  px-10 py-6 shadow-lg duration-300 md:flex-row xl:w-3/4`}
@@ -31,7 +28,7 @@ export default function SubscriptionSelect({
             width={80}
             height={32}
           />
-          {subscription.title}
+          {subscription.name}
         </h2>
         <button
           className="hidden items-center gap-2 rounded-full bg-brand pl-2 pr-4 font-semibold text-white md:flex"
@@ -49,28 +46,27 @@ export default function SubscriptionSelect({
           )}
           style={{ transitionProperty: 'height' }}
         >
-          {subscription.benefits.map((benefit) => (
-            <li key={`${benefit}-sub-ben`} className="font-semibold">
-              {benefit}
+          {subscription.description.map((desc) => (
+            <li key={`${desc.text}-sub-ben`} className="font-semibold">
+              {desc.text}
             </li>
           ))}
         </ul>
       </div>
       <button
         className={`${inter.className} btn-primary py-3 text-lg font-semibold tracking-wide md:ml-auto md:min-w-[300px] md:text-xl`}
+        type="button"
       >
-        <Link href="/">
-          Subscribe for{' '}
-          {period === 'month'
-            ? subscription.prices.month.toLocaleString('de-DE', {
-                style: 'currency',
-                currency: 'EUR',
-              })
-            : subscription.prices.year.toLocaleString('de-DE', {
-                style: 'currency',
-                currency: 'EUR',
-              })}
-        </Link>
+        Subscribe for{' '}
+        {period === 'month'
+          ? Number(subscription.price_monthly).toLocaleString('de-DE', {
+              style: 'currency',
+              currency: 'EUR',
+            })
+          : Number(subscription.price_yearly).toLocaleString('de-DE', {
+              style: 'currency',
+              currency: 'EUR',
+            })}
       </button>
     </article>
   )

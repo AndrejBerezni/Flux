@@ -59,7 +59,8 @@ async function createSubscriptionsTable(client) {
                 type VARCHAR(255) NOT NULL,
                 user_id VARCHAR(255) NOT NULL,
                 start_date DATE NOT NULL,
-                end_date DATE NOT NULL,
+                end_date DATE,
+                subscription_period VARCHAR(255) NOT NULL
                 selected_vehicle VARCHAR(255) NOT NULL
             );`
 
@@ -76,12 +77,13 @@ async function createSubscriptionTypeTable(client) {
             CREATE TABLE IF NOT EXISTS subscription_type (
                 id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                selected_vehicle_discount NUMERIC NOT NULL,
+                selected_vehicle_discount NUMERIC,
                 all_vehicles_discount NUMERIC,
                 gift_card_discount NUMERIC,
-                insurance VARCHAR(255)
+                insurance VARCHAR(255),
+                price_monthly NUMERIC NOT NULL,
+                price_yearly NUMERIC NOT NULL
             );`
-
     return createTable
   } catch (error) {
     throw error

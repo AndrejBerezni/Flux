@@ -1,6 +1,9 @@
 'use client'
 import { useState } from 'react'
 
+import Spinner from '@/components/Spinner'
+import useSubscriptions from '@/hooks/useSubscriptions'
+
 import MonthYearSwitch from './MonthYearSwitch'
 import SubscriptionSelect from './SubscriptionSelect'
 
@@ -9,36 +12,8 @@ export default function SubscriptionSelectionSection() {
     'month' | 'year'
   >('month')
 
-  //data in the future to be stored in database
-  const subscriptions = [
-    {
-      title: 'Basic',
-      benefits: [
-        '7.5% discount on selected vehicle type',
-        '5% discount on gift card purchases',
-      ],
-      prices: { month: 8.99, year: 86 },
-    },
-    {
-      title: 'Gold',
-      benefits: [
-        '2% discount on all vehicles',
-        '10% discount on selected vehicle type',
-        'Medium insurance included in every rent',
-        '7.5% discount on gift card purchases',
-      ],
-      prices: { month: 34.99, year: 335 },
-    },
-    {
-      title: 'Platinum',
-      benefits: [
-        '10% discount on all vehicles',
-        'Maximum insurance included in every rent',
-        '12% discount on gift card purchases',
-      ],
-      prices: { month: 59.99, year: 575 },
-    },
-  ]
+  const subscriptions = useSubscriptions()
+
   return (
     <section className="section-padding flex flex-col items-center gap-4 bg-quaternary py-8">
       <h2 className="-mb-2 self-center text-3xl font-bold text-primary">
@@ -48,13 +23,17 @@ export default function SubscriptionSelectionSection() {
         selectPeriod={setSubscriptionPeriod}
         period={subscriptionPeriod}
       />
-      {subscriptions.map((sub) => (
-        <SubscriptionSelect
-          key={`${sub.title}-sub-select`}
-          subscription={sub}
-          period={subscriptionPeriod}
-        />
-      ))}
+      {subscriptions ? (
+        subscriptions.map((sub) => (
+          <SubscriptionSelect
+            key={`${sub.name}-sub-select`}
+            subscription={sub}
+            period={subscriptionPeriod}
+          />
+        ))
+      ) : (
+        <Spinner />
+      )}
     </section>
   )
 }

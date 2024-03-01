@@ -74,3 +74,26 @@ export interface ISubscriptionsSlide {
   img: string
   text: string
 }
+
+export interface ISubscription {
+  id: string
+  name: string
+  selected_vehicle_discount?: number
+  all_vehicles_discount?: number
+  gift_card_discount?: number
+  insurance: string
+  price_monthly: number
+  stripe_monthly_prod_id: string
+  price_yearly: number
+  stripe_yearly_prod_id: string
+}
+
+export interface ISubscriptionDescription {
+  id: string
+  subscription_id: string
+  text: string
+}
+
+export interface ISubscriptionWithDescription extends ISubscription {
+  description: { text: string }[]
+}

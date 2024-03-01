@@ -1,42 +1,16 @@
+'use client'
 import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa'
 
 import { robotoCondensed } from '@/app/fonts'
 import Carousel from '@/components/Carousel'
+import Spinner from '@/components/Spinner'
+import useSubscriptions from '@/hooks/useSubscriptions'
 
 import SubscriptionCard from './SubscriptionCard'
 
 export default function SubscriptionSection() {
-  // this should be stored in database later
-  const subscriptions = [
-    {
-      title: 'Basic',
-      benefits: [
-        '7.5% discount on selected vehicle type',
-        '5% discount on gift card purchases',
-      ],
-      prices: { month: 8.99, year: 86 },
-    },
-    {
-      title: 'Gold',
-      benefits: [
-        '2% discount on all vehicles',
-        '10% discount on selected vehicle type',
-        'Medium insurance included in every rent',
-        '7.5% discount on gift card purchases',
-      ],
-      prices: { month: 34.99, year: 335 },
-    },
-    {
-      title: 'Platinum',
-      benefits: [
-        '10% discount on all vehicles',
-        'Maximum insurance included in every rent',
-        '12% discount on gift card purchases',
-      ],
-      prices: { month: 59.99, year: 575 },
-    },
-  ]
+  const subscriptions = useSubscriptions()
 
   return (
     <section
@@ -50,27 +24,39 @@ export default function SubscriptionSection() {
         drive both cleaner and more cost-effectively!
       </p>
       {/* On <md screen show Carousel, on md+ screen show card for each subscription: */}
-      <div className="block md:hidden">
-        <Carousel>
-          {subscriptions.map((sub) => (
-            <SubscriptionCard key={sub.title} subscription={sub} />
-          ))}
-        </Carousel>
-      </div>
-      <div className="mt-6 hidden w-full items-center gap-6 md:flex md:flex-col">
-        <div className="mb-4 flex justify-between lg:gap-12 xl:w-auto xl:gap-24">
-          {subscriptions.map((sub) => (
-            <SubscriptionCard key={sub.title} subscription={sub} />
-          ))}
-        </div>
-        <Link
-          href="/subscriptions"
-          className="btn-primary flex w-[200px] items-center justify-center gap-2 shadow-lg"
-        >
-          Learn more
-          <FaArrowRight />
-        </Link>
-      </div>
+      {subscriptions ? (
+        <>
+          <div className="block md:hidden">
+            <Carousel>
+              {subscriptions.map((sub) => (
+                <SubscriptionCard
+                  key={`${sub.name}-home-sub-card-carousel`}
+                  subscription={sub}
+                />
+              ))}
+            </Carousel>
+          </div>
+          <div className="mt-6 hidden w-full items-center gap-6 md:flex md:flex-col">
+            <div className="mb-4 flex justify-between lg:gap-12 xl:w-auto xl:gap-24">
+              {subscriptions.map((sub) => (
+                <SubscriptionCard
+                  key={`${sub.name}-home-sub-card`}
+                  subscription={sub}
+                />
+              ))}
+            </div>
+            <Link
+              href="/subscriptions"
+              className="btn-primary flex w-[200px] items-center justify-center gap-2 shadow-lg"
+            >
+              Learn more
+              <FaArrowRight />
+            </Link>
+          </div>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </section>
   )
 }

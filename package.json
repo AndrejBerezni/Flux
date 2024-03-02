@@ -15,6 +15,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^2.0.1",
+    "@stripe/stripe-js": "^3.0.6",
     "@vercel/postgres": "^0.5.1",
     "clsx": "^2.1.0",
     "firebase": "^10.8.0",
@@ -25,6 +26,7 @@
     "react-icons": "^4.12.0",
     "react-redux": "^9.0.4",
     "sharp": "^0.33.2",
+    "stripe": "^14.19.0",
     "use-debounce": "^10.0.0"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/stripe": "^8.0.417",
     "@typescript-eslint/eslint-plugin": "^6.17.0",
     "autoprefixer": "^10.0.1",
     "dotenv": "^16.3.2",

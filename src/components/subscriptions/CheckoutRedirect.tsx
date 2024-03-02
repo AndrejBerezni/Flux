@@ -2,12 +2,22 @@
 import { useState } from 'react'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-export default function CheckoutRedirect({ subId }: { subId?: string }) {
+export default function CheckoutRedirect({ subId }: { subId: string }) {
+  const router = useRouter()
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false)
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(event.target.checked)
+  }
+
+  const handleCheckout = async () => {
+    const response = await fetch(`/api/subscriptions/checkout?subId=${subId}`)
+    const url = await response.json()
+    if (url) {
+      router.push(url)
+    }
   }
 
   return (
@@ -29,8 +39,11 @@ export default function CheckoutRedirect({ subId }: { subId?: string }) {
           </Link>
         </label>
       </div>
-      {/* id={subId} is there just until I implement checkout session for which I need this id */}
-      <button className="btn-primary" disabled={!agreedToTerms} id={subId}>
+      <button
+        className="btn-primary"
+        disabled={!agreedToTerms}
+        onClick={handleCheckout}
+      >
         Proceed to payment
       </button>
     </div>

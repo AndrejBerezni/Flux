@@ -11,5 +11,8 @@ export const getUserName = (store: RootState) =>
 export const getUserId = (store: RootState) =>
   get(store, 'authentication.user.uid', '')
 
+export const getUserEmail = (store: RootState) =>
+  get(store, 'authentication.user.email', '')
+
 export const getGlobalEmailInput = (store: RootState) =>
   get(store, 'authentication.emailInput', '')

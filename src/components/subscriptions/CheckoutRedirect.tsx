@@ -3,12 +3,18 @@ import { useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { getAuthStatus } from '@/store/authentication/selectors'
+import { showModal } from '@/store/modal'
 
 export default function CheckoutRedirect({ subId }: { subId: string }) {
+  const dispatch = useDispatch()
+  const isAuth = useSelector(getAuthStatus)
   const router = useRouter()
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false)
 
-  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(event.target.checked)
   }
 
@@ -20,13 +26,21 @@ export default function CheckoutRedirect({ subId }: { subId: string }) {
     }
   }
 
+  const handleCheckoutButtonClick = async () => {
+    if (!isAuth) {
+      dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
+    } else {
+      await handleCheckout()
+    }
+  }
+
   return (
     <div className="mb-6 flex flex-col gap-4">
       <div className="flex gap-2">
         <input
           type="checkbox"
           id="terms-conditions-subscription"
-          onChange={(e) => handleCheck(e)}
+          onChange={(e) => handleCheckBox(e)}
         />
         <label>
           I agree to{' '}
@@ -42,7 +56,7 @@ export default function CheckoutRedirect({ subId }: { subId: string }) {
       <button
         className="btn-primary"
         disabled={!agreedToTerms}
-        onClick={handleCheckout}
+        onClick={handleCheckoutButtonClick}
       >
         Proceed to payment
       </button>

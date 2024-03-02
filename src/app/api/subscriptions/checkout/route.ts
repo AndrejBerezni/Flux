@@ -15,6 +15,6 @@ export async function GET(request: NextRequest) {
     const sessionUrl = await createCheckoutSession(subscriptionId as string)
     return Response.json(sessionUrl)
   } catch (error) {
-    throw new Error('Unable to create checkout session')
+    throw error
   }
 }

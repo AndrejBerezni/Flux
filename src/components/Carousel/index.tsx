@@ -18,7 +18,7 @@ export default function Carousel({ children }: { children: ReactNode[] }) {
   }
 
   return (
-    <div className="relative h-[500px] w-[300px] max-[320px]:w-[240px]">
+    <div className="relative h-[500px] w-[300px] max-[425px]:w-[240px]">
       <div className="relative h-full overflow-hidden rounded-xl">
         {children.map((item, index) => (
           <CarouselItem
@@ -51,14 +51,14 @@ export default function Carousel({ children }: { children: ReactNode[] }) {
       <button
         onClick={() => handleChangeSlide('left')}
         disabled={currentSlide === 0}
-        className="absolute right-full top-1/2 text-4xl disabled:text-secondary max-[320px]:text-xl"
+        className="absolute right-full top-1/2 text-4xl disabled:text-secondary max-[425px]:text-xl"
       >
         <IoMdArrowDropleft />
       </button>
       <button
         onClick={() => handleChangeSlide('right')}
         disabled={currentSlide === children.length - 1}
-        className="absolute left-full top-1/2 text-4xl disabled:text-secondary max-[320px]:text-xl"
+        className="absolute left-full top-1/2 text-4xl disabled:text-secondary max-[425px]:text-xl"
       >
         <IoMdArrowDropright />
       </button>

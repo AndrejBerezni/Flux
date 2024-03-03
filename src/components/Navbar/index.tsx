@@ -1,5 +1,4 @@
 'use client'
-import { useEffect } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,7 +8,6 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdAccountCircle } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { auth as fbAuth } from '@/firebase/authentication'
 import { getAuthStatus, getUserName } from '@/store/authentication/selectors'
 import { showModal } from '@/store/modal'
 
@@ -20,10 +18,6 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const auth = useSelector(getAuthStatus)
   const username = useSelector(getUserName)
-
-  useEffect(() => {
-    console.log('user:', fbAuth.currentUser?.uid)
-  }, [])
 
   return (
     <nav className="section-padding flex justify-between bg-black py-4 text-sm font-bold text-white">

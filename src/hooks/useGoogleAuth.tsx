@@ -20,7 +20,7 @@ export default function useGoogleAuth() {
           first_name: googleUser?.displayName,
           email: googleUser?.email,
         }
-        fetch('api/auth', {
+        fetch('/api/auth', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',

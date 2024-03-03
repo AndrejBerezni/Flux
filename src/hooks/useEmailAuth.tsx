@@ -10,7 +10,7 @@ export default function useEmailAuth() {
 
   const checkEmail = async (email: string) => {
     try {
-      const response = await fetch(`api/auth?email=${email}`)
+      const response = await fetch(`/api/auth?email=${email}`)
       const data = await response.json()
       if (data.message === 'User does not exist') {
         return false
@@ -25,13 +25,15 @@ export default function useEmailAuth() {
         )
       }
     } catch (error) {
-      dispatch(setMessage({ type: 'error', text: error }))
+      if (error instanceof Error) {
+        dispatch(setMessage({ type: 'error', text: error.message }))
+      }
     }
   }
 
   const handleEmailSignIn = async (email: string, password: string) => {
     try {
-      const response = await fetch(`api/auth?email=${email}`)
+      const response = await fetch(`/api/auth?email=${email}`)
       const data = await response.json()
       const user = await emailSignIn(email, password)
       if (user) {
@@ -68,7 +70,7 @@ export default function useEmailAuth() {
           last_name: user.last_name,
           email: user.email,
         }
-        fetch('api/auth', {
+        fetch('/api/auth', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',

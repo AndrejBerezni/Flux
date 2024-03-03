@@ -18,3 +18,40 @@ export const fetchSubscriptionDetails = async (
     throw new Error('Failed to retrieve subscription details')
   }
 }
+
+export const checkIfUserHasActiveSubscription = async (uid: string) => {
+  try {
+    const data = await sql`
+    SELECT *
+    FROM subscriptions
+    WHERE user_id=${uid}
+    AND active=true
+    ORDER BY start_date DESC`
+    if (data.rows[0]) {
+      return { hasSubscription: true, subscription: data.rows[0] }
+    } else {
+      return { hasSubscription: false, subscription: null }
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw new Error('Failed to retrieve subscription details')
+  }
+}
+
+export const createSubscription = async (
+  subId: string,
+  user_id: string,
+  subPeriod: string,
+  selectedVehicle: string
+) => {
+  try {
+    const newSubscription =
+      await sql`INSERT INTO subscriptions(type, user_id, start_date, subscription_period, selected_vehicle, active)
+  VALUES(${subId}, ${user_id}, NOW(), ${subPeriod}, ${selectedVehicle}, FALSE)
+  RETURNING id`
+    return newSubscription.rows[0].id
+  } catch (error) {
+    console.error('Error creating subscription:', error)
+    throw new Error('Failed to create subscription')
+  }
+}

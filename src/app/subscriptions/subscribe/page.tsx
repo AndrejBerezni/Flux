@@ -11,6 +11,7 @@ export default async function SubscribePage({
   searchParams?: {
     name?: SubscriptionName
     period?: MonthYear
+    subStripeId?: string
     subId?: string
     price?: string
   }
@@ -18,7 +19,9 @@ export default async function SubscribePage({
   const name = searchParams?.name || 'Basic'
   const period = searchParams?.period || 'month'
   const subId = searchParams?.subId || ''
+  const subStripeId = searchParams?.subStripeId || ''
   const price = searchParams?.price || ''
+
   const details = await fetchSubscriptionDetails(name)
 
   return (
@@ -34,7 +37,12 @@ export default async function SubscribePage({
         subPrice={price}
       />
       <Divider />
-      <CheckoutRedirect subId={subId} />
+      <CheckoutRedirect
+        subId={subId}
+        subStripeId={subStripeId}
+        subName={name}
+        subPeriod={period}
+      />
     </main>
   )
 }

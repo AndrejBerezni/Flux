@@ -4,10 +4,9 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useSelector, useDispatch } from 'react-redux'
-import { setMessage } from '@/store/modal'
 
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
-import { showModal } from '@/store/modal'
+import { setMessage, showModal } from '@/store/modal'
 
 export default function CheckoutRedirect({
   subId,
@@ -32,7 +31,7 @@ export default function CheckoutRedirect({
   }
 
   const handleVehicleInformation = () => {
-    const selectedVehicle = searchParams.get('vehicleType')
+    const selectedVehicle = searchParams.get('selectedVehicle')
     if (!selectedVehicle) {
       dispatch(
         setMessage({
@@ -46,24 +45,37 @@ export default function CheckoutRedirect({
   }
 
   const handleCheckout = async () => {
-    let selectedVehicle
-    if (subName !== 'Platinum') {
-      selectedVehicle = handleVehicleInformation()
-      if (!selectedVehicle) {
-        return
+    try {
+      let selectedVehicle
+      if (subName !== 'Platinum') {
+        selectedVehicle = handleVehicleInformation()
+        if (!selectedVehicle) {
+          return
+        }
       }
-    }
-    // const requestData = {
-    //   subId,
-    //   subStripeId,
-    //   userId,
-    // }
-    const response = await fetch(
-      `/api/subscriptions/checkout?subId=${subId}&subStripeId=${subStripeId}&userId=${userId}`
-    )
-    const url = await response.json()
-    if (url) {
-      router.push(url)
+      const subscriptionData = {
+        subId,
+        subStripeId,
+        userId,
+        selectedVehicle: subName === 'Platinum' ? '' : selectedVehicle,
+        subPeriod,
+      }
+      const response = await fetch('/api/subscriptions/checkout', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(subscriptionData),
+      })
+      const url = await response.json()
+      if (url) {
+        router.push(url)
+      }
+    } catch (error) {
+      dispatch(
+        setMessage({
+          type: 'error',
+          text: 'Unable to create checkout session. Please try later.',
+        })
+      )
     }
   }
 

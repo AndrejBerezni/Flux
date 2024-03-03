@@ -59,7 +59,7 @@ export default function SubscriptionSelect({
         className={`${inter.className} btn-primary py-3 text-lg font-semibold tracking-wide md:ml-auto md:min-w-[300px] md:text-xl`}
         href={`/subscriptions/subscribe?name=${
           subscription.name
-        }&period=${period}&subI${subscription.id}&subStripeId=${
+        }&period=${period}&subId=${subscription.id}&subStripeId=${
           period === 'month'
             ? subscription.stripe_monthly_prod_id
             : subscription.stripe_yearly_prod_id

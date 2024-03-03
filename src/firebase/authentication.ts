@@ -7,12 +7,17 @@ import {
   signInWithPopup,
   signOut,
   sendPasswordResetEmail,
+  setPersistence,
+  browserLocalPersistence,
 } from 'firebase/auth'
 
 import { app } from './config'
 
 //Initialize authentication
 export const auth = getAuth(app)
+
+setPersistence(auth, browserLocalPersistence)
+
 //Google sign in
 const provider = new GoogleAuthProvider()
 
@@ -31,6 +36,7 @@ export const googleSignIn = async () => {
 export const emailSignIn = async (email: string, password: string) => {
   try {
     const newUser = await signInWithEmailAndPassword(auth, email, password)
+    console.log('after:', auth)
     return newUser.user
   } catch (error) {
     if (error instanceof FirebaseError) {

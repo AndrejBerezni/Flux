@@ -13,16 +13,25 @@ export async function POST(request: NextRequest) {
       subscription.userId
     )
     if (hasSubscription.hasSubscription) {
-      throw new Error('Active subscription already exists.')
+      return new Response(
+        JSON.stringify({ error: 'Active subscription already exists.' }),
+        {
+          headers: {
+            'Content-type': 'application/json',
+          },
+          status: 400,
+        }
+      )
     }
-    await createSubscription(
+    const newSubscription = await createSubscription(
       subscription.subId,
       subscription.userId,
       subscription.subPeriod,
       subscription.selectedVehicle
     )
     const sessionUrl = await createCheckoutSession(
-      subscription.subStripeId as string
+      subscription.subStripeId,
+      newSubscription
     )
     return new Response(JSON.stringify(sessionUrl), {
       headers: {
@@ -32,7 +41,12 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(error.message)
+      return new Response(JSON.stringify({ error: error.message }), {
+        headers: {
+          'Content-type': 'application/json',
+        },
+        status: 400,
+      })
     }
   }
 }

@@ -45,13 +45,25 @@ export const createSubscription = async (
   selectedVehicle: string
 ) => {
   try {
-    const newSubscription =
-      await sql`INSERT INTO subscriptions(type, user_id, start_date, subscription_period, selected_vehicle, active)
-  VALUES(${subId}, ${user_id}, NOW(), ${subPeriod}, ${selectedVehicle}, FALSE)
-  RETURNING id`
+    const newSubscription = await sql`
+      INSERT INTO subscriptions(type, user_id, start_date, subscription_period, selected_vehicle, active)
+      VALUES(${subId}, ${user_id}, NOW(), ${subPeriod}, ${selectedVehicle}, FALSE)
+      RETURNING id`
     return newSubscription.rows[0].id
   } catch (error) {
     console.error('Error creating subscription:', error)
     throw new Error('Failed to create subscription')
+  }
+}
+
+export const updateSubscriptionToActive = async (subId: string) => {
+  try {
+    await sql`
+    UPDATE subscriptions
+    SET active=true
+    WHERE id::varchar=${subId}`
+  } catch (error) {
+    console.error('Error updating subscription:', error)
+    throw new Error('Failed to activate subscription')
   }
 }

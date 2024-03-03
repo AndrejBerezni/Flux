@@ -65,17 +65,25 @@ export default function CheckoutRedirect({
         headers: { 'Content-type': 'application/json' },
         body: JSON.stringify(subscriptionData),
       })
+      if (!response.ok) {
+        const errorResponse = await response.json()
+        throw new Error(
+          errorResponse.error || 'Error occurred, please try later.'
+        )
+      }
       const url = await response.json()
       if (url) {
         router.push(url)
       }
     } catch (error) {
-      dispatch(
-        setMessage({
-          type: 'error',
-          text: 'Unable to create checkout session. Please try later.',
-        })
-      )
+      if (error instanceof Error) {
+        dispatch(
+          setMessage({
+            type: 'error',
+            text: error.message,
+          })
+        )
+      }
     }
   }
 

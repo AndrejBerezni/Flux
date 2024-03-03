@@ -1,4 +1,6 @@
 'use client'
+import { useEffect } from 'react'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { FaCar } from 'react-icons/fa'
@@ -13,7 +15,6 @@ import { showModal } from '@/store/modal'
 
 import styles from '../../app/reusables.module.css'
 import UserMenu from '../modals/UserMenu'
-import { useEffect } from 'react'
 
 export default function Navbar() {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ export default function Navbar() {
 
   useEffect(() => {
     console.log('user:', fbAuth.currentUser?.uid)
-  }, [fbAuth])
+  }, [])
 
   return (
     <nav className="section-padding flex justify-between bg-black py-4 text-sm font-bold text-white">

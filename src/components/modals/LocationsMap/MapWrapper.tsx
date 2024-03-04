@@ -1,4 +1,4 @@
-import { fetchNearbyLocations } from '@/lib/fetchLocations'
+import { fetchNearbyLocations } from '@/lib/dbQueries/locations'
 
 import LocationsMap from '.'
 

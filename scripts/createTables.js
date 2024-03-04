@@ -83,7 +83,9 @@ async function createSubscriptionTypeTable(client) {
                 gift_card_discount NUMERIC,
                 insurance VARCHAR(255),
                 price_monthly NUMERIC NOT NULL,
-                price_yearly NUMERIC NOT NULL
+                stripe_monthly_prod_id VARCHAR(255) NOT NULL,
+                price_yearly NUMERIC NOT NULL,
+                stripe_yearly_prod_id VARCHAR(255) NOT NULL
             );`
     return createTable
   } catch (error) {

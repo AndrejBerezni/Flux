@@ -3,7 +3,7 @@ import { type NextRequest } from 'next/server'
 import {
   checkIfUserHasActiveSubscription,
   createSubscription,
-} from '@/lib/fetchSubscriptions'
+} from '@/lib/dbQueries/subscriptions'
 import { createCheckoutSession } from '@/stripe/subscriptions'
 
 export async function POST(request: NextRequest) {

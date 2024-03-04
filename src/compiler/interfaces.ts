@@ -1,3 +1,5 @@
+import { MonthYear, VehicleType } from './types'
+
 export interface ILocation {
   id: string
   name: string
@@ -86,6 +88,17 @@ export interface ISubscription {
   stripe_monthly_prod_id: string
   price_yearly: number
   stripe_yearly_prod_id: string
+}
+
+export interface IUserSubscription {
+  id: string
+  type: string
+  user_id: string
+  start_date: Date
+  subscription_period: MonthYear
+  selected_vehicle?: VehicleType
+  subscription_stripe_id?: string
+  active: boolean
 }
 
 export interface ISubscriptionDescription {

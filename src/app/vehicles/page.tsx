@@ -1,6 +1,6 @@
 import { VehicleType } from '@/compiler/types'
 import VehicleCard from '@/components/vehicles/VehicleCard'
-import { fetchCars, fetchBikes, fetchScooters } from '@/lib/fetchVehicles'
+import { fetchCars, fetchBikes, fetchScooters } from '@/lib/dbQueries/vehicles'
 
 export const fetchCache = 'force-no-store'
 

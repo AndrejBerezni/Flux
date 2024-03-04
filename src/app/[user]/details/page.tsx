@@ -1,6 +1,6 @@
 import { robotoCondensed } from '@/app/fonts'
-import AccountDetailsForm from '@/components/user/AccountDetailsForm'
-import { fetchUserWithId } from '@/lib/fetchUser'
+import AccountDetailsForm from '@/components/user/accountdetails/AccountDetailsForm'
+import { fetchUserWithId } from '@/lib/dbQueries/users'
 
 export const fetchCache = 'force-no-store'
 

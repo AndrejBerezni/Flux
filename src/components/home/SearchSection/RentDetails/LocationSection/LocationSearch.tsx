@@ -1,4 +1,4 @@
-import { fetchLocations } from '@/lib/fetchLocations'
+import { fetchLocations } from '@/lib/dbQueries/locations'
 
 import LocationSearchInput from './LocationSearchInput'
 import LocationSearchResultBox from './LocationSearchResultBox'

@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres'
 import { getImageURL } from '@/firebase/storage'
 import { sortVehicleResults } from '@/utilities/sortVehicleResults'
 
-import { IBikeCard, ICarCard, IScooterCard } from '../compiler/interfaces'
+import { IBikeCard, ICarCard, IScooterCard } from '../../compiler/interfaces'
 
 export const fetchCars = async (
   pickupLocation: string,

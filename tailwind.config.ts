@@ -15,6 +15,7 @@ const config: Config = {
         brandSecondary: '#FFFBAA',
         brandTertiary: '#F6E3FF',
         primary: '#1a1a1a',
+        secondaryText: '#333333',
         secondary: '#828287',
         tertiary: '#c9c9cf',
         quaternary: '#f1f1f3',

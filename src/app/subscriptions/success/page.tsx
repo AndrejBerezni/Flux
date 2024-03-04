@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { robotoCondensed } from '@/app/fonts'
-import { updateSubscriptionToActive } from '@/lib/fetchSubscriptions'
+import { updateSubscriptionToActive } from '@/lib/dbQueries/subscriptions'
 import { retrieveSubscriptionIdfromSession } from '@/stripe/subscriptions'
 
 export default async function SubscriptionSuccessfulPage({

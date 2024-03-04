@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
 import UserPageMenu from '@/components/user/UserPageMenu'
-import { auth } from '@/firebase/authentication'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 
 export default function UserPageLayout({
@@ -26,7 +25,7 @@ export default function UserPageLayout({
     }
   }, [isAuth, uid, params.user, router])
 
-  if (auth.currentUser?.uid === params.user) {
+  if (uid === params.user) {
     return (
       <section className="section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary">
         <UserPageMenu />

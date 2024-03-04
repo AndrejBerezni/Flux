@@ -22,7 +22,8 @@ export default function UserMenu() {
     {
       icon: <FaCar />,
       text: 'Bookings',
-      href: `/${uid}/bookings`,
+      href: '/',
+      // `/${uid}/bookings`,
     },
     {
       icon: <FaCreditCard />,
@@ -31,8 +32,9 @@ export default function UserMenu() {
     },
     {
       icon: <FaWallet />,
-      text: 'Balance',
-      href: `/${uid}/balance`,
+      text: 'Gift Cards',
+      href: '/',
+      // `/${uid}/giftcards`,
     },
     {
       icon: <FaUser />,

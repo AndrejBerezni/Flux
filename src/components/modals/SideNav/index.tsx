@@ -19,7 +19,7 @@ export default function SideNav() {
     { href: '/', title: 'Rent' },
     { href: '/subscriptions', title: 'Subscriptions' },
     { href: '/giftcards', title: 'Gift Cards' },
-    { href: '/contact', title: 'Contact' },
+    { href: '/', title: 'Contact' },
   ]
 
   return (

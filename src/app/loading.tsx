@@ -1,7 +1,7 @@
 import { robotoCondensed } from './fonts'
 export default function Loading() {
   return (
-    <main className="m-0 flex h-screen w-full items-center justify-center bg-primary">
+    <section className="m-0 flex h-screen w-full items-center justify-center bg-primary">
       <div
         aria-label="Loading..."
         role="status"
@@ -90,6 +90,6 @@ export default function Loading() {
           Loading...
         </span>
       </div>
-    </main>
+    </section>
   )
 }

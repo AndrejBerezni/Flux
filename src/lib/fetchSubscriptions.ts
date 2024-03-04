@@ -56,11 +56,14 @@ export const createSubscription = async (
   }
 }
 
-export const updateSubscriptionToActive = async (subId: string) => {
+export const updateSubscriptionToActive = async (
+  subId: string,
+  stripeSubId: string
+) => {
   try {
     await sql`
     UPDATE subscriptions
-    SET active=true
+    SET active=true, subscription_stripe_id=${stripeSubId}
     WHERE id::varchar=${subId}`
   } catch (error) {
     console.error('Error updating subscription:', error)

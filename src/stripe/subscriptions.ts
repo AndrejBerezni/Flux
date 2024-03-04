@@ -8,7 +8,7 @@ export const createCheckoutSession = async (itemId: string, subId: string) => {
     const product = await stripe.products.retrieve(itemId)
     const priceId = product.default_price
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/subscriptions/success?subId=${subId}`,
+      success_url: `https://flux-nu.vercel.app/subscriptions/success?subId=${subId}&sessionId={CHECKOUT_SESSION_ID}`,
       line_items: [
         {
           price: priceId as string,
@@ -18,6 +18,15 @@ export const createCheckoutSession = async (itemId: string, subId: string) => {
       mode: 'subscription',
     })
     return session.url
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const retrieveSubscriptionIdfromSession = async (sessiondId: string) => {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessiondId)
+    return session.subscription
   } catch (error) {
     console.error(error)
   }

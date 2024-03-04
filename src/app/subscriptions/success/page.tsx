@@ -2,14 +2,19 @@ import Link from 'next/link'
 
 import { robotoCondensed } from '@/app/fonts'
 import { updateSubscriptionToActive } from '@/lib/fetchSubscriptions'
+import { retrieveSubscriptionIdfromSession } from '@/stripe/subscriptions'
+
 export default async function SubscriptionSuccessfulPage({
   searchParams,
 }: {
-  searchParams?: { subId?: string }
+  searchParams?: { subId?: string; sessionId?: string }
 }) {
   const subscriptionId = searchParams?.subId || ''
+  const sessionId = searchParams?.sessionId || ''
+
   try {
-    await updateSubscriptionToActive(subscriptionId)
+    const stripeSubId = await retrieveSubscriptionIdfromSession(sessionId)
+    await updateSubscriptionToActive(subscriptionId, stripeSubId as string)
   } catch (error) {
     if (error instanceof Error) {
       console.log('Error:', error.message)

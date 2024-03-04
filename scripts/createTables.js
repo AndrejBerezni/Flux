@@ -61,6 +61,7 @@ async function createSubscriptionsTable(client) {
                 start_date DATE NOT NULL,
                 subscription_period VARCHAR(255) NOT NULL,
                 selected_vehicle VARCHAR(255),
+                subscription_stripe_id VARCHAR(255),
                 active BOOLEAN NOT NULL
             );`
 

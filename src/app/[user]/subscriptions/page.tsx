@@ -8,6 +8,9 @@ import {
   checkIfUserHasActiveSubscription,
   fetchSubscriptionDetails,
 } from '@/lib/dbQueries/subscriptions'
+
+export const fetchCache = 'force-no-store'
+
 export default async function AccountSubscriptionsPage({
   params,
 }: {

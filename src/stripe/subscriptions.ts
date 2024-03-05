@@ -31,3 +31,14 @@ export const retrieveSubscriptionIdfromSession = async (sessiondId: string) => {
     console.error(error)
   }
 }
+
+export const cancelSubscription = async (subscriptionId: string) => {
+  try {
+    const canceledSubscription =
+      await stripe.subscriptions.cancel(subscriptionId)
+    console.log(canceledSubscription)
+    return canceledSubscription
+  } catch (error) {
+    console.error(error)
+  }
+}

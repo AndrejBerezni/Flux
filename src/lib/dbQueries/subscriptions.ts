@@ -21,11 +21,12 @@ export const fetchSubscriptionDetails = async (
 
 export const checkIfUserHasActiveSubscription = async (uid: string) => {
   try {
+    const todayDate = new Date().toISOString().split('T')[0]
     const data = await sql`
     SELECT *
     FROM subscriptions
     WHERE user_id=${uid}
-    AND active=true
+    AND (active = true OR (active = false AND end_date > ${todayDate}))
     ORDER BY start_date DESC`
     if (data.rows[0]) {
       return { hasSubscription: true, subscription: data.rows[0] }
@@ -68,5 +69,23 @@ export const updateSubscriptionToActive = async (
   } catch (error) {
     console.error('Error updating subscription:', error)
     throw new Error('Failed to activate subscription')
+  }
+}
+
+export const deactivateSubscription = async (
+  subId: string,
+  endDate: number
+) => {
+  try {
+    const endDateDate = new Date(endDate * 1000)
+    const endDateString = endDateDate.toISOString().split('T')[0]
+
+    await sql`
+    UPDATE subscriptions
+    SET active=false, end_date=${endDateString}
+    WHERE id::varchar=${subId}`
+  } catch (error) {
+    console.error('Error deactivating subscription:', error)
+    throw new Error('Failed to deactivate subscription')
   }
 }

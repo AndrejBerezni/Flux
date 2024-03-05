@@ -95,6 +95,7 @@ export interface IUserSubscription {
   type: string
   user_id: string
   start_date: Date
+  end_date?: Date
   subscription_period: MonthYear
   selected_vehicle?: VehicleType
   subscription_stripe_id?: string

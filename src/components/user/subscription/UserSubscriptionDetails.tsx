@@ -3,6 +3,22 @@ import Divider from '@/components/Divider'
 
 import UserSubscriptionActionButtons from './UserSubscriptionActionButtons'
 
+function DetailTextRow({
+  detail,
+}: {
+  detail: { title: string; value: string }
+}) {
+  return (
+    <li className="my-2 flex items-end text-base text-secondaryText md:text-xl">
+      <p className="leading-4">{detail.title}</p>
+      <div className="mx-[2px] h-full flex-1 border-b-[1px] border-dotted border-b-secondary"></div>
+      <p className="font-bold capitalize leading-4 text-brand">
+        {detail.value}
+      </p>
+    </li>
+  )
+}
+
 export default function UserSubscriptionDetails({
   subscription,
   subscriptionInfo,
@@ -36,17 +52,17 @@ export default function UserSubscriptionDetails({
         <ul className="w-full xl:w-1/2">
           <h3 className="text-2xl font-bold md:text-3xl">Details:</h3>
           {textRows.map((row) => (
-            <li
-              key={`${row.title}-user-sub-row`}
-              className="my-2 flex items-end text-base text-secondaryText md:text-xl"
-            >
-              <p className="leading-4">{row.title}</p>
-              <div className="mx-[2px] h-full flex-1 border-b-[1px] border-dotted border-b-secondary"></div>
-              <p className="font-bold capitalize leading-4 text-brand">
-                {row.value}
-              </p>
-            </li>
+            <DetailTextRow detail={row} key={`${row.title}-user-sub-detail`} />
           ))}
+          {/* If subscription has been canceled, show ending date */}
+          {subscription.end_date && (
+            <DetailTextRow
+              detail={{
+                title: 'Ends on:',
+                value: `${subscription.end_date.toDateString()}`,
+              }}
+            />
+          )}
         </ul>
         <ul>
           <h3 className="text-2xl font-bold md:text-3xl">Includes:</h3>
@@ -67,8 +83,8 @@ export default function UserSubscriptionDetails({
       </div>
       <Divider />
       <UserSubscriptionActionButtons
-      // subId={subscription.id}
-      // subStripeId={subscription.subscription_stripe_id as string}
+        subId={subscription.id}
+        subStripeId={subscription.subscription_stripe_id as string}
       />
     </div>
   )

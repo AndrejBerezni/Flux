@@ -45,7 +45,7 @@ export default async function AccountSubscriptionsPage({
 
   return (
     <section
-      className={`${robotoCondensed.className} max-w-full flex-1 rounded-md bg-white p-6 shadow-md`}
+      className={`${robotoCondensed.className} flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md`}
     >
       <h1 className="text-3xl font-bold uppercase">Your subscription</h1>
       {!sub.hasSubscription && <NoActiveSubscription />}

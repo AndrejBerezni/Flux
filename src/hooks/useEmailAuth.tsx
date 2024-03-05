@@ -12,11 +12,11 @@ export default function useEmailAuth() {
     try {
       const response = await fetch(`/api/auth?email=${email}`)
       const data = await response.json()
-      if (data.message === 'User does not exist') {
+      if (data.error === 'User does not exist') {
         return false
       } else if (data.auth_type === 'email') {
         return true
-      } else if (data && data.auth_type !== 'email') {
+      } else if (data.auth_type !== 'email') {
         dispatch(
           setMessage({
             type: 'error',

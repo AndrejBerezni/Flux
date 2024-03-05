@@ -18,9 +18,16 @@ export async function GET() {
     )
     return Response.json(result)
   } catch (error) {
-    if (error instanceof Error) {
-      console.error('Error:', error.message)
-    }
-    throw new Error('Error occured while fetching subscriptions details')
+    return new Response(
+      JSON.stringify({
+        error: 'Error occured while fetching subscriptions details',
+      }),
+      {
+        headers: {
+          'Content-type': 'application/json',
+        },
+        status: 404,
+      }
+    )
   }
 }

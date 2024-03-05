@@ -48,7 +48,7 @@ export default function SideNav() {
       </div>
       {links.map((link) => (
         <Link
-          key={`${link.href}-sidelink`}
+          key={`${link.title}-sidelink`}
           href={link.href}
           className={clsx('text-3xl font-bold duration-200 hover:text-brand', {
             'text-brand': pathname === link.href,

@@ -13,7 +13,7 @@ export default function useGoogleAuth() {
       const googleUser = await googleSignIn()
       const response = await fetch(`/api/auth?email=${googleUser?.email}`)
       const data = await response.json()
-      if (data.message === 'User does not exist') {
+      if (data.error === 'User does not exist') {
         const userData = {
           id: googleUser?.uid,
           auth_type: 'google',

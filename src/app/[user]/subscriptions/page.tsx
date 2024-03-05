@@ -14,6 +14,10 @@ export default async function AccountSubscriptionsPage({
   params: { user: string }
 }) {
   const uid = params.user || ''
+
+  // We check if user has active subscription and if yes, we retrieve that row from db.
+  // Then in the next function we gather general details about the type of subscription user is subscribed to.
+  // In the end, all that is passed to component that displays this information.
   const sub = await checkIfUserHasActiveSubscription(uid)
 
   const getSubscriptionInformation = async (sub: {

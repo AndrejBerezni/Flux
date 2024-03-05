@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
-import { FaCar, FaCreditCard, FaWallet, FaSignOutAlt } from 'react-icons/fa'
+import { FaCar, FaCreditCard, FaGift, FaSignOutAlt } from 'react-icons/fa'
 import { FaUser } from 'react-icons/fa6'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
@@ -31,7 +31,7 @@ export default function UserMenu() {
       href: `/${uid}/subscriptions`,
     },
     {
-      icon: <FaWallet />,
+      icon: <FaGift />,
       text: 'Gift Cards',
       href: '/',
       // `/${uid}/giftcards`,

@@ -12,10 +12,30 @@ export async function GET(request: NextRequest) {
     if (user) {
       return Response.json(user)
     } else {
-      return Response.json({ message: 'User does not exist' })
+      return new Response(
+        JSON.stringify({
+          error: 'User does not exist',
+        }),
+        {
+          headers: {
+            'Content-type': 'application/json',
+          },
+          status: 404,
+        }
+      )
     }
   } catch (error) {
-    throw new Error('Unable to search for user')
+    return new Response(
+      JSON.stringify({
+        error: 'Unable to search for user.',
+      }),
+      {
+        headers: {
+          'Content-type': 'application/json',
+        },
+        status: 400,
+      }
+    )
   }
 }
 
@@ -39,6 +59,16 @@ export async function POST(request: NextRequest) {
       status: 201,
     })
   } catch (error) {
-    throw new Error('Unable to create user')
+    return new Response(
+      JSON.stringify({
+        error: 'Unable to create user.',
+      }),
+      {
+        headers: {
+          'Content-type': 'application/json',
+        },
+        status: 400,
+      }
+    )
   }
 }

@@ -25,12 +25,10 @@ export default function UserPageLayout({
     }
   }, [isAuth, uid, params.user, router])
 
-  if (uid === params.user) {
-    return (
-      <section className="section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary">
-        <UserPageMenu />
-        {children}
-      </section>
-    )
-  }
+  return (
+    <section className="section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary">
+      <UserPageMenu />
+      {children}
+    </section>
+  )
 }

@@ -36,7 +36,6 @@ It is still under construction. Some of the finished functionalities and their e
 - TypeScript
 - Vercel Postgres - database
 - Tailwind CSS - styling
-- Auth.js - authentication
 - Firebase - image storage and authentication
 - Redux toolkit - global state
 

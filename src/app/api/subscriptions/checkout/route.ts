@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
           headers: {
             'Content-type': 'application/json',
           },
-          status: 400,
+          status: 409, //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
         }
       )
     }

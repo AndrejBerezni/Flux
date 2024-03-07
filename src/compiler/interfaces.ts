@@ -1,4 +1,4 @@
-import { MonthYear, VehicleType } from './types'
+import { MonthYear, SubscriptionAction, VehicleType } from './types'
 
 export interface ILocation {
   id: string
@@ -110,4 +110,10 @@ export interface ISubscriptionDescription {
 
 export interface ISubscriptionWithDescription extends ISubscription {
   description: { text: string }[]
+}
+
+export interface ISubscriptionAPIPatchRequestBody {
+  id: string
+  stripeId: string
+  action: SubscriptionAction
 }

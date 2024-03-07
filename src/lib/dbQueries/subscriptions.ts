@@ -89,3 +89,15 @@ export const deactivateSubscription = async (
     throw new Error('Failed to deactivate subscription')
   }
 }
+
+export const reactivateSubscription = async (subId: string) => {
+  try {
+    await sql`
+    UPDATE subscriptions
+    SET active=true, end_date=NULL
+    WHERE id::varchar=${subId}`
+  } catch (error) {
+    console.error('Error reactivating subscription:', error)
+    throw new Error('Failed to reactivate subscription')
+  }
+}

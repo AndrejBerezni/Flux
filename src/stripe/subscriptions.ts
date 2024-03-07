@@ -1,4 +1,6 @@
 import Stripe from 'stripe'
+
+import { SubscriptionAction } from '@/compiler/types'
 const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET as string, {
   apiVersion: '2023-10-16',
 })
@@ -32,12 +34,21 @@ export const retrieveSubscriptionIdfromSession = async (sessiondId: string) => {
   }
 }
 
-export const cancelSubscription = async (subscriptionId: string) => {
+export const modifySubscription = async (
+  subscriptionId: string,
+  action: SubscriptionAction
+) => {
   try {
-    const canceledSubscription =
-      await stripe.subscriptions.cancel(subscriptionId)
-    console.log(canceledSubscription)
-    return canceledSubscription
+    // if we use stripe.subscriptions.cancel, sub will be cancelled immediately.
+    // Instead, we use update method to have it canceled when the current billing period ends
+    // In case of renewing it, we just update the subscription not to be canceled at the end of the current billing period
+    const modifiedSubscription = await stripe.subscriptions.update(
+      subscriptionId,
+      {
+        cancel_at_period_end: action === 'cancel',
+      }
+    )
+    return modifiedSubscription
   } catch (error) {
     console.error(error)
   }

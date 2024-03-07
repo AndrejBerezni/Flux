@@ -19,7 +19,7 @@ export default async function AccountSubscriptionsPage({
   const uid = params.user || ''
 
   // We check if user has active subscription and if yes, we retrieve that row from db.
-  // Then in the next function we gather general details about the type of subscription user is subscribed to.
+  // Then in the next function we gather benefits from the type of subscription user is subscribed to.
   // In the end, all that is passed to component that displays this information.
   const sub = await checkIfUserHasActiveSubscription(uid)
 
@@ -34,9 +34,9 @@ export default async function AccountSubscriptionsPage({
     SELECT *
     FROM subscription_type
     WHERE id::varchar=${sub.subscription.type}`
-    const details = await fetchSubscriptionDetails(data.rows[0].name)
+    const benefits = await fetchSubscriptionDetails(data.rows[0].name)
 
-    return { info: data.rows[0], details }
+    return { info: data.rows[0], benefits }
   }
 
   const subInfo = await getSubscriptionInformation(
@@ -56,7 +56,7 @@ export default async function AccountSubscriptionsPage({
         <UserSubscriptionDetails
           subscription={sub.subscription as IUserSubscription}
           subscriptionInfo={subInfo.info as ISubscription}
-          subscriptionDetails={subInfo.details}
+          subscriptionBenefits={subInfo.benefits}
         />
       )}
     </section>

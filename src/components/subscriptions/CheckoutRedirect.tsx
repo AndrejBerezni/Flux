@@ -103,7 +103,7 @@ export default function CheckoutRedirect({
           id="terms-conditions-subscription"
           onChange={(e) => handleCheckBox(e)}
         />
-        <label>
+        <label htmlFor="terms-conditions-subscription">
           I agree to{' '}
           <Link
             className="text-brand hover:text-brandDarker hover:underline"

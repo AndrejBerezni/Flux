@@ -83,8 +83,8 @@ export const changeSubscriptionStatus = async (
 
     await sql`
     UPDATE subscriptions
-    SET active=${action === 'cancel' ? 'false' : 'true'}, end_date=${
-      endDate ? endDateString : 'NULL'
+    SET active=${action === 'renew'}, end_date=${
+      action === 'cancel' ? endDateString : null
     }
     WHERE id::varchar=${subId}`
   } catch (error) {

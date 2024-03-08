@@ -1,8 +1,12 @@
 'use client'
+import { useState } from 'react'
+
 import { useDispatch } from 'react-redux'
 
 import { SubscriptionAction } from '@/compiler/types'
 import { setMessage } from '@/store/modal'
+
+import SubscriptionActionConfirmation from './SubscriptionActionConfirmation'
 
 export default function UserSubscriptionActionButtons({
   subId,
@@ -14,6 +18,7 @@ export default function UserSubscriptionActionButtons({
   endDate: Date | undefined
 }) {
   const dispatch = useDispatch()
+  const [confirmation, setConfirmation] = useState<'' | SubscriptionAction>('')
 
   const handleModifySubscription = async (action: SubscriptionAction) => {
     try {
@@ -36,12 +41,14 @@ export default function UserSubscriptionActionButtons({
     }
   }
 
+  const handleCloseConfirmationBox = () => setConfirmation('')
+
   return (
     <div className="mt-auto flex flex-col-reverse flex-wrap items-center justify-center gap-8 lg:flex-row xl:mt-20">
       {endDate ? (
         <button
           className="btn-primary w-4/5 md:w-[220px]"
-          onClick={async () => handleModifySubscription('renew')}
+          onClick={async () => setConfirmation('renew')}
         >
           Renew Subscription
         </button>
@@ -49,7 +56,7 @@ export default function UserSubscriptionActionButtons({
         <>
           <button
             className="btn-primary w-4/5 bg-red-500 md:w-[220px]"
-            onClick={async () => handleModifySubscription('cancel')}
+            onClick={async () => setConfirmation('cancel')}
           >
             Cancel Subscription
           </button>
@@ -57,6 +64,13 @@ export default function UserSubscriptionActionButtons({
             Change Subscription
           </button>
         </>
+      )}
+      {confirmation !== '' && (
+        <SubscriptionActionConfirmation
+          action={confirmation}
+          handleAction={handleModifySubscription}
+          closeConfirmation={handleCloseConfirmationBox}
+        />
       )}
     </div>
   )

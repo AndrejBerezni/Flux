@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres'
 
-import { SubscriptionName } from '@/compiler/types'
+import { SubscriptionAction, SubscriptionName } from '@/compiler/types'
 
 export const fetchSubscriptionDetails = async (
   subName: SubscriptionName
@@ -72,8 +72,9 @@ export const updateSubscriptionToActive = async (
   }
 }
 
-export const deactivateSubscription = async (
+export const changeSubscriptionStatus = async (
   subId: string,
+  action: SubscriptionAction,
   endDate: number
 ) => {
   try {
@@ -82,22 +83,12 @@ export const deactivateSubscription = async (
 
     await sql`
     UPDATE subscriptions
-    SET active=false, end_date=${endDateString}
+    SET active=${action === 'cancel' ? 'false' : 'true'}, end_date=${
+      endDate ? endDateString : 'NULL'
+    }
     WHERE id::varchar=${subId}`
   } catch (error) {
     console.error('Error deactivating subscription:', error)
     throw new Error('Failed to deactivate subscription')
-  }
-}
-
-export const reactivateSubscription = async (subId: string) => {
-  try {
-    await sql`
-    UPDATE subscriptions
-    SET active=true, end_date=NULL
-    WHERE id::varchar=${subId}`
-  } catch (error) {
-    console.error('Error reactivating subscription:', error)
-    throw new Error('Failed to reactivate subscription')
   }
 }

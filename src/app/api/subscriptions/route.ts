@@ -6,10 +6,7 @@ import {
   ISubscription,
   ISubscriptionDescription,
 } from '@/compiler/interfaces'
-import {
-  deactivateSubscription,
-  reactivateSubscription,
-} from '@/lib/dbQueries/subscriptions'
+import { changeSubscriptionStatus } from '@/lib/dbQueries/subscriptions'
 import { modifySubscription } from '@/stripe/subscriptions'
 
 export async function GET() {
@@ -43,20 +40,23 @@ export async function GET() {
   }
 }
 
-const handleCancelingSubscription = async (
+const handleChangingSubscriptionStatus = async (
   subscription: ISubscriptionAPIPatchRequestBody
 ) => {
-  const canceledSubscription = await modifySubscription(
+  const modifiedSubscription = await modifySubscription(
     subscription.stripeId,
-    'cancel'
+    subscription.action
   )
-  if (canceledSubscription) {
-    await deactivateSubscription(
+  if (modifiedSubscription) {
+    await changeSubscriptionStatus(
       subscription.id,
-      canceledSubscription.current_period_end
+      subscription.action,
+      modifiedSubscription.current_period_end
     )
     return new Response(
-      JSON.stringify({ message: 'Subscription successfully canceled' }),
+      JSON.stringify({
+        message: `Subscription successfully ${subscription.action}ed`,
+      }),
       {
         headers: {
           'Content-type': 'application/json',
@@ -65,46 +65,15 @@ const handleCancelingSubscription = async (
       }
     )
   } else {
-    throw new Error('Unable to cancel subscription')
-  }
-}
-
-const handleRenewingSubscription = async (
-  subscription: ISubscriptionAPIPatchRequestBody
-) => {
-  const renewedSubscription = await modifySubscription(
-    subscription.stripeId,
-    'renew'
-  )
-  if (renewedSubscription) {
-    await reactivateSubscription(subscription.id)
-    return new Response(
-      JSON.stringify({ message: 'Subscription successfully renewed' }),
-      {
-        headers: {
-          'Content-type': 'application/json',
-        },
-        status: 200,
-      }
-    )
-  } else {
-    throw new Error('Unable to renew subscription')
+    throw new Error(`Unable to ${subscription.action} subscription`)
   }
 }
 
 export async function PATCH(request: NextRequest) {
   try {
     const subscription = await request.json()
-    switch (subscription.action) {
-      case 'cancel':
-        const cancelResponse = await handleCancelingSubscription(subscription)
-        return cancelResponse
-      case 'renew':
-        const renewResponse = await handleRenewingSubscription(subscription)
-        return renewResponse
-      default:
-        throw new Error('Unable to modify subscription')
-    }
+    const actionResponse = await handleChangingSubscriptionStatus(subscription)
+    return actionResponse
   } catch (error) {
     return new Response(
       JSON.stringify({

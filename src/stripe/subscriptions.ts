@@ -17,6 +17,7 @@ export const createCheckoutSession = async (itemId: string, subId: string) => {
           quantity: 1,
         },
       ],
+      allow_promotion_codes: true,
       mode: 'subscription',
     })
     return session.url
@@ -49,6 +50,32 @@ export const modifySubscription = async (
       }
     )
     return modifiedSubscription
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const changeSubscriptionPlan = async (
+  subscriptionId: string,
+  productId: string
+) => {
+  try {
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+    const subscriptionItem = subscription.items.data[0].id
+
+    const product = await stripe.products.retrieve(productId)
+    const priceId = product.default_price
+    if (priceId) {
+      const modifiedItem = await stripe.subscriptionItems.update(
+        subscriptionItem,
+        {
+          price: priceId as string,
+        }
+      )
+      return modifiedItem
+    } else {
+      throw new Error('Unable to retrive subscription plan price.')
+    }
   } catch (error) {
     console.error(error)
   }

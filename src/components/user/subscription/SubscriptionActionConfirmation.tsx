@@ -27,7 +27,7 @@ export default function SubscriptionActionConfirmation({
     },
     renew: {
       info: [
-        "By confirming this, your subscription will be automatically renewed after the current billing period ends. You won't experience any interruption in your service.",
+        'By confirming this, your subscription will be automatically renewed after the current billing period ends, when you will be charged automatically for the next billing period.',
         "You'll continue to enjoy our services just like before. Your access will remain uninterrupted, and you can use our platform as usual.",
       ],
       appreciation: 'Thank you for choosing to stay with us!',
@@ -48,6 +48,7 @@ export default function SubscriptionActionConfirmation({
   return (
     <>
       <article className="fixed left-0 top-0 z-30 flex h-full w-full flex-col gap-1 overflow-y-auto rounded-md border-2 border-tertiary bg-white p-4 shadow-md md:left-1/2 md:top-1/2 md:h-fit md:w-[600px] md:-translate-x-1/2 md:-translate-y-1/2">
+        {/* Header and information about consequences of the action: */}
         <h2 className="text-2xl font-bold text-primary">
           Are you sure you want to {action} this subscription?
         </h2>
@@ -60,10 +61,11 @@ export default function SubscriptionActionConfirmation({
             <li key={text}>{text}</li>
           ))}
         </ul>
-        <p className="my-3 self-center text-center text-lg font-semibold">
+        <p className="mb-2 mt-6 self-center text-center text-xl font-semibold">
           {actionDetails[action].appreciation}
         </p>
         <Divider />
+        {/* Checkbox to agree to above terms: */}
         <div className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -75,9 +77,10 @@ export default function SubscriptionActionConfirmation({
             the terms above.
           </label>
         </div>
+        {/* Yes and No buttons - Yes is disabled if checkbox is not checked */}
         <div className="my-4 flex w-full justify-center gap-8">
           <button
-            className="btn-primary w-[100px] md:w-[150px]"
+            className="btn-primary flex w-[100px] items-center justify-center md:w-[150px]"
             onClick={handleConfirm}
             disabled={!agreedToTerms}
           >
@@ -91,6 +94,7 @@ export default function SubscriptionActionConfirmation({
           </button>
         </div>
       </article>
+      {/* outer area: */}
       <div
         className="fixed left-0 top-0 z-20 h-screen w-screen bg-primary opacity-70"
         onClick={closeConfirmation}

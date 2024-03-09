@@ -1,6 +1,10 @@
 import { sql } from '@vercel/postgres'
 
-import { SubscriptionAction, SubscriptionName } from '@/compiler/types'
+import {
+  SubscriptionAction,
+  SubscriptionName,
+  VehicleType,
+} from '@/compiler/types'
 
 export const fetchSubscriptionDetails = async (
   subName: SubscriptionName
@@ -90,5 +94,21 @@ export const changeSubscriptionStatus = async (
   } catch (error) {
     console.error('Error deactivating subscription:', error)
     throw new Error('Failed to deactivate subscription')
+  }
+}
+
+export const changeSubscriptionType = async (
+  subId: string,
+  typeId: string,
+  selectedVehicle: VehicleType | null
+) => {
+  try {
+    await sql`
+    UPDATE subscriptions
+    SET type=${typeId}, selected_vehicle=${selectedVehicle}
+    WHERE id::varchar=${subId}`
+  } catch (error) {
+    console.error('Error changing subscription type:', error)
+    throw new Error('Failed to change subscription type')
   }
 }

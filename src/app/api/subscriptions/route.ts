@@ -9,6 +9,7 @@ import {
 import { changeSubscriptionStatus } from '@/lib/dbQueries/subscriptions'
 import { modifySubscription } from '@/stripe/subscriptions'
 
+// GET will return list of all subscriptions as ISubscriptionWithDescription interface
 export async function GET() {
   try {
     const response =

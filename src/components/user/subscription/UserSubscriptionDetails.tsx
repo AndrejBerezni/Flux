@@ -97,11 +97,7 @@ export default function UserSubscriptionDetails({
         </ul>
       </div>
       <Divider />
-      <UserSubscriptionActionButtons
-        subId={subscription.id}
-        subStripeId={subscription.subscription_stripe_id as string}
-        endDate={subscription.end_date}
-      />
+      <UserSubscriptionActionButtons subscription={subscription} />
     </div>
   )
 }

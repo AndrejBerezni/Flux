@@ -3,34 +3,34 @@ import { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 
+import { IUserSubscription } from '@/compiler/interfaces'
 import { SubscriptionAction } from '@/compiler/types'
 import { setMessage } from '@/store/modal'
 
+import ChangeSubscription from './ChangeSubscription'
 import SubscriptionActionConfirmation from './SubscriptionActionConfirmation'
 
 export default function UserSubscriptionActionButtons({
-  subId,
-  subStripeId,
-  endDate,
+  subscription,
 }: {
-  subId: string
-  subStripeId: string
-  endDate: Date | undefined
+  subscription: IUserSubscription
 }) {
   const dispatch = useDispatch()
   const [confirmation, setConfirmation] = useState<'' | SubscriptionAction>('')
+  const [showChangeSubscription, setShowChangeSubscription] =
+    useState<boolean>(false)
 
   const handleModifySubscription = async (action: SubscriptionAction) => {
     try {
-      const subscription = {
-        id: subId,
-        stripeId: subStripeId,
+      const modifiedSubscription = {
+        id: subscription.id,
+        stripeId: subscription.subscription_stripe_id,
         action,
       }
       const response = await fetch('/api/subscriptions', {
         method: 'PATCH',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(subscription),
+        body: JSON.stringify(modifiedSubscription),
       })
       const data = await response.json()
       dispatch(setMessage({ type: 'info', text: data.message }))
@@ -42,10 +42,11 @@ export default function UserSubscriptionActionButtons({
   }
 
   const handleCloseConfirmationBox = () => setConfirmation('')
+  const handleCloseChangeSubscription = () => setShowChangeSubscription(false)
 
   return (
     <div className="mt-auto flex flex-col-reverse flex-wrap items-center justify-center gap-8 lg:flex-row xl:mt-20">
-      {endDate ? (
+      {subscription.end_date ? (
         <button
           className="btn-primary w-4/5 md:w-[220px]"
           onClick={async () => setConfirmation('renew')}
@@ -60,7 +61,10 @@ export default function UserSubscriptionActionButtons({
           >
             Cancel Subscription
           </button>
-          <button className="btn-primary w-4/5 md:w-[220px]">
+          <button
+            className="btn-primary w-4/5 md:w-[220px]"
+            onClick={() => setShowChangeSubscription(true)}
+          >
             Change Subscription
           </button>
         </>
@@ -70,6 +74,12 @@ export default function UserSubscriptionActionButtons({
           action={confirmation}
           handleAction={handleModifySubscription}
           closeConfirmation={handleCloseConfirmationBox}
+        />
+      )}
+      {showChangeSubscription && (
+        <ChangeSubscription
+          closeChangeSubscription={handleCloseChangeSubscription}
+          currentSubscription={subscription}
         />
       )}
     </div>

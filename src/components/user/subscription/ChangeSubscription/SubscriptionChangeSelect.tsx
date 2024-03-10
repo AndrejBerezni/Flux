@@ -6,12 +6,17 @@ import { MonthYear } from '@/compiler/types'
 export default function SubscriptionChangeSelect({
   subscription,
   period,
+  handleSelect,
 }: {
   subscription: ISubscriptionWithDescription
   period: MonthYear
+  handleSelect: (subscription: ISubscriptionWithDescription) => void
 }) {
   return (
-    <button className="active flex min-h-[300px] w-full flex-col justify-between gap-4 rounded-md border-2 border-secondaryText bg-white px-4 pb-6 pt-3 shadow-md shadow-secondary duration-200 hover:-translate-y-1 active:scale-[98%] active:shadow-none active:outline active:outline-[5px] active:-outline-offset-[7px] active:outline-quaternary sm:w-[45%]">
+    <button
+      className="flex min-h-[300px] w-full flex-col justify-between gap-4 bg-white px-4 pb-6 pt-3 shadow-md duration-200 hover:-translate-y-1 active:scale-[98%] sm:w-[45%]"
+      onClick={() => handleSelect(subscription)}
+    >
       <div className="flex w-full items-center justify-between max-[340px]:flex-col">
         <Image
           src="/FLUX-logo-black-nobg.png"

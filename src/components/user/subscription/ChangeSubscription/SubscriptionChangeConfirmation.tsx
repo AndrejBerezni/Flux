@@ -1,22 +1,30 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import {
   ISubscriptionWithDescription,
   IUserSubscription,
 } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import Divider from '@/components/Divider'
+import Spinner from '@/components/Spinner'
+import { setMessage } from '@/store/modal'
 
 export default function SubscriptionChangeConfirmation({
   subscription,
   newSubscriptionType,
   selectedVehicle,
+  closeChangeSubscription,
 }: {
   subscription: IUserSubscription
   newSubscriptionType: ISubscriptionWithDescription | null
   selectedVehicle: VehicleType | ''
+  closeChangeSubscription: () => void
 }) {
+  const dispatch = useDispatch()
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false)
+  const [waiting, setWaiting] = useState<boolean>(false)
   const information = [
     "By confirming, your subscription will be immediately updated to the new plan you've selected.",
     'There will be no charges at this moment.',
@@ -26,6 +34,39 @@ export default function SubscriptionChangeConfirmation({
 
   const handleCheckBox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(event.target.checked)
+  }
+
+  const handleChangeSubscription = async () => {
+    try {
+      const modifiedSubscription = {
+        id: subscription.id,
+        stripeSubId: subscription.subscription_stripe_id,
+        stripeProdId:
+          subscription.subscription_period === 'month'
+            ? newSubscriptionType?.stripe_monthly_prod_id
+            : newSubscriptionType?.stripe_yearly_prod_id,
+        type: newSubscriptionType?.id,
+        vehicleType: selectedVehicle,
+      }
+      const response = await fetch('/api/subscriptions/changeplan', {
+        method: 'PATCH',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(modifiedSubscription),
+      })
+      const data = await response.json()
+      dispatch(setMessage({ type: 'info', text: data.message }))
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setMessage({ type: 'error', text: error.message }))
+      }
+    }
+  }
+
+  const handleClick = async () => {
+    setWaiting(true)
+    await handleChangeSubscription()
+    setWaiting(false)
+    closeChangeSubscription()
   }
   return (
     <div className="flex flex-col gap-1">
@@ -60,10 +101,11 @@ export default function SubscriptionChangeConfirmation({
         </label>
       </div>
       <button
-        className="btn-primary -mb-3 mt-3 w-[200px] self-center"
+        className="btn-primary -mb-3 mt-3 flex w-[200px] justify-center self-center"
         disabled={!agreedToTerms}
+        onClick={handleClick}
       >
-        Confirm
+        {waiting ? <Spinner /> : 'Confirm'}
       </button>
     </div>
   )

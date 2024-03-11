@@ -51,6 +51,7 @@ export default function ChangeSubscription({
             subscription={currentSubscription}
             newSubscriptionType={newSubscription}
             selectedVehicle={newVehicleType}
+            closeChangeSubscription={closeChangeSubscription}
           />
         )}
         <button

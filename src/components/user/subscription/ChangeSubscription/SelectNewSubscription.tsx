@@ -16,10 +16,10 @@ export default function SelectNewSubscription({
   goToNextStep: (
     nextStep: 'selectSubscription' | 'selectVehicle' | 'confirmation'
   ) => void
-  setNewSubscription: (newSubscription: string) => void
+  setNewSubscription: (newSubscription: ISubscriptionWithDescription) => void
 }) {
   const handleNextStep = (newSubscription: ISubscriptionWithDescription) => {
-    setNewSubscription(newSubscription.id)
+    setNewSubscription(newSubscription)
     if (newSubscription.name === 'Platinum') {
       goToNextStep('confirmation')
     } else {

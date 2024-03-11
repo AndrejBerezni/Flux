@@ -1,11 +1,15 @@
 import { useState } from 'react'
 
-import { IUserSubscription } from '@/compiler/interfaces'
+import {
+  ISubscriptionWithDescription,
+  IUserSubscription,
+} from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import useSubscriptions from '@/hooks/useSubscriptions'
 
 import SelectNewSubscription from './SelectNewSubscription'
 import SelectNewVehicleType from './SelectNewVehicleType'
+import SubscriptionChangeConfirmation from './SubscriptionChangeConfirmation'
 import SubscriptionChangeSelect from './SubscriptionChangeSelect'
 
 SubscriptionChangeSelect
@@ -20,7 +24,8 @@ export default function ChangeSubscription({
   const [currentStep, setCurrentStep] = useState<
     'selectSubscription' | 'selectVehicle' | 'confirmation'
   >('selectSubscription')
-  const [newSubscription, setNewSubscription] = useState<string>('')
+  const [newSubscription, setNewSubscription] =
+    useState<ISubscriptionWithDescription | null>(null)
   const [newVehicleType, setNewVehicleType] = useState<VehicleType | ''>('')
   const subscriptions = useSubscriptions()
 
@@ -42,11 +47,11 @@ export default function ChangeSubscription({
           />
         )}
         {currentStep === 'confirmation' && (
-          <>
-            <h1>Confirmation</h1>
-            <p>{newVehicleType}</p>
-            <p>{newSubscription}</p>
-          </>
+          <SubscriptionChangeConfirmation
+            subscription={currentSubscription}
+            newSubscriptionType={newSubscription}
+            selectedVehicle={newVehicleType}
+          />
         )}
         <button
           className="btn-primary mt-4 w-[200px] self-center"

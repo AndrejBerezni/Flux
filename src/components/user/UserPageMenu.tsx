@@ -19,8 +19,8 @@ export default function UserPageMenu() {
       href: `/${uid}/subscriptions`,
     },
     {
-      text: 'Balance',
-      href: `/${uid}/balance`,
+      text: 'Gift Cards',
+      href: `/${uid}/giftcards`,
     },
     {
       text: 'Account details',

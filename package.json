@@ -10,9 +10,11 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --write .",
     "create-tables": "node -r dotenv/config ./scripts/createTables.js",
-    "seed": "node -r dotenv/config ./scripts/seed.js"
+    "seed": "node -r dotenv/config ./scripts/seed.js",
+    "email": "email dev --dir src/emails"
   },
   "dependencies": {
+    "@react-email/components": "0.0.15",
     "@react-google-maps/api": "^2.19.2",
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/stripe-js": "^3.0.6",
@@ -23,6 +25,7 @@
     "react": "^18",
     "react-calendar": "^4.8.0",
     "react-dom": "^18",
+    "react-email": "2.1.0",
     "react-icons": "^4.12.0",
     "react-redux": "^9.0.4",
     "redux-persist": "^6.0.0",

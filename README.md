@@ -9,14 +9,15 @@ It is still under construction. Some of the finished functionalities and their e
 #### Completed features:
 
 - Authentication implemented.
-- UI created: home page, vehicle search results page, subscriptions page, gift cards page, several menus and modals (sign in, sign up, user menu, side nav...).
+- UI created: home page, vehicle search results page, subscriptions page, gift cards page, several menus and modals (sign in, sign up, user menu, side nav...), user page(not fully completed - account and subscription sections are created so far).
 - Integrated Google Maps API for searching nearby locations.
-- Database populated with vehicles and locations.
+- Database populated with vehicles, locations, and subscriptions related data.
 - Vehicle search implemented - users are able to search, filter, and sort vehicles on different locations and dates.
+- Subscriptions feature completed - users can subscribe to one of three subscription plans, and cancel, renew, or change subscription.
 
 #### Currently working on:
 
-- Integrating Stripe - creating products on Stripe dashboard and by using Stripe API enabling users to purchase products (rent vehicles, subscribe to Flux subscriptions, buy gift cards).
+- Implementing Gift Cards feature - users should be able to buy gift cards and send them to designated email address.
 
 ## Table of Contents
 
@@ -160,9 +161,14 @@ Database is still being defined, but this is the initial idea of tables, their c
     used BOOLEAN NOT NULL,
     code VARCHAR(255) NOT NULL
 
-12. gift_cards_details:
+12. gift_card_type:
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    amount INT NOT NULL
+    amount NUMERIC NOT NULL,
+    stripe_coupon_id VARCHAR(255) NOT NULL,
+    stripe_full_price_id VARCHAR(255) NOT NULL,
+    stripe_price_id_5_off VARCHAR(255) NOT NULL,
+    stripe_price_id_7_off VARCHAR(255) NOT NULL,
+    stripe_price_id_12_off VARCHAR(255) NOT NULL,
 
 13. vehicle_images:
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -182,7 +188,7 @@ scooters_details.id < vehicles.vehicle_details,
 users.id - subscriptions.user_id,
 subscriptions.type > subscription_type.id,
 subscription_description.subscription_id > subscription_type.id,
-gift_cards.type > gift_cards_details.id,
+gift_cards.type > gift_card_type.id,
 gift_cards.user_id > users.id,
 vehicle_images.vehicle_id > cars_details.id,
 vehicle_images.vehicle_id > bikes_details.id,

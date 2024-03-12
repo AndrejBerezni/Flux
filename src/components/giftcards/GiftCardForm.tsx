@@ -12,7 +12,7 @@ export default function GiftCardForm({ value }: { value: string }) {
     >
       <fieldset className="mb-3 flex w-full max-w-[400px] flex-col md:w-1/2 md:min-w-[300px]">
         <label htmlFor="gc-email" className="font-bold uppercase text-brand">
-          Recipient email
+          Recipient email*
         </label>
         <input
           type="email"
@@ -23,7 +23,7 @@ export default function GiftCardForm({ value }: { value: string }) {
           placeholder="Where to send gift?"
         />
         <label htmlFor="gc-rec-name" className="font-bold uppercase text-brand">
-          Recipient name
+          Recipient name*
         </label>
         <input
           type="text"
@@ -36,7 +36,7 @@ export default function GiftCardForm({ value }: { value: string }) {
       </fieldset>
       <fieldset className="mb-3 flex w-full max-w-[400px] flex-col md:w-1/2 md:min-w-[300px]">
         <label htmlFor="gc-sender" className="font-bold uppercase text-brand">
-          Sender name
+          Sender name*
         </label>
         <input
           type="text"
@@ -59,6 +59,9 @@ export default function GiftCardForm({ value }: { value: string }) {
           rows={6}
         ></textarea>
       </fieldset>
+      <p className="-mt-4 text-sm font-semibold text-brand">
+        * Mandatory fields
+      </p>
       <Divider />
       <div className={`${inter.className} flex gap-8`}>
         <Link

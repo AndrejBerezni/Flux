@@ -235,9 +235,14 @@ async function createGiftCardsDetailsTable(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`
     const createTable = await client.sql`
-              CREATE TABLE IF NOT EXISTS gift_cards_details (
-                  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-                  amount INT NOT NULL
+              CREATE TABLE IF NOT EXISTS gift_card_type (
+                id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                amount NUMERIC NOT NULL,
+                stripe_coupon_id VARCHAR(255) NOT NULL,
+                stripe_full_price_id VARCHAR(255) NOT NULL,
+                stripe_price_id_5_off VARCHAR(255) NOT NULL,
+                stripe_price_id_7_off VARCHAR(255) NOT NULL,
+                stripe_price_id_12_off VARCHAR(255) NOT NULL,
               );`
 
     return createTable

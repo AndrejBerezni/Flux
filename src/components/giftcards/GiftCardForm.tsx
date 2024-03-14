@@ -1,26 +1,38 @@
 'use client'
 import Link from 'next/link'
-import { useFormState } from 'react-dom'
 import { IoIosArrowBack } from 'react-icons/io'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed, inter } from '@/app/fonts'
 import { giftCardCheckoutAction } from '@/lib/serverActions/giftCardCheckoutAction'
-import { getUserId } from '@/store/authentication/selectors'
+import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
+import { setMessage, showModal } from '@/store/modal'
 
 import Divider from '../Divider'
 
 export default function GiftCardForm({ value }: { value: string }) {
+  const dispatch = useDispatch()
   const uid = useSelector(getUserId)
+  const isAuth = useSelector(getAuthStatus)
 
-  const [state, formAction] = useFormState(giftCardCheckoutAction, {
-    uid,
-    value,
-    message: '',
-  })
+  const handleCheckout = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    if (!isAuth) {
+      dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
+      return
+    }
+    try {
+      await giftCardCheckoutAction(uid, value, formData)
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setMessage({ type: 'error', text: error.message }))
+      }
+    }
+  }
   return (
     <form
-      action={formAction}
+      onSubmit={(e) => handleCheckout(e)}
       className={`${robotoCondensed.className} flex w-full flex-col items-center gap-6`}
     >
       <fieldset className="mb-3 flex w-full max-w-[400px] flex-col md:w-1/2 md:min-w-[300px]">
@@ -94,7 +106,6 @@ export default function GiftCardForm({ value }: { value: string }) {
           Checkout
         </button>
       </div>
-      <p className="text-center">{state?.message}</p>
     </form>
   )
 }

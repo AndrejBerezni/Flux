@@ -1,23 +1,39 @@
+'use client'
 import Link from 'next/link'
+import { useFormState } from 'react-dom'
 import { IoIosArrowBack } from 'react-icons/io'
+import { useSelector } from 'react-redux'
 
 import { robotoCondensed, inter } from '@/app/fonts'
+import { giftCardCheckoutAction } from '@/lib/serverActions/giftCardCheckoutAction'
+import { getUserId } from '@/store/authentication/selectors'
 
 import Divider from '../Divider'
 
 export default function GiftCardForm({ value }: { value: string }) {
+  const uid = useSelector(getUserId)
+
+  const [state, formAction] = useFormState(giftCardCheckoutAction, {
+    uid,
+    value,
+    message: '',
+  })
   return (
     <form
+      action={formAction}
       className={`${robotoCondensed.className} flex w-full flex-col items-center gap-6`}
     >
       <fieldset className="mb-3 flex w-full max-w-[400px] flex-col md:w-1/2 md:min-w-[300px]">
-        <label htmlFor="gc-email" className="font-bold uppercase text-brand">
+        <label
+          htmlFor="gc-rec-email"
+          className="font-bold uppercase text-brand"
+        >
           Recipient email*
         </label>
         <input
           type="email"
-          id="gc-email"
-          name="gc-email"
+          id="gc-rec-email"
+          name="gc-rec-email"
           className="mb-2 rounded-md border-2 border-tertiary px-2 py-1 font-bold placeholder:font-normal focus:font-normal focus:text-brand focus:outline-brand"
           required
           placeholder="Where to send gift?"
@@ -40,8 +56,8 @@ export default function GiftCardForm({ value }: { value: string }) {
         </label>
         <input
           type="text"
-          id="sender"
-          name="sender"
+          id="gc-sender"
+          name="gc-sender"
           className="mb-2 rounded-md border-2 border-tertiary px-2 py-1 font-bold placeholder:font-normal focus:font-normal focus:text-brand focus:outline-brand"
           required
           placeholder="Who is sending this gift?"
@@ -78,6 +94,7 @@ export default function GiftCardForm({ value }: { value: string }) {
           Checkout
         </button>
       </div>
+      <p className="text-center">{state?.message}</p>
     </form>
   )
 }

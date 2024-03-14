@@ -112,3 +112,17 @@ export const changeSubscriptionType = async (
     throw new Error('Failed to change subscription type')
   }
 }
+
+export const getSubscribedUserId = async (subId: string) => {
+  try {
+    const data = await sql`
+    SELECT user_id
+    FROM subscriptions
+    WHERE id::varchar=${subId}
+    `
+    return data.rows[0].user_id
+  } catch (error) {
+    console.error('Error retrieving user id:', error)
+    throw new Error('Failed to retrieve user id')
+  }
+}

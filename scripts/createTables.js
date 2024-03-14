@@ -16,9 +16,7 @@ async function createUsersTable(client) {
                 additional_address_line VARCHAR(255),
                 zip_code VARCHAR(255),
                 city VARCHAR(255),
-                country VARCHAR(255),
-                credit_balance NUMERIC DEFAULT 0,
-                has_active_subscription BOOLEAN DEFAULT false
+                country VARCHAR(255)
             )`
 
     return createTable

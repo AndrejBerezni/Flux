@@ -117,3 +117,16 @@ export interface ISubscriptionAPIPatchRequestBody {
   stripeId: string
   action: SubscriptionAction
 }
+
+export interface IGiftCard {
+  id: string
+  user_id: string
+  gift_card_type: string
+  stripe_code: string
+  payment_successful: boolean
+  gift_card_used: boolean
+  recipient_email: string
+  recipient_name: string
+  sender_name: string
+  message_for_recipient?: string
+}

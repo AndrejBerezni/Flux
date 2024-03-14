@@ -188,6 +188,7 @@ export default function SignIn() {
                   className="font-bold text-secondary duration-150 hover:text-primary"
                   onClick={handlePasswordReset}
                   type="button"
+                  tabIndex={-1}
                 >
                   Forgot password?
                 </button>

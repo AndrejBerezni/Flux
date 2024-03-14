@@ -7,7 +7,7 @@ import { passwordReset } from '@/firebase/authentication'
 import { countryCodes } from '@/lib/countryCodes'
 import { setMessage } from '@/store/modal'
 
-import { updateUser } from './updateUserAction'
+import { updateUser } from '../../../lib/serverActions/updateUserAction'
 
 const initialState = {
   message: '',

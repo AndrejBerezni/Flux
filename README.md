@@ -75,9 +75,7 @@ Database is still being defined, but this is the initial idea of tables, their c
    additional_address_line VARCHAR(255),
    zip_code VARCHAR(255),
    city VARCHAR(255),
-   country VARCHAR(255),
-   credit_balance NUMERIC DEFAULT 0,
-   has_active_subscription BOOLEAN DEFAULT false
+   country VARCHAR(255)
 
 2. rents:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

@@ -1,9 +1,6 @@
-import Stripe from 'stripe'
-
 import { SubscriptionAction } from '@/compiler/types'
-const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET as string, {
-  apiVersion: '2023-10-16',
-})
+
+import { stripe } from './stripe-config'
 
 export const createCheckoutSession = async (itemId: string, subId: string) => {
   try {

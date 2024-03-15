@@ -3,10 +3,7 @@ import { sql } from '@vercel/postgres'
 
 import { IUser } from '@/compiler/interfaces'
 
-export const updateUser = async (
-  prevState: { message: string },
-  formData: FormData
-) => {
+export const updateUser = async (formData: FormData) => {
   try {
     await sql<IUser>`
     UPDATE users
@@ -24,8 +21,8 @@ export const updateUser = async (
     country=${formData.get('country') as string}
     WHERE id=${formData.get('userId') as string}
     `
-    return { message: 'Information updated successfully.' }
+    return 'Information updated successfully.'
   } catch (error) {
-    return { message: 'Unable to update user information.' }
+    return 'Unable to update user information.'
   }
 }

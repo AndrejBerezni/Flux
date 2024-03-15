@@ -1,5 +1,4 @@
 'use client'
-import { useFormState } from 'react-dom'
 import { useDispatch } from 'react-redux'
 
 import { IUser } from '@/compiler/interfaces'
@@ -9,13 +8,8 @@ import { setMessage } from '@/store/modal'
 
 import { updateUser } from '../../../lib/serverActions/updateUserAction'
 
-const initialState = {
-  message: '',
-}
-
 export default function AccountDetailsForm({ user }: { user: IUser }) {
   const dispatch = useDispatch()
-  const [state, formAction] = useFormState(updateUser, initialState)
 
   const handleEmailExplanation = () => {
     dispatch(
@@ -42,11 +36,15 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
     }
   }
 
-  return (
-    <form action={formAction} className="relative flex flex-col">
-      {/* hidden input for additional argument in server action: */}
-      <input type="hidden" name="userId" value={user.id} />
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const message = await updateUser(formData)
+    dispatch(setMessage({ type: 'info', text: message }))
+  }
 
+  return (
+    <form onSubmit={(e) => handleSubmit(e)} className="relative flex flex-col">
       <fieldset className="mt-4 flex flex-wrap items-center gap-2 sm:gap-8">
         <legend className="text-secondary">Personal information</legend>
         <div className="relative z-0 my-6 max-w-full">
@@ -112,12 +110,12 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
               id="pd-country-code"
               name="country_code"
               className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl font-semibold text-brand outline-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[260px]"
+              defaultValue={user.country_code}
             >
               {countryCodes.map((item) => (
                 <option
                   key={`${item.code}-${item.country}`}
                   value={item.code}
-                  selected={item.code === user.country_code}
                   className="text-primary"
                 >
                   +{item.code} ({item.country})
@@ -235,6 +233,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           </label>
           <select
             id="pd-country"
+            defaultValue={user.country}
             name="country"
             className="h-fit w-full border-b-2 border-primary px-0 pb-1.5 pt-4 text-2xl font-semibold text-brand outline-none target:border-none hover:cursor-pointer max-[320px]:text-lg sm:max-w-[200px]"
           >
@@ -242,7 +241,6 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
               <option
                 key={`${item.country}-country`}
                 value={item.country}
-                selected={item.country === user.country}
                 className="text-primary"
               >
                 {item.country}
@@ -269,7 +267,6 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           </button>
         )}
       </div>
-      <p className="text-center">{state?.message}</p>
     </form>
   )
 }

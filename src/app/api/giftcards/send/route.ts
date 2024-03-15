@@ -10,9 +10,9 @@ export async function POST(request: NextRequest) {
     const { email, recipient, sender, cardValue, code, message } =
       await request.json()
     const data = await resend.emails.send({
-      from: 'giftcard@fluxecodrive.com',
+      from: 'giftcards@fluxecodrive.com',
       to: email,
-      subject: `${sender} sent you a Flux Gift Card!`,
+      subject: `${sender} has sent you a Flux Gift Card!`,
       react: GiftCardEmail({ recipient, sender, cardValue, code, message }),
     })
 

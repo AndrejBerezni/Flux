@@ -31,7 +31,6 @@ export default function GiftCardEmail({
           extend: {
             colors: {
               brand: '#ff5f00',
-              brandSecondary: '#FFFBAA',
               primary: '#1a1a1a',
               white: '#ffffff',
             },
@@ -39,7 +38,7 @@ export default function GiftCardEmail({
         },
       }}
     >
-      <Html className="bg-primary text-justify text-white">
+      <Html>
         <Head>
           <Font
             fontFamily="Roboto"
@@ -52,18 +51,18 @@ export default function GiftCardEmail({
             fontStyle="normal"
           />
         </Head>
-        <Container className="h-full px-8">
+        <Container className="h-full px-8 text-primary">
           <Heading className="text-center font-bold uppercase text-brand">
             {sender} has sent you a Flux Gift Card!
           </Heading>
           <Hr />
           {message && (
             <>
-              <p className="font-bold italic text-brandSecondary">{message}</p>
+              <p className="font-bold italic text-brand">{message}</p>
               <Hr />
             </>
           )}
-          <p className="text-lg text-brandSecondary">Dear {recipient},</p>
+          <p className="text-lg text-brand">Dear {recipient},</p>
           <p>
             We&apos;re excited to inform you that {sender} has sent you a{' '}
             <span className="font-semibold text-brand">Flux Gift Card</span>!{' '}
@@ -76,36 +75,33 @@ export default function GiftCardEmail({
             To make the most of your Flux gift card, follow these simple
             instructions:
           </p>
-          <ol className="flex flex-col flex-nowrap gap-4">
-            <li key="step-1">
-              Visit our page at{' '}
-              <Link
-                className="text-brandSecondary underline"
-                href="https://www.fluxecodrive.com/"
-              >
-                FluxEcoDrive.com
-              </Link>
-            </li>
-            <li key="step-2">
-              Choose from our diverse fleet of electric vehicles, including
-              cars, bikes, and scooters, available across 20+ locations in
-              Portugal.
-            </li>
-            <li key="step-3">
-              Select the date that suits you best for your adventure.
-            </li>
-            <li key="step-4">
-              Enter the provided code by clicking on{' '}
-              <span className="font-semibold text-brand">
-                Add Promotion Code
-              </span>{' '}
-              in checkout session to apply the discount.
-            </li>
-            <li key="step-5">
-              Rent your desired vehicle and embark on an exciting journey
-              exploring Portugal&apos;s scenic landscapes and vibrant cities.
-            </li>
-          </ol>
+          {/* using ol didn't work well here - it did not display them good on mobile, li were displayed in one row like columns, instead like rows */}
+          <p key="step-1">
+            1. Visit our page at{' '}
+            <Link
+              className="font-bold text-brand underline"
+              href="https://www.fluxecodrive.com/"
+            >
+              FluxEcoDrive.com
+            </Link>
+          </p>
+          <p key="step-2">
+            2. Choose from our diverse fleet of electric vehicles, including
+            cars, bikes, and scooters, available across 20+ locations in
+            Portugal.
+          </p>
+          <p key="step-3">
+            3. Select the date that suits you best for your adventure.
+          </p>
+          <p key="step-4">
+            4. Enter the provided code by clicking on{' '}
+            <span className="font-semibold text-brand">Add Promotion Code</span>{' '}
+            in checkout session to apply the discount.
+          </p>
+          <p key="step-5">
+            5. Rent your desired vehicle and embark on an exciting journey
+            exploring Portugal&apos;s scenic landscapes and vibrant cities.
+          </p>
           <p>
             Alternatively, you can subscribe to our subscription plans and
             receive a discount on your first payment equal to the value of this
@@ -119,8 +115,8 @@ export default function GiftCardEmail({
           </p>
 
           <p className="text-lg font-semibold text-brand">Happy adventuring!</p>
-          <p className="text-brandSecondary">Warm regards,</p>
-          <p className="text-brandSecondary">Flux Team</p>
+          <p>Warm regards,</p>
+          <p>Flux Team</p>
         </Container>
       </Html>
     </Tailwind>

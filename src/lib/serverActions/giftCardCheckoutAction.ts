@@ -29,13 +29,13 @@ const createGiftCardInDB = async (
             RETURNING id`
     return newGiftCard.rows[0].id
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message
-    }
+    throw error instanceof Error
+      ? error
+      : new Error('Unable to create gift card')
   }
 }
 
-const retrievePriceId = async (uid: string, value: string) => {
+const retrievePriceAndCoupon = async (uid: string, value: string) => {
   try {
     //get gift card details
     const data = await sql`
@@ -43,11 +43,11 @@ const retrievePriceId = async (uid: string, value: string) => {
         WHERE amount=${Number(value)}
         `
     const giftCard = data.rows[0]
-
+    const coupon = giftCard.stripe_coupon_id
     //we are checking if user has subscription, to know which price for gift card to apply (user might have discount)
     const userSubscription = await checkIfUserHasActiveSubscription(uid)
     if (!userSubscription.hasSubscription) {
-      return giftCard.stripe_full_price_id
+      return { price: giftCard.stripe_full_price_id, coupon }
     } else {
       const discountData = await sql`
           SELECT gift_card_discount FROM subscription_type
@@ -55,19 +55,19 @@ const retrievePriceId = async (uid: string, value: string) => {
       const discount = discountData.rows[0].gift_card_discount
       switch (discount) {
         case '5':
-          return giftCard.stripe_price_id_5_off
+          return { price: giftCard.stripe_price_id_5_off, coupon }
         case '7.5':
-          return giftCard.stripe_price_id_7_off
+          return { price: giftCard.stripe_price_id_7_off, coupon }
         case '12':
-          return giftCard.stripe_price_id_12_off
+          return { price: giftCard.stripe_price_id_12_off, coupon }
         default:
-          return giftCard.stripe_full_price_id
+          return { price: giftCard.stripe_full_price_id, coupon }
       }
     }
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message
-    }
+    throw error instanceof Error
+      ? error
+      : new Error('Unable to retrieve gift card information')
   }
 }
 
@@ -78,8 +78,8 @@ export const giftCardCheckoutAction = async (
 ) => {
   try {
     const newGiftCard = await createGiftCardInDB(uid, value, formData)
-    const priceId = await retrievePriceId(uid, value)
-    const checkoutUrl = await createCheckoutSession(priceId, newGiftCard)
+    const { price, coupon } = await retrievePriceAndCoupon(uid, value)
+    const checkoutUrl = await createCheckoutSession(price, coupon, newGiftCard)
     return checkoutUrl
   } catch (error) {
     if (error instanceof Error) {

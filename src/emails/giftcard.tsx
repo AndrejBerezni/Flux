@@ -11,7 +11,7 @@ import {
   Link,
 } from '@react-email/components'
 
-export default function Email({
+export default function GiftCardEmail({
   recipient,
   sender,
   cardValue,

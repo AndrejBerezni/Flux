@@ -40,13 +40,16 @@ export async function POST(request: NextRequest) {
       status: 202,
     })
   } catch (error) {
-    if (error instanceof Error) {
-      return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(
+      JSON.stringify({
+        error: error instanceof Error ? error.message : 'Unknown error',
+      }),
+      {
         headers: {
           'Content-type': 'application/json',
         },
         status: 400,
-      })
-    }
+      }
+    )
   }
 }

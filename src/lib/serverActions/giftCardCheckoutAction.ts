@@ -79,7 +79,12 @@ export const giftCardCheckoutAction = async (
   try {
     const newGiftCard = await createGiftCardInDB(uid, value, formData)
     const { price, coupon } = await retrievePriceAndCoupon(uid, value)
-    const checkoutUrl = await createCheckoutSession(price, coupon, newGiftCard)
+    const checkoutUrl = await createCheckoutSession(
+      price,
+      coupon,
+      newGiftCard,
+      value
+    )
     return checkoutUrl
   } catch (error) {
     if (error instanceof Error) {

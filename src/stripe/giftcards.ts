@@ -3,11 +3,12 @@ import { stripe } from './stripe-config'
 export const createCheckoutSession = async (
   priceId: string,
   couponId: string,
-  giftCardId: string
+  giftCardId: string,
+  value: string
 ) => {
   try {
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/giftcards/success?gcId=${giftCardId}&coupon=${couponId}`,
+      success_url: `https://flux-nu.vercel.app/giftcards/success?gcId=${giftCardId}&coupon=${couponId}&value=${value}`,
       line_items: [
         {
           price: priceId as string,

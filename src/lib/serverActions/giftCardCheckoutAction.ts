@@ -2,6 +2,8 @@
 
 import { sql } from '@vercel/postgres'
 
+import { createCheckoutSession } from '@/stripe/giftcards'
+
 import { checkIfUserHasActiveSubscription } from '../dbQueries/subscriptions'
 
 const createGiftCardInDB = async (
@@ -77,7 +79,8 @@ export const giftCardCheckoutAction = async (
   try {
     const newGiftCard = await createGiftCardInDB(uid, value, formData)
     const priceId = await retrievePriceId(uid, value)
-    console.log(priceId, newGiftCard)
+    const checkoutUrl = await createCheckoutSession(priceId, newGiftCard)
+    return checkoutUrl
   } catch (error) {
     if (error instanceof Error) {
       return error.message

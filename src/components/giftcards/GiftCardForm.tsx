@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { IoIosArrowBack } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -12,18 +13,22 @@ import Divider from '../Divider'
 
 export default function GiftCardForm({ value }: { value: string }) {
   const dispatch = useDispatch()
+  const router = useRouter()
   const uid = useSelector(getUserId)
   const isAuth = useSelector(getAuthStatus)
 
   const handleCheckout = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const formData = new FormData(event.currentTarget)
     if (!isAuth) {
       dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
       return
     }
+    const formData = new FormData(event.currentTarget)
     try {
-      await giftCardCheckoutAction(uid, value, formData)
+      const checkoutUrl = await giftCardCheckoutAction(uid, value, formData)
+      if (checkoutUrl) {
+        router.push(checkoutUrl)
+      }
     } catch (error) {
       if (error instanceof Error) {
         dispatch(setMessage({ type: 'error', text: error.message }))

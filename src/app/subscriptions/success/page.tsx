@@ -22,7 +22,7 @@ export default async function SubscriptionSuccessfulPage({
   }
 
   return (
-    <main className="section-padding flex min-h-[70vh] flex-1 flex-col items-center justify-center">
+    <main className="section-padding flex min-h-[70vh] flex-1 flex-col items-center justify-center bg-quaternary">
       <h1
         className={`${robotoCondensed.className} mb-10 text-center text-2xl font-semibold md:text-3xl`}
       >

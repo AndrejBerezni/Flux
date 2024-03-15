@@ -20,7 +20,7 @@ export default function GiftCardEmail({
 }: {
   recipient: string
   sender: string
-  cardValue: number
+  cardValue: string
   code: string
   message?: string
 }) {

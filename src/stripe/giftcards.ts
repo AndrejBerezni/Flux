@@ -24,13 +24,15 @@ export const createCheckoutSession = async (
   }
 }
 
-export const createPromotionCode = async (coupon: string) => {
+export const createPromotionCode = async (coupon: string): Promise<string> => {
   try {
     const promotionCode = await stripe.promotionCodes.create({
       coupon,
     })
     return promotionCode.code
   } catch (error) {
-    console.error(error)
+    return error instanceof Error
+      ? error.message
+      : 'Unable to create gift card code'
   }
 }

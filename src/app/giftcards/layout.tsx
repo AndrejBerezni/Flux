@@ -6,7 +6,7 @@ export default function GiftCardsPageLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className="flex min-h-[90vh] flex-1 flex-col md:flex-row">
+    <main className="flex min-h-[90vh] flex-1 flex-col bg-quaternary md:flex-row">
       <GiftCardsHero />
       <section className="flex-1">{children}</section>
     </main>

@@ -52,10 +52,11 @@ export default async function GiftCardSuccessPage({
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message)
+        return error.message
       } else {
         console.error('Unknown error occured')
+        return 'Error occured, please contact our support for assitance. Apologies for the inconvenience.'
       }
-      return 'Error occured, please contact our support for assitance. Apologies for the inconvenience.'
     }
   }
 

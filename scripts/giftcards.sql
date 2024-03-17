@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS gift_cards (
     gift_card_type VARCHAR(255) NOT NULL,
     stripe_code VARCHAR(255),
     payment_successful BOOLEAN NOT NULL DEFAULT false,
-    gift_card_used BOOLEAN NOT NULL DEFAULT false,
+    gift_card_sent BOOLEAN NOT NULL DEFAULT false,
     recipient_email VARCHAR(255) NOT NULL,
     recipient_name VARCHAR(255) NOT NULL,
     sender_name VARCHAR(255) NOT NULL,

@@ -6,6 +6,20 @@ const resend = new Resend(process.env.NEXT_RESEND)
 import GiftCardEmail from '@/emails/giftcard'
 import { createPromotionCode } from '@/stripe/giftcards'
 
+const checkIfAlreadySent = async (giftCardId: string) => {
+  try {
+    const giftCardData = await sql`
+      SELECT gift_card_sent
+      FROM gift_cards
+      WHERE id::varchar=${giftCardId}`
+    return giftCardData.rows[0].gift_card_sent
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occured'
+    )
+  }
+}
+
 const updateGiftCardData = async (
   giftCardId: string,
   code: string,
@@ -14,7 +28,7 @@ const updateGiftCardData = async (
   try {
     const data = await sql`
       UPDATE gift_cards
-      SET stripe_code=${code}, payment_successful=true
+      SET stripe_code=${code}, payment_successful=true, gift_card_sent=true
       WHERE id::varchar=${giftCardId}
       RETURNING stripe_code, recipient_email, recipient_name, sender_name, message_for_recipient;`
     const updatedGiftCard = data.rows[0]
@@ -27,7 +41,9 @@ const updateGiftCardData = async (
       message: updatedGiftCard.message_for_recipient,
     }
   } catch (error) {
-    error instanceof Error ? error : 'Unknown error occured'
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occured'
+    )
   }
 }
 
@@ -48,7 +64,9 @@ const sendEmail = async (emailData: {
       react: GiftCardEmail({ recipient, sender, cardValue, code, message }),
     })
   } catch (error) {
-    error instanceof Error ? error : 'Unknown error occured'
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occured'
+    )
   }
 }
 
@@ -58,15 +76,23 @@ export const handlePurchasedGiftCardAction = async (
   value: string
 ) => {
   try {
+    const alreadySent = await checkIfAlreadySent(giftCardId)
+    if (!alreadySent) {
+      throw new Error('Gift Card already sent!')
+    }
     const code = await createPromotionCode(couponId)
     const emailData = await updateGiftCardData(giftCardId, code, value)
     if (emailData) {
       await sendEmail(emailData)
     } else {
-      throw new Error('Unable to get gift card data')
+      throw new Error(
+        'Unable to get gift card data. Please contact our support for assitance.'
+      )
     }
-    return 'Flux Gift Card has been sent successfully!'
+    return `Flux Gift Card has been sent successfully!`
   } catch (error) {
-    return 'Error occured, please contact our support for assitance. Apologies for the inconvenience.'
+    return error instanceof Error
+      ? error.message
+      : 'Error occured, please contact our support for assitance. Apologies for the inconvenience.'
   }
 }

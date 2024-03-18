@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { robotoCondensed } from '@/app/fonts'
 import { handlePurchasedGiftCardAction } from '@/lib/serverActions/handlePurchasedGiftCardAction'
 
+export const fetchCache = 'force-no-store'
+
 export default async function GiftCardSuccessPage({
   searchParams,
 }: {

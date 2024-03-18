@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
+import { robotoCondensed } from '@/app/fonts'
 import UserPageMenu from '@/components/user/UserPageMenu'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 
@@ -26,7 +27,9 @@ export default function UserPageLayout({
   }, [isAuth, uid, params.user, router])
 
   return (
-    <section className="section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary">
+    <section
+      className={`${robotoCondensed.className} section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary`}
+    >
       <UserPageMenu />
       {children}
     </section>

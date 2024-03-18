@@ -1,6 +1,5 @@
 import { sql } from '@vercel/postgres'
 
-import { robotoCondensed } from '@/app/fonts'
 import { ISubscription, IUserSubscription } from '@/compiler/interfaces'
 import NoActiveSubscription from '@/components/user/subscription/NoActiveSubscription'
 import UserSubscriptionDetails from '@/components/user/subscription/UserSubscriptionDetails'
@@ -47,9 +46,7 @@ export default async function AccountSubscriptionsPage({
   )
 
   return (
-    <section
-      className={`${robotoCondensed.className} flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md`}
-    >
+    <section className="flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md">
       <h1 className="text-3xl font-bold uppercase">Your subscription</h1>
       {!sub.hasSubscription && <NoActiveSubscription />}
       {subInfo && sub.subscription && (

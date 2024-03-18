@@ -78,7 +78,7 @@ export const handlePurchasedGiftCardAction = async (
   try {
     const alreadySent = await checkIfAlreadySent(giftCardId)
     if (alreadySent) {
-      throw new Error('Gift Card already sent!')
+      return 'Gift Card already sent!'
     }
     const code = await createPromotionCode(couponId)
     const emailData = await updateGiftCardData(giftCardId, code, value)

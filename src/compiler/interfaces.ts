@@ -124,9 +124,10 @@ export interface IGiftCard {
   gift_card_type: string
   stripe_code: string
   payment_successful: boolean
-  gift_card_used: boolean
+  gift_card_sent: boolean
   recipient_email: string
   recipient_name: string
   sender_name: string
   message_for_recipient?: string
+  date_created: Date
 }

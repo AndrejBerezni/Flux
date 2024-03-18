@@ -33,8 +33,7 @@ export default function UserMenu() {
     {
       icon: <FaGift />,
       text: 'Gift Cards',
-      href: '/',
-      // `/${uid}/giftcards`,
+      href: `/${uid}/giftcards`,
     },
     {
       icon: <FaUser />,

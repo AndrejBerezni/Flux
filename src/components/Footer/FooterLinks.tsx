@@ -10,9 +10,9 @@ export default function FooterLinks() {
         { text: 'Car hire', href: '/' },
         { text: 'Bike hire', href: '/' },
         { text: 'Scooter hire', href: '/' },
-        { text: 'Subscriptions', href: '/' },
-        { text: 'Gift cards', href: '/' },
-        { text: 'Our locations', href: '/' },
+        { text: 'Subscriptions', href: '/subscriptions' },
+        { text: 'Gift cards', href: '/giftcards' },
+        { text: 'Our locations', href: '/locations' },
       ],
     },
     {
@@ -20,7 +20,7 @@ export default function FooterLinks() {
       links: [
         {
           text: 'Help',
-          href: '/',
+          href: '/contact',
         },
         {
           text: 'Rental information',

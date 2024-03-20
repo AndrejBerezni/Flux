@@ -9,15 +9,16 @@ It is still under construction. Some of the finished functionalities and their e
 #### Completed features:
 
 - Authentication implemented.
-- UI created: home page, vehicle search results page, subscriptions page, gift cards page, several menus and modals (sign in, sign up, user menu, side nav...), user page(not fully completed - account and subscription sections are created so far).
+- UI created: home page, vehicle search results page, subscriptions page, gift cards page, contact page, several menus and modals (sign in, sign up, user menu, side nav...), user page(not fully completed - account, subscription, and gift cards sections are created so far).
 - Integrated Google Maps API for searching nearby locations.
-- Database populated with vehicles, locations, and subscriptions related data.
+- Database populated with vehicles, locations, subscriptions, and gift cards related data.
 - Vehicle search implemented - users are able to search, filter, and sort vehicles on different locations and dates.
-- Subscriptions feature completed - users can subscribe to one of three subscription plans, and cancel, renew, or change subscription.
+- Subscriptions feature completed - users can subscribe to one of three subscription plans on subscriptions page. Users can cancel, renew, or change subscription, on user/subscriptions page.
+- Gift Cards feature completed - users can purchase gift cards and send them to designated email address, adding personalized message in the email. History of gift card purchases is displayed on user/giftcards page.
 
 #### Currently working on:
 
-- Implementing Gift Cards feature - users should be able to buy gift cards and send them to designated email address.
+- Creating email template for contact form and handling sending it to our support email.
 
 ## Table of Contents
 
@@ -39,6 +40,8 @@ It is still under construction. Some of the finished functionalities and their e
 - Tailwind CSS - styling
 - Firebase - image storage and authentication
 - Redux toolkit - global state
+- React email - creating email templates
+- Resend - handling sending emails
 
 ## State
 
@@ -60,7 +63,7 @@ This slicer keeps information that user selects when starting a search and that 
 
 ## Database
 
-Database is still being defined, but this is the initial idea of tables, their columns, and their relationships:
+Database is still work in progress, but this is the curent state of tables, their columns, and their relationships:
 
 1. users:
    id VARCHAR(255) PRIMARY KEY,

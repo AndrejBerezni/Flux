@@ -2,6 +2,7 @@
 import { useDispatch } from 'react-redux'
 
 import { IUser } from '@/compiler/interfaces'
+import Divider from '@/components/Divider'
 import { passwordReset } from '@/firebase/authentication'
 import { countryCodes } from '@/lib/countryCodes'
 import { setMessage } from '@/store/modal'
@@ -141,7 +142,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           </div>
         </div>
       </fieldset>
-      <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
+      <Divider />
       <fieldset className="my-4 flex flex-wrap items-center gap-2 sm:gap-8">
         <legend className="text-secondary">Address</legend>
         <div className="relative z-0 my-6 max-w-full sm:w-auto">
@@ -249,7 +250,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
           </select>
         </div>
       </fieldset>
-      <div className="my-6 h-0.5 w-full bg-quaternary sm:my-0"></div>
+      <Divider />
       <div className="mb-4 mt-8 flex flex-col items-center gap-4 self-center sm:flex-row">
         <button
           className="btn-primary w-full shadow-lg sm:w-auto"

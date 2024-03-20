@@ -4,6 +4,7 @@ export const fetchCache = 'force-no-store'
 import { IGiftCard } from '@/compiler/interfaces'
 import Divider from '@/components/Divider'
 import GiftCardDetails from '@/components/user/giftcards/GiftCardDetails'
+import NoUserContent from '@/components/user/NoUserContent'
 
 export default async function AccountGiftCardsPage({
   params,
@@ -33,12 +34,12 @@ export default async function AccountGiftCardsPage({
       <h1 className="text-2xl font-bold uppercase md:text-3xl">
         Gift card purchase history
       </h1>
-      <p className=" my-1 text-base md:my-2 md:text-xl">
-        Spreading Joy, One Gift at a Time
-      </p>
+      <h2 className=" my-1 text-base md:my-2 md:text-xl">
+        Spreading joy, one gift at a time
+      </h2>
       <Divider />
       <div className=" flex-1 overflow-y-auto">
-        {giftCards ? (
+        {giftCards.length > 0 ? (
           giftCards.map((giftCard) => (
             <GiftCardDetails
               key={giftCard.id}
@@ -46,7 +47,11 @@ export default async function AccountGiftCardsPage({
             />
           ))
         ) : (
-          <p>No gift cards purchased yet</p>
+          <NoUserContent
+            contentText="purchased gift cards"
+            linkHref="/giftcards"
+            linkText="Purchase now"
+          />
         )}
       </div>
     </section>

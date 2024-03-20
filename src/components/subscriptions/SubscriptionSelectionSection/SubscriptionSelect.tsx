@@ -56,7 +56,7 @@ export default function SubscriptionSelect({
         </ul>
       </div>
       <Link
-        className={`${inter.className} btn-primary py-3 text-lg font-semibold tracking-wide md:ml-auto md:min-w-[300px] md:text-xl`}
+        className={`${inter.className} btn-primary py-3 text-lg font-semibold tracking-wider md:ml-auto md:min-w-[300px] md:text-xl`}
         href={`/subscriptions/subscribe?name=${
           subscription.name
         }&period=${period}&subId=${subscription.id}&subStripeId=${

@@ -96,6 +96,7 @@ export default function GiftCardForm({ value }: { value: string }) {
           className="mb-2 rounded-md border-2 border-tertiary px-2 py-1 font-bold placeholder:font-normal focus:font-normal focus:text-brand focus:outline-brand"
           placeholder="Write your message here (max 240 characters)"
           rows={6}
+          maxLength={240}
         ></textarea>
       </fieldset>
       <p className="-mt-4 text-sm font-semibold text-brand">

@@ -1,14 +1,24 @@
 'use client'
 import { useState } from 'react'
 
+import clsx from 'clsx'
 import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md'
 
 export default function ContactForm() {
   const [preferredContact, setPreferredContact] = useState<'email' | 'phone'>(
     'email'
   )
+  const categories = [
+    'General question',
+    'Bookings',
+    'Vehicle',
+    'Gift Card',
+    'Subscription',
+    'Payment',
+  ]
+
   return (
-    <form className="flex flex-col items-start gap-6 py-8 text-brand sm:w-[70%] lg:w-[60%]">
+    <form className="flex flex-col items-start gap-6 py-8 text-brandSecondary sm:w-[70%] lg:w-[60%]">
       <div className="flex w-full flex-col gap-1 ">
         <label
           htmlFor="contact-name"
@@ -20,7 +30,7 @@ export default function ContactForm() {
           id="contact-name"
           name="name"
           type="text"
-          className="rounded-md border-2 border-brand  p-2 font-semibold text-black"
+          className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
           required
           placeholder="Enter your name"
         />
@@ -30,33 +40,43 @@ export default function ContactForm() {
           How would you like us to contact you?
         </legend>
         <div className="flex w-full justify-around">
-          <div className="flex w-1/2 items-center gap-1">
+          <div className="flex w-1/2 items-center gap-1 text-xl">
             <input
               type="radio"
               name="contact-via"
               id="contact-via-email"
               onClick={() => setPreferredContact('email')}
               checked={preferredContact === 'email'}
-              className="hover:cursor-pointer"
+              className="peer hover:cursor-pointer"
             />
             <label
               htmlFor="contact-via-email"
-              className="flex items-center gap-1 text-lg hover:cursor-pointer hover:text-brandSecondary"
+              className={clsx(
+                'flex items-center gap-1 hover:cursor-pointer hover:text-brand hover:underline peer-hover:text-brand peer-hover:underline',
+                {
+                  'text-brand': preferredContact === 'email',
+                }
+              )}
             >
               <MdOutlineEmail /> Email
             </label>
           </div>
-          <div className="flex w-1/2 items-center gap-1 text-lg">
+          <div className="flex w-1/2 items-center gap-1 text-xl">
             <input
               type="radio"
               name="contact-via"
               id="contact-via-phone"
               onClick={() => setPreferredContact('phone')}
-              className="hover:cursor-pointer"
+              className="peer hover:cursor-pointer"
             />
             <label
               htmlFor="contact-via-phone"
-              className="flex items-center gap-1 hover:cursor-pointer hover:text-brandSecondary"
+              className={clsx(
+                'flex items-center gap-1 hover:cursor-pointer hover:text-brand hover:underline peer-hover:text-brand peer-hover:underline',
+                {
+                  'text-brand': preferredContact === 'phone',
+                }
+              )}
             >
               <MdOutlinePhone /> Phone
             </label>
@@ -75,7 +95,7 @@ export default function ContactForm() {
             id="contact-email"
             name="email"
             type="email"
-            className="rounded-md border-2 border-brand  p-2 font-semibold text-black"
+            className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
             required
             placeholder="Enter your email here"
           />
@@ -92,13 +112,29 @@ export default function ContactForm() {
             id="contact-phone"
             name="phone"
             type="tel"
-            className="rounded-md border-2 border-brand  p-2 font-semibold text-black"
+            className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
             required
             placeholder="Enter your phone number"
             pattern="^(9[1236]\d{7}|2\d{8})$"
           />
         </div>
       )}
+      <div className="flex w-full flex-col gap-1">
+        <label htmlFor="category" className="text-lg font-semibold uppercase">
+          What is your inquiry related to?
+        </label>
+        <select
+          name="category"
+          id="category"
+          className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black hover:cursor-pointer"
+        >
+          {categories.map((cat) => (
+            <option value={cat} key={`${cat}-issue-category`}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="flex w-full flex-col gap-1">
         <label
           htmlFor="contact-message"
@@ -109,10 +145,11 @@ export default function ContactForm() {
         <textarea
           id="contact-message"
           name="message"
-          className="rounded-md border-2 border-brand  p-2 font-semibold text-black"
+          className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
           required
-          placeholder="Enter your message here"
+          placeholder="Enter your message here (max 800 characters)"
           rows={8}
+          maxLength={800}
         />
       </div>
       <button

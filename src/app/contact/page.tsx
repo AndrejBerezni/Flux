@@ -18,7 +18,7 @@ export default function ContactPage() {
         <div className="h-[0.5px] w-full bg-brandSecondary sm:max-w-[70%]"></div>
         <ContactForm />
       </div>
-      <div className="hidden min-h-[80vh] w-[50vw] bg-[url('/support.jpg')] bg-cover bg-bottom md:inline lg:w-[40vw]"></div>
+      <div className="hidden min-h-[80vh] w-[50vw] bg-[url('/support.jpg')] bg-cover bg-bottom sm:inline lg:w-[40vw]"></div>
     </main>
   )
 }

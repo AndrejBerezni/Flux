@@ -10,9 +10,6 @@ import useSubscriptions from '@/hooks/useSubscriptions'
 import SelectNewSubscription from './SelectNewSubscription'
 import SelectNewVehicleType from './SelectNewVehicleType'
 import SubscriptionChangeConfirmation from './SubscriptionChangeConfirmation'
-import SubscriptionChangeSelect from './SubscriptionChangeSelect'
-
-SubscriptionChangeSelect
 
 export default function ChangeSubscription({
   closeChangeSubscription,

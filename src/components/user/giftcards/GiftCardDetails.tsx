@@ -23,7 +23,9 @@ export default function GiftCardDetails({ giftCard }: { giftCard: IGiftCard }) {
     },
     {
       title: 'Message',
-      value: `"${giftCard.message_for_recipient}"` || '',
+      value: giftCard.message_for_recipient
+        ? `"${giftCard.message_for_recipient}"`
+        : 'No message sent with gift card.',
     },
     {
       title: 'Date',

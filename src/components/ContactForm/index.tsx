@@ -36,10 +36,12 @@ export default function ContactForm() {
               name="contact-via"
               id="contact-via-email"
               onClick={() => setPreferredContact('email')}
+              checked={preferredContact === 'email'}
+              className="hover:cursor-pointer"
             />
             <label
               htmlFor="contact-via-email"
-              className="flex items-center gap-1 text-lg"
+              className="flex items-center gap-1 text-lg hover:cursor-pointer hover:text-brandSecondary"
             >
               <MdOutlineEmail /> Email
             </label>
@@ -50,10 +52,11 @@ export default function ContactForm() {
               name="contact-via"
               id="contact-via-phone"
               onClick={() => setPreferredContact('phone')}
+              className="hover:cursor-pointer"
             />
             <label
               htmlFor="contact-via-phone"
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 hover:cursor-pointer hover:text-brandSecondary"
             >
               <MdOutlinePhone /> Phone
             </label>
@@ -114,7 +117,7 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="btn-primary min-w-[200px] self-center uppercase"
+        className="btn-primary min-w-[200px] self-center uppercase hover:bg-brandSecondary"
       >
         Send
       </button>

@@ -1,4 +1,6 @@
 'use client'
+import { useState } from 'react'
+
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -10,8 +12,10 @@ import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 
 import Divider from '../Divider'
+import Spinner from '../Spinner'
 
 export default function GiftCardForm({ value }: { value: string }) {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch()
   const router = useRouter()
   const uid = useSelector(getUserId)
@@ -23,6 +27,7 @@ export default function GiftCardForm({ value }: { value: string }) {
       dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
       return
     }
+    setIsLoading(true)
     const formData = new FormData(event.currentTarget)
     try {
       const checkoutUrl = await giftCardCheckoutAction(uid, value, formData)
@@ -30,6 +35,7 @@ export default function GiftCardForm({ value }: { value: string }) {
         router.push(checkoutUrl)
       }
     } catch (error) {
+      setIsLoading(false)
       if (error instanceof Error) {
         dispatch(setMessage({ type: 'error', text: error.message }))
       }
@@ -99,16 +105,16 @@ export default function GiftCardForm({ value }: { value: string }) {
       <div className={`${inter.className} flex gap-8`}>
         <Link
           href={`/giftcards/select?value=${value}`}
-          className="btn-primary flex items-center gap-2 shadow-md"
+          className="btn-primary flex w-[110px] items-center justify-center gap-2 shadow-md md:w-[135px]"
         >
           <IoIosArrowBack />
           Back
         </Link>
         <button
           type="submit"
-          className="btn-primary flex items-center gap-2 shadow-md"
+          className="btn-primary flex w-[110px] items-center justify-center gap-2 shadow-md md:w-[135px]"
         >
-          Checkout
+          {isLoading ? <Spinner /> : 'Checkout'}
         </button>
       </div>
     </form>

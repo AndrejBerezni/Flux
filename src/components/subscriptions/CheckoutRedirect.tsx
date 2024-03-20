@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 
+import Spinner from '../Spinner'
+
 export default function CheckoutRedirect({
   subId,
   subStripeId,
@@ -19,6 +21,7 @@ export default function CheckoutRedirect({
   subName: string
   subPeriod: string
 }) {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch()
   const isAuth = useSelector(getAuthStatus)
   const userId = useSelector(getUserId)
@@ -45,6 +48,7 @@ export default function CheckoutRedirect({
   }
 
   const handleCheckout = async () => {
+    setIsLoading(true)
     try {
       let selectedVehicle
       if (subName !== 'Platinum') {
@@ -76,14 +80,14 @@ export default function CheckoutRedirect({
         router.push(url)
       }
     } catch (error) {
-      if (error instanceof Error) {
-        dispatch(
-          setMessage({
-            type: 'error',
-            text: error.message,
-          })
-        )
-      }
+      setIsLoading(false)
+      dispatch(
+        setMessage({
+          type: 'error',
+          text:
+            error instanceof Error ? error.message : 'Unknown error occurred.',
+        })
+      )
     }
   }
 
@@ -115,11 +119,11 @@ export default function CheckoutRedirect({
         </label>
       </div>
       <button
-        className="btn-primary"
+        className="btn-primary flex justify-center"
         disabled={!agreedToTerms}
         onClick={handleCheckoutButtonClick}
       >
-        Proceed to payment
+        {isLoading ? <Spinner /> : 'Proceed to payment'}
       </button>
     </div>
   )

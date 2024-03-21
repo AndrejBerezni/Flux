@@ -3,11 +3,19 @@ import { useState } from 'react'
 
 import clsx from 'clsx'
 import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md'
+import { useDispatch } from 'react-redux'
+
+import { handleNewSupportTicket } from '@/lib/serverActions/newSupportTicketAction'
+import { setMessage } from '@/store/modal'
+
+import Spinner from '../Spinner'
 
 export default function ContactForm() {
+  const dispatch = useDispatch()
   const [preferredContact, setPreferredContact] = useState<'email' | 'phone'>(
     'email'
   )
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const categories = [
     'General question',
     'Bookings',
@@ -17,12 +25,41 @@ export default function ContactForm() {
     'Payment',
   ]
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsLoading(true)
+    const formData = new FormData(event.currentTarget)
+    try {
+      await handleNewSupportTicket(formData)
+      dispatch(
+        setMessage({
+          type: 'info',
+          text: 'Ticket successfully submitted! Our support will get in touch with you briefly!',
+        })
+      )
+      setIsLoading(false)
+    } catch (error) {
+      dispatch(
+        setMessage({
+          type: 'error',
+          text:
+            error instanceof Error
+              ? error.message
+              : 'Unknow error occurred. Please try again later!',
+        })
+      )
+    }
+  }
+
   return (
-    <form className="flex flex-col items-start gap-6 py-8 text-brandSecondary sm:w-[70%] lg:w-[60%]">
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      className="flex flex-col items-start gap-6 py-8 text-black sm:w-[70%] lg:w-[60%]"
+    >
       <div className="flex w-full flex-col gap-1 ">
         <label
           htmlFor="contact-name"
-          className="text-lg font-semibold uppercase"
+          className="text-lg font-semibold uppercase text-brandSecondary"
         >
           Your name
         </label>
@@ -36,7 +73,7 @@ export default function ContactForm() {
         />
       </div>
       <fieldset>
-        <legend className="mb-2 text-lg font-semibold uppercase">
+        <legend className="mb-2 text-lg font-semibold uppercase text-brandSecondary">
           How would you like us to contact you?
         </legend>
         <div className="flex w-full justify-around">
@@ -52,9 +89,10 @@ export default function ContactForm() {
             <label
               htmlFor="contact-via-email"
               className={clsx(
-                'flex items-center gap-1 hover:cursor-pointer hover:text-brand hover:underline peer-hover:text-brand peer-hover:underline',
+                'flex items-center gap-1  hover:cursor-pointer hover:text-brand hover:underline peer-hover:text-brand peer-hover:underline',
                 {
                   'text-brand': preferredContact === 'email',
+                  'text-brandSecondary': preferredContact !== 'email',
                 }
               )}
             >
@@ -75,6 +113,7 @@ export default function ContactForm() {
                 'flex items-center gap-1 hover:cursor-pointer hover:text-brand hover:underline peer-hover:text-brand peer-hover:underline',
                 {
                   'text-brand': preferredContact === 'phone',
+                  'text-brandSecondary': preferredContact !== 'phone',
                 }
               )}
             >
@@ -87,13 +126,13 @@ export default function ContactForm() {
         <div className="flex w-full flex-col gap-1">
           <label
             htmlFor="contact-email"
-            className="text-lg font-semibold uppercase"
+            className="text-lg font-semibold uppercase text-brandSecondary"
           >
             Your Email address
           </label>
           <input
             id="contact-email"
-            name="email"
+            name="contact"
             type="email"
             className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
             required
@@ -104,13 +143,13 @@ export default function ContactForm() {
         <div className="flex w-full flex-col gap-1">
           <label
             htmlFor="contact-email"
-            className="text-lg font-semibold uppercase"
+            className="text-lg font-semibold uppercase text-brandSecondary"
           >
             Your Phone number
           </label>
           <input
             id="contact-phone"
-            name="phone"
+            name="contact"
             type="tel"
             className="rounded-md border-2 border-brandSecondary  p-2 font-semibold text-black"
             required
@@ -120,7 +159,10 @@ export default function ContactForm() {
         </div>
       )}
       <div className="flex w-full flex-col gap-1">
-        <label htmlFor="category" className="text-lg font-semibold uppercase">
+        <label
+          htmlFor="category"
+          className="text-lg font-semibold uppercase text-brandSecondary"
+        >
           What is your inquiry related to?
         </label>
         <select
@@ -138,7 +180,7 @@ export default function ContactForm() {
       <div className="flex w-full flex-col gap-1">
         <label
           htmlFor="contact-message"
-          className="text-lg font-semibold uppercase"
+          className="text-lg font-semibold uppercase text-brandSecondary"
         >
           How can we help?
         </label>
@@ -154,9 +196,9 @@ export default function ContactForm() {
       </div>
       <button
         type="submit"
-        className="btn-primary min-w-[200px] self-center uppercase hover:bg-brandSecondary"
+        className="btn-primary flex min-w-[200px] justify-center self-center uppercase hover:bg-brandSecondary"
       >
-        Send
+        {isLoading ? <Spinner /> : 'Send'}
       </button>
     </form>
   )

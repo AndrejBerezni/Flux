@@ -9,7 +9,7 @@ export default async function AccountDetailsPage({
 }: {
   params: { user: string }
 }) {
-  const uid = params.user || ''
+  const uid = params.user ?? ''
 
   const userData = await fetchUserWithId(uid)
 

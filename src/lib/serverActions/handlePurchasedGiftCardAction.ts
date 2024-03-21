@@ -1,9 +1,8 @@
 'use server'
 import { sql } from '@vercel/postgres'
-import { Resend } from 'resend'
 
-const resend = new Resend(process.env.NEXT_RESEND)
 import GiftCardEmail from '@/emails/giftcard'
+import { resend } from '@/emails/resend-config'
 import { createPromotionCode } from '@/stripe/giftcards'
 
 const checkIfAlreadySent = async (giftCardId: string) => {

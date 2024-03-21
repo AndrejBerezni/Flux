@@ -177,6 +177,16 @@ Database is still work in progress, but this is the curent state of tables, thei
     image_url TEXT NOT NULL,
     main_image BOOLEAN NOT NULL
 
+14. support_tickets:
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_contact VARCHAR(255) NOT NULL,
+    issue_category VARCHAR(255) NOT NULL,
+    issue_description VARCHAR(800) NOT NULL,
+    assigned_agent VARCHAR(255),
+    resolved BOOLEAN NOT NULL DEFAULT false
+    priority NUMERIC NOT NULL DEFAULT 3
+
 #### Relationships:
 
 ##### **>** many to one, **<** one to many, **-** one to one

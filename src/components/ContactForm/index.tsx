@@ -2,6 +2,7 @@
 import { useState } from 'react'
 
 import clsx from 'clsx'
+import { useRouter } from 'next/navigation'
 import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
 
@@ -12,6 +13,7 @@ import Spinner from '../Spinner'
 
 export default function ContactForm() {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [preferredContact, setPreferredContact] = useState<'email' | 'phone'>(
     'email'
   )
@@ -31,14 +33,10 @@ export default function ContactForm() {
     const formData = new FormData(event.currentTarget)
     try {
       await handleNewSupportTicket(formData)
-      dispatch(
-        setMessage({
-          type: 'info',
-          text: 'Ticket successfully submitted! Our support will get in touch with you briefly!',
-        })
-      )
       setIsLoading(false)
+      router.push('/contact/sent')
     } catch (error) {
+      setIsLoading(false)
       dispatch(
         setMessage({
           type: 'error',

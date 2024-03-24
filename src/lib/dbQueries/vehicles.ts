@@ -10,7 +10,9 @@ export const fetchCars = async (
   passengers: string,
   doors: string,
   bags: string,
-  sort: string
+  sort: string,
+  pickupDate: string,
+  returnDate: string
 ): Promise<ICarCard[]> => {
   try {
     const data = await sql<ICarCard>`
@@ -20,11 +22,19 @@ export const fetchCars = async (
           ON vehicles.vehicle_details = cars_details.id::varchar
           JOIN vehicle_images
           ON vehicle_images.vehicle_id = cars_details.id::varchar
+          LEFT JOIN 
+          rents ON rents.vehicle_id = vehicles.id::varchar
+            AND (
+              (rents.pickup_date <= ${returnDate} AND rents.return_date >= ${pickupDate})
+            OR
+              (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
+              )
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='cars'
           AND cars_details.passengers >=${passengers}
           AND cars_details.doors >=${doors}
           AND cars_details.bags >=${bags}
+          AND rents.id IS NULL
           GROUP BY cars_details.id,
           vehicle_images.image_url
           ORDER BY cars_details.price_per_day;
@@ -49,7 +59,9 @@ export const fetchBikes = async (
   top_speed: string,
   weight: string,
   range: string,
-  sort: string
+  sort: string,
+  pickupDate: string,
+  returnDate: string
 ): Promise<IBikeCard[]> => {
   try {
     const data = await sql<IBikeCard>`
@@ -59,11 +71,19 @@ export const fetchBikes = async (
           ON vehicles.vehicle_details = bikes_details.id::varchar
           JOIN vehicle_images
           ON vehicle_images.vehicle_id = bikes_details.id::varchar
+          LEFT JOIN 
+          rents ON rents.vehicle_id = vehicles.id::varchar
+            AND (
+              (rents.pickup_date <= ${returnDate} AND rents.return_date >= ${pickupDate})
+            OR
+              (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
+              )
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='bikes'
           AND bikes_details.top_speed >=${top_speed}
           AND bikes_details.weight >=${weight}
           AND bikes_details.range >=${range}
+          AND rents.id IS NULL
           GROUP BY bikes_details.id,
           vehicle_images.image_url;
           `
@@ -88,7 +108,9 @@ export const fetchScooters = async (
   top_speed: string,
   max_weight: string,
   range: string,
-  sort: string
+  sort: string,
+  pickupDate: string,
+  returnDate: string
 ): Promise<IScooterCard[]> => {
   try {
     const data = await sql<IScooterCard>`
@@ -98,11 +120,19 @@ export const fetchScooters = async (
           ON vehicles.vehicle_details = scooters_details.id::varchar
           JOIN vehicle_images
           ON vehicle_images.vehicle_id = scooters_details.id::varchar
+          LEFT JOIN 
+          rents ON rents.vehicle_id = vehicles.id::varchar
+            AND (
+              (rents.pickup_date <= ${returnDate} AND rents.return_date >= ${pickupDate})
+            OR
+              (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
+              )
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='scooters'
           AND scooters_details.top_speed >=${top_speed}
           AND scooters_details.max_weight >=${max_weight}
           AND scooters_details.range >=${range}
+          AND rents.id IS NULL
           GROUP BY scooters_details.id,
           vehicle_images.image_url
           ORDER BY scooters_details.price_per_day;

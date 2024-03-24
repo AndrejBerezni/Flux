@@ -36,9 +36,13 @@ export default async function VehiclesPage({
   const pickupDate = searchParams?.pickupDate
     ? new Date(searchParams?.pickupDate)
     : new Date()
+  const formattedPickup = pickupDate.toISOString().split('T')[0]
+
   const returnDate = searchParams?.returnDate
     ? new Date(searchParams?.returnDate)
     : new Date()
+  const formattedReturn = returnDate.toISOString().split('T')[0]
+
   const numberOfDays =
     (returnDate.getTime() - pickupDate.getTime()) / (1000 * 3600 * 24)
 
@@ -53,7 +57,9 @@ export default async function VehiclesPage({
           passengers,
           doors,
           bags,
-          sort
+          sort,
+          formattedPickup,
+          formattedReturn
         )
         break
       case 'bikes':
@@ -62,7 +68,9 @@ export default async function VehiclesPage({
           top_speed,
           weight,
           range,
-          sort
+          sort,
+          formattedPickup,
+          formattedReturn
         )
         break
       case 'scooters':
@@ -71,7 +79,9 @@ export default async function VehiclesPage({
           top_speed,
           max_weight,
           range,
-          sort
+          sort,
+          formattedPickup,
+          formattedReturn
         )
         break
     }

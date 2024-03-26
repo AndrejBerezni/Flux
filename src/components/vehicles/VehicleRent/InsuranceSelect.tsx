@@ -6,7 +6,10 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setRentInsurance } from '@/store/vehicleRent'
-import { getRentInsuranceInfo } from '@/store/vehicleRent/selectors'
+import {
+  getRentInsuranceInfo,
+  getRentSubscriptionInfo,
+} from '@/store/vehicleRent/selectors'
 
 function InsuranceCard({
   insurance,
@@ -75,16 +78,23 @@ function InsuranceCard({
 }
 
 export default function InsuranceSelect() {
+  const subscription = useSelector(getRentSubscriptionInfo)
   //To be fetched from db later:
   const insurances = [
     {
       name: 'maximum',
-      price: '19.29€ / per day',
+      price:
+        subscription.details.insurance === 'maximum'
+          ? 'Included in subcription'
+          : '19.29€ / per day',
       text: '€0.00 financial responsibility',
     },
     {
       name: 'medium',
-      price: '11.58€ / per day',
+      price:
+        subscription.details.insurance === 'medium'
+          ? 'Included in subcription'
+          : '11.58€ / per day',
       text: '700.00€ financial responsibility',
     },
     {
@@ -96,12 +106,29 @@ export default function InsuranceSelect() {
   return (
     <div className="bg-white px-4 py-3">
       <h2 className="mb-2 text-2xl font-bold text-secondaryText">Insurance</h2>
-      {insurances.map((insurance) => (
+      {/* Do not display lesser insurances if user already has insurance included in their subscription */}
+      {subscription.details.insurance === 'maximum' ? (
         <InsuranceCard
-          key={`${insurance.name}-insurance-card`}
-          insurance={insurance}
+          key={`${insurances[0].name}-insurance-card`}
+          insurance={insurances[0]}
         />
-      ))}
+      ) : subscription.details.insurance === 'medium' ? (
+        insurances
+          .slice(0, 2)
+          .map((insurance) => (
+            <InsuranceCard
+              key={`${insurance.name}-insurance-card`}
+              insurance={insurance}
+            />
+          ))
+      ) : (
+        insurances.map((insurance) => (
+          <InsuranceCard
+            key={`${insurance.name}-insurance-card`}
+            insurance={insurance}
+          />
+        ))
+      )}
     </div>
   )
 }

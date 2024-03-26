@@ -100,7 +100,7 @@ export default async function VehiclesPage({
           days={numberOfDays}
         />
       ))}
-      <VehicleRent />
+      <VehicleRent days={numberOfDays} />
     </main>
   )
 }

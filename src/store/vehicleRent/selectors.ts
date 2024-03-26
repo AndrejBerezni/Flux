@@ -32,5 +32,6 @@ export const getRentSubscriptionInfo = (store: RootState) =>
       selected_vehicle_discount: null,
       all_vehicles_discount: null,
       insurance: 'minimum',
+      name: null,
     },
   })

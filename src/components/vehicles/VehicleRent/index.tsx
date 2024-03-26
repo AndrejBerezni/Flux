@@ -12,10 +12,11 @@ import { getModalInfo } from '@/store/modal/selectors'
 import { getRentVehicleInfo } from '@/store/vehicleRent/selectors'
 
 import InsuranceSelect from './InsuranceSelect'
+import RentPrice from './RentPrice'
 import RentTimeDateLocation from './RentTimeDateLocation'
 import VehicleProperties from '../VehicleCard/VehicleProperties'
 
-export default function VehicleRent() {
+export default function VehicleRent({ days }: { days: number }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicle = useSelector(getRentVehicleInfo)
@@ -54,6 +55,7 @@ export default function VehicleRent() {
           <InsuranceSelect />
           <Divider />
           <RentTimeDateLocation />
+          <RentPrice />
           <button className="btn-primary mb-4 w-1/2 self-center">
             Checkout
           </button>

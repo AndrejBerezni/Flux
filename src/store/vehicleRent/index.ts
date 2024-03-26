@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
-import { Insurance, VehicleType } from '@/compiler/types'
+import { Insurance, SubscriptionName, VehicleType } from '@/compiler/types'
 
 interface IVehicleRentState {
   vehicle: ICarCard | IBikeCard | IScooterCard
@@ -13,6 +13,7 @@ interface IVehicleRentState {
       selected_vehicle_discount: number | null
       all_vehicles_discount: number | null
       insurance: Insurance
+      name: SubscriptionName | null
     }
   }
 }
@@ -43,6 +44,7 @@ const initialState: IVehicleRentState = {
       selected_vehicle_discount: null,
       all_vehicles_discount: null,
       insurance: 'minimum',
+      name: null,
     },
   },
 }

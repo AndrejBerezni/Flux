@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
+import { Insurance } from '@/compiler/types'
 
 interface IVehicleRentState {
   vehicle: ICarCard | IBikeCard | IScooterCard
+  insurance: Insurance
 }
 
 const initialState: IVehicleRentState = {
@@ -24,6 +26,7 @@ const initialState: IVehicleRentState = {
     available_vehicle: '',
     image_url: '',
   },
+  insurance: 'maximum',
 }
 
 export const vehicleRentSlice = createSlice({
@@ -33,9 +36,12 @@ export const vehicleRentSlice = createSlice({
     setRentVehicle: (state, action) => {
       state.vehicle = action.payload
     },
+    setRentInsurance: (state, action) => {
+      state.insurance = action.payload
+    },
   },
 })
 
-export const { setRentVehicle } = vehicleRentSlice.actions
+export const { setRentVehicle, setRentInsurance } = vehicleRentSlice.actions
 
 export default vehicleRentSlice.reducer

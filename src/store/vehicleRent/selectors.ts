@@ -2,7 +2,7 @@ import { get } from 'lodash'
 
 import { RootState } from '..'
 
-export const getVehicleRentInfo = (store: RootState) => {
+export const getRentVehicleInfo = (store: RootState) =>
   get(store, 'vehicleRent.vehicle', {
     id: '',
     name: '',
@@ -20,4 +20,6 @@ export const getVehicleRentInfo = (store: RootState) => {
     available_vehicle: '',
     image_url: '',
   })
-}
+
+export const getRentInsuranceInfo = (store: RootState) =>
+  get(store, 'vehicleRent.insurance', 'maximum')

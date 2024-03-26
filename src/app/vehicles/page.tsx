@@ -1,5 +1,6 @@
 import { VehicleType } from '@/compiler/types'
 import VehicleCard from '@/components/vehicles/VehicleCard'
+import VehicleRent from '@/components/vehicles/VehicleRent'
 import { fetchCars, fetchBikes, fetchScooters } from '@/lib/dbQueries/vehicles'
 
 export const fetchCache = 'force-no-store'
@@ -99,6 +100,7 @@ export default async function VehiclesPage({
           days={numberOfDays}
         />
       ))}
+      <VehicleRent />
     </main>
   )
 }

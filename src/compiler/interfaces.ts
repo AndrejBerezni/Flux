@@ -32,6 +32,7 @@ export interface ICarCard {
   discount_2: string
   discount_7: string
   discount_10: string
+  available_vehicle: string
   image_url: string
 }
 
@@ -47,6 +48,7 @@ export interface IBikeCard {
   discount_2: string
   discount_7: string
   discount_10: string
+  available_vehicle: string
   image_url: string
 }
 
@@ -62,6 +64,7 @@ export interface IScooterCard {
   discount_2: string
   discount_7: string
   discount_10: string
+  available_vehicle: string
   image_url: string
 }
 

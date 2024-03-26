@@ -30,7 +30,7 @@ export default function VehicleCard({
       <VehicleProperties vehicle={vehicle} vehicleType={vehicleType} />
       <div className="my-4 flex w-full items-center justify-between">
         <VehiclePrice price={vehicle.price_per_day} days={days} />
-        <RentButton vehicle={vehicle} vehicleType={vehicleType} days={days} />
+        <RentButton vehicle={vehicle} />
       </div>
     </div>
   )

@@ -28,7 +28,8 @@ export const fetchCars = async (
                   cars_details.stripe_price_id_2_off as discount_2,
                   cars_details.stripe_price_id_7_off as discount_7,
                   cars_details.stripe_price_id_10_off as discount_10,
-                  vehicle_images.image_url as image_url
+                  MIN(vehicles.id::varchar) as available_vehicle,
+                  MIN(vehicle_images.image_url) as image_url
           FROM cars_details
           JOIN vehicles
           ON vehicles.vehicle_details = cars_details.id::varchar
@@ -47,8 +48,7 @@ export const fetchCars = async (
           AND cars_details.doors >=${doors}
           AND cars_details.bags >=${bags}
           AND rents.id IS NULL
-          GROUP BY cars_details.id,
-          vehicle_images.image_url
+          GROUP BY cars_details.id
           ORDER BY cars_details.price_per_day;
           `
     const result = await Promise.all(
@@ -87,7 +87,8 @@ export const fetchBikes = async (
                   bikes_details.stripe_price_id_2_off as discount_2,
                   bikes_details.stripe_price_id_7_off as discount_7,
                   bikes_details.stripe_price_id_10_off as discount_10,
-                  vehicle_images.image_url as image_url
+                  MIN(vehicles.id::varchar) as available_vehicle,
+                  MIN(vehicle_images.image_url) as image_url
           FROM bikes_details
           JOIN vehicles
           ON vehicles.vehicle_details = bikes_details.id::varchar
@@ -106,8 +107,8 @@ export const fetchBikes = async (
           AND bikes_details.weight >=${weight}
           AND bikes_details.range >=${range}
           AND rents.id IS NULL
-          GROUP BY bikes_details.id,
-          vehicle_images.image_url;
+          GROUP BY bikes_details.id
+          ORDER BY bikes_details.price_per_day;
           `
     const result = await Promise.all(
       data.rows.map(async (bike) => {
@@ -147,7 +148,8 @@ export const fetchScooters = async (
                   scooters_details.stripe_price_id_2_off as discount_2,
                   scooters_details.stripe_price_id_7_off as discount_7,
                   scooters_details.stripe_price_id_10_off as discount_10,
-                  vehicle_images.image_url as image_url
+                  MIN(vehicles.id::varchar) as available_vehicle,
+                  MIN(vehicle_images.image_url) as image_url
           FROM scooters_details
           JOIN vehicles
           ON vehicles.vehicle_details = scooters_details.id::varchar
@@ -166,8 +168,7 @@ export const fetchScooters = async (
           AND scooters_details.max_weight >=${max_weight}
           AND scooters_details.range >=${range}
           AND rents.id IS NULL
-          GROUP BY scooters_details.id,
-          vehicle_images.image_url
+          GROUP BY scooters_details.id
           ORDER BY scooters_details.price_per_day;
           `
     const result = await Promise.all(

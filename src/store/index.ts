@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 
 import authReducer from './authentication'
 import modalReducer from './modal'
+import vehicleRentReducer from './vehicleRent'
 import vehicleSearchReducer from './vehicleSearch'
 
 const persistConfig = {
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   authentication: authReducer,
   modal: modalReducer,
   vehicleSearch: vehicleSearchReducer,
+  vehicleRent: vehicleRentReducer,
 })
 
 const persistedReducers = persistReducer(persistConfig, reducers)

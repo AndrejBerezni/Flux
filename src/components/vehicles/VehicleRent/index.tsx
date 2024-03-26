@@ -6,11 +6,13 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
 import { VehicleType } from '@/compiler/types'
+import Divider from '@/components/Divider'
 import { hideModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { getRentVehicleInfo } from '@/store/vehicleRent/selectors'
 
 import InsuranceSelect from './InsuranceSelect'
+import RentTimeDateLocation from './RentTimeDateLocation'
 import VehicleProperties from '../VehicleCard/VehicleProperties'
 
 export default function VehicleRent() {
@@ -28,7 +30,7 @@ export default function VehicleRent() {
       >
         <button
           onClick={() => dispatch(hideModal())}
-          className="absolute right-2 top-2 text-2xl"
+          className="absolute right-2 top-2 text-2xl hover:text-white"
         >
           <IoCloseSharp />
         </button>
@@ -50,6 +52,8 @@ export default function VehicleRent() {
         </div>
         <div className="flex flex-col overflow-auto">
           <InsuranceSelect />
+          <Divider />
+          <RentTimeDateLocation />
           <button className="btn-primary mb-4 w-1/2 self-center">
             Checkout
           </button>

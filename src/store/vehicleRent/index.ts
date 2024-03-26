@@ -16,6 +16,7 @@ interface IVehicleRentState {
       name: SubscriptionName | null
     }
   }
+  price: string | null
 }
 
 const initialState: IVehicleRentState = {
@@ -47,6 +48,7 @@ const initialState: IVehicleRentState = {
       name: null,
     },
   },
+  price: null,
 }
 
 export const vehicleRentSlice = createSlice({
@@ -65,6 +67,9 @@ export const vehicleRentSlice = createSlice({
     resetSubscription: (state) => {
       state.subscription = initialState.subscription
     },
+    setRentPrice: (state, action) => {
+      state.price = action.payload
+    },
   },
 })
 
@@ -73,6 +78,7 @@ export const {
   setRentInsurance,
   setSubscription,
   resetSubscription,
+  setRentPrice,
 } = vehicleRentSlice.actions
 
 export default vehicleRentSlice.reducer

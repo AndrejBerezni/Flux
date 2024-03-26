@@ -35,3 +35,6 @@ export const getRentSubscriptionInfo = (store: RootState) =>
       name: null,
     },
   })
+
+export const getRentPrice = (store: RootState) =>
+  get(store, 'vehicleRent.price', null)

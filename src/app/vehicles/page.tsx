@@ -44,8 +44,9 @@ export default async function VehiclesPage({
     : new Date()
   const formattedReturn = returnDate.toISOString().split('T')[0]
 
-  const numberOfDays =
+  const numberOfDays = Math.ceil(
     (returnDate.getTime() - pickupDate.getTime()) / (1000 * 3600 * 24)
+  )
 
   const sort = searchParams?.sort || 'name-asc'
 

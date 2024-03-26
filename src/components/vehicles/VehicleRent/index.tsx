@@ -55,7 +55,7 @@ export default function VehicleRent({ days }: { days: number }) {
           <InsuranceSelect />
           <Divider />
           <RentTimeDateLocation />
-          <RentPrice />
+          <RentPrice days={days} />
           <button className="btn-primary mb-4 w-1/2 self-center">
             Checkout
           </button>

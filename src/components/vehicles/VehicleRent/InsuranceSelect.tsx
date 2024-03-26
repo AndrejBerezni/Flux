@@ -22,7 +22,7 @@ function InsuranceCard({
   const { name, price, text } = insurance
   const insuranceCoverage = useSelector(getRentInsuranceInfo)
   return (
-    <div className="mb-3 w-2/3 rounded-md border-[1px] border-primary p-2 shadow-md">
+    <div className="mb-3 w-full rounded-md border-[1px] border-primary p-2 shadow-md sm:w-2/3">
       <div className="flex items-center gap-4">
         {/* Custom radio button: */}
         <div
@@ -58,7 +58,7 @@ function InsuranceCard({
       <div
         className={clsx('overflow-hidden transition-all duration-300', {
           'h-0': !showInfo,
-          'h-[80px]': showInfo,
+          'h-[80px] max-[320px]:h-[100px]': showInfo,
         })}
         style={{ transitionProperty: 'height' }}
       >

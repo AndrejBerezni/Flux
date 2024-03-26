@@ -23,3 +23,14 @@ export const getRentVehicleInfo = (store: RootState) =>
 
 export const getRentInsuranceInfo = (store: RootState) =>
   get(store, 'vehicleRent.insurance', 'maximum')
+
+export const getRentSubscriptionInfo = (store: RootState) =>
+  get(store, 'vehicleRent.subscription', {
+    hasSubscription: false,
+    details: {
+      selected_vehicle: null,
+      selected_vehicle_discount: null,
+      all_vehicles_discount: null,
+      insurance: 'minimum',
+    },
+  })

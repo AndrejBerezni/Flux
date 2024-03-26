@@ -1,11 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
-import { Insurance } from '@/compiler/types'
+import { Insurance, VehicleType } from '@/compiler/types'
 
 interface IVehicleRentState {
   vehicle: ICarCard | IBikeCard | IScooterCard
   insurance: Insurance
+  subscription: {
+    hasSubscription: boolean
+    details: {
+      selected_vehicle: VehicleType | null
+      selected_vehicle_discount: number | null
+      all_vehicles_discount: number | null
+      insurance: Insurance
+    }
+  }
 }
 
 const initialState: IVehicleRentState = {
@@ -27,6 +36,15 @@ const initialState: IVehicleRentState = {
     image_url: '',
   },
   insurance: 'maximum',
+  subscription: {
+    hasSubscription: false,
+    details: {
+      selected_vehicle: null,
+      selected_vehicle_discount: null,
+      all_vehicles_discount: null,
+      insurance: 'minimum',
+    },
+  },
 }
 
 export const vehicleRentSlice = createSlice({
@@ -39,9 +57,20 @@ export const vehicleRentSlice = createSlice({
     setRentInsurance: (state, action) => {
       state.insurance = action.payload
     },
+    setSubscription: (state, action) => {
+      state.subscription = action.payload
+    },
+    resetSubscription: (state) => {
+      state.subscription = initialState.subscription
+    },
   },
 })
 
-export const { setRentVehicle, setRentInsurance } = vehicleRentSlice.actions
+export const {
+  setRentVehicle,
+  setRentInsurance,
+  setSubscription,
+  resetSubscription,
+} = vehicleRentSlice.actions
 
 export default vehicleRentSlice.reducer

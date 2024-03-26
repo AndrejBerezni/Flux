@@ -26,7 +26,7 @@ export default function VehicleRent() {
   if (modal.modalType === 'rent') {
     return (
       <article
-        className={`${robotoCondensed.className} fixed left-0 top-0 z-30 flex h-screen w-screen flex-col overflow-auto bg-white md:left-1/2 md:top-[5%] md:h-[90%] md:w-[600px] md:-translate-x-1/2 md:rounded-xl`}
+        className={`${robotoCondensed.className} fixed left-0 top-0 z-30 flex h-screen w-screen flex-col overflow-auto bg-white md:left-1/2 md:top-[5%] md:h-[90%] md:w-[600px] md:-translate-x-1/2 md:rounded-xl md:border-2`}
       >
         <button
           onClick={() => dispatch(hideModal())}
@@ -34,7 +34,7 @@ export default function VehicleRent() {
         >
           <IoCloseSharp />
         </button>
-        <div className="flex w-full justify-center rounded-t-lg bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600">
+        <div className="flex w-full justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600 md:rounded-t-lg">
           <Image
             src={vehicle.image_url}
             alt={vehicle.name}

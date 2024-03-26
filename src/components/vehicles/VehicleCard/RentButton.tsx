@@ -3,9 +3,14 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
-import { getAuthStatus } from '@/store/authentication/selectors'
+import { subscriptionDetailsAction } from '@/lib/serverActions/subscriptionDetailsAction'
+import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { showModal } from '@/store/modal'
-import { setRentVehicle } from '@/store/vehicleRent'
+import {
+  resetSubscription,
+  setRentVehicle,
+  setSubscription,
+} from '@/store/vehicleRent'
 
 export default function RentButton({
   vehicle,
@@ -14,11 +19,28 @@ export default function RentButton({
 }) {
   const dispatch = useDispatch()
   const isAuth = useSelector(getAuthStatus)
+  const uid = useSelector(getUserId)
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isAuth) {
       dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
       return
+    }
+    const subscription = await subscriptionDetailsAction(uid)
+    if (subscription) {
+      dispatch(
+        setSubscription({
+          hasSubscription: true,
+          details: {
+            selected_vehicle: subscription.selected_vehicle,
+            selected_vehicle_discount: subscription.selected_vehicle_discount,
+            all_vehicles_discount: subscription.all_vehicles_discount,
+            insurance: subscription.insurance,
+          },
+        })
+      )
+    } else {
+      dispatch(resetSubscription())
     }
     dispatch(setRentVehicle(vehicle))
     dispatch(showModal({ modalType: 'rent', outerType: 'visible' }))

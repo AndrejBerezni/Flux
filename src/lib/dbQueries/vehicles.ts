@@ -16,7 +16,19 @@ export const fetchCars = async (
 ): Promise<ICarCard[]> => {
   try {
     const data = await sql<ICarCard>`
-          SELECT cars_details.id as id, cars_details.name as name, cars_details.brand as brand, cars_details.price_per_day as price_per_day, cars_details.gearshift as gearshift, cars_details.passengers as passengers, cars_details.bags as bags, cars_details.doors as doors, vehicle_images.image_url as image_url
+          SELECT cars_details.id as id,
+                  cars_details.name as name,
+                  cars_details.brand as brand,
+                  cars_details.price_per_day as price_per_day,
+                  cars_details.gearshift as gearshift,
+                  cars_details.passengers as passengers,
+                  cars_details.bags as bags, cars_details.doors as doors,
+                  cars_details.stripe_product_id as stripeId,
+                  cars_details.stripe_full_price_id as full_price,
+                  cars_details.stripe_price_id_2_off as discount_2,
+                  cars_details.stripe_price_id_7_off as discount_7,
+                  cars_details.stripe_price_id_10_off as discount_10,
+                  vehicle_images.image_url as image_url
           FROM cars_details
           JOIN vehicles
           ON vehicles.vehicle_details = cars_details.id::varchar
@@ -65,7 +77,17 @@ export const fetchBikes = async (
 ): Promise<IBikeCard[]> => {
   try {
     const data = await sql<IBikeCard>`
-          SELECT bikes_details.id as id, bikes_details.name as name, bikes_details.price_per_day as price_per_day, bikes_details.range as range, bikes_details.top_speed as top_speed, bikes_details.weight as weight, vehicle_images.image_url as image_url
+          SELECT bikes_details.id as id,
+                  bikes_details.name as name,
+                  bikes_details.price_per_day as price_per_day,
+                  bikes_details.range as range, bikes_details.top_speed as top_speed,
+                  bikes_details.weight as weight,
+                  bikes_details.stripe_product_id as stripeId,
+                  bikes_details.stripe_full_price_id as full_price,
+                  bikes_details.stripe_price_id_2_off as discount_2,
+                  bikes_details.stripe_price_id_7_off as discount_7,
+                  bikes_details.stripe_price_id_10_off as discount_10,
+                  vehicle_images.image_url as image_url
           FROM bikes_details
           JOIN vehicles
           ON vehicles.vehicle_details = bikes_details.id::varchar
@@ -114,7 +136,18 @@ export const fetchScooters = async (
 ): Promise<IScooterCard[]> => {
   try {
     const data = await sql<IScooterCard>`
-          SELECT scooters_details.id as id, scooters_details.name as name, scooters_details.price_per_day as price_per_day, scooters_details.top_speed as top_speed, scooters_details.max_weight as max_weight, scooters_details.range as range, vehicle_images.image_url as image_url
+          SELECT scooters_details.id as id,
+                  scooters_details.name as name,
+                  scooters_details.price_per_day as price_per_day,
+                  scooters_details.top_speed as top_speed,
+                  scooters_details.max_weight as max_weight,
+                  scooters_details.range as range,
+                  scooters_details.stripe_product_id as stripeId,
+                  scooters_details.stripe_full_price_id as full_price,
+                  scooters_details.stripe_price_id_2_off as discount_2,
+                  scooters_details.stripe_price_id_7_off as discount_7,
+                  scooters_details.stripe_price_id_10_off as discount_10,
+                  vehicle_images.image_url as image_url
           FROM scooters_details
           JOIN vehicles
           ON vehicles.vehicle_details = scooters_details.id::varchar

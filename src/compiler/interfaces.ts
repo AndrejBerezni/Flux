@@ -27,6 +27,11 @@ export interface ICarCard {
   passengers: number
   bags: number
   doors: number
+  stripeId: string
+  full_price: string
+  discount_2: string
+  discount_7: string
+  discount_10: string
   image_url: string
 }
 
@@ -37,6 +42,11 @@ export interface IBikeCard {
   range: number
   top_speed: number
   weight: number
+  stripeId: string
+  full_price: string
+  discount_2: string
+  discount_7: string
+  discount_10: string
   image_url: string
 }
 
@@ -47,6 +57,11 @@ export interface IScooterCard {
   top_speed: number
   max_weight: number
   range: number
+  stripeId: string
+  full_price: string
+  discount_2: string
+  discount_7: string
+  discount_10: string
   image_url: string
 }
 

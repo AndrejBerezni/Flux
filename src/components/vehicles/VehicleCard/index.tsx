@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 
+import RentButton from './RentButton'
+import VehiclePrice from './VehiclePrice'
 import VehicleProperties from './VehicleProperties'
 
 export default function VehicleCard({
@@ -28,18 +29,8 @@ export default function VehicleCard({
       />
       <VehicleProperties vehicle={vehicle} vehicleType={vehicleType} />
       <div className="my-4 flex w-full items-center justify-between">
-        <div className="flex flex-col items-start">
-          <p className="text-xl font-extrabold text-brand">
-            {(Math.round(vehicle.price_per_day * 100) / 100).toFixed(2)}€ /day
-          </p>
-          <p className="font-bold">
-            {(Math.round(vehicle.price_per_day * days * 100) / 100).toFixed(2)}€
-            total
-          </p>
-        </div>
-        <Link href="/" className="btn-primary py-1">
-          Rent
-        </Link>
+        <VehiclePrice price={vehicle.price_per_day} days={days} />
+        <RentButton vehicle={vehicle} vehicleType={vehicleType} days={days} />
       </div>
     </div>
   )

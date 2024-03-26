@@ -1,8 +1,8 @@
 'use server'
 import { sql } from '@vercel/postgres'
 
-import { resend } from '@/emails/resend-config'
-import SupportEmail from '@/emails/support'
+import { resend } from '@/components/emails/resend-config'
+import SupportEmail from '@/components/emails/support'
 
 const addTicketToDB = async (formData: FormData) => {
   try {

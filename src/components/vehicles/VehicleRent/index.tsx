@@ -13,10 +13,15 @@ import { getRentVehicleInfo } from '@/store/vehicleRent/selectors'
 
 import InsuranceSelect from './InsuranceSelect'
 import RentPrice from './RentPrice'
-import RentTimeDateLocation from './RentTimeDateLocation'
 import VehicleProperties from '../VehicleCard/VehicleProperties'
 
-export default function VehicleRent({ days }: { days: number }) {
+export default function VehicleRent({
+  days,
+  children,
+}: {
+  days: number
+  children: React.ReactNode
+}) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicle = useSelector(getRentVehicleInfo)
@@ -54,7 +59,8 @@ export default function VehicleRent({ days }: { days: number }) {
         <div className="flex flex-col overflow-auto">
           <InsuranceSelect />
           <Divider />
-          <RentTimeDateLocation />
+          {/* children is RentTimeDateLocation which is server component: */}
+          {children}
           <RentPrice days={days} />
           <button className="btn-primary mb-4 w-1/2 self-center">
             Checkout

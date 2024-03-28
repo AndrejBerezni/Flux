@@ -1,10 +1,34 @@
+'use server'
+import { sql } from '@vercel/postgres'
 import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
-import { useSelector } from 'react-redux'
 
-import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
+export default async function RentTimeDateLocation({
+  timeDateLocation,
+}: {
+  timeDateLocation: {
+    pickupLocation: string
+    returnLocation: string
+    pickupDate: string
+    returnDate: string
+    pickupTime: string
+    returnTime: string
+  }
+}) {
+  const { pickupDate, returnDate, pickupTime, returnTime } = timeDateLocation
 
-export default function RentTimeDateLocation() {
-  const rentDetails = useSelector(getVehicleSearchInfo)
+  const getLocationName = async (location: string) => {
+    try {
+      const data = await sql`
+      SELECT name FROM locations
+      WHERE id::varchar=${location}`
+      return data.rows[0].name
+    } catch (error) {
+      return 'Location unknown'
+    }
+  }
+
+  const pickupLocation = await getLocationName(timeDateLocation.pickupLocation)
+  const returnLocation = await getLocationName(timeDateLocation.returnLocation)
 
   return (
     <ul className="flex items-center gap-2 border-t-[1px] border-t-tertiary px-2 py-4 sm:px-8">
@@ -12,9 +36,9 @@ export default function RentTimeDateLocation() {
         <HiOutlineBuildingOffice2 className="text-3xl" />
         <div>
           <p className="text-sm text-secondary">Pickup</p>
-          <p className="font-bold">{rentDetails.pickupLocation?.name}</p>
+          <p className="font-bold">{pickupLocation}</p>
           <p>
-            {rentDetails.pickupDate.split('T')[0]} | {rentDetails.pickupTime}
+            {pickupDate.split('T')[0]} | {pickupTime}
           </p>
         </div>
       </li>
@@ -23,13 +47,9 @@ export default function RentTimeDateLocation() {
         <HiOutlineBuildingOffice2 className="text-3xl" />
         <div>
           <p className="text-sm text-secondary">Return</p>
-          <p className="font-bold">
-            {rentDetails.sameReturn
-              ? rentDetails.pickupLocation?.name
-              : rentDetails.returnLocation?.name}
-          </p>
+          <p className="font-bold">{returnLocation}</p>
           <p>
-            {rentDetails.returnDate.split('T')[0]} | {rentDetails.returnTime}
+            {returnDate.split('T')[0]} | {returnTime}
           </p>
         </div>
       </li>

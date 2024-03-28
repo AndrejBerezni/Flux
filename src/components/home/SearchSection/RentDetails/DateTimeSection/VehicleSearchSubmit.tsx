@@ -33,8 +33,14 @@ export default function VehicleSearchSubmit() {
       router.push(
         `/vehicles?pickupLocation=${
           vehicleSearch.pickupLocation.id
+        }&returnLocation=${
+          vehicleSearch.sameReturn
+            ? vehicleSearch.pickupLocation.id
+            : vehicleSearch.returnLocation?.id
         }&pickupDate=${vehicleSearch.pickupDate}&returnDate=${
           vehicleSearch.returnDate
+        }&pickupTime=${vehicleSearch.pickupTime}&returnTime=${
+          vehicleSearch.returnTime
         }&vehicleType=${vehicleSearch.vehicle}&${
           filtersQuery[vehicleSearch.vehicle]
         }&sort=name-asc`

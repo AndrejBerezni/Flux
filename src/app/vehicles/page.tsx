@@ -1,8 +1,8 @@
 import { VehicleType } from '@/compiler/types'
 import VehicleCard from '@/components/vehicles/VehicleCard'
 import VehicleRent from '@/components/vehicles/VehicleRent'
+import RentTimeDateLocation from '@/components/vehicles/VehicleRent/RentTimeDateLocation'
 import { fetchCars, fetchBikes, fetchScooters } from '@/lib/dbQueries/vehicles'
-
 export const fetchCache = 'force-no-store'
 
 export default async function VehiclesPage({
@@ -10,8 +10,11 @@ export default async function VehiclesPage({
 }: {
   searchParams?: {
     pickupLocation?: string
+    returnLocation?: string
     pickupDate?: string
     returnDate?: string
+    pickupTime?: string
+    returnTime?: string
     vehicleType?: VehicleType
     passengers?: string
     doors?: string
@@ -24,6 +27,9 @@ export default async function VehiclesPage({
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
+  const returnLocation = searchParams?.returnLocation || ''
+  const pickupTime = searchParams?.pickupTime || ''
+  const returnTime = searchParams?.returnTime || ''
   const vehicleType = searchParams?.vehicleType || 'cars'
 
   const passengers = searchParams?.passengers || '2'
@@ -101,7 +107,18 @@ export default async function VehiclesPage({
           days={numberOfDays}
         />
       ))}
-      <VehicleRent days={numberOfDays} />
+      <VehicleRent days={numberOfDays}>
+        <RentTimeDateLocation
+          timeDateLocation={{
+            pickupLocation,
+            returnLocation,
+            pickupDate: formattedPickup,
+            returnDate: formattedReturn,
+            pickupTime,
+            returnTime,
+          }}
+        />
+      </VehicleRent>
     </main>
   )
 }

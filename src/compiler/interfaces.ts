@@ -149,3 +149,13 @@ export interface IGiftCard {
   message_for_recipient?: string
   date_created: Date
 }
+
+export interface IInsurance {
+  id: string
+  vehicle: string
+  stripe_product_id: string | null
+  stripe_price_id: string | null
+  price_description: string
+  coverage_name: string
+  financial_responsibility: string
+}

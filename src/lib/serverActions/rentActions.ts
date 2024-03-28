@@ -2,6 +2,7 @@
 
 import { sql } from '@vercel/postgres'
 
+import { VehicleType } from '@/compiler/types'
 import { retrieveVehiclePrice } from '@/stripe/vehicles'
 
 import { checkIfUserHasActiveSubscription } from '../dbQueries/subscriptions'
@@ -38,6 +39,22 @@ export const getRentPriceAction = async (priceId: string) => {
   try {
     const price = await retrieveVehiclePrice(priceId)
     return price
+  } catch (error) {
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : 'Unknown error occured. Please try again later!'
+    )
+  }
+}
+
+export const fetchInsurances = async (vehicle: VehicleType) => {
+  try {
+    const insurances = await sql`
+    SELECT * FROM insurance
+    WHERE vehicle=${vehicle}
+    ORDER BY coverage_name ASC`
+    return insurances.rows
   } catch (error) {
     throw new Error(
       error instanceof Error

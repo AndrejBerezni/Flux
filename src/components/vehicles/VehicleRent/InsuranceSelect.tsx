@@ -39,6 +39,7 @@ export default function InsuranceSelect() {
           <InsuranceCard
             key={`${insurances[0].coverage_name}-insurance-card`}
             insurance={insurances[0]}
+            includedInSubscription
           />
         ) : subscription.details.insurance === 'medium' ? (
           insurances
@@ -47,6 +48,7 @@ export default function InsuranceSelect() {
               <InsuranceCard
                 key={`${insurance.coverage_name}-insurance-card`}
                 insurance={insurance}
+                includedInSubscription={insurance.coverage_name === 'medium'}
               />
             ))
         ) : (
@@ -54,6 +56,7 @@ export default function InsuranceSelect() {
             <InsuranceCard
               key={`${insurance.coverage_name}-insurance-card`}
               insurance={insurance}
+              includedInSubscription
             />
           ))
         )

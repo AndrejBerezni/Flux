@@ -18,6 +18,7 @@ import {
   getRentInsuranceInfo,
   getRentPrice,
   getRentVehicleInfo,
+  getRentSubscriptionInfo,
 } from '@/store/vehicleRent/selectors'
 
 import InsuranceSelect from './InsuranceSelect'
@@ -36,6 +37,7 @@ export default function VehicleRent({
   const vehicle = useSelector(getRentVehicleInfo)
   const price = useSelector(getRentPrice)
   const insurance = useSelector(getRentInsuranceInfo)
+  const subscription = useSelector(getRentSubscriptionInfo)
   const uid = useSelector(getUserId)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -54,6 +56,12 @@ export default function VehicleRent({
 
   const handleCheckout = async () => {
     setIsLoading(true)
+    //if user already has insurance included or minimum insurance is selected, leave out insurance from checkout session
+    const insuranceStripeId =
+      subscription.details.insurance === insurance.coverage_name ||
+      !insurance.stripe_price_id
+        ? undefined
+        : insurance.stripe_price_id
     try {
       const checkoutUrl = await rentCheckoutAction({
         uid,
@@ -68,7 +76,7 @@ export default function VehicleRent({
         insurance: insurance.id,
         priceId: price!.id,
         days,
-        insuranceStripeId: insurance.stripe_price_id ?? undefined,
+        insuranceStripeId,
       })
       if (checkoutUrl) {
         router.push(checkoutUrl)
@@ -117,7 +125,7 @@ export default function VehicleRent({
         <div className="flex flex-col overflow-auto">
           <InsuranceSelect />
           <Divider />
-          {/* children is RentTimeDateLocation which is server component: */}
+          {/* children is RentTimeDateLocation which is a server component: */}
           {children}
           <RentPrice days={days} />
           <button

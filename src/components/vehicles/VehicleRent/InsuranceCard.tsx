@@ -11,8 +11,10 @@ import { getRentInsuranceInfo } from '@/store/vehicleRent/selectors'
 
 export default function InsuranceCard({
   insurance,
+  includedInSubscription,
 }: {
   insurance: IInsurance
+  includedInSubscription?: boolean
 }) {
   const dispatch = useDispatch()
   const [showInfo, setShowInfo] = useState<boolean>(false)
@@ -71,7 +73,9 @@ export default function InsuranceCard({
 
       {/* Price: */}
       <p className="text-lg font-semibold text-brand">
-        {insurance.price_description}
+        {includedInSubscription
+          ? 'Included in subscription'
+          : insurance.price_description}
       </p>
     </div>
   )

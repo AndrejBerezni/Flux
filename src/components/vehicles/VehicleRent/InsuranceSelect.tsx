@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
 
 import { useSearchParams } from 'next/navigation'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { IInsurance } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import { fetchInsurances } from '@/lib/serverActions/rentActions'
+import { setRentInsurance } from '@/store/vehicleRent'
 import { getRentSubscriptionInfo } from '@/store/vehicleRent/selectors'
 
 import InsuranceCard from './InsuranceCard'
 
 export default function InsuranceSelect() {
+  const dispatch = useDispatch()
   const params = useSearchParams()
   const vehicle = params.get('vehicleType')
   const subscription = useSelector(getRentSubscriptionInfo)
@@ -20,6 +22,7 @@ export default function InsuranceSelect() {
     const handleInsurances = async () => {
       const insuranceList = await fetchInsurances(vehicle as VehicleType)
       if (insuranceList) {
+        dispatch(setRentInsurance(insuranceList[0]))
         setInsurances(insuranceList as IInsurance[])
       }
     }

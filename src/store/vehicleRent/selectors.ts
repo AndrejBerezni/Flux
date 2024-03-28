@@ -22,7 +22,15 @@ export const getRentVehicleInfo = (store: RootState) =>
   })
 
 export const getRentInsuranceInfo = (store: RootState) =>
-  get(store, 'vehicleRent.insurance', 'maximum')
+  get(store, 'vehicleRent.insurance', {
+    id: '',
+    vehicle: '',
+    stripe_product_id: null,
+    stripe_price_id: null,
+    price_description: '',
+    coverage_name: '',
+    financial_responsibility: '',
+  })
 
 export const getRentSubscriptionInfo = (store: RootState) =>
   get(store, 'vehicleRent.subscription', {

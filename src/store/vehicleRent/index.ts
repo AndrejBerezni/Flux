@@ -1,11 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
+import {
+  ICarCard,
+  IBikeCard,
+  IScooterCard,
+  IInsurance,
+} from '@/compiler/interfaces'
 import { Insurance, SubscriptionName, VehicleType } from '@/compiler/types'
 
 interface IVehicleRentState {
   vehicle: ICarCard | IBikeCard | IScooterCard
-  insurance: Insurance
+  insurance: IInsurance
   subscription: {
     hasSubscription: boolean
     details: {
@@ -37,7 +42,15 @@ const initialState: IVehicleRentState = {
     available_vehicle: '',
     image_url: '',
   },
-  insurance: 'maximum',
+  insurance: {
+    id: '',
+    vehicle: '',
+    stripe_product_id: null,
+    stripe_price_id: null,
+    price_description: '',
+    coverage_name: '',
+    financial_responsibility: '',
+  },
   subscription: {
     hasSubscription: false,
     details: {

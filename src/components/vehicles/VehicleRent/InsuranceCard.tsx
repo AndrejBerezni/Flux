@@ -24,12 +24,14 @@ export default function InsuranceCard({
         {/* Custom radio button: */}
         <div
           className="flex h-[20px] w-[20px] items-center justify-center rounded-full border-2 border-primary hover:cursor-pointer"
-          onClick={() => dispatch(setRentInsurance(insurance.coverage_name))}
+          onClick={() => dispatch(setRentInsurance(insurance))}
         >
           <div
             className={clsx('h-[10px] w-[10px] rounded-full bg-primary', {
-              hidden: insuranceCoverage !== insurance.coverage_name,
-              block: insuranceCoverage === insurance.coverage_name,
+              hidden:
+                insuranceCoverage.coverage_name !== insurance.coverage_name,
+              block:
+                insuranceCoverage.coverage_name === insurance.coverage_name,
             })}
           ></div>
         </div>

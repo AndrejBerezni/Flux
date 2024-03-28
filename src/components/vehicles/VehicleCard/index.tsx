@@ -17,7 +17,7 @@ export default function VehicleCard({
   days: number
 }) {
   return (
-    <div className=" flex h-[420px] flex-col items-center justify-between bg-white p-4 shadow-lg duration-300 hover:scale-105 hover:shadow-xl">
+    <div className=" flex h-[420px] flex-col items-center justify-between bg-white p-4 shadow-lg duration-300 hover:scale-[101%] hover:shadow-xl">
       <h3 className="self-start text-xl font-extrabold hover:cursor-default">
         {'brand' in vehicle && vehicle.brand} {vehicle.name}
       </h3>

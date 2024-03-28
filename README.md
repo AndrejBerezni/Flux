@@ -11,14 +11,15 @@ It is still under construction. Some of the finished functionalities and their e
 - Authentication implemented.
 - UI created: home page, vehicle search results page, subscriptions page, gift cards page, contact page, several menus and modals (sign in, sign up, user menu, side nav...), user page(not fully completed - account, subscription, and gift cards sections are created so far).
 - Integrated Google Maps API for searching nearby locations.
-- Database populated with vehicles, locations, subscriptions, and gift cards related data.
+- Database populated with vehicles, locations, subscriptions, insurance, and gift cards related data.
 - Vehicle search implemented - users are able to search, filter, and sort vehicles on different locations and dates.
 - Subscriptions feature completed - users can subscribe to one of three subscription plans on subscriptions page. Users can cancel, renew, or change subscription, on user/subscriptions page.
 - Gift Cards feature completed - users can purchase gift cards and send them to designated email address, adding personalized message in the email. History of gift card purchases is displayed on user/giftcards page.
+- Contact support feature completed - users can submit the form that will send an email to our support address, and support ticket will be created in db. This is related to the upcoming project, which will be admin portal for this app.
 
 #### Currently working on:
 
-- Creating email template for contact form and handling sending it to our support email.
+- Working on renting vehicles, taking into consideration all other features (applying discount with subscription or gift card, charging insurance, vehicle availability, etc.)
 
 ## Table of Contents
 
@@ -186,6 +187,15 @@ Database is still work in progress, but this is the curent state of tables, thei
     assigned_agent VARCHAR(255),
     resolved BOOLEAN NOT NULL DEFAULT false
     priority NUMERIC NOT NULL DEFAULT 3
+
+15. insurance:
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    vehicle VARCHAR(255) NOT NULL,
+    stripe_product_id VARCHAR(255),
+    stripe_price_id VARCHAR(255),
+    price_description VARCHAR(255),
+    coverage_name VARCHAR(255) NOT NULL,
+    financial_responsibility VARCHAR(255)
 
 #### Relationships:
 

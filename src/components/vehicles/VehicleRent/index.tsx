@@ -1,15 +1,24 @@
 'use client'
+import { useState } from 'react'
+
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
 import { VehicleType } from '@/compiler/types'
 import Divider from '@/components/Divider'
-import { hideModal } from '@/store/modal'
+import Spinner from '@/components/Spinner'
+import { rentCheckoutAction } from '@/lib/serverActions/rentActions'
+import { getUserId } from '@/store/authentication/selectors'
+import { hideModal, setMessage } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
-import { getRentVehicleInfo } from '@/store/vehicleRent/selectors'
+import {
+  getRentInsuranceInfo,
+  getRentPrice,
+  getRentVehicleInfo,
+} from '@/store/vehicleRent/selectors'
 
 import InsuranceSelect from './InsuranceSelect'
 import RentPrice from './RentPrice'
@@ -25,14 +34,63 @@ export default function VehicleRent({
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicle = useSelector(getRentVehicleInfo)
+  const price = useSelector(getRentPrice)
+  const insurance = useSelector(getRentInsuranceInfo)
+  const uid = useSelector(getUserId)
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const router = useRouter()
   const searchParams = useSearchParams()
 
+  const pickupDate = searchParams.get('pickupDate')!.split('T')[0]
+  const returnDate = searchParams.get('returnDate')!.split('T')[0]
+  const pickupLocation = searchParams.get('pickupLocation') as string
+  const returnLocation = searchParams.get('returnLocation') as string
+  const pickupTime = searchParams.get('pickupTime') as string
+  const returnTime = searchParams.get('returnTime') as string
+
   const vehicleType = searchParams.get('vehicleType') as VehicleType
+
+  const handleCheckout = async () => {
+    setIsLoading(true)
+    try {
+      const checkoutUrl = await rentCheckoutAction({
+        uid,
+        vehicle_id: vehicle.available_vehicle,
+        pickupDate,
+        returnDate,
+        pickupLocation,
+        returnLocation,
+        pickupTime,
+        returnTime,
+        total_price: price!.amount,
+        insurance: insurance.id,
+        priceId: price!.id,
+        days,
+        insuranceStripeId: insurance.stripe_price_id ?? undefined,
+      })
+      if (checkoutUrl) {
+        router.push(checkoutUrl)
+      }
+    } catch (error) {
+      setIsLoading(false)
+      dispatch(
+        setMessage({
+          type: 'error',
+          text:
+            error instanceof Error
+              ? error.message
+              : 'Unknown error occurred. Please try again later.',
+        })
+      )
+    }
+  }
 
   if (modal.modalType === 'rent') {
     return (
       <article
-        className={`${robotoCondensed.className} fixed left-0 top-0 z-30 flex h-screen w-screen flex-col overflow-auto bg-white md:left-1/2 md:top-[5%] md:h-[90%] md:w-[600px] md:-translate-x-1/2 md:rounded-xl md:border-2`}
+        className={`${robotoCondensed.className} fixed left-0 top-0 z-30 flex h-screen w-screen flex-col bg-white md:left-1/2 md:top-[5%] md:h-[90%] md:w-[600px] md:-translate-x-1/2 md:rounded-xl md:border-2`}
       >
         <button
           onClick={() => dispatch(hideModal())}
@@ -62,8 +120,12 @@ export default function VehicleRent({
           {/* children is RentTimeDateLocation which is server component: */}
           {children}
           <RentPrice days={days} />
-          <button className="btn-primary mb-4 w-1/2 self-center">
-            Checkout
+          <button
+            className="btn-primary mb-4 flex w-1/2 items-center justify-center self-center"
+            onClick={handleCheckout}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : 'Checkout'}
           </button>
         </div>
       </article>

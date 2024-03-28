@@ -120,7 +120,7 @@ export default function CheckoutRedirect({
       </div>
       <button
         className="btn-primary flex justify-center"
-        disabled={!agreedToTerms}
+        disabled={!agreedToTerms || isLoading}
         onClick={handleCheckoutButtonClick}
       >
         {isLoading ? <Spinner /> : 'Proceed to payment'}

@@ -47,10 +47,11 @@ export default function RentPrice({ days }: { days: number }) {
   useEffect(() => {
     const handlePrice = async () => {
       const priceId = getPriceId()
-      dispatch(setRentPrice(priceId))
+
       const price = await getRentPriceAction(priceId)
       if (price) {
         setPrice(price)
+        dispatch(setRentPrice({ id: priceId, amount: (price * days) / 100 }))
       }
     }
     handlePrice()

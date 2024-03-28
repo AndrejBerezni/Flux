@@ -114,6 +114,7 @@ export default function GiftCardForm({ value }: { value: string }) {
         <button
           type="submit"
           className="btn-primary flex w-[110px] items-center justify-center gap-2 shadow-md md:w-[135px]"
+          disabled={isLoading}
         >
           {isLoading ? <Spinner /> : 'Checkout'}
         </button>

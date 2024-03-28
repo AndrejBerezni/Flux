@@ -3,7 +3,10 @@
 import { sql } from '@vercel/postgres'
 
 import { VehicleType } from '@/compiler/types'
-import { retrieveVehiclePrice } from '@/stripe/vehicles'
+import {
+  retrieveVehiclePrice,
+  createVehicleCheckoutSession,
+} from '@/stripe/vehicles'
 
 import { checkIfUserHasActiveSubscription } from '../dbQueries/subscriptions'
 
@@ -61,5 +64,72 @@ export const fetchInsurances = async (vehicle: VehicleType) => {
         ? error.message
         : 'Unknown error occured. Please try again later!'
     )
+  }
+}
+
+const createRentInDB = async (
+  uid: string,
+  vehicle_id: string,
+  pickup_date: string,
+  return_date: string,
+  pickup_location: string,
+  return_location: string,
+  pickup_time: string,
+  return_time: string,
+  total_price: number,
+  insurance: string
+) => {
+  try {
+    const rentData = await sql`
+    INSERT INTO rents(user_id, vehicle_id, pickup_date, return_date, pickup_location, return_location, pickup_time, return_time, total_price, insurance)
+    VALUES(${uid},${vehicle_id},${pickup_date},${return_date},${pickup_location},${return_location},${pickup_time},${return_time},${total_price},${insurance})
+    RETURNING id`
+    return rentData.rows[0].id
+  } catch (error) {
+    throw error instanceof Error
+      ? error
+      : new Error('Unable to proceed to rent checkout. Please try again later')
+  }
+}
+
+export const rentCheckoutAction = async (rentDetails: {
+  uid: string
+  vehicle_id: string
+  pickupDate: string
+  returnDate: string
+  pickupLocation: string
+  returnLocation: string
+  pickupTime: string
+  returnTime: string
+  total_price: number
+  insurance: string
+  priceId: string
+  days: number
+  insuranceStripeId?: string
+}) => {
+  try {
+    const newRent = await createRentInDB(
+      rentDetails.uid,
+      rentDetails.vehicle_id,
+      rentDetails.pickupDate,
+      rentDetails.returnDate,
+      rentDetails.pickupLocation,
+      rentDetails.returnLocation,
+      rentDetails.pickupTime,
+      rentDetails.returnTime,
+      rentDetails.total_price,
+      rentDetails.insurance
+    )
+    const checkoutUrl = await createVehicleCheckoutSession(
+      newRent,
+      rentDetails.priceId,
+      rentDetails.days,
+      rentDetails.insuranceStripeId
+    )
+    return checkoutUrl
+  } catch (error) {
+    if (error instanceof Error) {
+      return error.message
+    }
   }
 }

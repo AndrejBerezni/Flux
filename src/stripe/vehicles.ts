@@ -10,18 +10,27 @@ export const retrieveVehiclePrice = async (priceId: string) => {
 }
 
 export const createVehicleCheckoutSession = async (
+  rentId: string,
   priceId: string,
-  days: number
+  days: number,
+  insuranceId?: string
 ) => {
   try {
+    const line_items = [
+      {
+        price: priceId as string,
+        quantity: days,
+      },
+    ]
+    if (insuranceId) {
+      line_items.push({
+        price: insuranceId as string,
+        quantity: days,
+      })
+    }
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/vehicles/success?sessionId={CHECKOUT_SESSION_ID}`,
-      line_items: [
-        {
-          price: priceId as string,
-          quantity: days,
-        },
-      ],
+      success_url: `https://flux-nu.vercel.app/vehicles/success?rentId=${rentId}`,
+      line_items,
       allow_promotion_codes: true,
       mode: 'payment',
     })

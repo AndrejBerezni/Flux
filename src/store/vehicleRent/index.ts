@@ -21,7 +21,10 @@ interface IVehicleRentState {
       name: SubscriptionName | null
     }
   }
-  price: string | null
+  price: {
+    id: string
+    amount: number
+  } | null
 }
 
 const initialState: IVehicleRentState = {

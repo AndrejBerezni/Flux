@@ -91,7 +91,9 @@ Database is still work in progress, but this is the curent state of tables, thei
    return_location VARCHAR(255) NOT NULL,
    pickup_time TIME NOT NULL,
    return_time TIME NOT NULL,
-   total_price NUMERIC NOT NULL
+   total_price NUMERIC NOT NULL,
+   insurance VARCHAR(255),
+   payment_successful BOOLEAN DEFAULT false NOT NULL
 
 3. subscriptions:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -158,10 +160,15 @@ Database is still work in progress, but this is the curent state of tables, thei
 
 11. gift_cards:
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
     user_id VARCHAR(255) NOT NULL,
-    used BOOLEAN NOT NULL,
-    code VARCHAR(255) NOT NULL
+    gift_card_type VARCHAR(255) NOT NULL,
+    stripe_code VARCHAR(255),
+    payment_successful BOOLEAN NOT NULL DEFAULT false,
+    gift_card_sent BOOLEAN NOT NULL DEFAULT false,
+    recipient_email VARCHAR(255) NOT NULL,
+    recipient_name VARCHAR(255) NOT NULL,
+    sender_name VARCHAR(255) NOT NULL,
+    message_for_recipient VARCHAR(255)
 
 12. gift_card_type:
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -170,7 +177,7 @@ Database is still work in progress, but this is the curent state of tables, thei
     stripe_full_price_id VARCHAR(255) NOT NULL,
     stripe_price_id_5_off VARCHAR(255) NOT NULL,
     stripe_price_id_7_off VARCHAR(255) NOT NULL,
-    stripe_price_id_12_off VARCHAR(255) NOT NULL,
+    stripe_price_id_12_off VARCHAR(255) NOT NULL
 
 13. vehicle_images:
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

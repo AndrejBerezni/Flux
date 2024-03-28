@@ -128,7 +128,7 @@ export default function SignUp() {
           <button
             type="submit"
             className="my-12 flex w-full justify-center bg-brand px-2 py-4 text-xl font-bold text-white hover:text-white disabled:bg-brandDisabled disabled:hover:cursor-not-allowed sm:text-2xl"
-            disabled={!firstName || !lastName || !password}
+            disabled={!firstName || !lastName || !password || isLoading}
             onClick={async (e) => await handleSignUp(e)}
           >
             {isLoading ? <Spinner /> : 'Finish'}

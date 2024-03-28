@@ -195,6 +195,7 @@ export default function ContactForm() {
       <button
         type="submit"
         className="btn-primary flex min-w-[200px] justify-center self-center uppercase hover:bg-brandSecondary"
+        disabled={isLoading}
       >
         {isLoading ? <Spinner /> : 'Send'}
       </button>

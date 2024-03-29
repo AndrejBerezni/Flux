@@ -43,27 +43,25 @@ export const createVehicleCheckoutSession = async (
   }
 }
 
-export const retrieveTotalPriceFromCheckoutSession = async (
+export const retrieveTotalPriceAndInvoiceDownloadLink = async (
   sessionId: string
 ) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId)
-    return session.amount_total ? session.amount_total : 0
-  } catch (error) {
-    return 0
-  }
-}
-
-export const retrieveInvoiceDownloadLink = async (sessionId: string) => {
-  try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    // return
     if (session.invoice) {
       const invoice = await stripe.invoices.retrieve(session.invoice as string)
-      return invoice.invoice_pdf as string
+      return {
+        totalPrice: session.amount_total ? session.amount_total : 0,
+        invoice: invoice.invoice_pdf as string,
+      }
     } else {
-      return null
+      throw new Error('Unable to get required data')
     }
   } catch (error) {
-    return null
+    return {
+      totalPrice: 0,
+      invoice: '',
+    }
   }
 }

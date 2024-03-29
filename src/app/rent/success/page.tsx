@@ -3,10 +3,7 @@ import SuccessfulRentSection from '@/components/rent/SuccessfulRentSection'
 import VehicleImageContainer from '@/components/rent/VehicleImageContainer'
 import { getImageURL } from '@/firebase/storage'
 import { confirmRentPaymentAction } from '@/lib/serverActions/rentActions'
-import {
-  retrieveInvoiceDownloadLink,
-  retrieveTotalPriceFromCheckoutSession,
-} from '@/stripe/vehicles'
+import { retrieveTotalPriceAndInvoiceDownloadLink } from '@/stripe/vehicles'
 
 export default async function RentSuccessfulPage({
   searchParams,
@@ -19,9 +16,9 @@ export default async function RentSuccessfulPage({
   const rentId = searchParams?.rentId || ''
   const sessionId = searchParams?.sessionId || ''
 
-  const totalPrice = await retrieveTotalPriceFromCheckoutSession(sessionId)
-  const invoiceId = await retrieveInvoiceDownloadLink(sessionId)
-  const rent = await confirmRentPaymentAction(rentId, invoiceId)
+  const { totalPrice, invoice } =
+    await retrieveTotalPriceAndInvoiceDownloadLink(sessionId)
+  const rent = await confirmRentPaymentAction(rentId, invoice)
   const image = await getImageURL(rent.image_url)
   return (
     <main

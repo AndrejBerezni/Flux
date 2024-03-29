@@ -39,7 +39,11 @@ async function createRentsTable(client) {
                 return_location VARCHAR(255) NOT NULL,
                 pickup_time TIME NOT NULL,
                 return_time TIME NOT NULL,
-                total_price NUMERIC NOT NULL
+                total_price NUMERIC NOT NULL,
+                insurance VARCHAR(255),
+                payment_successful BOOLEAN DEFAULT false NOT NULL,
+                cancelled BOOLEAN DEFAULT false NOT NULL,
+                invoice VARCHAR(255)
             );`
 
     return createTable

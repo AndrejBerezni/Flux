@@ -148,6 +148,7 @@ const fetchRent = async (id: string) => {
     rents.pickup_time AS pickup_time,
     rents.return_time AS return_time,
     rents.total_price AS rent_price,
+    rents.invoice AS rent_invoice,
     insurance.coverage_name as insurance_name,
     CASE
       WHEN vehicles.type = 'cars' THEN CONCAT(cars_details.brand, ' ', cars_details.name)
@@ -178,11 +179,14 @@ const fetchRent = async (id: string) => {
   }
 }
 
-export const confirmRentPaymentAction = async (id: string) => {
+export const confirmRentPaymentAction = async (
+  id: string,
+  invoice: string | null
+) => {
   try {
     await sql`
     UPDATE rents
-    SET payment_successful=true
+    SET payment_successful=true, invoice=${invoice}
     WHERE id::varchar=${id}`
     const rent = await fetchRent(id)
     return rent

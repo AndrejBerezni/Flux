@@ -168,6 +168,7 @@ export interface IRent {
   pickup_time: string
   return_time: string
   rent_price: string
+  rent_invoice: string
   insurance_name: string
   vehicle_name: string
   image_url: string

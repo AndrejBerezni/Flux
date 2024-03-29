@@ -33,6 +33,9 @@ export const createVehicleCheckoutSession = async (
       line_items,
       allow_promotion_codes: true,
       mode: 'payment',
+      invoice_creation: {
+        enabled: true,
+      },
     })
     return session.url
   } catch (error) {
@@ -48,5 +51,19 @@ export const retrieveTotalPriceFromCheckoutSession = async (
     return session.amount_total
   } catch (error) {
     console.error(error)
+  }
+}
+
+export const retrieveInvoiceDownloadLink = async (sessionId: string) => {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    if (session.invoice) {
+      const invoice = await stripe.invoices.retrieve(session.invoice as string)
+      return invoice.invoice_pdf as string
+    } else {
+      return null
+    }
+  } catch (error) {
+    return null
   }
 }

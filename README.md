@@ -1,25 +1,21 @@
 # FLUX
 
-(work in progress)
-
 Flux is a full stack web application for renting electrical vehicles (cars, bikes, and scooters) in Portugal. Apart from renting vehicles, it gives user option to purchase gift cards for spending on this platform, or to subscribe to monthly subscriptions that come with certain benefits when renting vehicles.
 
-It is still under construction. Some of the finished functionalities and their explanation you may find in the documentation below. In general, current progress is:
+It is still under construction. Main functionalities are completed, but I continue to work on improving the app.
 
 #### Completed features:
 
 - Authentication implemented.
-- UI created: home page, vehicle search results page, subscriptions page, gift cards page, contact page, several menus and modals (sign in, sign up, user menu, side nav...), user page(not fully completed - account, subscription, and gift cards sections are created so far).
+- UI created, with future plans of improvement.
 - Integrated Google Maps API for searching nearby locations.
-- Database populated with vehicles, locations, subscriptions, insurance, and gift cards related data.
+- Database defined, but it might see changes in the future.
 - Vehicle search implemented - users are able to search, filter, and sort vehicles on different locations and dates.
+- Integrated Stripe API.
 - Subscriptions feature completed - users can subscribe to one of three subscription plans on subscriptions page. Users can cancel, renew, or change subscription, on user/subscriptions page.
-- Gift Cards feature completed - users can purchase gift cards and send them to designated email address, adding personalized message in the email. History of gift card purchases is displayed on user/giftcards page.
-- Contact support feature completed - users can submit the form that will send an email to our support address, and support ticket will be created in db. This is related to the upcoming project, which will be admin portal for this app.
-
-#### Currently working on:
-
-- Working on renting vehicles, taking into consideration all other features (applying discount with subscription or gift card, charging insurance, vehicle availability, etc.)
+- Gift Cards - users can purchase gift cards and send them to designated email address, adding personalized message in the email. History of gift card purchases is displayed on user/giftcards page.
+- Contact support - users can submit the form that will send an email to our support address, and support ticket will be created in db. This is related to the upcoming project, which will be admin portal for this app.
+- Renting vehicles - users can rent vehicles, cancel bookings, and download booking invoices.
 
 ## Table of Contents
 
@@ -62,9 +58,13 @@ Reducers are showModal, hideModal (hides both primary and secondary modals), sho
 
 This slicer keeps information that user selects when starting a search and that is sent to back end to fetch available vehicles. User selects type of vehicle, pick-up location, return location, whether pick-up and return locations are the same, pick-up date, return date, pick-up time, and return time.
 
+### vehicleRent slicer
+
+This slicer helps us organize and pass information about selected rent details to rent checkout session, and display correct information on VehicleRent component.
+
 ## Database
 
-Database is still work in progress, but this is the curent state of tables, their columns, and their relationships:
+This is the curent state of tables, their columns, and their relationships:
 
 1. users:
    id VARCHAR(255) PRIMARY KEY,
@@ -94,7 +94,8 @@ Database is still work in progress, but this is the curent state of tables, thei
    total_price NUMERIC NOT NULL,
    insurance VARCHAR(255),
    payment_successful BOOLEAN DEFAULT false NOT NULL,
-   cancelled BOOLEAN DEFAULT false NOT NULL
+   cancelled BOOLEAN DEFAULT false NOT NULL,
+   invoice VARCHAR(255)
 
 3. subscriptions:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

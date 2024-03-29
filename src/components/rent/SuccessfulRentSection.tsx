@@ -1,5 +1,6 @@
 import { IRent } from '@/compiler/interfaces'
 
+import SuccessfulRentHeader from './SuccessfulRentHeader'
 import SuccessfulRentPriceDetails from './SuccessfulRentPriceDetails'
 import SuccessfulRentTimeDateLocation from './SuccessfulRentTimeDateLocation'
 import Divider from '../Divider'
@@ -13,10 +14,10 @@ export default function SuccessfulRentSection({
 }) {
   return (
     <article className="flex flex-1 flex-col py-6 pl-4 pr-8">
-      <h1 className="text-2xl font-extrabold uppercase tracking-wider md:text-3xl">
-        {rent.vehicle_name}
-        <span className="text-brand"> Booked Successfully!</span>
-      </h1>
+      <SuccessfulRentHeader
+        name={rent.vehicle_name}
+        invoice={rent.rent_invoice}
+      />
       <Divider />
       <div className="flex flex-1 flex-col gap-8 xl:flex-row">
         <SuccessfulRentTimeDateLocation rent={rent} />

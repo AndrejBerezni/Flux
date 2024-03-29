@@ -48,8 +48,10 @@ export default async function AccountSubscriptionsPage({
 
   return (
     <section className="flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md">
-      <h1 className="text-3xl font-bold uppercase">Your subscription</h1>
-      <h2 className=" my-1 text-base md:my-2 md:text-xl">
+      <h1 className="text-2xl font-bold uppercase md:text-3xl">
+        Your subscription
+      </h1>
+      <h2 className="my-1 text-base md:my-2 md:text-xl">
         Power up your ride, manage your subscriptions here
       </h2>
       <Divider />

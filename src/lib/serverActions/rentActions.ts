@@ -2,6 +2,7 @@
 
 import { sql } from '@vercel/postgres'
 
+import { IRent } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import {
   retrieveVehiclePrice,
@@ -138,7 +139,7 @@ export const rentCheckoutAction = async (rentDetails: {
 
 const fetchRent = async (id: string) => {
   try {
-    const data = await sql`
+    const data = await sql<IRent>`
     SELECT
     rents.pickup_date AS pickup_date,
     rents.return_date AS return_date,

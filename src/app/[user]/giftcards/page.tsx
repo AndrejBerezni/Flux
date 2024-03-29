@@ -34,7 +34,7 @@ export default async function AccountGiftCardsPage({
       <h1 className="text-2xl font-bold uppercase md:text-3xl">
         Gift card purchase history
       </h1>
-      <h2 className=" my-1 text-base md:my-2 md:text-xl">
+      <h2 className="my-1 text-base md:my-2 md:text-xl">
         Spreading joy, one gift at a time
       </h2>
       <Divider />

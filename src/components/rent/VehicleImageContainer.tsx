@@ -1,0 +1,14 @@
+import Image from 'next/image'
+export default function VehicleImageContainer({
+  image,
+  alt,
+}: {
+  image: string
+  alt: string
+}) {
+  return (
+    <article className="flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600 max-[768px]:rounded-t-md md:rounded-l-md">
+      <Image src={image} alt={alt} width={480} height={360} />
+    </article>
+  )
+}

@@ -159,3 +159,16 @@ export interface IInsurance {
   coverage_name: string
   financial_responsibility: string
 }
+
+export interface IRent {
+  pickup_date: Date
+  return_date: Date
+  pickup_location: string
+  return_location: string
+  pickup_time: string
+  return_time: string
+  rent_price: string
+  insurance_name: string
+  vehicle_name: string
+  image_url: string
+}

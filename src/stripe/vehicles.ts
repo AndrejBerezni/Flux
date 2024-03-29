@@ -29,12 +29,23 @@ export const createVehicleCheckoutSession = async (
       })
     }
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/vehicles/success?rentId=${rentId}`,
+      success_url: `https://flux-nu.vercel.app/rent/success?rentId=${rentId}&sessionId={CHECKOUT_SESSION_ID}`,
       line_items,
       allow_promotion_codes: true,
       mode: 'payment',
     })
     return session.url
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const retrieveTotalPriceFromCheckoutSession = async (
+  sessionId: string
+) => {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    return session.amount_total
   } catch (error) {
     console.error(error)
   }

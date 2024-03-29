@@ -93,7 +93,8 @@ Database is still work in progress, but this is the curent state of tables, thei
    return_time TIME NOT NULL,
    total_price NUMERIC NOT NULL,
    insurance VARCHAR(255),
-   payment_successful BOOLEAN DEFAULT false NOT NULL
+   payment_successful BOOLEAN DEFAULT false NOT NULL,
+   cancelled BOOLEAN DEFAULT false NOT NULL
 
 3. subscriptions:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -119,6 +120,7 @@ Database is still work in progress, but this is the curent state of tables, thei
 6. cars_details:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
+   brand VARCHAR(255) NOT NULL,
    price_per_day NUMERIC NOT NULL,
    gearshift VARCHAR(255) NOT NULL,
    passengers NUMERIC NOT NULL,
@@ -128,12 +130,18 @@ Database is still work in progress, but this is the curent state of tables, thei
 7. bikes_details:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
-   price_per_day NUMERIC NOT NULL
+   price_per_day NUMERIC NOT NULL,
+   range NUMERIC NOT NULL,
+   top_speed NUMERIC NOT NULL,
+   weight NUMERIC NOT NULL
 
 8. scooters_details:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
-   price_per_day NUMERIC NOT NULL
+   price_per_day NUMERIC NOT NULL,
+   top_speed NUMERIC NOT NULL,
+   max_weight NUMERIC NOT NULL,
+   range NUMERIC NOT NULL
 
 9. vehicles:
    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,

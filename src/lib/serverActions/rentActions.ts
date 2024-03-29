@@ -86,9 +86,11 @@ const createRentInDB = async (
     RETURNING id`
     return rentData.rows[0].id
   } catch (error) {
-    throw error instanceof Error
-      ? error
-      : new Error('Unable to proceed to rent checkout. Please try again later')
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : 'Unable to proceed to rent checkout. Please try again later'
+    )
   }
 }
 
@@ -128,8 +130,66 @@ export const rentCheckoutAction = async (rentDetails: {
     )
     return checkoutUrl
   } catch (error) {
-    if (error instanceof Error) {
-      return error.message
-    }
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occurred.'
+    )
+  }
+}
+
+const fetchRent = async (id: string) => {
+  try {
+    const data = await sql`
+    SELECT
+    rents.pickup_date AS pickup_date,
+    rents.return_date AS return_date,
+    location_pickup.name AS pickup_location,
+    location_return.name AS return_location,
+    rents.pickup_time AS pickup_time,
+    rents.return_time AS return_time,
+    rents.total_price AS rent_price,
+    insurance.coverage_name as insurance_name,
+    CASE
+      WHEN vehicles.type = 'cars' THEN CONCAT(cars_details.brand, ' ', cars_details.name)
+      WHEN vehicles.type = 'bikes' THEN bikes_details.name
+      WHEN vehicles.type = 'scooters' THEN scooters_details.name
+    END AS vehicle_name,
+    vehicle_images.image_url AS image_url
+    FROM rents
+    INNER JOIN vehicles ON vehicles.id::varchar = rents.vehicle_id
+    LEFT JOIN cars_details ON vehicles.type = 'cars' AND vehicles.vehicle_details = cars_details.id::varchar
+    LEFT JOIN bikes_details ON vehicles.type = 'bikes' AND vehicles.vehicle_details = bikes_details.id::varchar
+    LEFT JOIN scooters_details ON vehicles.type = 'scooters' AND vehicles.vehicle_details = scooters_details.id::varchar
+    LEFT JOIN locations location_pickup ON rents.pickup_location = location_pickup.id::varchar
+    LEFT JOIN locations location_return ON rents.return_location = location_return.id::varchar
+    LEFT JOIN insurance ON rents.insurance = insurance.id::varchar
+    LEFT JOIN vehicle_images ON (CASE
+      WHEN vehicles.type = 'cars' THEN cars_details.id
+      WHEN vehicles.type = 'bikes' THEN bikes_details.id
+      WHEN vehicles.type = 'scooters' THEN scooters_details.id
+      END)::varchar = vehicle_images.vehicle_id AND vehicle_images.main_image = TRUE
+    WHERE rents.id::varchar =${id}
+    `
+    return data.rows[0]
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : 'Unknown error occurred.'
+    )
+  }
+}
+
+export const confirmRentPaymentAction = async (id: string) => {
+  try {
+    await sql`
+    UPDATE rents
+    SET payment_successful=true
+    WHERE id::varchar=${id}`
+    const rent = await fetchRent(id)
+    return rent
+  } catch (error) {
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : 'Unknown error occurred. Please contact our support.'
+    )
   }
 }

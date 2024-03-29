@@ -42,6 +42,8 @@ export const fetchCars = async (
             OR
               (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
               )
+            AND rents.cancelled = false
+            AND rents.payment_successful = true
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='cars'
           AND cars_details.passengers >=${passengers}
@@ -101,6 +103,8 @@ export const fetchBikes = async (
             OR
               (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
               )
+            AND rents.cancelled = false
+            AND rents.payment_successful = true
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='bikes'
           AND bikes_details.top_speed >=${top_speed}
@@ -162,6 +166,8 @@ export const fetchScooters = async (
             OR
               (rents.pickup_date >= ${pickupDate} AND rents.pickup_date <= ${returnDate})
               )
+            AND rents.cancelled = false
+            AND rents.payment_successful = true
           WHERE vehicles.location =${pickupLocation}
           AND vehicles.type ='scooters'
           AND scooters_details.top_speed >=${top_speed}

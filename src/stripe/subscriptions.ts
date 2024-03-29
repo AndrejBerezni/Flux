@@ -23,9 +23,9 @@ export const createCheckoutSession = async (itemId: string, subId: string) => {
   }
 }
 
-export const retrieveSubscriptionIdfromSession = async (sessiondId: string) => {
+export const retrieveSubscriptionIdfromSession = async (sessionId: string) => {
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessiondId)
+    const session = await stripe.checkout.sessions.retrieve(sessionId)
     return session.subscription
   } catch (error) {
     console.error(error)

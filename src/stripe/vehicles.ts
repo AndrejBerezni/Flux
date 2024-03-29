@@ -48,9 +48,9 @@ export const retrieveTotalPriceFromCheckoutSession = async (
 ) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId)
-    return session.amount_total
+    return session.amount_total ? session.amount_total : 0
   } catch (error) {
-    console.error(error)
+    return 0
   }
 }
 

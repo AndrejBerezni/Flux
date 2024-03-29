@@ -23,23 +23,17 @@ export default async function RentSuccessfulPage({
   const invoiceId = await retrieveInvoiceDownloadLink(sessionId)
   const rent = await confirmRentPaymentAction(rentId, invoiceId)
   const image = await getImageURL(rent.image_url)
-
   return (
     <main
       className={`${robotoCondensed.className} section-padding flex h-full flex-1 flex-col items-center gap-2 bg-quaternary pt-4 md:min-h-[70vh] md:justify-center md:pt-8`}
     >
-      {totalPrice && rent && image && (
-        <section className="flex w-full flex-col rounded-md bg-white shadow-md md:flex-row">
-          <VehicleImageContainer
-            image={image as string}
-            alt={rent.vehicle_name}
-          />
-          <SuccessfulRentSection
-            rent={rent}
-            totalPrice={totalPrice as number}
-          />
-        </section>
-      )}
+      <section className="flex w-full flex-col rounded-md bg-white shadow-md md:flex-row">
+        <VehicleImageContainer
+          image={image as string}
+          alt={rent.vehicle_name}
+        />
+        <SuccessfulRentSection rent={rent} totalPrice={totalPrice} />
+      </section>
     </main>
   )
 }

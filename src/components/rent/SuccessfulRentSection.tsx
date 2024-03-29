@@ -18,6 +18,7 @@ export default function SuccessfulRentSection({
         name={rent.vehicle_name}
         invoice={rent.rent_invoice}
       />
+      <p>{rent.rent_invoice}</p>
       <Divider />
       <div className="flex flex-1 flex-col gap-8 xl:flex-row">
         <SuccessfulRentTimeDateLocation rent={rent} />

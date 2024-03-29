@@ -56,7 +56,7 @@ export default function InsuranceSelect() {
             <InsuranceCard
               key={`${insurance.coverage_name}-insurance-card`}
               insurance={insurance}
-              includedInSubscription
+              includedInSubscription={false}
             />
           ))
         )

@@ -36,7 +36,12 @@ export default async function RentSuccessful({
       <p>{rent.pickup_time}</p>
       <p>{rent.return_time}</p>
       <p>{rent.insurance_name}</p>
-      <p>{rent.rent_price}</p>
+      <p>
+        {rent.rent_price.toLocaleString('de-DE', {
+          style: 'currency',
+          currency: 'EUR',
+        })}
+      </p>
       <p>{rent.vehicle_name}</p>
       <Image
         src={image as string}

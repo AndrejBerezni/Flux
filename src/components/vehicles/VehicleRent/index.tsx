@@ -72,7 +72,7 @@ export default function VehicleRent({
         returnLocation,
         pickupTime,
         returnTime,
-        total_price: price!.amount,
+        rent_price: price!.amount,
         insurance: insurance.id,
         priceId: price!.id,
         days,

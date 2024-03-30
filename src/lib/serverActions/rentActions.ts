@@ -77,13 +77,13 @@ const createRentInDB = async (
   return_location: string,
   pickup_time: string,
   return_time: string,
-  total_price: number,
+  rent_price: number,
   insurance: string
 ) => {
   try {
     const rentData = await sql`
-    INSERT INTO rents(user_id, vehicle_id, pickup_date, return_date, pickup_location, return_location, pickup_time, return_time, total_price, insurance)
-    VALUES(${uid},${vehicle_id},${pickup_date},${return_date},${pickup_location},${return_location},${pickup_time},${return_time},${total_price},${insurance})
+    INSERT INTO rents(user_id, vehicle_id, pickup_date, return_date, pickup_location, return_location, pickup_time, return_time, rent_price, insurance)
+    VALUES(${uid},${vehicle_id},${pickup_date},${return_date},${pickup_location},${return_location},${pickup_time},${return_time},${rent_price},${insurance})
     RETURNING id`
     return rentData.rows[0].id
   } catch (error) {
@@ -104,7 +104,7 @@ export const rentCheckoutAction = async (rentDetails: {
   returnLocation: string
   pickupTime: string
   returnTime: string
-  total_price: number
+  rent_price: number
   insurance: string
   priceId: string
   days: number
@@ -120,7 +120,7 @@ export const rentCheckoutAction = async (rentDetails: {
       rentDetails.returnLocation,
       rentDetails.pickupTime,
       rentDetails.returnTime,
-      rentDetails.total_price,
+      rentDetails.rent_price,
       rentDetails.insurance
     )
     const checkoutUrl = await createVehicleCheckoutSession(
@@ -149,7 +149,6 @@ export const fetchRent = async (id: string) => {
     rents.return_time AS return_time,
     rents.rent_price AS rent_price,
     rents.total_price AS total_price,
-    rents.
     rents.invoice AS rent_invoice,
     insurance.coverage_name as insurance_name,
     CASE

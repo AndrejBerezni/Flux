@@ -6,7 +6,7 @@ export default function SuccessfulRentPriceDetails({
   insurance,
 }: {
   rentPrice: string
-  totalPrice: number
+  totalPrice: string
   insurance: string
 }) {
   return (
@@ -30,7 +30,7 @@ export default function SuccessfulRentPriceDetails({
       <li className="text-2xl md:text-3xl">
         <span className="font-bold uppercase">Total: </span>
         <span className="font-extrabold text-brand">
-          {(totalPrice / 100).toLocaleString('de-DE', {
+          {(Number(totalPrice) / 100).toLocaleString('de-DE', {
             style: 'currency',
             currency: 'EUR',
           })}

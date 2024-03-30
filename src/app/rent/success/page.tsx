@@ -2,23 +2,18 @@ import { robotoCondensed } from '@/app/fonts'
 import SuccessfulRentSection from '@/components/rent/SuccessfulRentSection'
 import VehicleImageContainer from '@/components/rent/VehicleImageContainer'
 import { getImageURL } from '@/firebase/storage'
-import { confirmRentPaymentAction } from '@/lib/serverActions/rentActions'
-import { retrieveTotalPriceAndInvoiceDownloadLink } from '@/stripe/vehicles'
+import { fetchRent } from '@/lib/serverActions/rentActions'
 
 export default async function RentSuccessfulPage({
   searchParams,
 }: {
   searchParams?: {
     rentId?: string
-    sessionId?: string
   }
 }) {
   const rentId = searchParams?.rentId || ''
-  const sessionId = searchParams?.sessionId || ''
 
-  const { totalPrice, invoice } =
-    await retrieveTotalPriceAndInvoiceDownloadLink(sessionId)
-  const rent = await confirmRentPaymentAction(rentId, invoice)
+  const rent = await fetchRent(rentId)
   const image = await getImageURL(rent.image_url)
   return (
     <main
@@ -29,7 +24,7 @@ export default async function RentSuccessfulPage({
           image={image as string}
           alt={rent.vehicle_name}
         />
-        <SuccessfulRentSection rent={rent} totalPrice={totalPrice} />
+        <SuccessfulRentSection rent={rent} />
       </section>
     </main>
   )

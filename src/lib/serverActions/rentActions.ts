@@ -137,7 +137,7 @@ export const rentCheckoutAction = async (rentDetails: {
   }
 }
 
-const fetchRent = async (id: string) => {
+export const fetchRent = async (id: string) => {
   try {
     const data = await sql<IRent>`
     SELECT
@@ -147,7 +147,9 @@ const fetchRent = async (id: string) => {
     location_return.name AS return_location,
     rents.pickup_time AS pickup_time,
     rents.return_time AS return_time,
-    rents.total_price AS rent_price,
+    rents.rent_price AS rent_price,
+    rents.total_price AS total_price,
+    rents.
     rents.invoice AS rent_invoice,
     insurance.coverage_name as insurance_name,
     CASE
@@ -179,22 +181,22 @@ const fetchRent = async (id: string) => {
   }
 }
 
-export const confirmRentPaymentAction = async (
-  id: string,
-  invoice: string | null
-) => {
-  try {
-    await sql`
-    UPDATE rents
-    SET payment_successful=true, invoice=${invoice}
-    WHERE id::varchar=${id}`
-    const rent = await fetchRent(id)
-    return rent
-  } catch (error) {
-    throw new Error(
-      error instanceof Error
-        ? error.message
-        : 'Unknown error occurred. Please contact our support.'
-    )
-  }
-}
+// export const confirmRentPaymentAction = async (
+//   id: string,
+//   invoice: string | null
+// ) => {
+//   try {
+//     await sql`
+//     UPDATE rents
+//     SET payment_successful=true, invoice=${invoice}
+//     WHERE id::varchar=${id}`
+//     const rent = await fetchRent(id)
+//     return rent
+//   } catch (error) {
+//     throw new Error(
+//       error instanceof Error
+//         ? error.message
+//         : 'Unknown error occurred. Please contact our support.'
+//     )
+//   }
+// }

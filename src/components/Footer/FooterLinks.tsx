@@ -32,7 +32,7 @@ export default function FooterLinks() {
         },
         {
           text: 'FLUX Partners',
-          href: '/',
+          href: '/partners',
         },
         {
           text: 'Privacy',

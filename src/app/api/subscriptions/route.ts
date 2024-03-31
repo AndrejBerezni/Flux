@@ -6,7 +6,7 @@ import {
   ISubscription,
   ISubscriptionDescription,
 } from '@/compiler/interfaces'
-import { changeSubscriptionStatus } from '@/lib/dbQueries/subscriptions'
+import { changeSubscriptionStatus } from '@/lib/db_queries/subscriptions'
 import { modifySubscription } from '@/stripe/subscriptions'
 
 // GET will return list of all subscriptions as ISubscriptionWithDescription interface

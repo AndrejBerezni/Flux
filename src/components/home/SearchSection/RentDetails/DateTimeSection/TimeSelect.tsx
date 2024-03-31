@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { IoIosArrowBack } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { formatHour } from '@/lib/utilities/formatHour'
+import { showWorkingHours } from '@/lib/utilities/showWorkingHours'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import {
@@ -10,8 +12,6 @@ import {
   IVehicleSearchState,
 } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
-import { formatHour } from '@/utilities/formatHour'
-import { showWorkingHours } from '@/utilities/showWorkingHours'
 
 import WorkingHoursHeader from './WorkingHoursHeader'
 

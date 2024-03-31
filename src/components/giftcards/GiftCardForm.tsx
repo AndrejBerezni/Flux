@@ -7,7 +7,7 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed, inter } from '@/app/fonts'
-import { giftCardCheckoutAction } from '@/lib/serverActions/giftCardCheckoutAction'
+import { giftCardCheckoutAction } from '@/lib/server_actions/giftCardCheckoutAction'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 

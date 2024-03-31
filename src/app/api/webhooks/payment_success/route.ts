@@ -1,9 +1,11 @@
-import { sql } from '@vercel/postgres'
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
 import { stripe } from '@/stripe/stripe-config'
+
+import { handleGiftCard } from './handleGiftCard'
+import { handleRent } from './handleRent'
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,19 +20,24 @@ export async function POST(request: NextRequest) {
     )
 
     if (event.type === 'checkout.session.completed') {
-      if (!event.data.object.metadata?.rentId) {
-        throw new Error(`Missing rent id, ${event.id}`)
+      switch (event.data.object.metadata?.productType) {
+        case 'rent':
+          await handleRent(
+            event.id,
+            event.data.object.metadata!.rentId,
+            event.data.object.invoice as string,
+            event.data.object.amount_total
+          )
+          break
+        case 'gift card':
+          await handleGiftCard(
+            event.id,
+            event.data.object.metadata!.giftCardId,
+            event.data.object.metadata!.couponId,
+            event.data.object.metadata!.value
+          )
+          break
       }
-      const invoice = await stripe.invoices.retrieve(
-        event.data.object.invoice as string
-      )
-      const totalPrice = event.data.object.amount_total
-      if (!invoice || !totalPrice) {
-        throw new Error(`Missing invoice or total_price, ${event.id}`)
-      }
-      await sql`
-        UPDATE rents
-        SET payment_successful=true, invoice=${invoice.invoice_pdf}, total_price=${totalPrice}`
     }
     return NextResponse.json({ result: event, ok: true })
   } catch (error) {

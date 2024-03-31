@@ -37,6 +37,7 @@ export const createVehicleCheckoutSession = async (
         enabled: true,
       },
       metadata: {
+        productType: 'rent',
         rentId,
       },
     })
@@ -45,26 +46,3 @@ export const createVehicleCheckoutSession = async (
     console.error(error)
   }
 }
-
-// export const retrieveTotalPriceAndInvoiceDownloadLink = async (
-//   sessionId: string
-// ) => {
-//   try {
-//     const session = await stripe.checkout.sessions.retrieve(sessionId)
-//     // return
-//     if (session.invoice) {
-//       const invoice = await stripe.invoices.retrieve(session.invoice as string)
-//       return {
-//         totalPrice: session.amount_total ? session.amount_total : 0,
-//         invoice: invoice.invoice_pdf as string,
-//       }
-//     } else {
-//       throw new Error('Unable to get required data')
-//     }
-//   } catch (error) {
-//     return {
-//       totalPrice: 0,
-//       invoice: '',
-//     }
-//   }
-// }

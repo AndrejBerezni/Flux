@@ -1,4 +1,3 @@
-'use server'
 import { sql } from '@vercel/postgres'
 
 import GiftCardEmail from '@/components/emails/giftcard'
@@ -69,29 +68,21 @@ const sendEmail = async (emailData: {
   }
 }
 
-export const handlePurchasedGiftCardAction = async (
+export const handleGiftCard = async (
+  eventId: string,
   giftCardId: string,
   couponId: string,
   value: string
 ) => {
-  try {
-    const alreadySent = await checkIfAlreadySent(giftCardId)
-    if (alreadySent) {
-      return 'Gift Card already sent!'
-    }
-    const code = await createPromotionCode(couponId)
-    const emailData = await updateGiftCardData(giftCardId, code, value)
-    if (emailData) {
-      await sendEmail(emailData)
-    } else {
-      throw new Error(
-        'Unable to get gift card data. Please contact our support for assitance.'
-      )
-    }
-    return `Flux Gift Card has been sent successfully!`
-  } catch (error) {
-    return error instanceof Error
-      ? error.message
-      : 'Error occured, please contact our support for assitance. Apologies for the inconvenience.'
+  const alreadySent = await checkIfAlreadySent(giftCardId)
+  if (alreadySent) {
+    throw new Error(`Gift Card already sent, ${eventId}`)
+  }
+  const code = await createPromotionCode(couponId)
+  const emailData = await updateGiftCardData(giftCardId, code, value)
+  if (emailData) {
+    await sendEmail(emailData)
+  } else {
+    throw new Error(`Unable to get gift card data, ${eventId}`)
   }
 }

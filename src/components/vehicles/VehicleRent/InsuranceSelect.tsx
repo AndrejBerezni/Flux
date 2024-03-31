@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { IInsurance } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import Spinner from '@/components/Spinner'
-import { fetchInsurances } from '@/lib/serverActions/rentActions'
+import { fetchInsurances } from '@/lib/server_actions/rentActions'
 import { setRentInsurance } from '@/store/vehicleRent'
 import { getRentSubscriptionInfo } from '@/store/vehicleRent/selectors'
 

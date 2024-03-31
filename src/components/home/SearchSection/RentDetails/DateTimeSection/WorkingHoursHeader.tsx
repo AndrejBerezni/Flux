@@ -1,10 +1,10 @@
 import { FaRegClock } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
+import { formatHour } from '@/lib/utilities/formatHour'
+import { showWorkingHours } from '@/lib/utilities/showWorkingHours'
 import { IVehicleSearchState } from '@/store/vehicleSearch'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
-import { formatHour } from '@/utilities/formatHour'
-import { showWorkingHours } from '@/utilities/showWorkingHours'
 
 export default function WorkingHoursHeader({
   variant,

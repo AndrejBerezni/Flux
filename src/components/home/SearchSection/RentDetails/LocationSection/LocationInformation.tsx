@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 
 import { ILocation } from '@/compiler/interfaces'
-import { formatHour } from '@/utilities/formatHour'
+import { formatHour } from '@/lib/utilities/formatHour'
 
 export default function LocationInformation({
   location,

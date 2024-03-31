@@ -1,6 +1,6 @@
 import Divider from '@/components/Divider'
 import AccountDetailsForm from '@/components/user/accountdetails/AccountDetailsForm'
-import { fetchUserWithId } from '@/lib/dbQueries/users'
+import { fetchUserWithId } from '@/lib/db_queries/users'
 
 export const fetchCache = 'force-no-store'
 

@@ -1,9 +1,9 @@
 import { FaRegCalendar, FaRegClock } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { extractDayMonth } from '@/lib/utilities/extractDayMonth'
 import { showSecondaryModal } from '@/store/modal'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
-import { extractDayMonth } from '@/utilities/extractDayMonth'
 
 import TimeSelect from './TimeSelect'
 

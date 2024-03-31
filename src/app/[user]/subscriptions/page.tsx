@@ -7,7 +7,7 @@ import UserSubscriptionDetails from '@/components/user/subscription/UserSubscrip
 import {
   checkIfUserHasActiveSubscription,
   fetchSubscriptionDetails,
-} from '@/lib/dbQueries/subscriptions'
+} from '@/lib/db_queries/subscriptions'
 
 export const fetchCache = 'force-no-store'
 

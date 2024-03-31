@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres'
 
 import { getImageURL } from '@/firebase/storage'
-import { sortVehicleResults } from '@/utilities/sortVehicleResults'
+import { sortVehicleResults } from '@/lib/utilities/sortVehicleResults'
 
 import { IBikeCard, ICarCard, IScooterCard } from '../../compiler/interfaces'
 

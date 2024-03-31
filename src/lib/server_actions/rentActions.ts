@@ -9,8 +9,11 @@ import {
   createVehicleCheckoutSession,
 } from '@/stripe/vehicles'
 
-import { checkIfUserHasActiveSubscription } from '../dbQueries/subscriptions'
+import { checkIfUserHasActiveSubscription } from '../db_queries/subscriptions'
 
+//This action is used to check if user has active subscription,  to handle effect that subscription will have on renting - apply discounts on rent
+// Data from this function is stored in vehicleRent.subscription state
+//It affects also what insurance options will be available on VehicleRent modal and what will be their price
 export const subscriptionDetailsAction = async (uid: string) => {
   try {
     const subscription = await checkIfUserHasActiveSubscription(uid)
@@ -39,6 +42,7 @@ export const subscriptionDetailsAction = async (uid: string) => {
   }
 }
 
+//This action utilizes function written with stripe API to get numeric price and later display it in UI
 export const getRentPriceAction = async (priceId: string) => {
   try {
     const price = await retrieveVehiclePrice(priceId)
@@ -52,6 +56,7 @@ export const getRentPriceAction = async (priceId: string) => {
   }
 }
 
+//This action is used to display all insurances we have in the UI
 export const fetchInsurances = async (vehicle: VehicleType) => {
   try {
     const insurances = await sql`
@@ -95,6 +100,7 @@ const createRentInDB = async (
   }
 }
 
+//On checkout, new rent is created in db (and later updated with webhook if session is successful) and checkout session URL is retrieved
 export const rentCheckoutAction = async (rentDetails: {
   uid: string
   vehicle_id: string
@@ -137,6 +143,7 @@ export const rentCheckoutAction = async (rentDetails: {
   }
 }
 
+//This action is used to display rent in the UI
 export const fetchRent = async (id: string) => {
   try {
     const data = await sql<IRent>`
@@ -179,23 +186,3 @@ export const fetchRent = async (id: string) => {
     )
   }
 }
-
-// export const confirmRentPaymentAction = async (
-//   id: string,
-//   invoice: string | null
-// ) => {
-//   try {
-//     await sql`
-//     UPDATE rents
-//     SET payment_successful=true, invoice=${invoice}
-//     WHERE id::varchar=${id}`
-//     const rent = await fetchRent(id)
-//     return rent
-//   } catch (error) {
-//     throw new Error(
-//       error instanceof Error
-//         ? error.message
-//         : 'Unknown error occurred. Please contact our support.'
-//     )
-//   }
-// }

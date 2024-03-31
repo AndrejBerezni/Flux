@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres'
 
 import { createCheckoutSession } from '@/stripe/giftcards'
 
-import { checkIfUserHasActiveSubscription } from '../dbQueries/subscriptions'
+import { checkIfUserHasActiveSubscription } from '../db_queries/subscriptions'
 
 const createGiftCardInDB = async (
   uid: string,

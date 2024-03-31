@@ -2,7 +2,7 @@ import { robotoCondensed } from '@/app/fonts'
 import SuccessfulRentSection from '@/components/rent/SuccessfulRentSection'
 import VehicleImageContainer from '@/components/rent/VehicleImageContainer'
 import { getImageURL } from '@/firebase/storage'
-import { fetchRent } from '@/lib/serverActions/rentActions'
+import { fetchRent } from '@/lib/server_actions/rentActions'
 
 export default async function RentSuccessfulPage({
   searchParams,

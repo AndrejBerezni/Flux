@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 
-import { changeSubscriptionType } from '@/lib/dbQueries/subscriptions'
+import { changeSubscriptionType } from '@/lib/db_queries/subscriptions'
 import { changeSubscriptionPlan } from '@/stripe/subscriptions'
 
 export async function PATCH(request: NextRequest) {

@@ -8,7 +8,7 @@ export const createCheckoutSession = async (
 ) => {
   try {
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/giftcards/success?gcId=${giftCardId}&coupon=${couponId}&value=${value}`,
+      success_url: `https://flux-nu.vercel.app/giftcards/success?gcId=${giftCardId}`,
       line_items: [
         {
           price: priceId as string,
@@ -17,6 +17,12 @@ export const createCheckoutSession = async (
       ],
       allow_promotion_codes: false,
       mode: 'payment',
+      metadata: {
+        productType: 'gift card',
+        giftCardId,
+        couponId,
+        value,
+      },
     })
     return session.url
   } catch (error) {

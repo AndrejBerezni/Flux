@@ -3,7 +3,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
-import { subscriptionDetailsAction } from '@/lib/serverActions/rentActions'
+import { subscriptionDetailsAction } from '@/lib/server_actions/rentActions'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { showModal } from '@/store/modal'
 import {

@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { ILocation } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
-import { checkIfWeekend } from '@/utilities/checkIfWeekend'
-import { formatHour } from '@/utilities/formatHour'
+import { checkIfWeekend } from '@/lib/utilities/checkIfWeekend'
+import { formatHour } from '@/lib/utilities/formatHour'
 
 export const pickupDefault = new Date(
   new Date().setDate(new Date().getDate() + 2)

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { MdOutlineEmail, MdOutlinePhone } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
 
-import { handleNewSupportTicket } from '@/lib/serverActions/newSupportTicketAction'
+import { handleNewSupportTicket } from '@/lib/server_actions/newSupportTicketAction'
 import { setMessage } from '@/store/modal'
 
 import Spinner from '../Spinner'

@@ -3,7 +3,7 @@ import Divider from '@/components/Divider'
 import CheckoutRedirect from '@/components/subscriptions/CheckoutRedirect'
 import ReviewSubscription from '@/components/subscriptions/ReviewSubscription'
 import SelectVehicleType from '@/components/subscriptions/SelectVehicleType'
-import { fetchSubscriptionDetails } from '@/lib/dbQueries/subscriptions'
+import { fetchSubscriptionDetails } from '@/lib/db_queries/subscriptions'
 
 export default async function SubscribePage({
   searchParams,

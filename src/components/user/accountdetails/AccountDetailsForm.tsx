@@ -7,7 +7,7 @@ import { passwordReset } from '@/firebase/authentication'
 import { countryCodes } from '@/lib/countryCodes'
 import { setMessage } from '@/store/modal'
 
-import { updateUser } from '../../../lib/serverActions/updateUserAction'
+import { updateUser } from '../../../lib/server_actions/updateUserAction'
 
 export default function AccountDetailsForm({ user }: { user: IUser }) {
   const dispatch = useDispatch()

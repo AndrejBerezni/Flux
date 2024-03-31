@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getRentPriceAction } from '@/lib/serverActions/rentActions'
+import { getRentPriceAction } from '@/lib/server_actions/rentActions'
 import { setRentPrice } from '@/store/vehicleRent'
 import {
   getRentVehicleInfo,

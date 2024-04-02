@@ -103,7 +103,7 @@ export default async function VehiclesPage({
   const vehicles = await fetchVehicles(vehicleType)
   const numberOfPages = Math.ceil(vehicles.length / 6)
   return (
-    <div className="flex flex-1 flex-col items-center gap-6">
+    <div className="flex flex-1 flex-col items-center gap-8">
       <section className="grid w-full flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">
         {vehicles
           .slice((currentPage - 1) * 6, currentPage * 6)
@@ -128,7 +128,9 @@ export default async function VehiclesPage({
           />
         </VehicleRent>
       </section>
-      {numberOfPages > 1 && <Pagination numberOfPages={numberOfPages} />}
+      {numberOfPages > 1 && (
+        <Pagination numberOfPages={numberOfPages} currentPage={currentPage} />
+      )}
     </div>
   )
 }

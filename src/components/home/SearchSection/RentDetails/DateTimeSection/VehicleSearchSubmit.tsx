@@ -43,7 +43,7 @@ export default function VehicleSearchSubmit() {
           vehicleSearch.returnTime
         }&vehicleType=${vehicleSearch.vehicle}&${
           filtersQuery[vehicleSearch.vehicle]
-        }&sort=name-asc`
+        }&sort=name-asc&page=1`
       )
       dispatch(hideModal())
     } else {

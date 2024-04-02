@@ -1,4 +1,5 @@
 import { VehicleType } from '@/compiler/types'
+import Pagination from '@/components/Pagination'
 import VehicleCard from '@/components/vehicles/VehicleCard'
 import VehicleRent from '@/components/vehicles/VehicleRent'
 import RentTimeDateLocation from '@/components/vehicles/VehicleRent/RentTimeDateLocation'
@@ -24,6 +25,7 @@ export default async function VehiclesPage({
     weight?: string
     max_weight?: string
     sort?: string
+    page?: string
   }
 }) {
   const pickupLocation = searchParams?.pickupLocation || ''
@@ -55,6 +57,8 @@ export default async function VehiclesPage({
   )
 
   const sort = searchParams?.sort || 'name-asc'
+
+  const currentPage = Number(searchParams?.page) ?? 1
 
   const fetchVehicles = async (vehicleType: VehicleType) => {
     let vehicles
@@ -97,28 +101,34 @@ export default async function VehiclesPage({
   }
 
   const vehicles = await fetchVehicles(vehicleType)
+  const numberOfPages = Math.ceil(vehicles.length / 6)
   return (
-    <section className="grid flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">
-      {vehicles.map((vehicle) => (
-        <VehicleCard
-          key={`${vehicle.id}-vc`}
-          vehicle={vehicle}
-          vehicleType={vehicleType}
-          days={numberOfDays}
-        />
-      ))}
-      <VehicleRent days={numberOfDays}>
-        <RentTimeDateLocation
-          timeDateLocation={{
-            pickupLocation,
-            returnLocation,
-            pickupDate: formattedPickup,
-            returnDate: formattedReturn,
-            pickupTime,
-            returnTime,
-          }}
-        />
-      </VehicleRent>
-    </section>
+    <div className="flex flex-1 flex-col items-center gap-6">
+      <section className="grid w-full flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">
+        {vehicles
+          .slice((currentPage - 1) * 6, currentPage * 6)
+          .map((vehicle) => (
+            <VehicleCard
+              key={`${vehicle.id}-vc`}
+              vehicle={vehicle}
+              vehicleType={vehicleType}
+              days={numberOfDays}
+            />
+          ))}
+        <VehicleRent days={numberOfDays}>
+          <RentTimeDateLocation
+            timeDateLocation={{
+              pickupLocation,
+              returnLocation,
+              pickupDate: formattedPickup,
+              returnDate: formattedReturn,
+              pickupTime,
+              returnTime,
+            }}
+          />
+        </VehicleRent>
+      </section>
+      {numberOfPages > 1 && <Pagination numberOfPages={numberOfPages} />}
+    </div>
   )
 }

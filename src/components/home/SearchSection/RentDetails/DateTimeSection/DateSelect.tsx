@@ -30,7 +30,10 @@ export default function DateSelect() {
 
   useEffect(() => {
     if (Array.isArray(calendarValue)) {
-      const serializedPickup = calendarValue[0]?.toISOString()
+      const pickupDate = calendarValue[0]
+        ? new Date(calendarValue[0].getTime() + 24 * 60 * 60 * 1000)
+        : new Date()
+      const serializedPickup = pickupDate.toISOString()
       const serializedReturn = calendarValue[1]?.toISOString()
       dispatch(setPickupDate(serializedPickup))
       dispatch(setReturnDate(serializedReturn))

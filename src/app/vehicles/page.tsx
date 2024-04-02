@@ -98,7 +98,7 @@ export default async function VehiclesPage({
 
   const vehicles = await fetchVehicles(vehicleType)
   return (
-    <main className="grid flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">
+    <section className="grid flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">
       {vehicles.map((vehicle) => (
         <VehicleCard
           key={`${vehicle.id}-vc`}
@@ -119,6 +119,6 @@ export default async function VehiclesPage({
           }}
         />
       </VehicleRent>
-    </main>
+    </section>
   )
 }

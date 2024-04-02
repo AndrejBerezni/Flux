@@ -9,12 +9,12 @@ export default function VehiclesPageLayout({
   children: React.ReactNode
 }) {
   return (
-    <section
+    <main
       className={`${robotoCondensed.className} section-padding flex h-full w-full max-w-full flex-col gap-6  bg-quaternary md:flex-row`}
     >
       <VehicleFilterSort />
       <VehicleFilterSortButtonsGroup />
       {children}
-    </section>
+    </main>
   )
 }

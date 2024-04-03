@@ -13,6 +13,7 @@ export default function BookingsNavbar() {
   const statuses: BookingStatus[] = ['active', 'upcoming', 'past']
 
   const currentStatus = searchParams.get('status')
+
   const handleStatus = (status: BookingStatus) => {
     const params = new URLSearchParams(searchParams)
     params.set('status', status)

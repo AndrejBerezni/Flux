@@ -47,9 +47,9 @@ export default function LocationSearchInput({
 
   useEffect(() => {
     if (vehicleSearch[variant] !== null) {
-      handleSearch(vehicleSearch[variant]!.name)
+      setInputValue(vehicleSearch[variant]!.name)
     } else {
-      handleSearch('')
+      setInputValue('')
     }
   }, [vehicleSearch[variant], blurTriggered])
 

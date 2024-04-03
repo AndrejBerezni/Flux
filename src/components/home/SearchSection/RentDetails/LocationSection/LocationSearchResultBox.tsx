@@ -167,7 +167,7 @@ export default function LocationSearchResultBox({
       {/* While data is being fetched, display spinner,
           and then results or message that there aren't any results */}
       {isLoading ? (
-        <div className="absolute left-1/2 top-1/4 -translate-x-1/2">
+        <div className="absolute left-1/2 top-1/3 -translate-x-1/2">
           <Spinner />
         </div>
       ) : locations && locations.length > 0 ? (

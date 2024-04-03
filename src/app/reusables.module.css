@@ -4,7 +4,8 @@
 }
 
 .navText:after,
-.footLink:after {
+.footLink:after,
+.bookingsNavItem:after {
   display: block;
   content: '';
 
@@ -21,7 +22,12 @@
   border-bottom: solid 1px white;
 }
 
+.bookingsNavItem:after {
+  border-bottom: solid 2px #ff5f00;
+}
+
 .navText:hover:after,
-.footLink:hover:after {
+.footLink:hover:after,
+.bookingsNavItem:hover:after {
   transform: scaleX(1);
 }

@@ -8,7 +8,11 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdAccountCircle } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getAuthStatus, getUserName } from '@/store/authentication/selectors'
+import {
+  getAuthStatus,
+  getUserId,
+  getUserName,
+} from '@/store/authentication/selectors'
 import { showModal } from '@/store/modal'
 
 import styles from '../../app/reusables.module.css'
@@ -18,6 +22,7 @@ export default function Navbar() {
   const dispatch = useDispatch()
   const auth = useSelector(getAuthStatus)
   const username = useSelector(getUserName)
+  const uid = useSelector(getUserId)
 
   return (
     <nav className="section-padding flex justify-between bg-black py-4 text-sm font-bold text-white">
@@ -42,38 +47,63 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="relative flex items-center gap-8 sm:gap-12">
-        <Link href="#" className="flex gap-2 ">
-          <FaCar className="text-2xl" />
-          <span className={`${styles.navText} hidden sm:inline`}>Bookings</span>
-        </Link>
         {auth ? (
-          <button
-            type="button"
-            className="flex gap-2"
-            onClick={() => {
-              dispatch(
-                showModal({ modalType: 'userMenu', outerType: 'invisible' })
-              )
-            }}
-          >
-            <MdAccountCircle className="text-2xl" />
-            <span className={`${styles.navText} hidden sm:inline`}>
-              {username}
-            </span>
-          </button>
+          <>
+            <Link
+              href={`/${uid}/bookings?status=active`}
+              className="flex gap-2 "
+            >
+              <FaCar className="text-2xl" />
+              <span className={`${styles.navText} hidden sm:inline`}>
+                Bookings
+              </span>
+            </Link>
+            <button
+              type="button"
+              className="flex gap-2"
+              onClick={() => {
+                dispatch(
+                  showModal({ modalType: 'userMenu', outerType: 'invisible' })
+                )
+              }}
+            >
+              <MdAccountCircle className="text-2xl" />
+              <span className={`${styles.navText} hidden sm:inline`}>
+                {username}
+              </span>
+            </button>
+          </>
         ) : (
-          <button
-            type="button"
-            className="flex gap-2"
-            onClick={() => {
-              dispatch(showModal({ modalType: 'signIn', outerType: 'visible' }))
-            }}
-          >
-            <FaUser className="text-2xl" />
-            <span className={`${styles.navText} hidden sm:inline`}>
-              Login | Register
-            </span>
-          </button>
+          <>
+            <button
+              type="button"
+              className="flex gap-2"
+              onClick={() => {
+                dispatch(
+                  showModal({ modalType: 'signIn', outerType: 'visible' })
+                )
+              }}
+            >
+              <FaCar className="text-2xl" />
+              <span className={`${styles.navText} hidden sm:inline`}>
+                Bookings
+              </span>
+            </button>
+            <button
+              type="button"
+              className="flex gap-2"
+              onClick={() => {
+                dispatch(
+                  showModal({ modalType: 'signIn', outerType: 'visible' })
+                )
+              }}
+            >
+              <FaUser className="text-2xl" />
+              <span className={`${styles.navText} hidden sm:inline`}>
+                Login | Register
+              </span>
+            </button>
+          </>
         )}
 
         <UserMenu />

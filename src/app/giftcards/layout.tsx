@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
+
 import GiftCardsHero from '@/components/giftcards/GiftCardsHero'
+
+export const metadata: Metadata = {
+  title: 'Flux Gift Cards',
+  description: 'Rent Electrical Vehicles',
+}
 
 export default function GiftCardsPageLayout({
   children,

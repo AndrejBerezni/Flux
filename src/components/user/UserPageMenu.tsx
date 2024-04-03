@@ -12,7 +12,7 @@ export default function UserPageMenu() {
   const links = [
     {
       text: 'Bookings',
-      href: `/${uid}/bookings`,
+      href: `/${uid}/bookings?status=active`,
     },
     {
       text: 'Subscriptions',

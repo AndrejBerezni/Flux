@@ -27,11 +27,11 @@ export default function UserPageLayout({
   }, [isAuth, uid, params.user, router])
 
   return (
-    <section
+    <main
       className={`${robotoCondensed.className} section-padding flex min-h-[80vh] w-full flex-wrap justify-start gap-24 bg-quaternary`}
     >
       <UserPageMenu />
       {children}
-    </section>
+    </main>
   )
 }

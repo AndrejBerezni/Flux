@@ -22,8 +22,7 @@ export default function UserMenu() {
     {
       icon: <FaCar />,
       text: 'Bookings',
-      href: '/',
-      // `/${uid}/bookings`,
+      href: `/${uid}/bookings?status=active`,
     },
     {
       icon: <FaCreditCard />,

@@ -10,6 +10,7 @@ import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { ILocation } from '@/compiler/interfaces'
+import Spinner from '@/components/Spinner'
 import useClearParams from '@/hooks/useClearParams'
 import {
   hideSecondaryModal,
@@ -26,9 +27,13 @@ import LocationSearchInput from './LocationSearchInput'
 export default function LocationSearchResultBox({
   variant,
   locations,
+  handleSearch,
+  isLoading,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
   locations: ILocation[] | null
+  handleSearch: (term: string) => void
+  isLoading: boolean
 }) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
@@ -112,6 +117,7 @@ export default function LocationSearchResultBox({
         }
       )}
     >
+      {/* Search bar visible on small screens */}
       <div className="relative flex flex-col md:hidden">
         <button
           type="button"
@@ -129,10 +135,17 @@ export default function LocationSearchResultBox({
           location
         </h2>
         <div className="relative my-4 px-2">
-          <LocationSearchInput variant={variant} labelInvisible />
+          <LocationSearchInput
+            variant={variant}
+            handleSearch={(term) => handleSearch(term)}
+            labelInvisible
+          />
         </div>
         <hr className="-ml-2" />
       </div>
+
+      {/* If this box is under pickup input, it will offer to search locations on map, 
+      and if it is under return input, it will offer to set return same as pickup */}
       {variant === 'pickupLocation' ? (
         <LocationResult
           locationIcon={<TbLocation />}
@@ -150,7 +163,14 @@ export default function LocationSearchResultBox({
           }}
         />
       )}
-      {locations && locations.length > 0 ? (
+
+      {/* While data is being fetched, display spinner,
+          and then results or message that there aren't any results */}
+      {isLoading ? (
+        <div className="absolute left-1/2 top-1/4 -translate-x-1/2">
+          <Spinner />
+        </div>
+      ) : locations && locations.length > 0 ? (
         locations.map((location) => (
           <LocationResult
             key={location.id}

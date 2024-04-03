@@ -10,11 +10,7 @@ import LocationSection from './LocationSection'
 import RentDetailsHeader from './RentDetailsHeader'
 import SearchBoxDivider from './SearchBoxDivider'
 
-export default function RentDetails({
-  children,
-}: {
-  children: React.ReactNode[]
-}) {
+export default function RentDetails() {
   const modal = useSelector(getModalInfo)
 
   return (
@@ -26,7 +22,7 @@ export default function RentDetails({
       })}
     >
       <RentDetailsHeader />
-      <LocationSection>{children}</LocationSection>
+      <LocationSection />
       <SearchBoxDivider />
       <DateTimeSection />
     </form>

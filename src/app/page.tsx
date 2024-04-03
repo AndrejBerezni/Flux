@@ -10,15 +10,11 @@ export default function HomePage({
   searchParams,
 }: {
   searchParams?: {
-    pickupLocation?: string
-    returnLocation?: string
     loadMap?: string
     latitude?: string
     longitude?: string
   }
 }) {
-  const pickupLocation = searchParams?.pickupLocation || ''
-  const returnLocation = searchParams?.returnLocation || ''
   const loadMap = searchParams?.loadMap || ''
   //if navigator is unable to get coords, or user denies location access, set coords to Porto city center:
   const userLatitude = searchParams?.latitude || '41.14324740707248'
@@ -27,8 +23,6 @@ export default function HomePage({
   return (
     <main className="flex min-h-screen flex-col">
       <SearchSection
-        pickupLocation={pickupLocation}
-        returnLocation={returnLocation}
         loadMap={loadMap}
         userLatitude={userLatitude}
         userLongitude={userLongitude}

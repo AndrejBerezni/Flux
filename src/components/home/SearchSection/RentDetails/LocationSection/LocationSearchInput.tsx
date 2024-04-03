@@ -2,7 +2,6 @@
 import { useState, useEffect, useId } from 'react'
 
 import clsx from 'clsx'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import { IoMdSearch } from 'react-icons/io'
 import { RiDeleteBack2Line } from 'react-icons/ri'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,35 +13,31 @@ import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 export default function LocationSearchInput({
   variant,
+  handleSearch,
   labelInvisible,
   readOnly,
 }: {
   variant: 'pickupLocation' | 'returnLocation'
+  handleSearch: (term: string) => void
   labelInvisible?: boolean
   readOnly?: boolean
 }) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const { replace } = useRouter()
   const inputId = useId()
   const [inputValue, setInputValue] = useState<string>('')
   const [blurTriggered, setBlurTriggered] = useState<boolean>(false)
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams)
-    if (term) {
-      params.set(variant, term)
-    } else {
-      params.delete(variant)
-    }
-    replace(`${pathname}?${params.toString()}`)
+  // We have both searchTerm in parent component and inputValue in this component for the following reasons:
+  //  - inputValue handles value of input element and updates on every key stroke
+  //  - searchTerm is passed to server action that fetches data and therefore is updated only after 0.6 second from the last call, using debounce
+  const handleSearchTermUpdate = useDebouncedCallback((term: string) => {
+    handleSearch(term)
   }, 600)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
-    handleSearch(event.target.value)
+    handleSearchTermUpdate(event.target.value)
   }
 
   const handleRemoveInput = () => {
@@ -52,9 +47,9 @@ export default function LocationSearchInput({
 
   useEffect(() => {
     if (vehicleSearch[variant] !== null) {
-      setInputValue(vehicleSearch[variant]!.name)
+      handleSearch(vehicleSearch[variant]!.name)
     } else {
-      setInputValue('')
+      handleSearch('')
     }
   }, [vehicleSearch[variant], blurTriggered])
 

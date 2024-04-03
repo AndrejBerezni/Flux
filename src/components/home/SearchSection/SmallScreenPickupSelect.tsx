@@ -7,11 +7,8 @@ import { showModal, showSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
-export default function SmallScreenPickupSelect({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+import LocationSearch from './RentDetails/LocationSection/LocationSearch'
+export default function SmallScreenPickupSelect() {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)
@@ -62,7 +59,7 @@ export default function SmallScreenPickupSelect({
       </button>
       {modal.secondaryModal === 'pickupLocation' && (
         <div className="fixed left-0 top-0 z-30 h-full bg-white">
-          {children}
+          <LocationSearch variant="pickupLocation" />
         </div>
       )}
     </div>

@@ -107,7 +107,12 @@ export default function VehicleRent({
           <IoCloseSharp />
         </button>
         <div className="flex w-full justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600 md:rounded-t-lg">
-          <VehicleImage vehicle={vehicle} width={400} height={300} />
+          <VehicleImage
+            vehicleName={vehicle.name}
+            src={vehicle.image_url}
+            width={400}
+            height={300}
+          />
         </div>
         <div className="bg-quaternary px-4 pb-4 pt-2">
           <h1

@@ -2,21 +2,21 @@
 
 import Image from 'next/image'
 
-import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
-
 export default function VehicleImage({
-  vehicle,
+  src,
+  vehicleName,
   width,
   height,
 }: {
-  vehicle: ICarCard | IBikeCard | IScooterCard
+  src: string
+  vehicleName: string
   width: number
   height: number
 }) {
   return (
     <Image
-      src={vehicle.image_url}
-      alt={`${'brand' in vehicle && vehicle.brand} ${vehicle.name}`}
+      src={src}
+      alt={vehicleName}
       width={width}
       height={height}
       className="opacity-0 transition-opacity duration-1000"

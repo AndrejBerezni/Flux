@@ -18,5 +18,6 @@ export const handleRent = async (
   }
   await sql`
     UPDATE rents
-    SET payment_successful=true, invoice=${invoice.invoice_pdf}, total_price=${totalPrice}`
+    SET payment_successful=true, invoice=${invoice.invoice_pdf}, total_price=${totalPrice}
+    WHERE id::varchar=${rentId}`
 }

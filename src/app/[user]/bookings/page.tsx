@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 
 import Divider from '@/components/Divider'
+import Pagination from '@/components/Pagination'
 import BookingCard from '@/components/user/bookings/BookingCard'
 import BookingsNavbar from '@/components/user/bookings/BookingsNavbar'
 import { fetchRentsForUser } from '@/lib/server_actions/rentActions'
 
+export const fetchCache = 'force-no-store'
 export const metadata: Metadata = {
   title: 'Flux - Your Bookings',
   description: 'Rent Electrical Vehicles',
@@ -15,10 +17,11 @@ export default async function UserBookingsPage({
   searchParams,
 }: {
   params: { user: string }
-  searchParams?: { status?: 'active' | 'upcoming' | 'past' }
+  searchParams?: { status?: 'active' | 'upcoming' | 'past'; page?: string }
 }) {
   const uid = params.user ?? ''
   const status = searchParams?.status ?? 'active'
+  const currentPage = Number(searchParams?.page) ?? 1
   const today = new Date()
 
   const fetchBookings = async () => {
@@ -45,6 +48,7 @@ export default async function UserBookingsPage({
   }
 
   const bookings = await fetchBookings()
+  const numberOfPages = Math.ceil(bookings.length / 3)
 
   return (
     <section className="flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md">
@@ -60,13 +64,18 @@ export default async function UserBookingsPage({
         <BookingsNavbar />
       </div>
       <Divider />
-      {bookings.map((booking) => (
-        <BookingCard
-          key={`${booking.pickup_date}-${booking.vehicle_name}-booking-card`}
-          booking={booking}
-          status={status}
-        />
-      ))}
+      <div className="flex w-full flex-1 flex-col gap-2">
+        {bookings.map((booking) => (
+          <BookingCard
+            key={`${booking.pickup_date}-${booking.vehicle_name}-booking-card`}
+            booking={booking}
+            status={status}
+          />
+        ))}
+      </div>
+      {numberOfPages > 1 && (
+        <Pagination numberOfPages={numberOfPages} currentPage={currentPage} />
+      )}
     </section>
   )
 }

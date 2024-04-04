@@ -21,7 +21,8 @@ export default function VehicleCard({
         {'brand' in vehicle && vehicle.brand} {vehicle.name}
       </h3>
       <VehicleImage
-        vehicle={vehicle}
+        vehicleName={vehicle.name}
+        src={vehicle.image_url}
         width={vehicleType === 'cars' || vehicleType === 'bikes' ? 260 : 220}
         height={vehicleType === 'cars' || vehicleType === 'bikes' ? 300 : 220}
       />

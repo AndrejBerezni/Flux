@@ -17,6 +17,7 @@ export default function BookingsNavbar() {
   const handleStatus = (status: BookingStatus) => {
     const params = new URLSearchParams(searchParams)
     params.set('status', status)
+    params.set('page', '1')
     replace(`${pathname}?${params.toString()}`)
   }
 

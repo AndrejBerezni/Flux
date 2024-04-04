@@ -102,6 +102,7 @@ export default async function VehiclesPage({
 
   const vehicles = await fetchVehicles(vehicleType)
   const numberOfPages = Math.ceil(vehicles.length / 6)
+
   return (
     <div className="flex flex-1 flex-col items-center gap-8">
       <section className="grid w-full flex-1 grid-cols-1 flex-wrap gap-8 min-[840px]:grid-cols-2 lg:gap-4 xl:gap-8 min-[1420px]:grid-cols-3">

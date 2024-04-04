@@ -12,7 +12,7 @@ export default function UserPageMenu() {
   const links = [
     {
       text: 'Bookings',
-      href: `/${uid}/bookings?status=active`,
+      href: `/${uid}/bookings?status=active&page=1`,
     },
     {
       text: 'Subscriptions',
@@ -36,8 +36,9 @@ export default function UserPageMenu() {
           className={clsx(
             `${robotoCondensed.className} group border-b-2 pl-0 pr-8 text-xl uppercase duration-200 hover:border-b-brand`,
             {
-              'border-b-brand text-brand': pathname === link.href,
-              'border-b-tertiary text-primary': pathname !== link.href,
+              'border-b-brand text-brand': pathname === link.href.split('?')[0],
+              'border-b-tertiary text-primary':
+                pathname !== link.href.split('?')[0],
             }
           )}
         >

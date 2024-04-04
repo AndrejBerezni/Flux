@@ -221,6 +221,8 @@ export const fetchRentsForUser = async (uid: string) => {
       WHEN vehicles.type = 'scooters' THEN scooters_details.id
       END)::varchar = vehicle_images.vehicle_id AND vehicle_images.main_image = TRUE
     WHERE rents.user_id::varchar =${uid}
+    AND rents.cancelled=false
+    ORDER BY rents.pickup_date DESC
     `
     return data.rows
   } catch (error) {

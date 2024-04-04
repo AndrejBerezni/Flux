@@ -50,7 +50,7 @@ export default function Navbar() {
         {auth ? (
           <>
             <Link
-              href={`/${uid}/bookings?status=active`}
+              href={`/${uid}/bookings?status=active&page=1`}
               className="flex gap-2 "
             >
               <FaCar className="text-2xl" />

@@ -25,7 +25,10 @@ export default function Pagination({
   }
 
   return (
-    <nav aria-label="Pagination" className="flex items-center gap-4">
+    <nav
+      aria-label="Pagination"
+      className="flex items-center gap-4 self-center"
+    >
       {pages.map((page) => (
         <button
           key={`page-${page}`}

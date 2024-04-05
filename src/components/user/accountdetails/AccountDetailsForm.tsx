@@ -1,4 +1,5 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 
 import { IUser } from '@/compiler/interfaces'
@@ -11,6 +12,7 @@ import { updateUser } from '../../../lib/server_actions/updateUserAction'
 
 export default function AccountDetailsForm({ user }: { user: IUser }) {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const handleEmailExplanation = () => {
     dispatch(
@@ -42,6 +44,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
     const formData = new FormData(event.currentTarget)
     const message = await updateUser(formData)
     dispatch(setMessage({ type: 'info', text: message }))
+    router.refresh()
   }
 
   return (

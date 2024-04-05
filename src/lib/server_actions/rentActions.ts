@@ -148,6 +148,7 @@ export const fetchRent = async (id: string) => {
   try {
     const data = await sql<IRent>`
     SELECT
+    rents.id AS id,
     rents.pickup_date AS pickup_date,
     rents.return_date AS return_date,
     location_pickup.name AS pickup_location,
@@ -187,10 +188,12 @@ export const fetchRent = async (id: string) => {
   }
 }
 
+// fetching all rents to be displayed on [user]/bookings page
 export const fetchRentsForUser = async (uid: string) => {
   try {
     const data = await sql<IRent>`
     SELECT
+    rents.id AS id,
     rents.pickup_date AS pickup_date,
     rents.return_date AS return_date,
     location_pickup.name AS pickup_location,
@@ -228,6 +231,21 @@ export const fetchRentsForUser = async (uid: string) => {
   } catch (error) {
     throw new Error(
       error instanceof Error ? error.message : 'Unknown error occurred.'
+    )
+  }
+}
+
+// handle cancelling rent on [user]/bookings page
+export const cancelRent = async (id: string) => {
+  try {
+    await sql`
+  UPDATE rents
+  SET cancelled=true
+  WHERE id::varchar=${id}`
+    return 'Booking successfully cancelled.'
+  } catch (error) {
+    throw new Error(
+      'Unable to cancel booking. Please try again later or contact our support.'
     )
   }
 }

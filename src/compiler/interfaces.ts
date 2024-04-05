@@ -161,6 +161,7 @@ export interface IInsurance {
 }
 
 export interface IRent {
+  id: string
   pickup_date: Date
   return_date: Date
   pickup_location: string

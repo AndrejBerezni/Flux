@@ -39,6 +39,7 @@ export default async function AccountSubscriptionsPage({
     return { info: data.rows[0], benefits }
   }
 
+  //In the future, merge this and function above in one function where information will be fetched in the same query
   const subInfo = await getSubscriptionInformation(
     sub as {
       hasSubscription: boolean

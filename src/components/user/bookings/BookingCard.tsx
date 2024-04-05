@@ -5,6 +5,8 @@ import { BookingStatus } from '@/compiler/types'
 import Divider from '@/components/Divider'
 import SuccessfulRentTimeDateLocation from '@/components/rent/SuccessfulRentTimeDateLocation'
 
+import CancelBookingButton from './CancelBookingButton'
+
 export default async function BookingCard({
   booking,
   status,
@@ -56,9 +58,7 @@ export default async function BookingCard({
           Download Receipt
         </Link>
         {status === 'upcoming' && (
-          <button className="btn-primary m-4 bg-red-500 text-base">
-            Cancel Booking
-          </button>
+          <CancelBookingButton bookingId={booking.id} />
         )}
         {status === 'active' && (
           <Link href="/contact" className="btn-primary m-4 text-base">

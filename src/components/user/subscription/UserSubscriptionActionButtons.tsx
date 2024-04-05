@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 
+import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 
 import { IUserSubscription } from '@/compiler/interfaces'
@@ -16,6 +17,7 @@ export default function UserSubscriptionActionButtons({
   subscription: IUserSubscription
 }) {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [confirmation, setConfirmation] = useState<'' | SubscriptionAction>('')
   const [showChangeSubscription, setShowChangeSubscription] =
     useState<boolean>(false)
@@ -39,6 +41,7 @@ export default function UserSubscriptionActionButtons({
         dispatch(setMessage({ type: 'error', text: error.message }))
       }
     }
+    router.refresh()
   }
 
   const handleCloseConfirmationBox = () => setConfirmation('')

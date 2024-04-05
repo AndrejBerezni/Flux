@@ -54,9 +54,14 @@ export default async function BookingCard({
       </div>
       <Divider />
       <menu className="my-4 flex flex-col sm:flex-row md:self-end">
-        <Link href={booking.rent_invoice} className="btn-primary m-4 text-base">
-          Download Receipt
-        </Link>
+        {booking.rent_invoice && (
+          <Link
+            href={booking.rent_invoice}
+            className="btn-primary m-4 text-base"
+          >
+            Download Receipt
+          </Link>
+        )}
         {status === 'upcoming' && (
           <CancelBookingButton bookingId={booking.id} />
         )}

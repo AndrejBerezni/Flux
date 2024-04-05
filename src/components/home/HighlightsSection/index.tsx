@@ -3,6 +3,7 @@ import { GiPortugal } from 'react-icons/gi'
 import { RiServiceFill } from 'react-icons/ri'
 
 import { robotoCondensed } from '@/app/fonts'
+import AnimationContentFadeIn from '@/components/animation/AnimationContentFadeIn'
 
 export default function HighlightsSection() {
   const highlights = [
@@ -30,13 +31,15 @@ export default function HighlightsSection() {
           className={`${robotoCondensed.className} mb-8 font-bold sm:mb-0 md:w-1/4`}
           key={hl.title}
         >
-          <h2 className="mb-4 flex flex-col items-center gap-2 text-lg font-bold sm:flex-row sm:text-base md:text-lg">
-            <span className="text-3xl">{hl.icon}</span>
-            {hl.title}
-          </h2>
-          <p className="text-center text-2xl sm:text-start sm:text-lg md:text-2xl">
-            {hl.text}
-          </p>
+          <AnimationContentFadeIn>
+            <h2 className="mb-4 flex flex-col items-center gap-2 text-lg font-bold sm:flex-row sm:text-base md:text-lg">
+              <span className="text-3xl">{hl.icon}</span>
+              {hl.title}
+            </h2>
+            <p className="text-center text-2xl sm:text-start sm:text-lg md:text-2xl">
+              {hl.text}
+            </p>
+          </AnimationContentFadeIn>
         </div>
       ))}
     </section>

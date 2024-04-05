@@ -21,6 +21,7 @@
     "@vercel/postgres": "^0.5.1",
     "clsx": "^2.1.0",
     "firebase": "^10.8.0",
+    "framer-motion": "^11.0.25",
     "next": "^14.1.0",
     "react": "^18",
     "react-calendar": "^4.8.0",

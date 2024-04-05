@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import AnimationContentFadeIn from '@/components/animation/AnimationContentFadeIn'
 import InstructionStep from '@/components/giftcards/InstructionStep'
 
 import { robotoCondensed } from '../fonts'
@@ -24,19 +25,23 @@ export default function GiftCardsInstructions() {
 
   return (
     <article className="flex h-full flex-col items-center justify-center bg-quaternary p-12 hover:cursor-default">
-      <h2
-        className={`${robotoCondensed.className} text-center text-4xl font-extrabold uppercase tracking-wide text-primary`}
-      >
-        How it works
-      </h2>
+      <AnimationContentFadeIn>
+        <h2
+          className={`${robotoCondensed.className} text-center text-4xl font-extrabold uppercase tracking-wide text-primary`}
+        >
+          How it works
+        </h2>
+      </AnimationContentFadeIn>
       <div className="flex flex-col gap-10 py-12 lg:flex-row">
         {steps.map((step) => (
           <InstructionStep key={`${step.title}-step-card`} step={step} />
         ))}
       </div>
-      <Link href="/giftcards/select?value=200" className="btn-primary">
-        Get Started
-      </Link>
+      <AnimationContentFadeIn>
+        <Link href="/giftcards/select?value=200" className="btn-primary">
+          Get Started
+        </Link>
+      </AnimationContentFadeIn>
     </article>
   )
 }

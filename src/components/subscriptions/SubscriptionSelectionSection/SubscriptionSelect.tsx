@@ -20,7 +20,7 @@ export default function SubscriptionSelect({
 
   return (
     <article
-      className={`${robotoCondensed.className} relative flex w-full flex-col items-center gap-2 rounded-md bg-white  px-10 py-6 shadow-lg duration-300 md:flex-row xl:w-3/4`}
+      className={`${robotoCondensed.className} relative flex w-full flex-col items-center gap-2 rounded-md bg-white px-10 py-6 shadow-lg duration-300 md:flex-row xl:w-3/4`}
     >
       <div>
         <h2 className="mb-2 flex items-center justify-center gap-3 text-center text-4xl font-extrabold leading-[30px] tracking-wide text-primary  md:justify-start md:text-start">

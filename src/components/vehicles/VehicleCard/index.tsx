@@ -1,10 +1,10 @@
 import { ICarCard, IBikeCard, IScooterCard } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
+import FadeInImage from '@/components/FadeInImage'
 
 import RentButton from './RentButton'
 import VehiclePrice from './VehiclePrice'
 import VehicleProperties from './VehicleProperties'
-import VehicleImage from '../VehicleImage'
 
 export default function VehicleCard({
   vehicle,
@@ -20,8 +20,8 @@ export default function VehicleCard({
       <h3 className="self-start text-xl font-extrabold hover:cursor-default">
         {'brand' in vehicle && vehicle.brand} {vehicle.name}
       </h3>
-      <VehicleImage
-        vehicleName={vehicle.name}
+      <FadeInImage
+        alt={vehicle.name}
         src={vehicle.image_url}
         width={vehicleType === 'cars' || vehicleType === 'bikes' ? 260 : 220}
         height={vehicleType === 'cars' || vehicleType === 'bikes' ? 300 : 220}

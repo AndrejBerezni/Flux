@@ -1,7 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { FaLinkedin } from 'react-icons/fa'
 import { TbWorldWww } from 'react-icons/tb'
+
+import FadeInImage from '../FadeInImage'
 
 export default function PartnerSection({
   partner,
@@ -10,12 +11,12 @@ export default function PartnerSection({
 }) {
   return (
     <section className="section-padding flex w-full flex-col items-center gap-4 odd:bg-quaternary md:flex-row md:items-start md:gap-12 md:odd:flex-row-reverse">
-      <Image
+      <FadeInImage
         src={partner.img}
         width={250}
         height={250}
         alt="partner-logo"
-        className="aspect-square rounded-full shadow-md"
+        additionalStyles="aspect-square rounded-full shadow-md"
       />
       <div>
         <h2 className="mb-2 text-center text-lg font-extrabold text-brandDarker md:text-start md:text-2xl">

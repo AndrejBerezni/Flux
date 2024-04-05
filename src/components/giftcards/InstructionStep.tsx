@@ -1,6 +1,6 @@
-import Image from 'next/image'
-
 import { robotoCondensed } from '@/app/fonts'
+
+import FadeInImage from '../FadeInImage'
 
 export default function InstructionStep({
   step,
@@ -8,13 +8,13 @@ export default function InstructionStep({
   step: { title: string; text: string; img: string }
 }) {
   return (
-    <div className="group flex flex-col">
-      <Image
+    <div className="flex flex-col">
+      <FadeInImage
         src={step.img}
         alt={step.title}
         width={150}
         height={150}
-        className="self-center duration-300 group-hover:scale-110"
+        additionalStyles="self-center"
       />
       <h3 className="mb-2 font-bold lg:text-lg xl:text-xl">{step.title}</h3>
       <p

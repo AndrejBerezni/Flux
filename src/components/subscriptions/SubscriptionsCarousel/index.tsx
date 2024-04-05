@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from 'react'
 
 import { ISubscriptionsSlide } from '@/compiler/interfaces'
+import AnimationContentFadeIn from '@/components/animation/AnimationContentFadeIn'
 
 import SubscriptionsCarouselControls from './SubscriptionCarouselControls'
 import SubscriptionCarouselSlide from './SubscriptionCarouselSlide'
@@ -48,20 +49,22 @@ export default function SubscriptionsCarousel() {
 
   return (
     <section className="relative flex w-full flex-col overflow-x-hidden bg-primary">
-      <div className="relative h-[640px] w-full max-[560px]:h-[510px] max-[460px]:h-[455px] max-[360px]:h-[415px] md:h-[500px] xl:h-[700px] 2xl:h-[800px]">
-        {slides.map((slide, index) => (
-          <SubscriptionCarouselSlide
-            key={`${slide.headerText}-sub-carousel-slide`}
-            index={index}
-            current={currentSlide}
-            slideData={slide}
-          />
-        ))}
-      </div>
-      <SubscriptionsCarouselControls
-        changeSlide={setCurrentSlide}
-        current={currentSlide}
-      />
+      <AnimationContentFadeIn>
+        <div className="relative h-[640px] w-full max-[560px]:h-[510px] max-[460px]:h-[455px] max-[360px]:h-[415px] md:h-[500px] xl:h-[700px] 2xl:h-[800px]">
+          {slides.map((slide, index) => (
+            <SubscriptionCarouselSlide
+              key={`${slide.headerText}-sub-carousel-slide`}
+              index={index}
+              current={currentSlide}
+              slideData={slide}
+            />
+          ))}
+        </div>
+        <SubscriptionsCarouselControls
+          changeSlide={setCurrentSlide}
+          current={currentSlide}
+        />
+      </AnimationContentFadeIn>
     </section>
   )
 }

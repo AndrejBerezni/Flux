@@ -1,7 +1,7 @@
 import clsx from 'clsx'
-import Image from 'next/image'
 
 import { robotoCondensed } from '@/app/fonts'
+import FadeInImage from '@/components/FadeInImage'
 export default function SubscriptionCarouselSlide({
   slideData,
   index,
@@ -28,12 +28,12 @@ export default function SubscriptionCarouselSlide({
         }
       )}
     >
-      <Image
+      <FadeInImage
         src={slideData.img}
         alt={`${slideData.headerText} ${slideData.headerSpan}`}
         width={1200}
         height={800}
-        className="w-full md:w-[60%]"
+        additionalStyles="w-full md:w-[60%]"
       />
       <div className="flex w-full flex-1 flex-col items-center justify-center px-4 pt-2 text-center max-[500px]:pt-6 md:pt-0">
         <h2

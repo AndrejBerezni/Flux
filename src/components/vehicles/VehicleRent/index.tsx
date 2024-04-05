@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { robotoCondensed } from '@/app/fonts'
 import { VehicleType } from '@/compiler/types'
 import Divider from '@/components/Divider'
+import FadeInImage from '@/components/FadeInImage'
 import LoaderAnimation from '@/components/Loader'
 import { rentCheckoutAction } from '@/lib/server_actions/rentActions'
 import { getUserId } from '@/store/authentication/selectors'
@@ -23,7 +24,6 @@ import {
 import InsuranceSelect from './InsuranceSelect'
 import RentPrice from './RentPrice'
 import VehicleProperties from '../VehicleCard/VehicleProperties'
-import VehicleImage from '../VehicleImage'
 
 export default function VehicleRent({
   days,
@@ -107,8 +107,8 @@ export default function VehicleRent({
           <IoCloseSharp />
         </button>
         <div className="flex w-full justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600 md:rounded-t-lg">
-          <VehicleImage
-            vehicleName={vehicle.name}
+          <FadeInImage
+            alt={vehicle.name}
             src={vehicle.image_url}
             width={400}
             height={300}

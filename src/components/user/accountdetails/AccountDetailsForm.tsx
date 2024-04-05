@@ -42,7 +42,7 @@ export default function AccountDetailsForm({ user }: { user: IUser }) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const message = await updateUser(formData)
+    const message = await updateUser(formData, user.id)
     dispatch(setMessage({ type: 'info', text: message }))
     router.refresh()
   }

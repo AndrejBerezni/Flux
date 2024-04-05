@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres'
 
 import { IUser } from '@/compiler/interfaces'
 
-export const updateUser = async (formData: FormData) => {
+export const updateUser = async (formData: FormData, uid: string) => {
   try {
     await sql<IUser>`
     UPDATE users
@@ -19,7 +19,7 @@ export const updateUser = async (formData: FormData) => {
     zip_code=${formData.get('zip_code') as string},
     city=${formData.get('city') as string},
     country=${formData.get('country') as string}
-    WHERE id=${formData.get('userId') as string}
+    WHERE id=${uid}
     `
     return 'Information updated successfully.'
   } catch (error) {

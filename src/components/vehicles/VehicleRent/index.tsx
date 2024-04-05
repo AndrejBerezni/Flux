@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { robotoCondensed } from '@/app/fonts'
 import { VehicleType } from '@/compiler/types'
 import Divider from '@/components/Divider'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { rentCheckoutAction } from '@/lib/server_actions/rentActions'
 import { getUserId } from '@/store/authentication/selectors'
 import { hideModal, setMessage } from '@/store/modal'
@@ -133,7 +133,11 @@ export default function VehicleRent({
             onClick={handleCheckout}
             disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : 'Checkout'}
+            {isLoading ? (
+              <LoaderAnimation size="small" color="white" />
+            ) : (
+              'Checkout'
+            )}
           </button>
         </div>
       </article>

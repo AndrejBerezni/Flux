@@ -10,7 +10,7 @@ import { TbLocation } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { ILocation } from '@/compiler/interfaces'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import useClearParams from '@/hooks/useClearParams'
 import {
   hideSecondaryModal,
@@ -168,7 +168,7 @@ export default function LocationSearchResultBox({
           and then results or message that there aren't any results */}
       {isLoading ? (
         <div className="absolute left-1/2 top-1/3 -translate-x-1/2">
-          <Spinner />
+          <LoaderAnimation size="small" color="brand" />
         </div>
       ) : locations && locations.length > 0 ? (
         locations.map((location) => (

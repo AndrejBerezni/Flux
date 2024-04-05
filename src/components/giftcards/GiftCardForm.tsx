@@ -12,7 +12,7 @@ import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 
 import Divider from '../Divider'
-import Spinner from '../Spinner'
+import LoaderAnimation from '../Loader'
 
 export default function GiftCardForm({ value }: { value: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -116,7 +116,11 @@ export default function GiftCardForm({ value }: { value: string }) {
           className="btn-primary flex w-[110px] items-center justify-center gap-2 shadow-md md:w-[135px]"
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : 'Checkout'}
+          {isLoading ? (
+            <LoaderAnimation size="small" color="white" />
+          ) : (
+            'Checkout'
+          )}
         </button>
       </div>
     </form>

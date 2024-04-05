@@ -8,7 +8,7 @@ import {
 } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
 import Divider from '@/components/Divider'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { setMessage } from '@/store/modal'
 
 export default function SubscriptionChangeConfirmation({
@@ -105,7 +105,7 @@ export default function SubscriptionChangeConfirmation({
         disabled={!agreedToTerms}
         onClick={handleClick}
       >
-        {waiting ? <Spinner /> : 'Confirm'}
+        {waiting ? <LoaderAnimation size="small" color="white" /> : 'Confirm'}
       </button>
     </div>
   )

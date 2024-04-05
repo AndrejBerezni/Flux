@@ -1,9 +1,9 @@
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 
 export default function Loading() {
   return (
-    <section className="flex w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md">
-      <Spinner />
+    <section className="flex min-h-[70vh] w-full items-center justify-center rounded-md p-6 shadow-md">
+      <LoaderAnimation size="big" color="brand" />
     </section>
   )
 }

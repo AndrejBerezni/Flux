@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
 import { ILocation } from '@/compiler/interfaces'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { hideSecondaryModal } from '@/store/modal'
 import { getModalInfo } from '@/store/modal/selectors'
 
@@ -85,7 +85,7 @@ export default function LocationsMap({
           ))}
         </GoogleMap>
       ) : (
-        <Spinner />
+        <LoaderAnimation size="small" color="brand" />
       )}
     </div>
   )

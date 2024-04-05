@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { IInsurance } from '@/compiler/interfaces'
 import { VehicleType } from '@/compiler/types'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { fetchInsurances } from '@/lib/server_actions/rentActions'
 import { setRentInsurance } from '@/store/vehicleRent'
 import { getRentSubscriptionInfo } from '@/store/vehicleRent/selectors'
@@ -62,7 +62,7 @@ export default function InsuranceSelect() {
         )
       ) : (
         <div className="flex w-full items-center justify-center pt-4">
-          <Spinner />
+          <LoaderAnimation size="small" color="brand" />
         </div>
       )}
     </div>

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 
-import Spinner from '../Spinner'
+import LoaderAnimation from '../Loader'
 
 export default function CheckoutRedirect({
   subId,
@@ -123,7 +123,11 @@ export default function CheckoutRedirect({
         disabled={!agreedToTerms || isLoading}
         onClick={handleCheckoutButtonClick}
       >
-        {isLoading ? <Spinner /> : 'Proceed to payment'}
+        {isLoading ? (
+          <LoaderAnimation size="small" color="white" />
+        ) : (
+          'Proceed to payment'
+        )}
       </button>
     </div>
   )

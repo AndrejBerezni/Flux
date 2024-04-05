@@ -7,7 +7,7 @@ import { IoCloseSharp } from 'react-icons/io5'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { formatFirebaseError } from '@/firebase/formatFirebaseError'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import { setGlobalEmailInput } from '@/store/authentication'
@@ -131,7 +131,11 @@ export default function SignUp() {
             disabled={!firstName || !lastName || !password || isLoading}
             onClick={async (e) => await handleSignUp(e)}
           >
-            {isLoading ? <Spinner /> : 'Finish'}
+            {isLoading ? (
+              <LoaderAnimation size="small" color="white" />
+            ) : (
+              'Finish'
+            )}
           </button>
         </form>
         <div className="flex justify-center gap-12 font-bold text-secondary">

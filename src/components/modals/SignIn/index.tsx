@@ -9,7 +9,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 import { passwordReset } from '@/firebase/authentication'
 import useEmailAuth from '@/hooks/useEmailAuth'
 import useGoogleAuth from '@/hooks/useGoogleAuth'
@@ -99,7 +99,11 @@ export default function SignIn() {
       icon: (
         <FaGoogle className="inline sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2" />
       ),
-      text: isGoogleLoading ? <Spinner /> : 'Continue with Google',
+      text: isGoogleLoading ? (
+        <LoaderAnimation size="small" color="white" />
+      ) : (
+        'Continue with Google'
+      ),
       handleClick: signInWithGoogle,
     },
   ]
@@ -153,7 +157,7 @@ export default function SignIn() {
             </div>
             <div
               className={clsx(
-                'absolute top-0 z-0 w-full origin-right transition-all duration-500',
+                'absolute top-0 z-0 w-full origin-right bg-white transition-all duration-500',
                 {
                   '-right-[800px]': !passwordInputVisible,
                   'right-0': passwordInputVisible,
@@ -202,7 +206,7 @@ export default function SignIn() {
             onClick={async (e) => await handleSubmit(e)}
           >
             {isEmailLoading ? (
-              <Spinner />
+              <LoaderAnimation size="small" color="white" />
             ) : passwordInputVisible ? (
               'Sign In'
             ) : (

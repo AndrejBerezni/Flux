@@ -2,7 +2,7 @@ import {
   ISubscriptionWithDescription,
   IUserSubscription,
 } from '@/compiler/interfaces'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 
 import SubscriptionChangeSelect from './SubscriptionChangeSelect'
 export default function SelectNewSubscription({
@@ -46,7 +46,7 @@ export default function SelectNewSubscription({
               />
             ))
         ) : (
-          <Spinner />
+          <LoaderAnimation size="small" color="brand" />
         )}
       </div>
     </>

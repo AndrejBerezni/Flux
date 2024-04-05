@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { handleNewSupportTicket } from '@/lib/server_actions/newSupportTicketAction'
 import { setMessage } from '@/store/modal'
 
-import Spinner from '../Spinner'
+import LoaderAnimation from '../Loader'
 
 export default function ContactForm() {
   const dispatch = useDispatch()
@@ -197,7 +197,7 @@ export default function ContactForm() {
         className="btn-primary flex min-w-[200px] justify-center self-center uppercase hover:bg-brandSecondary"
         disabled={isLoading}
       >
-        {isLoading ? <Spinner /> : 'Send'}
+        {isLoading ? <LoaderAnimation size="small" color="white" /> : 'Send'}
       </button>
     </form>
   )

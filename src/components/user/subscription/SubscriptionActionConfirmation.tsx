@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { SubscriptionAction } from '@/compiler/types'
 import Divider from '@/components/Divider'
-import Spinner from '@/components/Spinner'
+import LoaderAnimation from '@/components/Loader'
 
 export default function SubscriptionActionConfirmation({
   action,
@@ -84,7 +84,11 @@ export default function SubscriptionActionConfirmation({
             onClick={handleConfirm}
             disabled={!agreedToTerms}
           >
-            {showSpinner ? <Spinner /> : 'Yes'}
+            {showSpinner ? (
+              <LoaderAnimation size="small" color="white" />
+            ) : (
+              'Yes'
+            )}
           </button>
           <button
             className="btn-primary w-[100px] md:w-[150px]"

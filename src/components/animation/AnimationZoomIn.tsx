@@ -1,27 +1,28 @@
 'use client'
 import { motion } from 'framer-motion'
-export default function AnimationContentFadeIn({
+export default function AnimationZoomIn({
   children,
+  additionalStyles,
 }: {
   children: React.ReactNode
+  additionalStyles: string
 }) {
   return (
     <motion.div
       initial={{
-        opacity: 0,
-        y: 25,
+        scale: 0,
       }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
+      animate={{
+        scale: 1,
       }}
       transition={{
-        duration: 2,
+        duration: 1.5,
         type: 'spring',
       }}
-      viewport={{
-        once: true,
+      exit={{
+        scale: 0,
       }}
+      className={additionalStyles}
     >
       {children}
     </motion.div>

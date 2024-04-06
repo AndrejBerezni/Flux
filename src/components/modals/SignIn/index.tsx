@@ -9,6 +9,7 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import AnimationZoomIn from '@/components/animation/AnimationZoomIn'
 import LoaderAnimation from '@/components/Loader'
 import { passwordReset } from '@/firebase/authentication'
 import useEmailAuth from '@/hooks/useEmailAuth'
@@ -110,8 +111,8 @@ export default function SignIn() {
 
   if (modal.modalType === 'signIn') {
     return (
-      <div
-        className={`${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-8 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-1/2 md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px] md:-translate-x-1/2`}
+      <AnimationZoomIn
+        additionalStyles={`${robotoCondensed.className} fixed z-30 flex h-screen w-screen flex-col gap-8 overflow-y-auto overflow-x-hidden bg-white px-12 py-14 md:left-[calc((100vw-600px)/2)] md:top-[10%] md:h-auto md:max-h-[85%] md:w-[600px]`}
       >
         <button
           type="button"
@@ -222,7 +223,7 @@ export default function SignIn() {
             Privacy policy
           </Link>
         </div>
-      </div>
+      </AnimationZoomIn>
     )
   }
 }

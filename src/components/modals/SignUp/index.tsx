@@ -40,7 +40,7 @@ export default function SignUp() {
     setIsLoading(true)
     try {
       await handleEmailSignUp({
-        email: userEmail,
+        email: userEmail.trim().toLowerCase(),
         first_name: firstName,
         last_name: lastName,
         password,

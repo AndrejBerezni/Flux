@@ -1,12 +1,15 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { robotoCondensed } from '@/app/fonts'
+import { signOutUser } from '@/firebase/authentication'
+import { signOut } from '@/store/authentication'
 import { getUserId } from '@/store/authentication/selectors'
 
 export default function UserPageMenu() {
+  const dispatch = useDispatch()
   const pathname = usePathname()
   const uid = useSelector(getUserId)
   const links = [
@@ -54,6 +57,10 @@ export default function UserPageMenu() {
       ))}
       <button
         className={`${robotoCondensed.className} group border-b-2 border-b-tertiary text-start text-xl uppercase text-primary duration-200 hover:border-b-brand hover:text-brand`}
+        onClick={() => {
+          signOutUser()
+          dispatch(signOut())
+        }}
       >
         <p className="duration-200 group-hover:translate-x-2">Sign Out</p>
       </button>

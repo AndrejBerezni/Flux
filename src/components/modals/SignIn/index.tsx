@@ -74,7 +74,7 @@ export default function SignIn() {
     setIsEmailLoading(true)
     if (!passwordInputVisible) {
       try {
-        const emailExists = await checkEmail(emailInput)
+        const emailExists = await checkEmail(emailInput.trim().toLowerCase())
         if (emailExists) {
           setPasswordInputVisible(true)
         } else if (emailExists === false) {

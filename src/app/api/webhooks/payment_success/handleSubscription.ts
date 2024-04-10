@@ -5,14 +5,16 @@ export const handleSubscription = async (
   subscriptionTypeId: string,
   uid: string,
   subscriptionPeriod: string,
-  selectedVehicle: string | null
+  selectedVehicle: string | null,
+  subscriptionStripeId: string
 ) => {
   try {
     await createSubscription(
       subscriptionTypeId,
       uid,
       subscriptionPeriod,
-      selectedVehicle
+      selectedVehicle,
+      subscriptionStripeId
     )
   } catch (error) {
     throw new Error(`Unable to create subscription, ${eventId}`)

@@ -44,7 +44,8 @@ export async function POST(request: NextRequest) {
             event.data.object.metadata!.subscriptionTypeId,
             event.data.object.metadata!.uid,
             event.data.object.metadata!.subscriptionPeriod,
-            event.data.object.metadata!.selectedVehicle
+            event.data.object.metadata!.selectedVehicle,
+            event.data.object.subscription as string
           )
           break
         default:

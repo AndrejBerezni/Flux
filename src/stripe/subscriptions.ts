@@ -1,13 +1,19 @@
-import { SubscriptionAction } from '@/compiler/types'
+import { MonthYear, SubscriptionAction, VehicleType } from '@/compiler/types'
 
 import { stripe } from './stripe-config'
 
-export const createCheckoutSession = async (itemId: string, subId: string) => {
+export const createCheckoutSession = async (
+  stripeId: string,
+  subscriptionTypeId: string,
+  uid: string,
+  subscriptionPeriod: MonthYear,
+  selectedVehicle: VehicleType | null
+) => {
   try {
-    const product = await stripe.products.retrieve(itemId)
+    const product = await stripe.products.retrieve(stripeId)
     const priceId = product.default_price
     const session = await stripe.checkout.sessions.create({
-      success_url: `https://flux-nu.vercel.app/subscriptions/success?subId=${subId}&sessionId={CHECKOUT_SESSION_ID}`,
+      success_url: `https://flux-nu.vercel.app/subscriptions/success`,
       line_items: [
         {
           price: priceId as string,
@@ -16,6 +22,13 @@ export const createCheckoutSession = async (itemId: string, subId: string) => {
       ],
       allow_promotion_codes: true,
       mode: 'subscription',
+      metadata: {
+        productType: 'subscription',
+        subscriptionTypeId,
+        uid,
+        subscriptionPeriod,
+        selectedVehicle,
+      },
     })
     return session.url
   } catch (error) {

@@ -17,7 +17,7 @@ export default async function SubscribePage({
   }
 }) {
   const name = searchParams?.name || 'Basic'
-  const period = searchParams?.period || 'month'
+  const period: MonthYear = searchParams?.period || 'month'
   const subId = searchParams?.subId || ''
   const subStripeId = searchParams?.subStripeId || ''
   const price = searchParams?.price || ''

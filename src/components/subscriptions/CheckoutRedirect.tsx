@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { MonthYear, VehicleType } from '@/compiler/types'
+import { subscriptionCheckoutAction } from '@/lib/server_actions/subscriptionCheckoutAction'
 import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 import { setMessage, showModal } from '@/store/modal'
 
@@ -19,7 +21,7 @@ export default function CheckoutRedirect({
   subId: string
   subStripeId: string
   subName: string
-  subPeriod: string
+  subPeriod: MonthYear
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -33,7 +35,7 @@ export default function CheckoutRedirect({
     setAgreedToTerms(event.target.checked)
   }
 
-  const handleVehicleInformation = () => {
+  const handleVehicleInformation = (): VehicleType | undefined => {
     const selectedVehicle = searchParams.get('selectedVehicle')
     if (!selectedVehicle) {
       dispatch(
@@ -42,9 +44,9 @@ export default function CheckoutRedirect({
           text: 'Please select vehicle type for this subscription.',
         })
       )
-      return null
+      return
     }
-    return selectedVehicle
+    return selectedVehicle as VehicleType
   }
 
   const handleCheckout = async () => {
@@ -56,26 +58,17 @@ export default function CheckoutRedirect({
         if (!selectedVehicle) {
           return
         }
+      } else {
+        selectedVehicle = null
       }
-      const subscriptionData = {
-        subId,
-        subStripeId,
+
+      const url = await subscriptionCheckoutAction(
         userId,
-        selectedVehicle: subName === 'Platinum' ? '' : selectedVehicle,
+        subStripeId,
+        subId,
         subPeriod,
-      }
-      const response = await fetch('/api/subscriptions/checkout', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(subscriptionData),
-      })
-      if (!response.ok) {
-        const errorResponse = await response.json()
-        throw new Error(
-          errorResponse.error || 'Error occurred, please try later.'
-        )
-      }
-      const url = await response.json()
+        selectedVehicle
+      )
       if (url) {
         router.push(url)
       }

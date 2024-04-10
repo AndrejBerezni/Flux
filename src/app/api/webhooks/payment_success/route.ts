@@ -6,6 +6,7 @@ import { stripe } from '@/stripe/stripe-config'
 
 import { handleGiftCard } from './handleGiftCard'
 import { handleRent } from './handleRent'
+import { handleSubscription } from './handleSubscription'
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,6 +37,11 @@ export async function POST(request: NextRequest) {
             event.data.object.metadata!.couponId,
             event.data.object.metadata!.value
           )
+          break
+        case 'subscription':
+          await handleSubscription()
+          break
+        default:
           break
       }
     }

@@ -58,8 +58,6 @@ export default async function VehiclesPage({
 
   const sort = searchParams?.sort || 'name-asc'
 
-  const currentPage = Number(searchParams?.page) ?? 1
-
   const fetchVehicles = async (vehicleType: VehicleType) => {
     let vehicles
     switch (vehicleType) {
@@ -102,6 +100,10 @@ export default async function VehiclesPage({
 
   const vehicles = await fetchVehicles(vehicleType)
   const numberOfPages = Math.ceil(vehicles.length / 6)
+  const currentPage =
+    Number(searchParams?.page) && Number(searchParams?.page) <= numberOfPages
+      ? Number(searchParams?.page)
+      : 1
 
   return (
     <div className="flex flex-1 flex-col items-center gap-8">

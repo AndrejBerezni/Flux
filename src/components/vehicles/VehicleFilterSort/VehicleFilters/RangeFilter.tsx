@@ -24,6 +24,7 @@ export default function RangeFilter({
   const handleApplyFilter = useDebouncedCallback((filterValue: string) => {
     const params = new URLSearchParams(searchParams)
     params.set(filterQuery, filterValue)
+    params.set('page', '1')
     replace(`${pathname}?${params.toString()}`)
   }, 1000)
 

@@ -39,7 +39,13 @@ export async function POST(request: NextRequest) {
           )
           break
         case 'subscription':
-          await handleSubscription()
+          await handleSubscription(
+            event.id,
+            event.data.object.metadata!.subscriptionTypeId,
+            event.data.object.metadata!.uid,
+            event.data.object.metadata!.subscriptionPeriod,
+            event.data.object.metadata!.selectedVehicle
+          )
           break
         default:
           break

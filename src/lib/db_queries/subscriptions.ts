@@ -47,12 +47,12 @@ export const createSubscription = async (
   subId: string,
   user_id: string,
   subPeriod: string,
-  selectedVehicle: string
+  selectedVehicle: string | null
 ) => {
   try {
     const newSubscription = await sql`
       INSERT INTO subscriptions(type, user_id, start_date, subscription_period, selected_vehicle, active)
-      VALUES(${subId}, ${user_id}, NOW(), ${subPeriod}, ${selectedVehicle}, FALSE)
+      VALUES(${subId}, ${user_id}, NOW(), ${subPeriod}, ${selectedVehicle}, TRUE)
       RETURNING id`
     return newSubscription.rows[0].id
   } catch (error) {

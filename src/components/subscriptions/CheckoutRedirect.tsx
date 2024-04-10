@@ -56,6 +56,7 @@ export default function CheckoutRedirect({
       if (subName !== 'Platinum') {
         selectedVehicle = handleVehicleInformation()
         if (!selectedVehicle) {
+          setIsLoading(false)
           return
         }
       } else {

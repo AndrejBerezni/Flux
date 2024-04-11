@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 
+import BackToTopButton from '@/components/BackToTopButton'
 import Footer from '@/components/Footer'
 import Message from '@/components/Message'
 import ModalOuter from '@/components/modals/ModalOuter'
@@ -42,6 +43,7 @@ export default function RootLayout({
           <SignUp />
           <Message />
           <ModalOuter />
+          <BackToTopButton />
           <Footer />
         </ReduxProvider>
       </body>

@@ -5,6 +5,7 @@ import Pagination from '@/components/Pagination'
 import BookingCard from '@/components/user/bookings/BookingCard'
 import BookingsNavbar from '@/components/user/bookings/BookingsNavbar'
 import NoBookingsInfo from '@/components/user/bookings/NoBookingsInfo'
+import UserPageHeading from '@/components/user/UserPageHeading'
 import { fetchRentsForUser } from '@/lib/server_actions/rentActions'
 
 export const fetchCache = 'force-no-store'
@@ -55,12 +56,10 @@ export default async function UserBookingsPage({
     <section className="flex max-w-full flex-1 flex-col rounded-md bg-white p-6 shadow-md">
       <div className="flex flex-col justify-between gap-4 md:flex-row">
         <div>
-          <h1 className="text-2xl font-bold uppercase md:text-3xl">
-            Your bookings
-          </h1>
-          <h2 className="my-1 text-base md:my-2 md:text-xl">
-            Manage your bookings here
-          </h2>
+          <UserPageHeading
+            title="Your bookings"
+            subtitle="Manage your bookings here"
+          />
         </div>
         <BookingsNavbar />
       </div>

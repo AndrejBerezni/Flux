@@ -4,6 +4,7 @@ import Divider from '@/components/Divider'
 import Pagination from '@/components/Pagination'
 import BookingCard from '@/components/user/bookings/BookingCard'
 import BookingsNavbar from '@/components/user/bookings/BookingsNavbar'
+import NoBookingsInfo from '@/components/user/bookings/NoBookingsInfo'
 import { fetchRentsForUser } from '@/lib/server_actions/rentActions'
 
 export const fetchCache = 'force-no-store'
@@ -64,15 +65,21 @@ export default async function UserBookingsPage({
         <BookingsNavbar />
       </div>
       <Divider />
-      <div className="flex w-full flex-1 flex-col gap-2">
-        {bookings.map((booking) => (
-          <BookingCard
-            key={`${booking.pickup_date}-${booking.vehicle_name}-booking-card`}
-            booking={booking}
-            status={status}
-          />
-        ))}
-      </div>
+
+      {bookings.length > 0 ? (
+        <div className="flex w-full flex-1 flex-col gap-2">
+          {bookings.map((booking) => (
+            <BookingCard
+              key={`${booking.pickup_date}-${booking.vehicle_name}-booking-card`}
+              booking={booking}
+              status={status}
+            />
+          ))}
+        </div>
+      ) : (
+        <NoBookingsInfo status={status} />
+      )}
+
       {numberOfPages > 1 && (
         <Pagination numberOfPages={numberOfPages} currentPage={currentPage} />
       )}

@@ -48,7 +48,7 @@ export default function SubscriptionsCarousel() {
   }, [slides])
 
   return (
-    <section className="relative flex w-full flex-col overflow-x-hidden bg-primary">
+    <section className="relative flex w-full flex-col overflow-hidden bg-primary">
       <AnimationContentFadeIn>
         <div className="relative h-[640px] w-full max-[560px]:h-[510px] max-[460px]:h-[455px] max-[360px]:h-[415px] md:h-[500px] xl:h-[700px] 2xl:h-[800px]">
           {slides.map((slide, index) => (

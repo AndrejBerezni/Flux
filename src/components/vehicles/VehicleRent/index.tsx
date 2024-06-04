@@ -28,10 +28,10 @@ import VehicleProperties from '../VehicleCard/VehicleProperties'
 export default function VehicleRent({
   days,
   children,
-}: {
+}: Readonly<{
   days: number
   children: React.ReactNode
-}) {
+}>) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicle = useSelector(getRentVehicleInfo)

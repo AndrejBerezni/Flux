@@ -11,11 +11,11 @@ export default function RadioSort({
   labelText,
   sortValue,
   name,
-}: {
+}: Readonly<{
   labelText: string
   sortValue: string
   name: string
-}) {
+}>) {
   const dispatch = useDispatch()
 
   const radioId = useId()

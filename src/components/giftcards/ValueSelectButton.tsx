@@ -7,10 +7,10 @@ import { robotoCondensed } from '@/app/fonts'
 export default function ValueSelectButton({
   value,
   currentValue,
-}: {
+}: Readonly<{
   value: number
   currentValue: string
-}) {
+}>) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()

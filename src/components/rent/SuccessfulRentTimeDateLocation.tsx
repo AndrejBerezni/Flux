@@ -4,9 +4,9 @@ import { IRent } from '@/compiler/interfaces'
 
 export default function SuccessfulRentTimeDateLocation({
   rent,
-}: {
+}: Readonly<{
   rent: IRent
-}) {
+}>) {
   return (
     <ul className="flex w-full flex-1 flex-col gap-2 px-2 py-4 sm:px-8">
       <li className="flex items-center gap-4">

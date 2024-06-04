@@ -10,10 +10,10 @@ import CancelBookingButton from './CancelBookingButton'
 export default async function BookingCard({
   booking,
   status,
-}: {
+}: Readonly<{
   booking: IRent
   status: BookingStatus
-}) {
+}>) {
   return (
     <article className="flex flex-col items-center rounded-md border-2 p-2 shadow-md">
       <div className="flex w-full flex-col items-start justify-between sm:flex-row">

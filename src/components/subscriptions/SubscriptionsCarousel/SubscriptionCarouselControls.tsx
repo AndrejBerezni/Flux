@@ -4,11 +4,11 @@ function CarouselControl({
   current,
   changeSlide,
   controlValue,
-}: {
+}: Readonly<{
   current: number
   changeSlide: (index: number) => void
   controlValue: number
-}) {
+}>) {
   return (
     <button
       onClick={() => {

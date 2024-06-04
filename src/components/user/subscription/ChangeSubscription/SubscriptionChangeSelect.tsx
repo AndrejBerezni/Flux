@@ -7,11 +7,11 @@ export default function SubscriptionChangeSelect({
   subscription,
   period,
   handleSelect,
-}: {
+}: Readonly<{
   subscription: ISubscriptionWithDescription
   period: MonthYear
   handleSelect: (subscription: ISubscriptionWithDescription) => void
-}) {
+}>) {
   return (
     <button
       className="flex min-h-[300px] w-full flex-col justify-between gap-4 bg-white px-4 pb-6 pt-3 shadow-md duration-200 hover:-translate-y-1 active:scale-[98%] sm:w-[45%]"

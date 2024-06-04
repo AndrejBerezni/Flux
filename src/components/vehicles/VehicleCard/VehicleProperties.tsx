@@ -10,10 +10,10 @@ import { VehicleType } from '@/compiler/types'
 export default function VehicleProperties({
   vehicle,
   vehicleType,
-}: {
+}: Readonly<{
   vehicle: ICarCard | IBikeCard | IScooterCard
   vehicleType: VehicleType
-}) {
+}>) {
   const getVehicleDetails = () => {
     let currentVehicle
     let vehicleDetails

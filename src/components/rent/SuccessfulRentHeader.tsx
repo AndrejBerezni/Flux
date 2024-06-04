@@ -3,10 +3,10 @@ import { GrDocumentDownload } from 'react-icons/gr'
 export default function SuccessfulRentHeader({
   name,
   invoice,
-}: {
+}: Readonly<{
   name: string
   invoice: string
-}) {
+}>) {
   return (
     <div className="flex items-center justify-between gap-6">
       <h1 className="text-2xl font-extrabold uppercase tracking-wider max-[375px]:text-xl md:text-3xl">

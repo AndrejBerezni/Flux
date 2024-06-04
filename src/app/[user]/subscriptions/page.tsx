@@ -14,9 +14,9 @@ export const fetchCache = 'force-no-store'
 
 export default async function AccountSubscriptionsPage({
   params,
-}: {
+}: Readonly<{
   params: { user: string }
-}) {
+}>) {
   const uid = params.user || ''
 
   // We check if user has active subscription and if yes, we retrieve that row from db.

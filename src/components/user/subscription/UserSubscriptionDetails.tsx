@@ -5,9 +5,9 @@ import UserSubscriptionActionButtons from './UserSubscriptionActionButtons'
 
 function DetailTextRow({
   detail,
-}: {
+}: Readonly<{
   detail: { title: string; value: string }
-}) {
+}>) {
   return (
     <li className="my-4 flex items-end text-base text-secondaryText md:text-xl">
       <p className="leading-4">{detail.title}</p>

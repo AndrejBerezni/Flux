@@ -12,10 +12,10 @@ import { MonthYear } from '@/compiler/types'
 export default function SubscriptionSelect({
   subscription,
   period,
-}: {
+}: Readonly<{
   subscription: ISubscriptionWithDescription
   period: MonthYear
-}) {
+}>) {
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
 
   return (

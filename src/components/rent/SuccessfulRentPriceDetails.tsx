@@ -4,11 +4,11 @@ export default function SuccessfulRentPriceDetails({
   rentPrice,
   totalPrice,
   insurance,
-}: {
+}: Readonly<{
   rentPrice: string
   totalPrice: string
   insurance: string
-}) {
+}>) {
   return (
     <ul className="flex flex-col self-end">
       <li className="text-lg text-secondary md:text-xl">

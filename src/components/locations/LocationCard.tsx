@@ -1,7 +1,9 @@
 import { ILocation } from '@/compiler/interfaces'
 import { formatHour } from '@/lib/utilities/formatHour'
 
-export default function LocationCard({ location }: { location: ILocation }) {
+export default function LocationCard({
+  location,
+}: Readonly<{ location: ILocation }>) {
   const {
     name,
     street,

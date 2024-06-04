@@ -6,9 +6,9 @@ import { retrieveSubscriptionIdfromSession } from '@/stripe/subscriptions'
 
 export default async function SubscriptionSuccessfulPage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: { subId?: string; sessionId?: string }
-}) {
+}>) {
   const subscriptionId = searchParams?.subId || ''
   const sessionId = searchParams?.sessionId || ''
 

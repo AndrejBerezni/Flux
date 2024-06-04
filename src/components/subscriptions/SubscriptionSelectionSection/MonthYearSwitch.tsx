@@ -5,10 +5,10 @@ import { MonthYear } from '@/compiler/types'
 export default function MonthYearSwitch({
   period,
   selectPeriod,
-}: {
+}: Readonly<{
   period: string
   selectPeriod: (period: MonthYear) => void
-}) {
+}>) {
   return (
     <div className="mb-4 flex self-center overflow-hidden rounded-md border-2 border-tertiary">
       <button

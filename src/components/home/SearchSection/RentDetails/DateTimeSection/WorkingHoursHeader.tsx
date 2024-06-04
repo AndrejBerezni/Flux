@@ -8,9 +8,9 @@ import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
 export default function WorkingHoursHeader({
   variant,
-}: {
+}: Readonly<{
   variant: 'pickupTime' | 'returnTime'
-}) {
+}>) {
   const vehicleSearch = useSelector(getVehicleSearchInfo)
 
   return (

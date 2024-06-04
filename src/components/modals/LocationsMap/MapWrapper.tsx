@@ -5,10 +5,10 @@ import LocationsMap from '.'
 export default async function MapWrapper({
   userLatitude,
   userLongitude,
-}: {
+}: Readonly<{
   userLatitude: string
   userLongitude: string
-}) {
+}>) {
   const locations = await fetchNearbyLocations(
     Number(userLatitude),
     Number(userLongitude)

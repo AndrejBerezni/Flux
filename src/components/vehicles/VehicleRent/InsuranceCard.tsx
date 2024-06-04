@@ -12,10 +12,10 @@ import { getRentInsuranceInfo } from '@/store/vehicleRent/selectors'
 export default function InsuranceCard({
   insurance,
   includedInSubscription,
-}: {
+}: Readonly<{
   insurance: IInsurance
   includedInSubscription?: boolean
-}) {
+}>) {
   const dispatch = useDispatch()
   const [showInfo, setShowInfo] = useState<boolean>(false)
 

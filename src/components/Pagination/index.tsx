@@ -5,10 +5,10 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 export default function Pagination({
   numberOfPages,
   currentPage,
-}: {
+}: Readonly<{
   numberOfPages: number
   currentPage: number
-}) {
+}>) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { replace } = useRouter()

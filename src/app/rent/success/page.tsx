@@ -6,11 +6,11 @@ import { fetchRent } from '@/lib/server_actions/rentActions'
 
 export default async function RentSuccessfulPage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: {
     rentId?: string
   }
-}) {
+}>) {
   const rentId = searchParams?.rentId || ''
 
   const rent = await fetchRent(rentId)

@@ -9,9 +9,9 @@ import TimeSelect from './TimeSelect'
 
 export default function DateTimeButtons({
   variant,
-}: {
+}: Readonly<{
   variant: 'Pick-up date' | 'Return date'
-}) {
+}>) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
 

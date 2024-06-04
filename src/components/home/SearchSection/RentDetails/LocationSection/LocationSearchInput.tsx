@@ -16,12 +16,12 @@ export default function LocationSearchInput({
   handleSearch,
   labelInvisible,
   readOnly,
-}: {
+}: Readonly<{
   variant: 'pickupLocation' | 'returnLocation'
   handleSearch: (term: string) => void
   labelInvisible?: boolean
   readOnly?: boolean
-}) {
+}>) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const inputId = useId()

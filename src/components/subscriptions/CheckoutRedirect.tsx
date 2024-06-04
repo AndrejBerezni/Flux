@@ -17,12 +17,12 @@ export default function CheckoutRedirect({
   subStripeId,
   subName,
   subPeriod,
-}: {
+}: Readonly<{
   subId: string
   subStripeId: string
   subName: string
   subPeriod: MonthYear
-}) {
+}>) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch()
   const isAuth = useSelector(getAuthStatus)

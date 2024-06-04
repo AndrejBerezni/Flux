@@ -13,9 +13,9 @@ import SubscriptionActionConfirmation from './SubscriptionActionConfirmation'
 
 export default function UserSubscriptionActionButtons({
   subscription,
-}: {
+}: Readonly<{
   subscription: IUserSubscription
-}) {
+}>) {
   const dispatch = useDispatch()
   const router = useRouter()
   const [confirmation, setConfirmation] = useState<'' | SubscriptionAction>('')

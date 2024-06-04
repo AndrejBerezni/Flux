@@ -4,13 +4,13 @@ import FadeInImage from '@/components/FadeInImage'
 
 export default function BenefitCard({
   benefit,
-}: {
+}: Readonly<{
   benefit: {
     title: string
     list: string[]
     img: string
   }
-}) {
+}>) {
   return (
     <article className="hover:cursor-default">
       <AnimationContentFadeIn>

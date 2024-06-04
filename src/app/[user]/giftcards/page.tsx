@@ -9,9 +9,9 @@ import UserPageHeading from '@/components/user/UserPageHeading'
 
 export default async function AccountGiftCardsPage({
   params,
-}: {
+}: Readonly<{
   params: { user: string }
-}) {
+}>) {
   const uid = params.user || ''
   const getGiftCards = async () => {
     try {

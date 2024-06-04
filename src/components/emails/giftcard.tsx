@@ -17,13 +17,13 @@ export default function GiftCardEmail({
   cardValue,
   code,
   message,
-}: {
+}: Readonly<{
   recipient: string
   sender: string
   cardValue: string
   code: string
   message?: string
-}) {
+}>) {
   return (
     <Tailwind
       config={{

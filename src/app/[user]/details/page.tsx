@@ -7,9 +7,9 @@ export const fetchCache = 'force-no-store'
 
 export default async function AccountDetailsPage({
   params,
-}: {
+}: Readonly<{
   params: { user: string }
-}) {
+}>) {
   const uid = params.user ?? ''
 
   const userData = await fetchUserWithId(uid)

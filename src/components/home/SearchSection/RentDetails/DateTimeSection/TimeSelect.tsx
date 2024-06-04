@@ -17,9 +17,9 @@ import WorkingHoursHeader from './WorkingHoursHeader'
 
 export default function TimeSelect({
   variant,
-}: {
+}: Readonly<{
   variant: 'pickupTime' | 'returnTime'
-}) {
+}>) {
   const dispatch = useDispatch()
   const vehicleSearch = useSelector(getVehicleSearchInfo)
   const modal = useSelector(getModalInfo)

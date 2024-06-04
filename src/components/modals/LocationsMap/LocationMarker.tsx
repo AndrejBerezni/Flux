@@ -9,10 +9,10 @@ import { setLocation } from '@/store/vehicleSearch'
 export default function LocationMarker({
   position,
   location,
-}: {
+}: Readonly<{
   position: { lat: number; lng: number }
   location: ILocation
-}) {
+}>) {
   const dispatch = useDispatch()
 
   const handleClick = () => {

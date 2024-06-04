@@ -9,10 +9,10 @@ import NewVehicleTypeButton from './NewVehicleTypeButton'
 export default function SelectNewVehicleType({
   goToNextStep,
   setNewVehicleType,
-}: {
+}: Readonly<{
   goToNextStep: () => void
   setNewVehicleType: (vehicle: VehicleType) => void
-}) {
+}>) {
   const vehicles = [
     {
       text: 'cars',

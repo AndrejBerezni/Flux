@@ -2,9 +2,9 @@ import { robotoCondensed } from '../fonts'
 
 export default function ContactPageLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <main
       className={`${robotoCondensed.className} flex min-h-[80vh] justify-between gap-2 bg-primary`}

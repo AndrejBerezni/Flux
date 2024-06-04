@@ -1,10 +1,10 @@
 export default function UserPageHeading({
   title,
   subtitle,
-}: {
+}: Readonly<{
   title: string
   subtitle: string
-}) {
+}>) {
   return (
     <>
       <h1 className="text-2xl font-bold uppercase md:text-3xl">{title}</h1>

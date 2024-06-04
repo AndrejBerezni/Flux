@@ -14,7 +14,7 @@ import { setMessage, showModal } from '@/store/modal'
 import Divider from '../Divider'
 import LoaderAnimation from '../Loader'
 
-export default function GiftCardForm({ value }: { value: string }) {
+export default function GiftCardForm({ value }: Readonly<{ value: string }>) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const dispatch = useDispatch()
   const router = useRouter()

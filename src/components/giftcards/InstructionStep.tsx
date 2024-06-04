@@ -5,9 +5,9 @@ import FadeInImage from '../FadeInImage'
 
 export default function InstructionStep({
   step,
-}: {
+}: Readonly<{
   step: { title: string; text: string; img: string }
-}) {
+}>) {
   return (
     <AnimationContentFadeIn>
       <div className="flex flex-col">

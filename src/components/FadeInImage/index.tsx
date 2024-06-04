@@ -8,13 +8,13 @@ export default function FadeInImage({
   width,
   height,
   additionalStyles,
-}: {
+}: Readonly<{
   src: string
   alt: string
   width: number
   height: number
   additionalStyles?: string
-}) {
+}>) {
   return (
     <Image
       src={src}

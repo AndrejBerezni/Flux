@@ -3,12 +3,12 @@ export default function SentGiftCard({
   sender,
   recipient,
   message,
-}: {
+}: Readonly<{
   email: string
   sender: string
   recipient: string
   message: string
-}) {
+}>) {
   const items = [
     { title: 'sent to', text: email },
     { title: 'for', text: recipient },

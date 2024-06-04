@@ -11,11 +11,11 @@ export default function RangeFilter({
   labelText,
   filterValues,
   filterQuery,
-}: {
+}: Readonly<{
   labelText: string
   filterValues: string[] | number[]
   filterQuery: string
-}) {
+}>) {
   const filterId = useId()
   const searchParams = useSearchParams()
   const pathname = usePathname()

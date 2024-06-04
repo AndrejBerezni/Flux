@@ -10,12 +10,12 @@ export default function LocationResult({
   locationName,
   locationIcon,
   handleClick,
-}: {
+}: Readonly<{
   location?: ILocation
   locationName?: string
   locationIcon: React.ReactNode
   handleClick: () => void
-}) {
+}>) {
   const [infoVisible, setInfoVisible] = useState<boolean>(false)
   return (
     <>

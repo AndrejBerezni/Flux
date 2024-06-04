@@ -10,9 +10,9 @@ import { setMessage } from '@/store/modal'
 
 export default function CancelBookingButton({
   bookingId,
-}: {
+}: Readonly<{
   bookingId: string
-}) {
+}>) {
   const dispatch = useDispatch()
   const router = useRouter()
   const [confirmationOpen, setConfirmationOpen] = useState<boolean>(false)

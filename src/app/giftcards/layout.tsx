@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function GiftCardsPageLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
     <main className="flex min-h-[90vh] flex-1 flex-col bg-quaternary md:flex-row">
       <GiftCardsHero />

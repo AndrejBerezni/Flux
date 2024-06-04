@@ -2,7 +2,9 @@ import Image from 'next/image'
 
 import { BookingStatus } from '@/compiler/types'
 
-export default function NoBookingsInfo({ status }: { status: BookingStatus }) {
+export default function NoBookingsInfo({
+  status,
+}: Readonly<{ status: BookingStatus }>) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4">
       <Image

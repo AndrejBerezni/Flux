@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 export default function AnimationDropFromAbove({
   children,
   additionalStyles,
-}: {
+}: Readonly<{
   children: React.ReactNode
   additionalStyles?: string
-}) {
+}>) {
   return (
     <motion.div
       initial={{

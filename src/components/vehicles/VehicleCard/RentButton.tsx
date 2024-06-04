@@ -14,9 +14,9 @@ import {
 
 export default function RentButton({
   vehicle,
-}: {
+}: Readonly<{
   vehicle: ICarCard | IBikeCard | IScooterCard
-}) {
+}>) {
   const dispatch = useDispatch()
   const isAuth = useSelector(getAuthStatus)
   const uid = useSelector(getUserId)

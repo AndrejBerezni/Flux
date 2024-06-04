@@ -6,9 +6,9 @@ import FadeInImage from '../FadeInImage'
 
 export default function PartnerSection({
   partner,
-}: {
+}: Readonly<{
   partner: { img: string; name: string; text: string }
-}) {
+}>) {
   return (
     <section className="section-padding flex w-full flex-col items-center gap-4 odd:bg-quaternary md:flex-row md:items-start md:gap-12 md:odd:flex-row-reverse">
       <FadeInImage

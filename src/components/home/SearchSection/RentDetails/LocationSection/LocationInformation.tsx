@@ -7,10 +7,10 @@ import { formatHour } from '@/lib/utilities/formatHour'
 export default function LocationInformation({
   location,
   visible,
-}: {
+}: Readonly<{
   location: ILocation
   visible: boolean
-}) {
+}>) {
   return (
     <div
       className={clsx(

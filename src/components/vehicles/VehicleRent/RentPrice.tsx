@@ -10,7 +10,7 @@ import {
 } from '@/store/vehicleRent/selectors'
 import { getVehicleSearchInfo } from '@/store/vehicleSearch/selectors'
 
-export default function RentPrice({ days }: { days: number }) {
+export default function RentPrice({ days }: Readonly<{ days: number }>) {
   const dispatch = useDispatch()
   const [price, setPrice] = useState<number>(0)
   const [discountApplied, setDiscountApplied] = useState<string | null>(null)

@@ -10,7 +10,9 @@ import { setMessage } from '@/store/modal'
 
 import { updateUser } from '../../../lib/server_actions/updateUserAction'
 
-export default function AccountDetailsForm({ user }: { user: IUser }) {
+export default function AccountDetailsForm({
+  user,
+}: Readonly<{ user: IUser }>) {
   const dispatch = useDispatch()
   const router = useRouter()
 

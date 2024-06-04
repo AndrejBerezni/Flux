@@ -7,11 +7,11 @@ export default function VehicleFilterSortButton({
   buttonText,
   modal,
   icon,
-}: {
+}: Readonly<{
   buttonText: string
   modal: string
   icon: React.ReactNode
-}) {
+}>) {
   const dispatch = useDispatch()
 
   return (

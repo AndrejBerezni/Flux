@@ -1,10 +1,10 @@
 export default function VehiclePrice({
   price,
   days,
-}: {
+}: Readonly<{
   price: number
   days: number
-}) {
+}>) {
   return (
     <div className="flex flex-col items-start">
       <p className="text-xl font-extrabold text-brand">

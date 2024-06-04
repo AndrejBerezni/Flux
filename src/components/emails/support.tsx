@@ -19,14 +19,14 @@ export default function SupportEmail({
   message,
   priority,
   id,
-}: {
+}: Readonly<{
   customerName: string
   customerContact: string
   category: string
   message: string
   priority: number
   id: string
-}) {
+}>) {
   const rows = [
     {
       title: 'Ticket ID',

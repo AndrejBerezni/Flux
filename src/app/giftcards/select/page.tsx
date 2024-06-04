@@ -7,11 +7,11 @@ import ValueSelectButton from '@/components/giftcards/ValueSelectButton'
 
 export default function SelectGiftCard({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: {
     value?: string
   }
-}) {
+}>) {
   const values = [20, 50, 100, 200, 500, 1000]
   const selectedValue = searchParams?.value || '200'
   return (

@@ -5,10 +5,10 @@ import { motion } from 'framer-motion'
 export default function LoaderAnimation({
   size,
   color,
-}: {
+}: Readonly<{
   size: 'small' | 'big'
   color: 'white' | 'brand'
-}) {
+}>) {
   const lines = Array.from({ length: 5 }, (_, i) => i + 1)
   return (
     <motion.div className="flex items-center justify-center gap-[3px] bg-transparent">

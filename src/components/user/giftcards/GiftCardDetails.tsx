@@ -1,6 +1,8 @@
 import { IGiftCard } from '@/compiler/interfaces'
 
-function GCDetail({ detail }: { detail: { title: string; value: string } }) {
+function GCDetail({
+  detail,
+}: Readonly<{ detail: { title: string; value: string } }>) {
   return (
     <div className="flex flex-col lg:w-1/4">
       <h2 className="text-sm font-semibold text-brand md:text-base">

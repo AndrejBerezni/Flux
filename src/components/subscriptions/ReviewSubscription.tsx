@@ -6,12 +6,12 @@ export default function ReviewSubscription({
   subPeriod,
   subDetails,
   subPrice,
-}: {
+}: Readonly<{
   subName: SubscriptionName
   subPeriod: MonthYear
   subDetails: string[]
   subPrice: string
-}) {
+}>) {
   return (
     <div className={`${robotoCondensed.className} flex flex-col gap-3`}>
       <h2 className="my-2 text-center text-3xl font-bold text-primary">

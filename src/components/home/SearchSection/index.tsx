@@ -9,11 +9,11 @@ export default function SearchSection({
   loadMap,
   userLatitude,
   userLongitude,
-}: {
+}: Readonly<{
   loadMap: string
   userLatitude: string
   userLongitude: string
-}) {
+}>) {
   return (
     <section className="min-h-[60vh] w-full bg-black bg-[url('/searchsectionbgtesla.jpg')] bg-contain bg-[center_180px] bg-no-repeat px-4 pt-4 min-[550px]:min-h-[70vh] md:bg-[center_bottom_-100px] lg:px-32 2xl:px-48">
       <AnimationContentFadeIn>

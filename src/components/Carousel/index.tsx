@@ -6,7 +6,9 @@ import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io'
 
 import CarouselItem from './CarouselItem'
 
-export default function Carousel({ children }: { children: ReactNode[] }) {
+export default function Carousel({
+  children,
+}: Readonly<{ children: ReactNode[] }>) {
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
   const handleChangeSlide = (direction: string) => {

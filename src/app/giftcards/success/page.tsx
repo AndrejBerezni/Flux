@@ -7,9 +7,9 @@ export const fetchCache = 'force-no-store'
 
 export default async function GiftCardSuccessPage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: { gcId?: string }
-}) {
+}>) {
   const giftCardId = searchParams?.gcId ?? ''
 
   const giftCardQuery = await sql`

@@ -7,12 +7,12 @@ export default function CarouselItem({
   currentSlide,
   slideIndex,
   handleSwipe,
-}: {
+}: Readonly<{
   children: ReactNode
   currentSlide: number
   slideIndex: number
   handleSwipe: (direction: string) => void
-}) {
+}>) {
   const touchStart = useRef<null | number>(null)
 
   //Handle swiping on touchable devices

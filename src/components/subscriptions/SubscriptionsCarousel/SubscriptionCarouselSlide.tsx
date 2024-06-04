@@ -6,7 +6,7 @@ export default function SubscriptionCarouselSlide({
   slideData,
   index,
   current,
-}: {
+}: Readonly<{
   slideData: {
     headerText: string
     headerSpan: string
@@ -16,7 +16,7 @@ export default function SubscriptionCarouselSlide({
   }
   index: number
   current: number
-}) {
+}>) {
   return (
     <article
       className={clsx(

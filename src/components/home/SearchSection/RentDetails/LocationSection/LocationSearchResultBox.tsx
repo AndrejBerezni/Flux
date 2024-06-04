@@ -29,12 +29,12 @@ export default function LocationSearchResultBox({
   locations,
   handleSearch,
   isLoading,
-}: {
+}: Readonly<{
   variant: 'pickupLocation' | 'returnLocation'
   locations: ILocation[] | null
   handleSearch: (term: string) => void
   isLoading: boolean
-}) {
+}>) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
   const vehicleSearch = useSelector(getVehicleSearchInfo)

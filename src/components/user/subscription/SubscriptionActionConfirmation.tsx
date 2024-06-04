@@ -8,11 +8,11 @@ export default function SubscriptionActionConfirmation({
   action,
   handleAction,
   closeConfirmation,
-}: {
+}: Readonly<{
   action: SubscriptionAction
   handleAction: (action: SubscriptionAction) => Promise<void>
   closeConfirmation: () => void
-}) {
+}>) {
   const [showSpinner, setShowSpinner] = useState<boolean>(false)
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false)
 

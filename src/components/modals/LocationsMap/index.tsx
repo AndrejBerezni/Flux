@@ -19,11 +19,11 @@ export default function LocationsMap({
   locations,
   userLatitude,
   userLongitude,
-}: {
+}: Readonly<{
   locations: ILocation[]
   userLatitude: string
   userLongitude: string
-}) {
+}>) {
   const dispatch = useDispatch()
   const modal = useSelector(getModalInfo)
 

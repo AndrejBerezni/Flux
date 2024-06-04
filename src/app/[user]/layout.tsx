@@ -11,10 +11,10 @@ import { getAuthStatus, getUserId } from '@/store/authentication/selectors'
 export default function UserPageLayout({
   params,
   children,
-}: {
+}: Readonly<{
   params: { user: string }
   children: React.ReactNode
-}) {
+}>) {
   const router = useRouter()
   const isAuth = useSelector(getAuthStatus)
   const uid = useSelector(getUserId)

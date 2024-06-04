@@ -4,7 +4,7 @@ import { HiOutlineBuildingOffice2 } from 'react-icons/hi2'
 
 export default async function RentTimeDateLocation({
   timeDateLocation,
-}: {
+}: Readonly<{
   timeDateLocation: {
     pickupLocation: string
     returnLocation: string
@@ -13,7 +13,7 @@ export default async function RentTimeDateLocation({
     pickupTime: string
     returnTime: string
   }
-}) {
+}>) {
   const { pickupDate, returnDate, pickupTime, returnTime } = timeDateLocation
 
   const getLocationName = async (location: string) => {

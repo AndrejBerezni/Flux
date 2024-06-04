@@ -14,10 +14,10 @@ import SubscriptionChangeConfirmation from './SubscriptionChangeConfirmation'
 export default function ChangeSubscription({
   closeChangeSubscription,
   currentSubscription,
-}: {
+}: Readonly<{
   closeChangeSubscription: () => void
   currentSubscription: IUserSubscription
-}) {
+}>) {
   const [currentStep, setCurrentStep] = useState<
     'selectSubscription' | 'selectVehicle' | 'confirmation'
   >('selectSubscription')

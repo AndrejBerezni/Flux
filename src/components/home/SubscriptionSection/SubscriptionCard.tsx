@@ -7,9 +7,9 @@ import { ISubscriptionWithDescription } from '@/compiler/interfaces'
 
 export default function SubscriptionCard({
   subscription,
-}: {
+}: Readonly<{
   subscription: ISubscriptionWithDescription
-}) {
+}>) {
   return (
     <div className="relative z-0 h-[500px] w-[300px] overflow-hidden rounded-lg bg-primary p-6 shadow-lg max-[375px]:w-[240px] md:w-[240px] md:max-w-[30%] md:duration-300 md:hover:scale-105 md:hover:shadow-2xl lg:w-[300px]">
       {/* Subscription name and details */}

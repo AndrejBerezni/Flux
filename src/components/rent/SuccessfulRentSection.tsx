@@ -5,7 +5,9 @@ import SuccessfulRentPriceDetails from './SuccessfulRentPriceDetails'
 import SuccessfulRentTimeDateLocation from './SuccessfulRentTimeDateLocation'
 import Divider from '../Divider'
 
-export default function SuccessfulRentSection({ rent }: { rent: IRent }) {
+export default function SuccessfulRentSection({
+  rent,
+}: Readonly<{ rent: IRent }>) {
   return (
     <article className="flex flex-1 flex-col py-6 pl-4 pr-8">
       <SuccessfulRentHeader

@@ -7,7 +7,7 @@ import { fetchSubscriptionDetails } from '@/lib/db_queries/subscriptions'
 
 export default async function SubscribePage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: {
     name?: SubscriptionName
     period?: MonthYear
@@ -15,7 +15,7 @@ export default async function SubscribePage({
     subId?: string
     price?: string
   }
-}) {
+}>) {
   const name = searchParams?.name || 'Basic'
   const period: MonthYear = searchParams?.period || 'month'
   const subId = searchParams?.subId || ''

@@ -14,9 +14,9 @@ import LocationSearchResultBox from './LocationSearchResultBox'
 
 export default function LocationSearch({
   variant,
-}: {
+}: Readonly<{
   variant: 'returnLocation' | 'pickupLocation'
-}) {
+}>) {
   const [locations, setLocations] = useState<ILocation[] | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string>('')

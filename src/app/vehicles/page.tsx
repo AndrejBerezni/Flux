@@ -8,7 +8,7 @@ export const fetchCache = 'force-no-store'
 
 export default async function VehiclesPage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: {
     pickupLocation?: string
     returnLocation?: string
@@ -27,7 +27,7 @@ export default async function VehiclesPage({
     sort?: string
     page?: string
   }
-}) {
+}>) {
   const pickupLocation = searchParams?.pickupLocation || ''
   const returnLocation = searchParams?.returnLocation || ''
   const pickupTime = searchParams?.pickupTime || ''

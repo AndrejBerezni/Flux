@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 export default async function UserBookingsPage({
   params,
   searchParams,
-}: {
+}: Readonly<{
   params: { user: string }
   searchParams?: { status?: 'active' | 'upcoming' | 'past'; page?: string }
-}) {
+}>) {
   const uid = params.user ?? ''
   const status = searchParams?.status ?? 'active'
   const currentPage = Number(searchParams?.page) ?? 1

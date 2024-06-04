@@ -16,12 +16,12 @@ export default function SubscriptionChangeConfirmation({
   newSubscriptionType,
   selectedVehicle,
   closeChangeSubscription,
-}: {
+}: Readonly<{
   subscription: IUserSubscription
   newSubscriptionType: ISubscriptionWithDescription | null
   selectedVehicle: VehicleType | ''
   closeChangeSubscription: () => void
-}) {
+}>) {
   const dispatch = useDispatch()
   const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false)
   const [waiting, setWaiting] = useState<boolean>(false)

@@ -8,13 +8,13 @@ export const fetchCache = 'force-no-store'
 
 export default function HomePage({
   searchParams,
-}: {
+}: Readonly<{
   searchParams?: {
     loadMap?: string
     latitude?: string
     longitude?: string
   }
-}) {
+}>) {
   const loadMap = searchParams?.loadMap || ''
   //if navigator is unable to get coords, or user denies location access, set coords to Porto city center:
   const userLatitude = searchParams?.latitude || '41.14324740707248'

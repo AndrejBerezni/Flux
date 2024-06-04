@@ -10,14 +10,14 @@ export default function SelectNewSubscription({
   currentSubscription,
   goToNextStep,
   setNewSubscription,
-}: {
+}: Readonly<{
   subscriptions: ISubscriptionWithDescription[] | undefined
   currentSubscription: IUserSubscription
   goToNextStep: (
     nextStep: 'selectSubscription' | 'selectVehicle' | 'confirmation'
   ) => void
   setNewSubscription: (newSubscription: ISubscriptionWithDescription) => void
-}) {
+}>) {
   const handleNextStep = (newSubscription: ISubscriptionWithDescription) => {
     setNewSubscription(newSubscription)
     if (newSubscription.name === 'Platinum') {
